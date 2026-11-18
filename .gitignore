@@ -17,10 +17,22 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
+# Environment & secrets
 .env
+.env.*
+!.env.example
+
+# Sensitive / personal files & raw heavy local-only media assets (root-anchored)
+/assets/
+/context/
+/data/
+/references/
+/AGENTS.md
+/WEBSITE-BRIEF.md

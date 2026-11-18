@@ -1,0 +1,205 @@
+WEBVTT
+
+1
+00:00:00.040 --> 00:00:01.150
+Liquid Glass
+
+2
+00:00:01.200 --> 00:00:02.520
+bends light.
+
+3
+00:00:02.560 --> 00:00:04.240
+Yet Apple's showcase proves
+
+4
+00:00:04.320 --> 00:00:05.260
+pretty UI
+
+5
+00:00:05.300 --> 00:00:06.950
+can feel slow.
+
+6
+00:00:07.080 --> 00:00:08.350
+Most teams assume
+
+7
+00:00:08.350 --> 00:00:09.750
+translucency is harmless.
+
+8
+00:00:09.880 --> 00:00:11.950
+Instead, live refraction
+
+9
+00:00:11.950 --> 00:00:13.020
+triggers a strict
+
+10
+00:00:13.020 --> 00:00:14.800
+400-millisecond race.
+
+11
+00:00:14.900 --> 00:00:16.900
+A 1982 IBM benchmark
+
+12
+00:00:16.900 --> 00:00:18.550
+exposes the cost:
+
+13
+00:00:18.680 --> 00:00:20.450
+latency, and contrast.
+
+14
+00:00:20.750 --> 00:00:23.380
+Launched at WWDC 2025
+
+15
+00:00:23.380 --> 00:00:24.820
+for iOS 26
+
+16
+00:00:24.820 --> 00:00:26.780
+and macOS Tahoe 26,
+
+17
+00:00:26.780 --> 00:00:28.700
+it adapts visionOS physics.
+
+18
+00:00:29.080 --> 00:00:31.050
+Static blur softens pixels.
+
+19
+00:00:31.180 --> 00:00:33.540
+Liquid Glass warps icons
+
+20
+00:00:33.540 --> 00:00:34.760
+under specular curves.
+
+21
+00:00:34.800 --> 00:00:36.250
+Yet real-time shading
+
+22
+00:00:36.250 --> 00:00:37.800
+drains GPU headroom.
+
+23
+00:00:37.980 --> 00:00:39.680
+Both researchers, Walter Doherty
+
+24
+00:00:39.680 --> 00:00:41.050
+and Ahrvind Thadani,
+
+25
+00:00:41.050 --> 00:00:41.950
+timed human focus.
+
+26
+00:00:42.000 --> 00:00:43.350
+Touch feedback needs
+
+27
+00:00:43.350 --> 00:00:44.880
+under 100 milliseconds.
+
+28
+00:00:44.950 --> 00:00:45.960
+Full flow
+
+29
+00:00:45.960 --> 00:00:47.450
+demands replies inside
+
+30
+00:00:47.450 --> 00:00:48.450
+400 milliseconds.
+
+31
+00:00:48.550 --> 00:00:49.650
+Shader stutters cross
+
+32
+00:00:49.650 --> 00:00:51.020
+that Doherty Threshold,
+
+33
+00:00:51.020 --> 00:00:52.000
+while busy feeds
+
+34
+00:00:52.000 --> 00:00:53.050
+bleeding through glass
+
+35
+00:00:53.050 --> 00:00:54.450
+crush legibility.
+
+36
+00:00:54.550 --> 00:00:55.450
+Users hesitate,
+
+37
+00:00:55.520 --> 00:00:56.960
+squinting at washed-out text.
+
+38
+00:00:57.240 --> 00:00:58.750
+Confine refraction strictly
+
+39
+00:00:58.750 --> 00:01:00.050
+to floating navigation
+
+40
+00:01:00.050 --> 00:01:00.850
+and controls.
+
+41
+00:01:00.920 --> 00:01:02.340
+Keep dense copy
+
+42
+00:01:02.340 --> 00:01:03.350
+on solid cards
+
+43
+00:01:03.350 --> 00:01:04.430
+so reading stays effortless
+
+44
+00:01:04.430 --> 00:01:05.050
+at full speed.
+
+45
+00:01:05.280 --> 00:01:06.720
+Interfaces earn trust
+
+46
+00:01:06.720 --> 00:01:07.350
+only after
+
+47
+00:01:07.350 --> 00:01:08.580
+they feel instant.
+
+48
+00:01:08.740 --> 00:01:09.270
+Beat the
+
+49
+00:01:09.270 --> 00:01:11.020
+400-millisecond clock first,
+
+50
+00:01:11.360 --> 00:01:12.180
+then let your
+
+51
+00:01:12.180 --> 00:01:12.880
+glass shine.

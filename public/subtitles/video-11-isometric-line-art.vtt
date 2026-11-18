@@ -1,0 +1,209 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:00.620
+One click
+
+2
+00:00:00.620 --> 00:00:01.650
+ends your checkout.
+
+3
+00:00:02.000 --> 00:00:03.050
+Beneath that button,
+
+4
+00:00:03.050 --> 00:00:04.350
+an unseen factory
+
+5
+00:00:04.350 --> 00:00:05.300
+starts running.
+
+6
+00:00:05.650 --> 00:00:06.720
+Most buyers think
+
+7
+00:00:06.720 --> 00:00:08.000
+sites just autofill cards.
+
+8
+00:00:08.300 --> 00:00:09.400
+Amazon's 1999
+
+9
+00:00:09.400 --> 00:00:11.900
+US Patent 5,960,411
+
+10
+00:00:11.900 --> 00:00:13.950
+expired in September 2017.
+
+11
+00:00:14.400 --> 00:00:15.720
+Yet modern speed
+
+12
+00:00:15.720 --> 00:00:17.450
+hides raw numbers.
+
+13
+00:00:17.900 --> 00:00:18.850
+A silent relay
+
+14
+00:00:18.850 --> 00:00:20.000
+links encrypted keys
+
+15
+00:00:20.000 --> 00:00:21.550
+straight to loading docks.
+
+16
+00:00:22.120 --> 00:00:23.020
+It starts before
+
+17
+00:00:23.020 --> 00:00:24.100
+your cursor moves.
+
+18
+00:00:24.350 --> 00:00:25.320
+Visa Token Service
+
+19
+00:00:25.320 --> 00:00:26.280
+and Mastercard swap
+
+20
+00:00:26.280 --> 00:00:27.320
+your raw card number
+
+21
+00:00:27.320 --> 00:00:28.440
+for a cryptographic token.
+
+22
+00:00:28.440 --> 00:00:29.660
+Each one binds
+
+23
+00:00:29.660 --> 00:00:30.450
+to your profile
+
+24
+00:00:30.450 --> 00:00:31.700
+and default address.
+
+25
+00:00:31.950 --> 00:00:33.240
+Still, tokens alone
+
+26
+00:00:33.240 --> 00:00:34.250
+never clear payment.
+
+27
+00:00:34.550 --> 00:00:35.650
+Hit buy.
+
+28
+00:00:36.120 --> 00:00:37.000
+An API sends
+
+29
+00:00:37.000 --> 00:00:38.040
+your SKU and token
+
+30
+00:00:38.040 --> 00:00:38.900
+to the gateway.
+
+31
+00:00:39.120 --> 00:00:40.480
+Machine-learning fraud models
+
+32
+00:00:40.480 --> 00:00:41.700
+score device and transaction
+
+33
+00:00:41.700 --> 00:00:42.900
+signals in about
+
+34
+00:00:42.900 --> 00:00:44.650
+200 to 300 milliseconds.
+
+35
+00:00:45.080 --> 00:00:46.360
+Bank authorization clears
+
+36
+00:00:46.360 --> 00:00:47.550
+faster than a blink.
+
+37
+00:00:47.850 --> 00:00:48.920
+But approval cannot
+
+38
+00:00:48.920 --> 00:00:50.000
+pack boxes.
+
+39
+00:00:50.380 --> 00:00:51.760
+So the Order Management
+
+40
+00:00:51.760 --> 00:00:52.560
+System syncs with
+
+41
+00:00:52.560 --> 00:00:53.550
+the Warehouse Management System.
+
+42
+00:00:53.720 --> 00:00:55.200
+Live stock locks.
+
+43
+00:00:55.620 --> 00:00:56.240
+Software picks
+
+44
+00:00:56.240 --> 00:00:57.050
+the nearest warehouse,
+
+45
+00:00:57.050 --> 00:00:58.380
+generating a carrier label
+
+46
+00:00:58.380 --> 00:00:59.050
+via API
+
+47
+00:00:59.050 --> 00:01:00.800
+before the tab closes.
+
+48
+00:01:01.340 --> 00:01:02.400
+Delivery trucks still
+
+49
+00:01:02.400 --> 00:01:03.350
+need real miles.
+
+50
+00:01:03.620 --> 00:01:05.450
+One click feels effortless
+
+51
+00:01:05.450 --> 00:01:07.080
+because an invisible architecture
+
+52
+00:01:07.080 --> 00:01:08.650
+finished sprinting first.

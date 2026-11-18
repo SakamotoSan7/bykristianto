@@ -1,0 +1,237 @@
+WEBVTT
+
+1
+00:00:00.020 --> 00:00:02.200
+Your AI doesn't read.
+
+2
+00:00:02.400 --> 00:00:03.420
+Every word you type
+
+3
+00:00:03.420 --> 00:00:04.220
+plots onto
+
+4
+00:00:04.220 --> 00:00:05.200
+a hidden map.
+
+5
+00:00:05.440 --> 00:00:06.440
+Most people imagine
+
+6
+00:00:06.440 --> 00:00:08.450
+a giant digital dictionary.
+
+7
+00:00:08.690 --> 00:00:10.120
+Instead, AI treats
+
+8
+00:00:10.120 --> 00:00:12.150
+language as geometry.
+
+9
+00:00:12.460 --> 00:00:13.380
+In 2013,
+
+10
+00:00:13.380 --> 00:00:14.260
+Tomas Mikolov
+
+11
+00:00:14.260 --> 00:00:14.800
+and his team
+
+12
+00:00:14.800 --> 00:00:17.280
+at Google introduced Word2Vec.
+
+13
+00:00:17.520 --> 00:00:18.440
+Their paper proved
+
+14
+00:00:18.440 --> 00:00:20.320
+how context sets coordinates,
+
+15
+00:00:20.540 --> 00:00:21.320
+and how math
+
+16
+00:00:21.320 --> 00:00:22.720
+solves analogies.
+
+17
+00:00:23.080 --> 00:00:23.800
+It starts with
+
+18
+00:00:23.800 --> 00:00:25.440
+the distributional hypothesis.
+
+19
+00:00:25.680 --> 00:00:26.980
+Words keeping similar company
+
+20
+00:00:26.980 --> 00:00:28.680
+naturally drift together.
+
+21
+00:00:28.940 --> 00:00:30.100
+Because "coffee" and "espresso"
+
+22
+00:00:30.100 --> 00:00:32.020
+share verbs like brew,
+
+23
+00:00:32.240 --> 00:00:34.050
+their dense embeddings cluster.
+
+24
+00:00:34.320 --> 00:00:35.380
+This 3D particle cloud
+
+25
+00:00:35.380 --> 00:00:36.900
+is only a projection.
+
+26
+00:00:37.320 --> 00:00:38.620
+Word2Vec spans roughly
+
+27
+00:00:38.620 --> 00:00:39.850
+300 dimensions,
+
+28
+00:00:39.850 --> 00:00:41.080
+while modern models
+
+29
+00:00:41.080 --> 00:00:42.180
+reach thousands.
+
+30
+00:00:42.540 --> 00:00:43.800
+Yet proximity sparks
+
+31
+00:00:43.800 --> 00:00:45.250
+a stranger twist.
+
+32
+00:00:45.520 --> 00:00:46.420
+Relationships point
+
+33
+00:00:46.420 --> 00:00:48.000
+along fixed directions.
+
+34
+00:00:48.240 --> 00:00:49.060
+Take King,
+
+35
+00:00:49.340 --> 00:00:50.520
+subtract Man,
+
+36
+00:00:50.780 --> 00:00:51.450
+add Woman.
+
+37
+00:00:51.720 --> 00:00:53.250
+You land beside Queen.
+
+38
+00:00:53.520 --> 00:00:54.460
+Paris minus France
+
+39
+00:00:54.460 --> 00:00:55.220
+plus Italy
+
+40
+00:00:55.220 --> 00:00:56.750
+steers straight to Rome.
+
+41
+00:00:57.000 --> 00:00:57.820
+Meaning behaves
+
+42
+00:00:57.820 --> 00:00:58.950
+like a compass.
+
+43
+00:00:59.200 --> 00:01:00.340
+Therefore, full sentences
+
+44
+00:01:00.340 --> 00:01:01.850
+follow those bearings.
+
+45
+00:01:02.240 --> 00:01:03.060
+Today's models blend
+
+46
+00:01:03.060 --> 00:01:03.660
+word vectors
+
+47
+00:01:03.660 --> 00:01:04.980
+to pinpoint your prompt.
+
+48
+00:01:05.220 --> 00:01:05.920
+Rephrase it,
+
+49
+00:01:06.100 --> 00:01:06.900
+and its position
+
+50
+00:01:06.900 --> 00:01:07.900
+barely shifts.
+
+51
+00:01:08.240 --> 00:01:09.100
+That overlap lets
+
+52
+00:01:09.100 --> 00:01:10.820
+software infer intent.
+
+53
+00:01:11.160 --> 00:01:12.300
+Letters are only
+
+54
+00:01:12.300 --> 00:01:13.060
+the surface.
+
+55
+00:01:13.340 --> 00:01:14.300
+Once language turns
+
+56
+00:01:14.300 --> 00:01:15.340
+into geometry,
+
+57
+00:01:15.480 --> 00:01:16.800
+machines understand ideas
+
+58
+00:01:16.800 --> 00:01:17.680
+by measuring
+
+59
+00:01:17.680 --> 00:01:18.680
+where they live.
