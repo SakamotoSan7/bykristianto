@@ -24,8 +24,8 @@ const DIFF_MODES: DiffModeSpec[] = [
 		tabNum: '01',
 		tabLabel: { en: '9:16 Vertical Reels', id: 'Video Vertikal 9:16' },
 		purpose: {
-			en: 'Watch a full-screen 9:16 Reel on the Coffee Decoy Effect: a slow text block cut off by IG buttons vs. 1.3s portrait hook, full-bleed S/M/L cup reveal, 7/10 icon grid proof & safe-zone captions.',
-			id: 'Tonton cuplikan penuh Reel 9:16 "Kenapa Kita Ujungnya Pilih Gelas Large?": template lambat yang tertutup tombol IG vs. hook layar penuh 1,3 detik, animasi gelas S/M/L, bukti grid 7 dari 10, & posisi aman.',
+			en: 'Watch a full-screen 9:16 Reel on the Coffee Decoy Effect: a slow text block cut off by IG buttons vs. a 1.3s portrait hook, full-bleed S/M/L cup reveal, 7/10 icon grid proof & safe-zone captions.',
+			id: 'Tonton demo penuh Reel 9:16 "Efek Umpan Menu Kopi": pembuka lambat yang tertutup tombol IG vs. hook layar penuh 1,3 detik, animasi perbandingan ukuran S/M/L, bukti grid 7 dari 10, & posisi aman.',
 		},
 		beforeBadge: { en: 'BEFORE · BASIC REEL', id: 'SEBELUM · REEL POLOS' },
 		afterBadge: { en: 'AFTER · 9:16 STUDIO REEL', id: 'SESUDAH · REEL 9:16' },
@@ -1107,7 +1107,7 @@ function HorizontalVideoCanvas({ isAfter }: { isAfter: boolean }) {
 							? '...jalan diperlebar 2× lipat dan terasa lancar!'
 							: '...expanding to 4 lanes seems to fix everything!';
 					} else {
-						// SCENE 3: Induced Demand Twist — Outer Feed Arrows Swarm ALL 4 Lanes Full Again!
+						// SCENE 3: Induced Demand Twist: Outer Feed Arrows Swarm ALL 4 Lanes Full Again!
 						const visibleCols = Math.ceil(ease * 7);
 						for (let l = 0; l < 4; l++) {
 							const cy = roadY + l * laneH + (laneH - carH) / 2;
@@ -1144,7 +1144,7 @@ function HorizontalVideoCanvas({ isAfter }: { isAfter: boolean }) {
 							: 'Yet extra lanes attract more drivers until gridlock returns.';
 					}
 				} else {
-					// SCENE 4: Widescreen Vox Split-Screen Comparison — 16 Cars vs 1 Bus (= Same People!)
+					// SCENE 4: Widescreen Vox Split-Screen Comparison: 16 Cars vs 1 Bus (= Same People!)
 					const leftX = w * 0.07;
 					const midX = w * 0.5;
 					const rightX = w * 0.54;
@@ -1377,7 +1377,7 @@ function HorizontalLayer({ isAfter }: { isAfter: boolean }) {
 							: 'bg-[#171A21] shadow-[4px_4px_0_#050505]'
 					}`}
 				>
-					{/* Top Miniature Widescreen Title Strip — Zero 'Looping' Label */}
+					{/* Top Miniature Widescreen Title Strip: Zero 'Looping' Label */}
 					<div
 						className={`h-5 px-2 border-b-2 border-[#050505] flex items-center justify-between font-mono text-[7.5px] sm:text-[8.5px] ${
 							isAfter ? 'bg-[#FFD426] text-[#050505]' : 'bg-[#262B35] text-white/55'
@@ -1399,7 +1399,7 @@ function HorizontalLayer({ isAfter }: { isAfter: boolean }) {
 						<HorizontalVideoCanvas isAfter={isAfter} />
 					</div>
 
-					{/* Player Controls Footer — Authentic Video Timecode */}
+					{/* Player Controls Footer: Authentic Video Timecode */}
 					<div className='h-5 sm:h-6 px-2 border-t-2 border-[#050505] bg-[#0B0F17] flex items-center justify-between font-mono text-[7px] sm:text-[8px] text-white/75'>
 						<div className='flex items-center gap-1.5'>
 							<span className={isAfter ? 'text-[#5CE62E] font-black' : 'text-white/45'}>
@@ -1550,7 +1550,7 @@ function ReelsVideoCanvas({ isAfter }: { isAfter: boolean }) {
 				ctx.fillText(isId ? '(Intro terlalu pelan > 3s)' : '(Slow >3s plain text)', cardX + 8, cardY + 41);
 			} else {
 				// AFTER: TRUE FULL-BLEED 9:16 VERTICAL MOTION (ZERO floating card window! ZERO decorative sine wave!)
-				// Story: Coffee Decoy Effect — S ($2) vs L ($4) -> Medium ($3.70 DECOY!) -> 7 in 10 pick Large!
+				// Story: Coffee Decoy Effect: S ($2) vs L ($4) -> Medium ($3.70 DECOY!) -> 7 in 10 pick Large!
 				const scene = phaseT < 2.5 ? 0 : phaseT < 5.5 ? 1 : 2;
 				const sStart = scene === 0 ? 0 : scene === 1 ? 2.5 : 5.5;
 				const sDur = scene === 0 ? 2.5 : scene === 1 ? 3.0 : 2.5;
@@ -1851,7 +1851,7 @@ function ReelsStageLayer({ isAfter }: { isAfter: boolean }) {
 				}}
 			/>
 
-			{/* Corner Badge — strictly on BEFORE or AFTER side */}
+			{/* Corner Badge: strictly on BEFORE or AFTER side */}
 			{isAfter ? (
 				<div className='pointer-events-none absolute top-2 right-2 sm:top-3.5 sm:right-4 z-20 flex items-center gap-2'>
 					<span className='hidden lg:inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-[#050505]/90 border border-[#FFD426] font-mono text-[9.5px] font-bold text-[#FFD426]'>
@@ -1938,7 +1938,7 @@ function ReelsStageLayer({ isAfter }: { isAfter: boolean }) {
 							<div className='pointer-events-none absolute left-1.5 right-8 sm:left-2.5 sm:right-9 bottom-[72px] sm:bottom-[88px] z-10 flex flex-col items-start sm:items-center'>
 								<div className='rounded-sm border-2 border-[#050505] bg-[#FFD426] px-1.5 py-0.5 sm:px-2.5 sm:py-1 shadow-[2px_2px_0_#050505] text-center'>
 									<span className='font-display font-black text-[7px] sm:text-[10.5px] text-[#050505] leading-tight whitespace-nowrap block'>
-										{t({ en: '1 trick steers 70% to L!', id: '1 trik ini bikin pilih L!' })}
+										{t({ en: '1 trick steers 70% to L!', id: 'Trik ini dorong 70% ke L!' })}
 									</span>
 								</div>
 							</div>
@@ -2158,7 +2158,7 @@ export default function VisualDiffStudio() {
 	};
 
 	const jumpToVideos = () => {
-		playPreset('keycap');
+		playPreset('portal');
 		const el = document.getElementById('videos');
 		if (el) {
 			const top = el.getBoundingClientRect().top + window.pageYOffset - 76;
@@ -2309,6 +2309,7 @@ export default function VisualDiffStudio() {
 					<button
 						type='button'
 						data-sfx='custom'
+						data-hover-sfx='portal'
 						onClick={jumpToVideos}
 						className='px-3 py-1 rounded-sm border-2 border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] font-mono text-[10px] sm:text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] cursor-pointer transition-colors'
 					>

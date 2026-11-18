@@ -109,7 +109,7 @@ const VideoModal = ({
 					<div className='flex items-center gap-1.5 shrink-0'>
 						<button
 							type='button'
-							data-sfx='keycap'
+							data-sfx='shutter'
 							disabled={!hasPrev}
 							onClick={onPrev}
 							aria-label={t({ en: 'Previous video', id: 'Video sebelumnya' })}
@@ -119,7 +119,7 @@ const VideoModal = ({
 						</button>
 						<button
 							type='button'
-							data-sfx='keycap'
+							data-sfx='shutter'
 							disabled={!hasNext}
 							onClick={onNext}
 							aria-label={t({ en: 'Next video', id: 'Video berikutnya' })}
@@ -129,7 +129,7 @@ const VideoModal = ({
 						</button>
 						<button
 							type='button'
-							data-sfx='switch'
+							data-sfx='close'
 							onClick={onClose}
 							aria-label={t({ en: 'Close modal', id: 'Tutup pemutar video' })}
 							className='p-1.5 rounded-sm border-2 border-[#050505] bg-[#FD6141] text-[#050505] hover:bg-[#ff785c] transition-colors cursor-pointer ml-1 shadow-[2px_2px_0_#050505]'
@@ -202,7 +202,7 @@ const VideoModal = ({
 										</p>
 										<button
 											type='button'
-											data-sfx='click'
+											data-sfx='switch'
 											onClick={() => {
 												setLoadError(false);
 												setRetryCount((c) => c + 1);

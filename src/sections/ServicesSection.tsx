@@ -222,8 +222,8 @@ const ServicesSection = ({ onSelectPackageForContact }: ServicesSectionProps) =>
 					})}
 					badgeColor='cream'
 					description={t({
-						en: 'Split clearly into Video and Website services. Pick an option or pitch your own custom idea.',
-						id: 'Dipisah rapi antara jasa Video dan Website. Pilih layanan yang pas atau ajukan konsep versimu sendiri.',
+						en: 'Clearly structured into Video and Website services. Choose a package below or share your own custom brief.',
+						id: 'Layanan dipisah rapi antara kategori Video dan Website. Pilih paket yang sesuai atau ajukan konsep khusus versimu sendiri.',
 					})}
 				/>
 
@@ -260,13 +260,13 @@ const ServicesSection = ({ onSelectPackageForContact }: ServicesSectionProps) =>
 									<p className='font-display font-black text-sm text-[#050505]'>
 										{t({
 											en: 'Free Choice of Visual Style',
-											id: 'Bebas Pilih / Request Style Visual',
+											id: 'Bebas Pilih Gaya Visual',
 										})}
 									</p>
 									<p className='text-xs text-[#3B404C] mt-0.5 leading-relaxed'>
 										{t({
-											en: 'Motion collage, 3D/isometric, clean UI showcase, claymation look, or send your own video reference.',
-											id: 'Bisa pilih motion kolase, 3D/isometrik, tampilan UI produk, clay, atau kirim referensi style yang kamu suka.',
+											en: 'Choose from motion collage, 3D/isometric, clean UI showcase, claymation look, or share your own video reference.',
+											id: 'Tersedia gaya kolase, 3D/isometrik, animasi UI produk, clay, atau kirimkan referensi visual yang kamu sukai.',
 										})}
 									</p>
 								</div>
@@ -280,13 +280,13 @@ const ServicesSection = ({ onSelectPackageForContact }: ServicesSectionProps) =>
 									<p className='font-display font-black text-sm text-[#050505]'>
 										{t({
 											en: 'Flexible Voiceover & Language',
-											id: 'Bebas Pilih Voice & Bahasa',
+											id: 'Bebas Pilih Suara & Bahasa',
 										})}
 									</p>
 									<p className='text-xs text-[#3B404C] mt-0.5 leading-relaxed'>
 										{t({
-											en: 'Indonesian or English narration, pick the voice character you want, or send your own voice recording.',
-											id: 'Narasi Bahasa Indonesia atau Inggris bebas tentukan karakter suara pengisi, atau pakai rekaman suaramu sendiri.',
+											en: 'Available in Indonesian or English: choose the voice character you want, or supply your own audio recording.',
+											id: 'Tersedia dalam Bahasa Indonesia atau Inggris: kamu bebas menentukan karakter narator atau memakai rekaman suaramu sendiri.',
 										})}
 									</p>
 								</div>
@@ -387,8 +387,8 @@ const ServicesSection = ({ onSelectPackageForContact }: ServicesSectionProps) =>
 										<span>↓</span>
 										<span>
 											{t({
-												en: 'Toggle "+ Add-On Video Promo" on any website package card below to include it.',
-												id: 'Cukup klik tombol "+ Add-On Video Promo" di kartu tipe website pilihanmu di bawah ini.',
+												en: 'Toggle "+ Add-On Video Promo" on any website card below to include it.',
+												id: 'Aktifkan tombol "+ Add-On Video Promo" pada kartu layanan website pilihanmu di bawah ini.',
 											})}
 										</span>
 									</div>

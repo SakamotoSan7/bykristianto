@@ -10,7 +10,11 @@ import {
 import { createPortal } from 'react-dom';
 import { Chess, type Color, type Move, type Piece, type PieceSymbol, type Square } from 'chess.js';
 import { useLanguage } from '../../context/useLanguage';
-import { useSound, type ChessPromotionCode } from '../../context/useSound';
+import {
+	useSound,
+	type ChessOutcomeSoundId,
+	type ChessPromotionCode,
+} from '../../context/useSound';
 import { useScrollLock } from '../../utils/scrollLock';
 import { SparkleStar } from '../SpaghettiArt';
 import { ChallengerAvatar, KristiantoAvatar, type ChessAvatarMood } from './ChessAvatars';
@@ -338,9 +342,31 @@ const ArrowDrawIcon = () => (
 	</svg>
 );
 
+const DRAW_OUTCOME_AUDIO: Record<
+	Extract<GameResult, { kind: 'draw' }>['reason'],
+	ChessOutcomeSoundId
+> = {
+	stalemate: 'draw_stalemate',
+	threefold: 'draw_threefold',
+	insufficient: 'draw_insufficient',
+	'fifty-move': 'draw_fifty_move',
+};
+
+function mapGameResultToOutcomeAudio(res: GameResult, myColor: Color): ChessOutcomeSoundId {
+	if (res.kind === 'draw') {
+		return DRAW_OUTCOME_AUDIO[res.reason];
+	}
+	if (res.winner === myColor) {
+		return res.kind === 'checkmate' ? 'win_checkmate' : 'win_timeout';
+	}
+	if (res.kind === 'checkmate') return 'loss_checkmate';
+	if (res.kind === 'timeout') return 'loss_timeout';
+	return 'loss_resign';
+}
+
 const ChessGame = ({ isActive }: ChessGameProps) => {
 	const { t } = useLanguage();
-	const { playPreset, playChessMove, setBgmFocusAttenuated } = useSound();
+	const { playPreset, playChessMove, playChessOutcome, setBgmFocusAttenuated } = useSound();
 
 	const chessRef = useRef<Chess>(new Chess());
 	const engineRef = useRef<StockfishClient | null>(null);
@@ -513,7 +539,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		if (fullscreenTimerRef.current !== null) {
 			window.clearTimeout(fullscreenTimerRef.current);
 		}
-		playPreset('switch');
+		playPreset('close');
 		setFullscreenPhase('exiting');
 		fullscreenTimerRef.current = window.setTimeout(() => {
 			setFullscreenPhase('closed');
@@ -563,26 +589,16 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 
 	const playOutcomeSound = useCallback(
 		(gameResult: GameResult, myColor: Color) => {
-			if (gameResult.kind === 'draw') {
-				playPreset('chessDraw');
-			} else if (gameResult.winner === myColor) {
-				playPreset('chessWin');
-			} else {
-				playPreset('chessLose');
-			}
+			playChessOutcome(mapGameResultToOutcomeAudio(gameResult, myColor));
 		},
-		[playPreset]
+		[playChessOutcome]
 	);
 
 	const playMoveSound = useCallback(
 		(move: Move, gameAfter: Chess, myColor: Color) => {
 			const terminal = getGameResultFromPosition(gameAfter);
 			const terminalKind = terminal
-				? terminal.kind === 'draw'
-					? 'draw'
-					: terminal.winner === myColor
-						? 'win'
-						: 'lose'
+				? mapGameResultToOutcomeAudio(terminal, myColor)
 				: null;
 
 			const promo =
@@ -1920,6 +1936,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										key={sq}
 										type='button'
 										data-sfx='custom'
+										data-chess-square='true'
+										data-hover-sfx={
+											boardCell && !dragState?.active && !arrowDrawMode
+												? `chess-${boardCell.type}`
+												: 'none'
+										}
 										aria-label={`Square ${sq}${
 											boardCell
 												? ` ${boardCell.color === 'w' ? 'white' : 'black'} ${boardCell.type}`
@@ -2148,7 +2170,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										</span>
 										<button
 											type='button'
-											data-sfx='paper'
+											data-sfx='close'
 											onClick={() => setPendingPromotion(null)}
 											className='size-4 rounded-sm bg-[#FCF0D3] border border-[#050505] font-mono text-[9px] font-black leading-none cursor-pointer'
 											aria-label='Cancel promotion'
@@ -2162,6 +2184,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 												key={promoType}
 												type='button'
 												data-sfx='custom'
+												data-hover-sfx={`chess-${promoType}`}
 												onClick={() =>
 													commitPlayerMove(
 														pendingPromotion.from,
@@ -2198,7 +2221,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										</span>
 										<button
 											type='button'
-											data-sfx='paper'
+											data-sfx='close'
 											onClick={() => setDismissedEndModal(true)}
 											aria-label='Inspect board'
 											className='size-5 rounded-sm bg-[#FCF0D3] border border-[#050505] font-mono text-[10px] font-black leading-none cursor-pointer'
@@ -2218,7 +2241,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										<div className='flex flex-col sm:flex-row gap-2'>
 											<button
 												type='button'
-												data-sfx='custom'
+												data-sfx='keycap'
 												onClick={() => void startNewMatch()}
 												className='flex-1 py-2 px-3 rounded-lg border-2 border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] font-display text-xs font-black shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 											>
@@ -2226,7 +2249,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 											</button>
 											<button
 												type='button'
-												data-sfx='paper'
+												data-sfx='close'
 												onClick={() => setDismissedEndModal(true)}
 												className='py-2 px-3 rounded-lg border-2 border-[#050505] bg-white hover:bg-[#FFE7BF] font-mono text-[11px] font-black shadow-[3px_3px_0_#050505] cursor-pointer'
 											>
@@ -2442,7 +2465,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				{isViewingHistory && (
 					<button
 						type='button'
-						data-sfx='paper'
+						data-sfx='keycap'
 						onClick={() => goToPly(null)}
 						className='px-2 py-0.5 rounded-sm border-2 border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] font-mono text-[10px] font-black shrink-0 cursor-pointer shadow-[1.5px_1.5px_0_#050505]'
 					>
@@ -2455,7 +2478,9 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			<div className='grid grid-cols-3 gap-2'>
 				<button
 					type='button'
-					data-sfx='custom'
+					data-sfx={
+						confirmNewMatch || !playerHasMoved || result !== null ? 'keycap' : 'switch'
+					}
 					onClick={handleNewMatchClick}
 					className={`h-[38px] sm:h-[40px] px-2 rounded-xl border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer transition-all ${
 						confirmNewMatch
@@ -2470,16 +2495,17 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 
 				<button
 					type='button'
-					data-sfx='paper'
+					data-sfx='shutter'
 					onClick={() => setBoardOrientation((o) => (o === 'w' ? 'b' : 'w'))}
 					className='h-[38px] sm:h-[40px] px-2 rounded-xl bg-[#FCF0D3] hover:bg-[#FFD426] text-[#050505] border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 				>
-					{t({ en: '⇅ Flip', id: '⇅ Putar' })}
+					{t({ en: '⇅ Flip', id: '⇅ Balik' })}
 				</button>
 
 				<button
 					type='button'
-					data-sfx='paper'
+					data-sfx={confirmResign ? 'custom' : 'switch'}
+					data-hover-sfx='switch'
 					disabled={result !== null || engineState === 'loading' || !playerHasMoved}
 					onClick={handleResignClick}
 					className={`h-[38px] sm:h-[40px] px-2 rounded-xl border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center transition-all ${
@@ -2492,7 +2518,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				>
 					{confirmResign
 						? t({ en: '⚑ Confirm?', id: '⚑ Yakin?' })
-						: t({ en: '⚑ Resign', id: '⚑ Nyerah' })}
+						: t({ en: '⚑ Resign', id: '⚑ Menyerah' })}
 				</button>
 			</div>
 
@@ -2523,7 +2549,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				{annotationCount > 0 && (
 					<button
 						type='button'
-						data-sfx='paper'
+						data-sfx='close'
 						onClick={clearAllAnnotations}
 						className='h-[34px] px-2.5 rounded-lg border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] font-mono text-[11px] font-black leading-none whitespace-nowrap cursor-pointer shadow-[2px_2px_0_#050505]'
 					>
@@ -2549,14 +2575,14 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						</span>
 						<button
 							type='button'
-							data-sfx='paper'
+							data-sfx='copy'
 							disabled={snapshot.plyCount === 0}
 							onClick={handleCopyPgn}
 							className='px-2 py-0.5 rounded-sm border-2 border-[#050505] bg-[#FCF0D3] hover:bg-[#FFD426] font-mono text-[10px] font-black text-[#050505] disabled:opacity-45 cursor-pointer disabled:cursor-not-allowed transition-colors'
 						>
 							{copiedPgn
-								? t({ en: '✓ COPIED', id: '✓ SALIN' })
-								: t({ en: 'COPY PGN', id: 'SALIN' })}
+								? t({ en: '✓ COPIED', id: '✓ TERSALIN' })
+								: t({ en: 'COPY PGN', id: 'SALIN PGN' })}
 						</button>
 					</div>
 				</div>
@@ -2575,17 +2601,17 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 								{playerColor === 'w'
 									? t({
 											en: 'You play White. Make your opening move!',
-											id: 'Kamu memegang Putih, silakan langkah pembuka!',
+											id: 'Kamu memegang Putih. Silakan mulai langkah pembuka!',
 										})
 									: t({
 											en: `${opponentLabel} opens as White. Your turn next!`,
-											id: `${opponentLabel} membuka sebagai Putih, giliranmu sekarang!`,
+											id: `${opponentLabel} membuka dengan Putih. Kini giliranmu!`,
 										})}
 							</p>
 							<p className='text-[10.5px] font-bold text-[#3B404C]'>
 								{t({
 									en: 'Your 15:00 clock stays paused until your 1st move.',
-									id: 'Jam 15:00 tetap diam sampai langkah pertamamu.',
+									id: 'Waktu 15:00 belum berjalan hingga langkah pertamamu.',
 								})}
 							</p>
 						</div>
@@ -2649,7 +2675,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				<div className='px-2.5 py-1.5 bg-[#FCF0D3] border-t-[3px] border-[#050505] grid grid-cols-4 gap-1.5 shrink-0'>
 					<button
 						type='button'
-						data-sfx='paper'
+						data-sfx='shutter'
 						disabled={!hasMatchMoves || displayedPly === 0}
 						onClick={() => goToPly(0)}
 						aria-label={t({ en: 'First position', id: 'Posisi awal' })}
@@ -2660,7 +2686,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					</button>
 					<button
 						type='button'
-						data-sfx='paper'
+						data-sfx='shutter'
 						disabled={!hasMatchMoves || displayedPly === 0}
 						onClick={() => goToPly(displayedPly - 1)}
 						aria-label={t({ en: 'Previous move', id: 'Langkah sebelumnya' })}
@@ -2671,7 +2697,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					</button>
 					<button
 						type='button'
-						data-sfx='paper'
+						data-sfx='shutter'
 						disabled={!hasMatchMoves || displayedPly >= totalPlies}
 						onClick={() => goToPly(displayedPly + 1)}
 						aria-label={t({ en: 'Next move', id: 'Langkah berikutnya' })}
@@ -2682,7 +2708,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					</button>
 					<button
 						type='button'
-						data-sfx='paper'
+						data-sfx='shutter'
 						disabled={!hasMatchMoves || displayedPly >= totalPlies}
 						onClick={() => goToPly(null)}
 						aria-label={t({ en: 'Latest live position', id: 'Posisi terbaru' })}
@@ -2703,8 +2729,8 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				<span className='font-black'>15+0 RAPID · RANDOM SIDE:</span>{' '}
 				<span className='text-[#2C313A] font-semibold'>
 					{t({
-						en: 'Timer starts on 1st move. Right-drag or use Arrow Mode to sketch arrows; ←/→ steps moves.',
-						id: 'Jam mulai di langkah ke-1. Klik kanan-geser atau Mode Panah untuk panah; ←/→ cek riwayat.',
+						en: 'Timer starts on 1st move. Right-drag or use Arrow Mode to mark squares; ←/→ steps moves.',
+						id: 'Waktu dimulai pada langkah pertama. Klik kanan lalu tarik atau pakai Mode Panah untuk menandai papan; ←/→ untuk meninjau langkah.',
 					})}
 				</span>
 			</div>
@@ -2812,7 +2838,8 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				{inFullscreen ? (
 					<button
 						type='button'
-						data-sfx='switch'
+						data-sfx='custom'
+						data-hover-sfx='close'
 						onClick={exitFullscreen}
 						className='inline-flex items-center gap-1.5 h-6 sm:h-7 px-2 sm:px-3 rounded-sm border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] font-display text-[10.5px] sm:text-xs font-black leading-none cursor-pointer shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all'
 					>
@@ -2825,7 +2852,8 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				) : (
 					<button
 						type='button'
-						data-sfx='switch'
+						data-sfx='custom'
+						data-hover-sfx='switch'
 						onClick={enterFullscreen}
 						className='inline-flex items-center gap-1.5 h-6 sm:h-7 px-2 sm:px-2.5 rounded-sm border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] text-[#050505] font-display text-[10px] sm:text-[11px] font-black leading-none cursor-pointer shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all'
 					>

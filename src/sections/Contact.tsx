@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 
 import TitleHeader from '../components/TitleHeader';
-import { ArrowUpRightIcon, CheckIcon } from '../components/Icons';
+import { ArrowUpRightIcon, CheckIcon, DownloadIcon } from '../components/Icons';
 import { useLanguage } from '../context/useLanguage';
-import { PUBLIC_CONTACT, type LocalizedText } from '../data/portfolioData';
+import {
+	getLocalizedCvLink,
+	PUBLIC_CONTACT,
+	type LocalizedText,
+} from '../data/portfolioData';
 
 const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 const EMAIL_COOLDOWN_SECONDS = 15;
@@ -26,20 +30,20 @@ function buildAutoDiscussionMessage(topic: string, targetLang: 'en' | 'id'): str
 
 const DEFAULT_PROJECT_OPTIONS = [
 	{
-		en: 'Short-Form Content (9:16 · TikTok / Reels / Shorts)',
-		id: 'Short-Form Content (9:16 · TikTok / Reels / Shorts)',
+		en: 'Short-Form Content (High Retention)',
+		id: 'Video Short-Form (Retensi Tinggi)',
 	},
 	{
-		en: 'Product & Brand Promo Video (9:16 or 16:9)',
-		id: 'Video Promosi Produk / Bisnis (9:16 / 16:9)',
+		en: 'Product & Brand Promo Video',
+		id: 'Video Promosi Produk / Bisnis',
 	},
 	{
 		en: 'Long-Form Video (YouTube & Storytelling)',
-		id: 'Long-Form Video (YouTube & Edukasi)',
+		id: 'Video Durasi Panjang (YouTube & Edukasi)',
 	},
 	{
 		en: 'Custom Video Request',
-		id: 'Custom Request Format Video',
+		id: 'Video Kustom / Konsep Khusus',
 	},
 	{
 		en: 'Landing Page Website',
@@ -47,7 +51,7 @@ const DEFAULT_PROJECT_OPTIONS = [
 	},
 	{
 		en: 'Company Profile Website',
-		id: 'Company Profile Website',
+		id: 'Website Company Profile',
 	},
 	{
 		en: 'Portfolio Website',
@@ -55,7 +59,7 @@ const DEFAULT_PROJECT_OPTIONS = [
 	},
 	{
 		en: 'Interactive Microsite / Brand Showcase',
-		id: 'Interactive Microsite / Brand Showcase',
+		id: 'Microsite Interaktif / Showcase Brand',
 	},
 	{
 		en: 'Website + Add-On Video Promo Bundle',
@@ -63,7 +67,7 @@ const DEFAULT_PROJECT_OPTIONS = [
 	},
 	{
 		en: 'Custom Website Request',
-		id: 'Custom Request Website',
+		id: 'Website Kustom / Konsep Khusus',
 	},
 	{
 		en: 'Full-Time / Contract Creative Role',
@@ -360,8 +364,8 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 			setStatus({
 				type: 'success',
 				text: t({
-					en: 'Email brief dispatched! Thank you—I will reply directly to your email soon.',
-					id: 'Email brief terkirim! Terima kasih—saya akan segera membalas langsung ke emailmu.',
+					en: 'Email brief dispatched! Thank you, I will reply directly to your email soon.',
+					id: 'Email brief terkirim! Terima kasih, saya akan segera membalas langsung ke emailmu.',
 				}),
 			});
 		} catch (error) {
@@ -369,8 +373,8 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 			setStatus({
 				type: 'fallback',
 				text: t({
-					en: `Could not send automatically right now—click "Open Email Client" below to send your pre-filled message straight to ${PUBLIC_CONTACT.email}.`,
-					id: `Pengiriman otomatis sedang terkendala—klik "Kirim via Aplikasi Email" di bawah untuk langsung mengirim pesanmu ke ${PUBLIC_CONTACT.email}.`,
+					en: `Could not send automatically right now. Click "Open Email Client" below to send your pre-filled message straight to ${PUBLIC_CONTACT.email}.`,
+					id: `Pengiriman otomatis sedang terkendala. Klik "Kirim via Aplikasi Email" di bawah untuk langsung mengirim pesanmu ke ${PUBLIC_CONTACT.email}.`,
 				}),
 			});
 		} finally {
@@ -429,8 +433,8 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 								</h3>
 								<p className='text-xs sm:text-sm text-[#3B404C] mt-1'>
 									{t({
-										en: 'Fill out the form below to open a pre-filled WhatsApp chat ready to send, or choose Email as option 2.',
-										id: 'Isi formulir di bawah lalu tekan Kirim via WhatsApp agar pesan otomatis terisi dan tinggal kirim, atau pilih kirim ke Email.',
+										en: 'Fill out the form below to open a pre-filled WhatsApp chat ready to send, or use Email as an alternative.',
+										id: 'Isi formulir di bawah lalu tekan Kirim via WhatsApp agar pesan otomatis tersusun dan siap dikirim, atau gunakan opsi Email.',
 									})}
 								</p>
 							</div>
@@ -529,7 +533,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 										onChange={handleChange}
 										placeholder={t({
 											en: 'Share your topic, aspect ratio (9:16 / 16:9), website goals, or hiring role...',
-											id: 'Ceritakan kebutuhan videomu, konsep website, referensi gaya, atau posisi kerja...',
+											id: 'Jelaskan topik video, rasio layar (9:16 / 16:9), konsep website, referensi gaya, atau posisi kerja...',
 										})}
 										className='w-full rounded-sm border-[2.5px] border-[#050505] bg-white px-4 py-3 text-sm font-medium text-[#050505] placeholder:text-[#3B404C]/60 focus:bg-[#FAF3CF] focus:outline-none shadow-[2px_2px_0_#050505]'
 									/>
@@ -640,7 +644,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 								<p className='text-[11px] text-[#3B404C] leading-snug'>
 									{t({
 										en: 'Direct reply via WhatsApp or Email · Remote ID / Global',
-										id: 'Respon langsung via WhatsApp atau Email · Remote ID / Global',
+										id: 'Respons langsung via WhatsApp atau Email · Remote ID / Global',
 									})}
 								</p>
 							</div>
@@ -656,20 +660,20 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 						<ul className='space-y-3 text-sm text-[#050505]'>
 							{[
 								{
-									en: 'Film & TV storytelling structure + well-paced editing.',
-									id: 'Alur cerita disiplin Televisi & Film dengan ritme editing yang rapi.',
+									en: 'Film & TV storytelling structure paired with well-paced editing.',
+									id: 'Struktur cerita berlatar Televisi & Film dengan ritme editing yang terukur.',
 								},
 								{
-									en: 'Clean visual composition & mobile-friendly web layouts.',
-									id: 'Visual video jernih maupun tata letak web yang rapi di HP & laptop.',
+									en: 'Clean visual composition and responsive mobile-friendly web layouts.',
+									id: 'Komposisi visual yang bersih serta tata letak web yang rapi di ponsel maupun desktop.',
 								},
 								{
-									en: 'Clear voice mixing + tailored sound effects (SFX & foley).',
-									id: 'Suara narasi jernih dipadu efek suara nyata (SFX / foley) yang pas.',
+									en: 'Clear voice mixing paired with tailored sound effects (SFX & foley).',
+									id: 'Mixing narasi jernih dipadukan efek suara nyata (SFX / foley) yang tepat.',
 								},
 								{
 									en: 'Fluent in both English (TOEFL 610) & Indonesian.',
-									id: 'Siap garap proyek dwibahasa (Inggris TOEFL 610 & Indonesia).',
+									id: 'Menangani proyek dwibahasa (Inggris TOEFL 610 & Indonesia).',
 								},
 							].map((point) => (
 								<li key={point.en} className='flex items-start gap-2.5'>
@@ -704,7 +708,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 								<button
 									type='button'
 									onClick={handleCopyEmail}
-									data-sfx='click'
+									data-sfx='copy'
 									aria-label={t({ en: 'Copy email address', id: 'Salin alamat email' })}
 									className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-sm border-2 border-[#050505] font-mono text-[11px] font-black shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer ${
 										emailCopied
@@ -727,6 +731,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 									href={PUBLIC_CONTACT.linkedin}
 									target='_blank'
 									rel='noopener noreferrer'
+									data-sfx='portal'
 									className='px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-white hover:bg-[#FFD426] font-bold text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 								>
 									LinkedIn ↗
@@ -735,18 +740,35 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 									href={PUBLIC_CONTACT.github}
 									target='_blank'
 									rel='noopener noreferrer'
+									data-sfx='portal'
 									className='px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-white hover:bg-[#FFD426] font-bold text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 								>
 									GitHub ↗
 								</a>
 								<a
-									href={PUBLIC_CONTACT.igniterUrl}
+									href={PUBLIC_CONTACT.instagram}
 									target='_blank'
 									rel='noopener noreferrer'
+									data-sfx='portal'
 									className='px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-white hover:bg-[#FFD426] font-bold text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 								>
-									IGNITER ↗
+									Instagram ↗
 								</a>
+								{(() => {
+									const cv = getLocalizedCvLink(lang);
+									return (
+										<a
+											href={cv.href}
+											target='_blank'
+											rel='noopener noreferrer'
+											data-sfx='keycap'
+											className='inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] font-black text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+										>
+											<DownloadIcon className='size-3.5 shrink-0' />
+											<span>{cv.label}</span>
+										</a>
+									);
+								})()}
 							</div>
 						</div>
 					</div>

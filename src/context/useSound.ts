@@ -1,12 +1,20 @@
 import { createContext, useContext } from 'react';
 
 export type SoundPresetId =
+	| 'nav'
 	| 'keycap'
 	| 'bubble'
 	| 'paper'
 	| 'switch'
 	| 'bell'
 	| 'cassette'
+	| 'shutter'
+	| 'copy'
+	| 'portal'
+	| 'close'
+	| 'chessTab'
+	| 'sfxTab'
+	| 'retroFail'
 	| 'chime'
 	| 'twang'
 	| 'coin'
@@ -33,7 +41,16 @@ export type MemePadId =
 
 export type ChessPieceCode = 'p' | 'n' | 'b' | 'r' | 'q' | 'k';
 export type ChessPromotionCode = 'n' | 'b' | 'r' | 'q';
-export type ChessTerminalKind = 'win' | 'lose' | 'draw' | null;
+export type ChessOutcomeSoundId =
+	| 'win_checkmate'
+	| 'win_timeout'
+	| 'loss_checkmate'
+	| 'loss_timeout'
+	| 'loss_resign'
+	| 'draw_stalemate'
+	| 'draw_threefold'
+	| 'draw_insufficient'
+	| 'draw_fifty_move';
 
 export interface ChessMoveAudioSpec {
 	piece: ChessPieceCode;
@@ -42,7 +59,7 @@ export interface ChessMoveAudioSpec {
 	castleSide?: 'k' | 'q' | null;
 	promotion?: ChessPromotionCode | null;
 	isCheck?: boolean;
-	terminal?: ChessTerminalKind;
+	terminal?: ChessOutcomeSoundId | null;
 }
 
 export interface SoundContextValue {
@@ -61,6 +78,7 @@ export interface SoundContextValue {
 	playPluck: (freq: number, fromPointerDown?: boolean, strandIndex?: number) => void;
 	playPreset: (presetId: SoundPresetId, volumeScale?: number) => void;
 	playChessMove: (spec: ChessMoveAudioSpec) => void;
+	playChessOutcome: (outcome: ChessOutcomeSoundId) => void;
 	playMeme: (memeId: MemePadId) => void;
 	preloadMemes: () => void;
 	playCountdownCue: (isGo?: boolean) => void;

@@ -9,23 +9,98 @@ import {
 	SoundContext,
 	type BgmLevel,
 	type ChessMoveAudioSpec,
+	type ChessOutcomeSoundId,
 	type ChessPieceCode,
 	type ChessPromotionCode,
 	type MemePadId,
 	type SoundPresetId,
 } from './useSound';
+import {
+	emitButtonHoverVoice,
+	emitChessOutcomeStinger,
+	emitChessPieceHover,
+	emitTone,
+	emitUiPreset,
+	type HoverKind,
+} from './soundSynths';
 
 const DATA_SFX_PRESETS: Record<string, SoundPresetId> = {
+	nav: 'nav',
 	keycap: 'keycap',
 	bubble: 'bubble',
 	paper: 'paper',
 	switch: 'switch',
 	bell: 'bell',
 	cassette: 'cassette',
+	shutter: 'shutter',
+	copy: 'copy',
+	portal: 'portal',
+	close: 'close',
+	'chess-tab': 'chessTab',
+	'sfx-tab': 'sfxTab',
+	'retro-fail': 'retroFail',
 	chime: 'chime',
 	twang: 'twang',
 	coin: 'coin',
 	'vhs-glitch': 'vhsGlitch',
+};
+
+const HOVER_DWELL_MS = 120;
+const HOVER_GLOBAL_COOLDOWN_MS = 140;
+const HOVER_SAME_ELEMENT_COOLDOWN_MS = 350;
+const TOUCH_SUPPRESS_WINDOW_MS = 700;
+
+const CHESS_HOVER_PIECE_MAP: Record<string, ChessPieceCode> = {
+	'chess-p': 'p',
+	'chess-n': 'n',
+	'chess-b': 'b',
+	'chess-r': 'r',
+	'chess-q': 'q',
+	'chess-k': 'k',
+};
+
+const HOVER_KINDS: ReadonlySet<string> = new Set<HoverKind>([
+	'nav',
+	'keycap',
+	'cassette',
+	'switch',
+	'paper',
+	'shutter',
+	'bell',
+	'copy',
+	'portal',
+	'close',
+	'chess-tab',
+	'sfx-tab',
+	'vhs-glitch',
+	'default',
+]);
+
+interface HoverTargetMeta {
+	kind: HoverKind;
+	chessPiece?: ChessPieceCode;
+}
+
+const resolveHoverTargetMeta = (target: HTMLElement): HoverTargetMeta | null => {
+	const explicitHover = target.closest('[data-hover-sfx]')?.getAttribute('data-hover-sfx');
+	if (explicitHover === 'none') {
+		return null;
+	}
+	if (explicitHover && explicitHover in CHESS_HOVER_PIECE_MAP) {
+		return { kind: 'default', chessPiece: CHESS_HOVER_PIECE_MAP[explicitHover] };
+	}
+	if (target.hasAttribute('data-chess-square')) {
+		// Empty or unannotated chess squares must never produce hover sounds
+		return null;
+	}
+	if (explicitHover && HOVER_KINDS.has(explicitHover)) {
+		return { kind: explicitHover as HoverKind };
+	}
+	const sfxAttr = target.closest('[data-sfx]')?.getAttribute('data-sfx');
+	if (sfxAttr && HOVER_KINDS.has(sfxAttr)) {
+		return { kind: sfxAttr as HoverKind };
+	}
+	return { kind: target.tagName === 'A' ? 'nav' : 'default' };
 };
 
 const BGM_AUDIO_SRC = '/audio/studio-bgm.mp3';
@@ -121,6 +196,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 	const bgmStartOffsetRef = useRef(0);
 	const bgmPausedAtOffsetRef = useRef(0);
 	const lastHoverAtRef = useRef(0);
+	const lastHoveredElRef = useRef<HTMLElement | null>(null);
+	const lastHoveredElAtRef = useRef(0);
+	const lastTouchAtRef = useRef(0);
 	const lastClickAtRef = useRef(0);
 	const lastPluckAtByStrandRef = useRef<Map<number, number>>(new Map());
 	const memeBytesPromiseMapRef = useRef<Map<MemePadId, Promise<ArrayBuffer | null>>>(new Map());
@@ -226,22 +304,22 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
 		const presence = ctx.createBiquadFilter();
 		presence.type = 'peaking';
-		presence.frequency.value = isCompactSpeaker ? 1050 : 1280;
+		presence.frequency.value = isCompactSpeaker ? 1050 : 1200;
 		presence.Q.value = 0.8;
-		presence.gain.value = isCompactSpeaker ? 3.4 : 1.2;
+		presence.gain.value = isCompactSpeaker ? 3.4 : 0.45;
 
 		const warmthCap = ctx.createBiquadFilter();
 		warmthCap.type = 'lowpass';
-		warmthCap.frequency.value = isCompactSpeaker ? 4800 : 6800;
+		warmthCap.frequency.value = isCompactSpeaker ? 4800 : 5400;
 		warmthCap.Q.value = 0.6;
 
 		const makeup = ctx.createGain();
 		makeup.gain.value = isCompactSpeaker ? 1.52 : 1.0;
 
 		const compressor = ctx.createDynamicsCompressor();
-		compressor.threshold.value = isCompactSpeaker ? -15 : -14;
+		compressor.threshold.value = isCompactSpeaker ? -15 : -15.5;
 		compressor.knee.value = 14;
-		compressor.ratio.value = isCompactSpeaker ? 3.2 : 3.0;
+		compressor.ratio.value = isCompactSpeaker ? 3.2 : 3.2;
 		compressor.attack.value = 0.002;
 		compressor.release.value = 0.1;
 
@@ -255,39 +333,42 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 		return highpass;
 	}, []);
 
+	const playHoverForMeta = useCallback(
+		(meta: HoverTargetMeta, targetEl?: HTMLElement | null) => {
+			if (!enabledRef.current) return;
+			const now = performance.now();
+			if (now - lastHoverAtRef.current < HOVER_GLOBAL_COOLDOWN_MS) return;
+			if (
+				targetEl &&
+				lastHoveredElRef.current === targetEl &&
+				now - lastHoveredElAtRef.current < HOVER_SAME_ELEMENT_COOLDOWN_MS
+			) {
+				return;
+			}
+
+			const ctx = getRunningContext();
+			if (!ctx) return;
+			lastHoverAtRef.current = now;
+			if (targetEl) {
+				lastHoveredElRef.current = targetEl;
+				lastHoveredElAtRef.current = now;
+			}
+
+			const t0 = ctx.currentTime + 0.004;
+			const masterOut = getMasterDestination(ctx);
+			const noiseBuf = getNoiseBuffer(ctx);
+			if (meta.chessPiece) {
+				emitChessPieceHover(ctx, masterOut, noiseBuf, t0, meta.chessPiece);
+			} else {
+				emitButtonHoverVoice(ctx, masterOut, noiseBuf, t0, meta.kind);
+			}
+		},
+		[getMasterDestination, getNoiseBuffer, getRunningContext]
+	);
+
 	const playHover = useCallback(() => {
-		if (!enabledRef.current) return;
-		const now = performance.now();
-		if (now - lastHoverAtRef.current < 90) return;
-
-		const ctx = getRunningContext();
-		if (!ctx) return;
-		lastHoverAtRef.current = now;
-
-		const t0 = ctx.currentTime;
-		const masterOut = getMasterDestination(ctx);
-		const osc = ctx.createOscillator();
-		const filter = ctx.createBiquadFilter();
-		const gain = ctx.createGain();
-
-		const baseFreq = 510 + Math.random() * 95;
-		osc.type = 'sine';
-		osc.frequency.setValueAtTime(baseFreq, t0);
-		osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.18, t0 + 0.036);
-
-		filter.type = 'lowpass';
-		filter.frequency.setValueAtTime(1450, t0);
-
-		gain.gain.setValueAtTime(0.001, t0);
-		gain.gain.linearRampToValueAtTime(0.03, t0 + 0.006);
-		gain.gain.exponentialRampToValueAtTime(0.0005, t0 + 0.045);
-
-		osc.connect(filter);
-		filter.connect(gain);
-		gain.connect(masterOut);
-		osc.start(t0);
-		osc.stop(t0 + 0.05);
-	}, [getMasterDestination, getRunningContext]);
+		playHoverForMeta({ kind: 'default' }, null);
+	}, [playHoverForMeta]);
 
 	const playClick = useCallback(() => {
 		if (!enabledRef.current) return;
@@ -299,28 +380,16 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 		runWithContext(ctx, true, (activeCtx) => {
 			const t0 = activeCtx.currentTime;
 			const masterOut = getMasterDestination(activeCtx);
-
-			// Crisp tactile switch click + light harmonic presence for both laptop & mobile speakers
-			const osc = activeCtx.createOscillator();
-			const filter = activeCtx.createBiquadFilter();
-			const gain = activeCtx.createGain();
-
-			osc.type = 'triangle';
-			osc.frequency.setValueAtTime(340, t0);
-			osc.frequency.exponentialRampToValueAtTime(520, t0 + 0.045);
-
-			filter.type = 'lowpass';
-			filter.frequency.setValueAtTime(2600, t0);
-
-			gain.gain.setValueAtTime(0.001, t0);
-			gain.gain.linearRampToValueAtTime(0.095, t0 + 0.005);
-			gain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.075);
-
-			osc.connect(filter);
-			filter.connect(gain);
-			gain.connect(masterOut);
-			osc.start(t0);
-			osc.stop(t0 + 0.085);
+			emitTone(activeCtx, masterOut, {
+				at: t0,
+				freq: 340,
+				endFreq: 510,
+				dur: 0.068,
+				gain: 0.088,
+				wave: 'triangle',
+				lpFreq: 2200,
+				attack: 0.005,
+			});
 		});
 	}, [getMasterDestination, getOrUnlockAudioContext, runWithContext]);
 
@@ -406,435 +475,23 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 					masterOut = scaleGain;
 				}
 
-				if (presetId === 'keycap') {
-					// Satisfying mechanical switch two-stage click + woody thock (+ missing-fundamental octave layer for phone speakers)
-					const bodyOsc = activeCtx.createOscillator();
-					const bodyGain = activeCtx.createGain();
-					bodyOsc.type = 'sine';
-					bodyOsc.frequency.setValueAtTime(165, t0);
-					bodyOsc.frequency.exponentialRampToValueAtTime(72, t0 + 0.06);
-					bodyGain.gain.setValueAtTime(0.25, t0);
-					bodyGain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.065);
-					bodyOsc.connect(bodyGain);
-					bodyGain.connect(masterOut);
-					bodyOsc.start(t0);
-					bodyOsc.stop(t0 + 0.07);
-
-					const overtoneOsc = activeCtx.createOscillator();
-					const overtoneGain = activeCtx.createGain();
-					overtoneOsc.type = 'triangle';
-					overtoneOsc.frequency.setValueAtTime(330, t0);
-					overtoneOsc.frequency.exponentialRampToValueAtTime(144, t0 + 0.055);
-					overtoneGain.gain.setValueAtTime(0.085, t0);
-					overtoneGain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.06);
-					overtoneOsc.connect(overtoneGain);
-					overtoneGain.connect(masterOut);
-					overtoneOsc.start(t0);
-					overtoneOsc.stop(t0 + 0.065);
-
-					const clickOsc = activeCtx.createOscillator();
-					const clickGain = activeCtx.createGain();
-					clickOsc.type = 'triangle';
-					clickOsc.frequency.setValueAtTime(1450, t0);
-					clickOsc.frequency.exponentialRampToValueAtTime(620, t0 + 0.025);
-					clickGain.gain.setValueAtTime(0.16, t0);
-					clickGain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.03);
-					clickOsc.connect(clickGain);
-					clickGain.connect(masterOut);
-					clickOsc.start(t0);
-					clickOsc.stop(t0 + 0.035);
-				} else if (presetId === 'bubble') {
-					const osc = activeCtx.createOscillator();
-					const gain = activeCtx.createGain();
-					osc.type = 'sine';
-					osc.frequency.setValueAtTime(260, t0);
-					osc.frequency.exponentialRampToValueAtTime(760, t0 + 0.085);
-					gain.gain.setValueAtTime(0.001, t0);
-					gain.gain.linearRampToValueAtTime(0.24, t0 + 0.015);
-					gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.11);
-					osc.connect(gain);
-					gain.connect(masterOut);
-					osc.start(t0);
-					osc.stop(t0 + 0.12);
-				} else if (presetId === 'paper') {
-					// Audible, warm tactile card/dropdown tap tuned balanced for desktop & mobile speakers
-					const tapFilter = activeCtx.createBiquadFilter();
-					tapFilter.type = 'lowpass';
-					tapFilter.frequency.setValueAtTime(1750, t0);
-
-					const clickOsc = activeCtx.createOscillator();
-					const clickGain = activeCtx.createGain();
-					clickOsc.type = 'triangle';
-					clickOsc.frequency.setValueAtTime(620, t0);
-					clickOsc.frequency.exponentialRampToValueAtTime(350, t0 + 0.036);
-					clickGain.gain.setValueAtTime(0.001, t0);
-					clickGain.gain.linearRampToValueAtTime(0.20, t0 + 0.003);
-					clickGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.044);
-					clickOsc.connect(clickGain);
-					clickGain.connect(tapFilter);
-
-					const bodyOsc = activeCtx.createOscillator();
-					const bodyGain = activeCtx.createGain();
-					bodyOsc.type = 'sine';
-					bodyOsc.frequency.setValueAtTime(320, t0);
-					bodyOsc.frequency.exponentialRampToValueAtTime(190, t0 + 0.04);
-					bodyGain.gain.setValueAtTime(0.001, t0);
-					bodyGain.gain.linearRampToValueAtTime(0.145, t0 + 0.004);
-					bodyGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.048);
-					bodyOsc.connect(bodyGain);
-					bodyGain.connect(tapFilter);
-
-					tapFilter.connect(masterOut);
-					clickOsc.start(t0);
-					bodyOsc.start(t0);
-					clickOsc.stop(t0 + 0.05);
-					bodyOsc.stop(t0 + 0.054);
-
-					const brush = activeCtx.createBufferSource();
-					brush.buffer = getNoiseBuffer(activeCtx);
-					const bp = activeCtx.createBiquadFilter();
-					bp.type = 'bandpass';
-					bp.frequency.setValueAtTime(1050, t0);
-					bp.Q.setValueAtTime(1.0, t0);
-					const brushGain = activeCtx.createGain();
-					brushGain.gain.setValueAtTime(0.06, t0);
-					brushGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.034);
-					brush.connect(bp);
-					bp.connect(brushGain);
-					brushGain.connect(masterOut);
-					brush.start(t0);
-					brush.stop(t0 + 0.04);
-				} else if (presetId === 'bell') {
-					// Warm reception desk brass ding (two harmonics)
-					[880, 1760].forEach((freq, idx) => {
-						const osc = activeCtx.createOscillator();
-						const gain = activeCtx.createGain();
-						osc.type = 'sine';
-						osc.frequency.setValueAtTime(freq, t0);
-						gain.gain.setValueAtTime(idx === 0 ? 0.18 : 0.065, t0);
-						gain.gain.exponentialRampToValueAtTime(0.0008, t0 + (idx === 0 ? 0.45 : 0.25));
-						osc.connect(gain);
-						gain.connect(masterOut);
-						osc.start(t0);
-						osc.stop(t0 + 0.48);
-					});
-				} else if (presetId === 'cassette') {
-					// Chunky tape deck latch thunk (+ 2x warm triangle harmonic so low thud reads on mobile speakers)
-					const low = activeCtx.createOscillator();
-					const lowGain = activeCtx.createGain();
-					low.type = 'sine';
-					low.frequency.setValueAtTime(125, t0);
-					low.frequency.exponentialRampToValueAtTime(48, t0 + 0.09);
-					lowGain.gain.setValueAtTime(0.27, t0);
-					lowGain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.1);
-					low.connect(lowGain);
-					lowGain.connect(masterOut);
-					low.start(t0);
-					low.stop(t0 + 0.11);
-
-					const punch = activeCtx.createOscillator();
-					const punchGain = activeCtx.createGain();
-					punch.type = 'triangle';
-					punch.frequency.setValueAtTime(250, t0);
-					punch.frequency.exponentialRampToValueAtTime(105, t0 + 0.085);
-					punchGain.gain.setValueAtTime(0.11, t0);
-					punchGain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.095);
-					punch.connect(punchGain);
-					punchGain.connect(masterOut);
-					punch.start(t0);
-					punch.stop(t0 + 0.1);
-
-					const snap = activeCtx.createOscillator();
-					const snapGain = activeCtx.createGain();
-					snap.type = 'triangle';
-					snap.frequency.setValueAtTime(920, t0 + 0.032);
-					snap.frequency.exponentialRampToValueAtTime(340, t0 + 0.058);
-					snapGain.gain.setValueAtTime(0.085, t0 + 0.032);
-					snapGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.068);
-					snap.connect(snapGain);
-					snapGain.connect(masterOut);
-					snap.start(t0 + 0.032);
-					snap.stop(t0 + 0.072);
-				} else if (presetId === 'chime') {
-					// Warm Kalimba triad sparkle (C5 -> E5 -> G5)
-					[523.25, 659.25, 783.99].forEach((freq, i) => {
-						const start = t0 + i * 0.055;
-						const osc = activeCtx.createOscillator();
-						const gain = activeCtx.createGain();
-						osc.type = 'sine';
-						osc.frequency.setValueAtTime(freq, start);
-						gain.gain.setValueAtTime(0.145, start);
-						gain.gain.exponentialRampToValueAtTime(0.0008, start + 0.28);
-						osc.connect(gain);
-						gain.connect(masterOut);
-						osc.start(start);
-						osc.stop(start + 0.3);
-					});
-				} else if (presetId === 'twang') {
-					// Elastic spaghetti noodle boing
-					const osc = activeCtx.createOscillator();
-					const lfo = activeCtx.createOscillator();
-					const lfoGain = activeCtx.createGain();
-					const gain = activeCtx.createGain();
-
-					osc.type = 'triangle';
-					osc.frequency.setValueAtTime(165, t0);
-					osc.frequency.exponentialRampToValueAtTime(240, t0 + 0.08);
-					osc.frequency.exponentialRampToValueAtTime(175, t0 + 0.26);
-
-					lfo.type = 'sine';
-					lfo.frequency.setValueAtTime(22, t0);
-					lfoGain.gain.setValueAtTime(14, t0);
-					lfo.connect(lfoGain);
-					lfoGain.connect(osc.frequency);
-
-					gain.gain.setValueAtTime(0.21, t0);
-					gain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.28);
-
-					osc.connect(gain);
-					gain.connect(masterOut);
-					lfo.start(t0);
-					osc.start(t0);
-					lfo.stop(t0 + 0.29);
-					osc.stop(t0 + 0.29);
-				} else if (presetId === 'switch') {
-					// Warm tactile toggle pop, comfortably audible on desktop & mobile without being loud
-					const popFilter = activeCtx.createBiquadFilter();
-					popFilter.type = 'lowpass';
-					popFilter.frequency.setValueAtTime(1850, t0);
-					popFilter.connect(masterOut);
-
-					const lead = activeCtx.createOscillator();
-					const leadGain = activeCtx.createGain();
-					lead.type = 'sine';
-					lead.frequency.setValueAtTime(440, t0);
-					lead.frequency.exponentialRampToValueAtTime(650, t0 + 0.038);
-					leadGain.gain.setValueAtTime(0.001, t0);
-					leadGain.gain.linearRampToValueAtTime(0.195, t0 + 0.004);
-					leadGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.05);
-					lead.connect(leadGain);
-					leadGain.connect(popFilter);
-					lead.start(t0);
-					lead.stop(t0 + 0.056);
-
-					const chimeOver = activeCtx.createOscillator();
-					const chimeGain = activeCtx.createGain();
-					chimeOver.type = 'sine';
-					chimeOver.frequency.setValueAtTime(880, t0);
-					chimeOver.frequency.exponentialRampToValueAtTime(980, t0 + 0.028);
-					chimeGain.gain.setValueAtTime(0.001, t0);
-					chimeGain.gain.linearRampToValueAtTime(0.065, t0 + 0.003);
-					chimeGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.035);
-					chimeOver.connect(chimeGain);
-					chimeGain.connect(popFilter);
-					chimeOver.start(t0);
-					chimeOver.stop(t0 + 0.04);
-
-					const subTick = activeCtx.createOscillator();
-					const subGain = activeCtx.createGain();
-					subTick.type = 'sine';
-					subTick.frequency.setValueAtTime(220, t0);
-					subTick.frequency.exponentialRampToValueAtTime(140, t0 + 0.026);
-					subGain.gain.setValueAtTime(0.125, t0);
-					subGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.034);
-					subTick.connect(subGain);
-					subGain.connect(popFilter);
-					subTick.start(t0);
-					subTick.stop(t0 + 0.038);
-				} else if (presetId === 'vhsGlitch') {
-					// Authentic 8-frame VHS tracking tear (~350ms): head snap + stuttering tape static + pitch-warble buzz
-					const noiseSrc = activeCtx.createBufferSource();
-					noiseSrc.buffer = getNoiseBuffer(activeCtx);
-					const snowFilter = activeCtx.createBiquadFilter();
-					snowFilter.type = 'bandpass';
-					snowFilter.Q.setValueAtTime(1.5, t0);
-					snowFilter.frequency.setValueAtTime(2400, t0);
-					snowFilter.frequency.linearRampToValueAtTime(980, t0 + 0.09);
-					snowFilter.frequency.linearRampToValueAtTime(3100, t0 + 0.18);
-					snowFilter.frequency.linearRampToValueAtTime(1250, t0 + 0.31);
-
-					// 8-frame stutter gating mimics physical tape dropout bands
-					const snowGain = activeCtx.createGain();
-					snowGain.gain.setValueAtTime(0.001, t0);
-					snowGain.gain.linearRampToValueAtTime(0.24, t0 + 0.008);
-					snowGain.gain.linearRampToValueAtTime(0.05, t0 + 0.055);
-					snowGain.gain.linearRampToValueAtTime(0.23, t0 + 0.095);
-					snowGain.gain.linearRampToValueAtTime(0.04, t0 + 0.15);
-					snowGain.gain.linearRampToValueAtTime(0.21, t0 + 0.195);
-					snowGain.gain.linearRampToValueAtTime(0.07, t0 + 0.25);
-					snowGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.34);
-
-					noiseSrc.connect(snowFilter);
-					snowFilter.connect(snowGain);
-					snowGain.connect(masterOut);
-					noiseSrc.start(t0);
-					noiseSrc.stop(t0 + 0.36);
-
-					// Gritty analog VHS motor/tracking tear buzz + upper harmonic so smartphone speakers project it clearly
-					const motorOsc = activeCtx.createOscillator();
-					const harmonicOsc = activeCtx.createOscillator();
-					const buzzFilter = activeCtx.createBiquadFilter();
-					const buzzGain = activeCtx.createGain();
-
-					motorOsc.type = 'sawtooth';
-					motorOsc.frequency.setValueAtTime(126, t0);
-					motorOsc.frequency.linearRampToValueAtTime(68, t0 + 0.09);
-					motorOsc.frequency.linearRampToValueAtTime(108, t0 + 0.17);
-					motorOsc.frequency.exponentialRampToValueAtTime(54, t0 + 0.31);
-
-					harmonicOsc.type = 'square';
-					harmonicOsc.frequency.setValueAtTime(340, t0);
-					harmonicOsc.frequency.linearRampToValueAtTime(195, t0 + 0.11);
-					harmonicOsc.frequency.linearRampToValueAtTime(290, t0 + 0.2);
-					harmonicOsc.frequency.exponentialRampToValueAtTime(135, t0 + 0.31);
-
-					buzzFilter.type = 'lowpass';
-					buzzFilter.frequency.setValueAtTime(1650, t0);
-
-					buzzGain.gain.setValueAtTime(0.001, t0);
-					buzzGain.gain.linearRampToValueAtTime(0.11, t0 + 0.015);
-					buzzGain.gain.linearRampToValueAtTime(0.03, t0 + 0.09);
-					buzzGain.gain.linearRampToValueAtTime(0.115, t0 + 0.15);
-					buzzGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.33);
-
-					motorOsc.connect(buzzFilter);
-					harmonicOsc.connect(buzzFilter);
-					buzzFilter.connect(buzzGain);
-					buzzGain.connect(masterOut);
-					motorOsc.start(t0);
-					harmonicOsc.start(t0);
-					motorOsc.stop(t0 + 0.35);
-					harmonicOsc.stop(t0 + 0.35);
-
-					// Clean magnetic tape settle clunk at recovery
-					const settle = activeCtx.createOscillator();
-					const settleGain = activeCtx.createGain();
-					settle.type = 'triangle';
-					settle.frequency.setValueAtTime(240, t0 + 0.29);
-					settle.frequency.exponentialRampToValueAtTime(92, t0 + 0.34);
-					settleGain.gain.setValueAtTime(0.001, t0 + 0.29);
-					settleGain.gain.linearRampToValueAtTime(0.13, t0 + 0.296);
-					settleGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.355);
-					settle.connect(settleGain);
-					settleGain.connect(masterOut);
-					settle.start(t0 + 0.29);
-					settle.stop(t0 + 0.365);
-				} else if (
-					presetId === 'chessMove' ||
-					presetId === 'chessCapture' ||
-					presetId === 'chessCastle' ||
-					presetId === 'chessCheck'
-				) {
-					const triggerWoodTap = (at: number, intensity: number, pitchScale = 1) => {
-						const safeAt = at + 0.008;
-						const body = activeCtx.createOscillator();
-						const bodyGain = activeCtx.createGain();
-						body.type = 'triangle';
-						body.frequency.setValueAtTime(260 * pitchScale, safeAt);
-						body.frequency.exponentialRampToValueAtTime(125 * pitchScale, safeAt + 0.068);
-						bodyGain.gain.setValueAtTime(0.001, safeAt);
-						bodyGain.gain.linearRampToValueAtTime(0.18 * intensity, safeAt + 0.005);
-						bodyGain.gain.exponentialRampToValueAtTime(0.0008, safeAt + 0.085);
-						body.connect(bodyGain);
-						bodyGain.connect(masterOut);
-						body.start(safeAt);
-						body.stop(safeAt + 0.095);
-
-						const knock = activeCtx.createBufferSource();
-						knock.buffer = getNoiseBuffer(activeCtx);
-						const bp = activeCtx.createBiquadFilter();
-						bp.type = 'bandpass';
-						bp.frequency.setValueAtTime(1650 * pitchScale, safeAt);
-						bp.Q.setValueAtTime(1.6, safeAt);
-						const knockGain = activeCtx.createGain();
-						knockGain.gain.setValueAtTime(0.001, safeAt);
-						knockGain.gain.linearRampToValueAtTime(0.09 * intensity, safeAt + 0.003);
-						knockGain.gain.exponentialRampToValueAtTime(0.0008, safeAt + 0.042);
-						knock.connect(bp);
-						bp.connect(knockGain);
-						knockGain.connect(masterOut);
-						knock.start(safeAt);
-						knock.stop(safeAt + 0.048);
-					};
-
-					if (presetId === 'chessMove') {
-						triggerWoodTap(t0, 0.95, 1);
-					} else if (presetId === 'chessCapture') {
-						triggerWoodTap(t0, 1.15, 1.15);
-						const snap = activeCtx.createBufferSource();
-						snap.buffer = getNoiseBuffer(activeCtx);
-						const bp = activeCtx.createBiquadFilter();
-						bp.type = 'bandpass';
-						bp.frequency.setValueAtTime(1650, t0);
-						bp.Q.setValueAtTime(1.4, t0);
-						const snapGain = activeCtx.createGain();
-						snapGain.gain.setValueAtTime(0.11, t0);
-						snapGain.gain.exponentialRampToValueAtTime(0.0008, t0 + 0.036);
-						snap.connect(bp);
-						bp.connect(snapGain);
-						snapGain.connect(masterOut);
-						snap.start(t0);
-						snap.stop(t0 + 0.042);
-					} else if (presetId === 'chessCastle') {
-						triggerWoodTap(t0, 0.9, 1.05);
-						triggerWoodTap(t0 + 0.085, 0.95, 0.94);
-					} else {
-						triggerWoodTap(t0, 1.05, 1.08);
-						[880, 1174.66].forEach((freq, idx) => {
-							const st = t0 + idx * 0.045;
-							const ping = activeCtx.createOscillator();
-							const pingGain = activeCtx.createGain();
-							ping.type = 'triangle';
-							ping.frequency.setValueAtTime(freq, st);
-							pingGain.gain.setValueAtTime(0.001, st);
-							pingGain.gain.linearRampToValueAtTime(0.125, st + 0.004);
-							pingGain.gain.exponentialRampToValueAtTime(0.0008, st + 0.14);
-							ping.connect(pingGain);
-							pingGain.connect(masterOut);
-							ping.start(st);
-							ping.stop(st + 0.15);
-						});
-					}
-				} else if (presetId === 'chessWin' || presetId === 'chessLose' || presetId === 'chessDraw') {
-					const seq =
-						presetId === 'chessWin'
-							? [523.25, 659.25, 783.99, 1046.5]
-							: presetId === 'chessLose'
-								? [392.0, 349.23, 293.66, 220.0]
-								: [523.25, 493.88];
-					seq.forEach((freq, idx) => {
-						const st = t0 + idx * 0.085;
-						const osc = activeCtx.createOscillator();
-						const gain = activeCtx.createGain();
-						osc.type = presetId === 'chessLose' ? 'sine' : 'triangle';
-						osc.frequency.setValueAtTime(freq, st);
-						gain.gain.setValueAtTime(0.001, st);
-						gain.gain.linearRampToValueAtTime(0.14, st + 0.006);
-						gain.gain.exponentialRampToValueAtTime(0.0008, st + (idx === seq.length - 1 ? 0.34 : 0.14));
-						osc.connect(gain);
-						gain.connect(masterOut);
-						osc.start(st);
-						osc.stop(st + 0.36);
-					});
-				} else {
-					// Crisp retro coin / level sparkle (B5 -> E6)
-					[987.77, 1318.51].forEach((freq, idx) => {
-						const start = t0 + idx * 0.068;
-						const osc = activeCtx.createOscillator();
-						const gain = activeCtx.createGain();
-						osc.type = 'triangle';
-						osc.frequency.setValueAtTime(freq, start);
-						gain.gain.setValueAtTime(0.145, start);
-						gain.gain.exponentialRampToValueAtTime(0.0008, start + (idx === 0 ? 0.09 : 0.24));
-						osc.connect(gain);
-						gain.connect(masterOut);
-						osc.start(start);
-						osc.stop(start + 0.25);
-					});
-				}
+				emitUiPreset(activeCtx, masterOut, getNoiseBuffer(activeCtx), t0, presetId);
 			});
 		},
 		[getMasterDestination, getNoiseBuffer, getOrUnlockAudioContext, runWithContext]
+	);
+
+	const playChessOutcome = useCallback(
+		(outcomeId: ChessOutcomeSoundId) => {
+			if (!enabledRef.current) return;
+			const ctx = getOrUnlockAudioContext();
+			runWithContext(ctx, true, (activeCtx) => {
+				const t0 = activeCtx.currentTime + 0.008;
+				const masterOut = getMasterDestination(activeCtx);
+				emitChessOutcomeStinger(activeCtx, masterOut, t0, outcomeId);
+			});
+		},
+		[getMasterDestination, getOrUnlockAudioContext, runWithContext]
 	);
 
 	const playChessMove = useCallback(
@@ -1056,29 +713,13 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 				// 3. Check alert or Game Outcome tail (always plays cleanly AFTER piece settles)
 				if (spec.terminal) {
 					const endDelay = spec.promotion
-						? 0.34
+						? 0.38
 						: spec.castleSide
-							? 0.19
+							? 0.22
 							: spec.isEnPassant
-								? 0.14
-								: 0.11;
-					const endNotes =
-						spec.terminal === 'win'
-							? [523.25, 659.25, 783.99, 1046.5]
-							: spec.terminal === 'lose'
-								? [392.0, 349.23, 293.66, 220.0]
-								: [523.25, 493.88];
-					endNotes.forEach((freq, idx) => {
-						const isLast = idx === endNotes.length - 1;
-						playSoftTone(
-							t0 + endDelay + idx * 0.085,
-							freq,
-							isLast ? 0.34 : 0.14,
-							0.115,
-							spec.terminal === 'lose' ? 'sine' : 'triangle',
-							2400
-						);
-					});
+								? 0.17
+								: 0.14;
+					emitChessOutcomeStinger(activeCtx, masterOut, t0 + endDelay, spec.terminal);
 				} else if (spec.isCheck) {
 					const checkDelay = spec.promotion
 						? 0.31
@@ -1383,22 +1024,92 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 			getOrUnlockAudioContext();
 		};
 
+		let hoverTimerId: number | null = null;
+		let pendingHoverTarget: HTMLElement | null = null;
+
+		const clearPendingHover = () => {
+			if (hoverTimerId !== null) {
+				window.clearTimeout(hoverTimerId);
+				hoverTimerId = null;
+			}
+			pendingHoverTarget = null;
+		};
+
 		const handleMouseOver = (e: MouseEvent) => {
 			if (!enabledRef.current) return;
+			// Do not trigger hover ticks while dragging sliders, chess pieces, or cords
+			if (e.buttons !== 0) {
+				clearPendingHover();
+				return;
+			}
+			// Suppress synthetic mouseover events synthesized immediately after touch taps
+			if (performance.now() - lastTouchAtRef.current < TOUCH_SUPPRESS_WINDOW_MS) {
+				return;
+			}
+
 			const target = (e.target as HTMLElement | null)?.closest(
 				'button, a, select, input[type="range"], [role="button"]'
 			) as HTMLElement | null;
-			if (!target) return;
-			if (target.hasAttribute('disabled') || target.getAttribute('aria-disabled') === 'true') {
+			if (!target) {
+				clearPendingHover();
 				return;
 			}
+			if (target.hasAttribute('disabled') || target.getAttribute('aria-disabled') === 'true') {
+				clearPendingHover();
+				return;
+			}
+			// Ignore intra-element child transitions so dwell timer is not restarted or re-triggered
+			if (
+				target === pendingHoverTarget ||
+				(e.relatedTarget instanceof Node && target.contains(e.relatedTarget))
+			) {
+				return;
+			}
+
+			clearPendingHover();
+			const meta = resolveHoverTargetMeta(target);
+			if (!meta) return;
+
+			pendingHoverTarget = target;
+			hoverTimerId = window.setTimeout(() => {
+				hoverTimerId = null;
+				if (!pendingHoverTarget || pendingHoverTarget !== target) return;
+				if (!target.isConnected) {
+					pendingHoverTarget = null;
+					return;
+				}
+				// Re-resolve at fire time in case piece / state changed cleanly before dwell expired
+				const freshMeta = resolveHoverTargetMeta(target);
+				pendingHoverTarget = null;
+				if (freshMeta) {
+					playHoverForMeta(freshMeta, target);
+				}
+			}, HOVER_DWELL_MS);
+		};
+
+		const handleMouseOut = (e: MouseEvent) => {
+			if (!pendingHoverTarget) return;
+			const target = pendingHoverTarget;
 			if (e.relatedTarget instanceof Node && target.contains(e.relatedTarget)) {
 				return;
 			}
-			playHover();
+			clearPendingHover();
+		};
+
+		const handleTouchMarker = () => {
+			lastTouchAtRef.current = performance.now();
+			clearPendingHover();
+		};
+
+		const handlePointerInteraction = (e: PointerEvent) => {
+			if (e.pointerType && e.pointerType !== 'mouse') {
+				lastTouchAtRef.current = performance.now();
+			}
+			clearPendingHover();
 		};
 
 		const handleDocumentClick = (e: MouseEvent) => {
+			clearPendingHover();
 			if (!enabledRef.current) return;
 			const target = (e.target as HTMLElement | null)?.closest(
 				'button, a, [role="button"]'
@@ -1415,27 +1126,47 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 				playPreset(DATA_SFX_PRESETS[sfxTag], gainScale);
 				return;
 			}
+			if (target.tagName === 'A') {
+				const href = target.getAttribute('href') ?? '';
+				playPreset(href.startsWith('http') ? 'portal' : 'nav', gainScale);
+				return;
+			}
 			playClick();
 		};
 
 		window.addEventListener('pointerdown', unlockOnce, { passive: true, capture: true });
+		window.addEventListener('pointerdown', handlePointerInteraction, { passive: true, capture: true });
 		window.addEventListener('mousedown', unlockOnce, { passive: true, capture: true });
 		window.addEventListener('click', unlockOnce, { passive: true, capture: true });
 		window.addEventListener('touchend', unlockOnce, { passive: true, capture: true });
+		window.addEventListener('touchstart', handleTouchMarker, { passive: true, capture: true });
 		window.addEventListener('keydown', unlockOnce, { passive: true, capture: true });
+		window.addEventListener('scroll', clearPendingHover, { passive: true, capture: true });
+		window.addEventListener('wheel', clearPendingHover, { passive: true, capture: true });
+		window.addEventListener('blur', clearPendingHover);
+		document.addEventListener('visibilitychange', clearPendingHover);
 		document.addEventListener('mouseover', handleMouseOver, true);
+		document.addEventListener('mouseout', handleMouseOut, true);
 		document.addEventListener('click', handleDocumentClick, true);
 
 		return () => {
+			clearPendingHover();
 			window.removeEventListener('pointerdown', unlockOnce, { capture: true });
+			window.removeEventListener('pointerdown', handlePointerInteraction, { capture: true });
 			window.removeEventListener('mousedown', unlockOnce, { capture: true });
 			window.removeEventListener('click', unlockOnce, { capture: true });
 			window.removeEventListener('touchend', unlockOnce, { capture: true });
+			window.removeEventListener('touchstart', handleTouchMarker, { capture: true });
 			window.removeEventListener('keydown', unlockOnce, { capture: true });
+			window.removeEventListener('scroll', clearPendingHover, { capture: true });
+			window.removeEventListener('wheel', clearPendingHover, { capture: true });
+			window.removeEventListener('blur', clearPendingHover);
+			document.removeEventListener('visibilitychange', clearPendingHover);
 			document.removeEventListener('mouseover', handleMouseOver, true);
+			document.removeEventListener('mouseout', handleMouseOut, true);
 			document.removeEventListener('click', handleDocumentClick, true);
 		};
-	}, [getOrUnlockAudioContext, playClick, playHover, playPreset]);
+	}, [getOrUnlockAudioContext, playClick, playHoverForMeta, playPreset]);
 
 	const fetchBgmBytes = useCallback((): Promise<ArrayBuffer | null> => {
 		if (typeof window === 'undefined') return Promise.resolve(null);
@@ -1855,6 +1586,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 				playPluck,
 				playPreset,
 				playChessMove,
+				playChessOutcome,
 				playMeme,
 				preloadMemes,
 				playCountdownCue,

@@ -6,8 +6,8 @@ import { useSound } from '../context/useSound';
 import { SparkleStar, StarburstSticker } from '../components/SpaghettiArt';
 import SpaghettiCablesCanvas from '../components/SpaghettiCablesCanvas';
 
-const HERO_WORDS_EN = ['Motion', 'Explainers', '9:16 Reels', 'Web Builds'];
-const HERO_WORDS_ID = ['Motion', 'Explainer', 'Reels 9:16', 'Web Kreatif'];
+const HERO_WORDS_EN = ['Motion', 'Explainers', '9:16 Reels', 'Websites'];
+const HERO_WORDS_ID = ['Motion', 'Explainer', 'Reels 9:16', 'Website'];
 
 const Hero = () => {
 	const { lang, t } = useLanguage();
@@ -88,7 +88,7 @@ const Hero = () => {
 							<span className='leading-snug'>
 								{t({
 									en: 'OPEN FOR WORK · VIDEO, MOTION & WEB',
-									id: 'SIAP KOLABORASI · VIDEO, MOTION & WEB',
+									id: 'TERBUKA UNTUK PROYEK · VIDEO, MOTION & WEB',
 								})}
 							</span>
 						</div>
@@ -97,7 +97,7 @@ const Hero = () => {
 						<h1 className='ds-hero-stagger font-display font-black text-[28px] sm:text-[40px] lg:text-[42px] xl:text-[48px] leading-[1.12] text-[#050505]'>
 							<span className='flex flex-wrap sm:flex-nowrap items-center gap-x-3 gap-y-1.5 mb-1'>
 								<span className='whitespace-nowrap'>
-									{t({ en: 'Crafting', id: 'Garap' })}
+									{t({ en: 'Creating', id: 'Merancang' })}
 								</span>
 								<span
 									className='relative inline-grid place-items-center overflow-hidden select-none align-middle max-w-full px-3.5 sm:px-4 py-1 rounded border-[3px] border-[#050505] bg-[#FFD426] text-[#050505] shadow-[5px_5px_0_#050505]'
@@ -139,8 +139,8 @@ const Hero = () => {
 							</span>
 							<span className='block'>
 								{t({
-									en: 'With Film Craft + Code.',
-									id: 'Lewat Ilmu Film + Kode.',
+									en: 'With Film Craft & Code.',
+									id: 'Lewat Teknik Film & Kode.',
 								})}
 							</span>
 						</h1>
@@ -148,8 +148,8 @@ const Hero = () => {
 						{/* Concise Positioning Copy */}
 						<p className='ds-hero-stagger text-base sm:text-lg text-[#2C313A] leading-relaxed max-w-xl font-medium'>
 							{t({
-								en: 'Cum Laude TV & Film graduate producing story-first explainers, 9:16 reels, code-driven animation, crisp sound effects (SFX), and interactive websites.',
-								id: 'Lulusan Cum Laude Televisi & Film yang menggarap video explainer, reels 9:16, animasi berbasis kode, tata suara & efek suara (SFX) jernih, serta website interaktif.',
+								en: 'Cum Laude TV & Film graduate producing story-driven explainers, 9:16 reels, code-based animation, clear sound design (SFX), and interactive websites.',
+								id: 'Lulusan Cum Laude Televisi & Film yang memproduksi video explainer, reels 9:16, animasi berbasis kode, tata suara & SFX yang jernih, serta website interaktif.',
 							})}
 						</p>
 
@@ -213,7 +213,7 @@ const Hero = () => {
 								},
 								{
 									val: 'Audio + SFX',
-									lbl: { en: 'Clear Voice & Sound FX', id: 'Narasi Jernih & SFX' },
+									lbl: { en: 'Clean Voice & SFX', id: 'Narasi Jernih & SFX' },
 									bg: 'bg-[#FCF0D3]/85',
 								},
 							].map((ticket) => (
@@ -260,7 +260,7 @@ const Hero = () => {
 								<div className='flex items-center justify-between gap-2'>
 									<span className='font-mono text-[11px] font-extrabold text-[#050505] uppercase'>
 										{t({
-											en: 'Tap or glide across cords to bend & pluck',
+											en: 'Tap or glide across cords to pluck them',
 											id: 'Sentuh atau geser kabel untuk memetiknya',
 										})}
 									</span>
@@ -279,6 +279,7 @@ const Hero = () => {
 									<button
 										type='button'
 										data-sfx='custom'
+										data-hover-sfx='switch'
 										aria-pressed={soundEnabled}
 										onClick={toggleSound}
 										className={`shrink-0 px-2.5 py-1 rounded border-2 border-[#050505] font-mono text-[10px] font-black shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer ${

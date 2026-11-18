@@ -303,7 +303,7 @@ const BlueprintProcessSection = ({
 			setExpectedPadId(expected);
 			setGamePhase('gameover');
 			scheduleTimeout(() => {
-				playPreset('cassette');
+				playPreset('retroFail');
 			}, 160);
 			return;
 		}
@@ -366,12 +366,12 @@ const BlueprintProcessSection = ({
 					})}
 					title={t({
 						en: 'Where Film Craft Meets Editing, Code & Sound',
-						id: 'Perpaduan Ilmu Film, Editing, Kode & Tata Suara',
+						id: 'Perpaduan Seni Film, Editing, Kode & Tata Suara',
 					})}
 					badgeColor='yellow'
 					description={t({
-						en: 'Each video blends researched storytelling, code-driven animation (Video-as-Code), Premiere/AE editing, and clear sound effects (SFX).',
-						id: 'Tiap video memadukan riset naskah yang jelas, animasi berbasis kode (Video-as-Code), editing Premiere/AE, serta suara narasi & efek suara (SFX) yang bersih.',
+						en: 'Each video combines fact-checked storytelling, code-driven animation (Video-as-Code), Premiere/AE editing, and clear narration & SFX mixing.',
+						id: 'Tiap karya memadukan riset naskah terverifikasi, animasi berbasis kode (Video-as-Code), editing Premiere/AE, serta mixing narasi & SFX yang jernih.',
 					})}
 				/>
 
@@ -494,7 +494,7 @@ const BlueprintProcessSection = ({
 						<button
 							type='button'
 							role='tab'
-							data-sfx='paper'
+							data-sfx='chess-tab'
 							aria-selected={activeTab === 'chess'}
 							aria-pressed={activeTab === 'chess'}
 							onClick={() => switchCraftTab('chess')}
@@ -544,7 +544,7 @@ const BlueprintProcessSection = ({
 						<button
 							type='button'
 							role='tab'
-							data-sfx='paper'
+							data-sfx='sfx-tab'
 							aria-selected={activeTab === 'sfx'}
 							aria-pressed={activeTab === 'sfx'}
 							onClick={() => switchCraftTab('sfx')}
@@ -691,7 +691,7 @@ const BlueprintProcessSection = ({
 												{isGameRunning ? (
 													<button
 														type='button'
-														data-sfx='custom'
+														data-sfx='close'
 														onClick={exitToFreeMode}
 														className='col-span-2 h-[42px] px-4 rounded-xl bg-[#FCF0D3] hover:bg-[#FD6141] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 													>
@@ -701,7 +701,7 @@ const BlueprintProcessSection = ({
 													<>
 														<button
 															type='button'
-															data-sfx='custom'
+															data-sfx='sfx-tab'
 															onClick={playMiniSequence}
 															className='h-[42px] px-3 rounded-xl bg-[#FCF0D3] hover:bg-[#FFD426] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 														>
@@ -709,7 +709,7 @@ const BlueprintProcessSection = ({
 														</button>
 														<button
 															type='button'
-															data-sfx='custom'
+															data-sfx='keycap'
 															onClick={startFoleyGame}
 															className='h-[42px] px-3 rounded-xl bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 														>
@@ -903,6 +903,7 @@ const BlueprintProcessSection = ({
 														<button
 															type='button'
 															data-sfx='custom'
+															data-hover-sfx='none'
 															aria-disabled={isLockedInput}
 															onPointerDown={() => triggerPad(pad.id)}
 															onKeyDown={(e) => {

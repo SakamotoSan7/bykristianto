@@ -48,9 +48,25 @@ export const PUBLIC_CONTACT = {
 	whatsappDisplay: '+62 851-8716-6071',
 	github: 'https://github.com/SakamotoSan7',
 	linkedin: 'https://www.linkedin.com/in/kristianto-9117',
+	instagram: 'https://www.instagram.com/kristianto.too/',
 	portfolioUrl: 'https://bykristianto.my.id/',
-	igniterUrl: 'https://igniter-theta.vercel.app/',
+	cvUrl: {
+		en: 'https://drive.google.com/file/d/1qEmeOfIWh4hec3AuCbJ-0NlrP7ganmqg/view?usp=drivesdk',
+		id: 'https://drive.google.com/file/d/1Fub-sEhVfokTNBDWmMZk-RQDRnVElKsr/view?usp=drivesdk',
+	},
 };
+
+export function getLocalizedCvLink(lang: 'en' | 'id') {
+	return lang === 'id'
+		? {
+				href: PUBLIC_CONTACT.cvUrl.id,
+				label: 'Download CV (Indonesia)',
+			}
+		: {
+				href: PUBLIC_CONTACT.cvUrl.en,
+				label: 'Download CV (English)',
+			};
+}
 
 export const NAV_LINKS: { label: LocalizedText; href: string }[] = [
 	{ label: { en: 'Works (14)', id: '14 Karya' }, href: '#videos' },
@@ -72,7 +88,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 		aspectRatio: '9:16',
 		title: {
 			en: 'Why Working-Class Genius Gets Erased (Eric Hoffer & Cognitive Tax)',
-			id: 'Kenapa Pemikir Kelas Pekerja Terlupakan (Eric Hoffer & Pajak Kognitif)',
+			id: 'Kenapa Pemikir Kelas Pekerja Terlupakan (Eric Hoffer & Beban Kognitif)',
 		},
 		durationSeconds: 91.01,
 		durationLabel: '01:31',
@@ -84,11 +100,11 @@ export const VIDEO_WORKS: VideoWork[] = [
 		caseStudy: {
 			hook: {
 				en: 'Starts on a 1951 San Francisco cargo pier, pairing archival halftone cutouts with Harvard cognitive bandwidth data (-13 IQ).',
-				id: 'Dimulai di dermaga 1951, memadukan foto arsip dengan visual diagram pita kognitif & ilustrasi bergaya komik.',
+				id: 'Dimulai di dermaga kargo 1951, memadukan foto arsip dengan data kapasitas kognitif (-13 IQ) serta ilustrasi bergaya komik.',
 			},
 			storyAngle: {
-				en: 'Shows how survival stress + intimidating academic jargon hide brilliant real-world thinkers like dockworker Eric Hoffer.',
-				id: 'Membongkar dua jebakan tak kasat mata (tekanan finansial & jargon akademik) lewat kisah buruh pelabuhan Eric Hoffer.',
+				en: 'Shows how survival stress and academic jargon obscure sharp real-world thinkers like dockworker Eric Hoffer.',
+				id: 'Mengungkap dua jebakan tak kasat mata (tekanan finansial & jargon akademik) lewat kisah buruh pelabuhan Eric Hoffer.',
 			},
 			visualCraft: {
 				en: 'Built as a programmable React video composition in Remotion 4.0 with grid notebooks, exploded RAM views, & split panels.',
@@ -96,7 +112,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			audioDesign: {
 				en: 'Crisp documentary VO narration paced seamlessly across scene reveals and illustrative SFX accents.',
-				id: 'Narasi dokumenter bahasa Inggris ber-ritme jernih dengan efek suara penanda transisi tiap temuan data.',
+				id: 'Narasi dokumenter berbahasa Inggris dengan ritme tenang dan aksen efek suara di tiap pergantian temuan data.',
 			},
 			idealFor: {
 				en: 'Documentary creators, essay channels, & editorial brands',
@@ -129,8 +145,8 @@ export const VIDEO_WORKS: VideoWork[] = [
 				id: 'Membuka adegan dua jam sebelum pemakzulan dengan visual diorama gedung parlemen dan karakter 3D bergaya cel-shaded.',
 			},
 			storyAngle: {
-				en: 'Speculative geopolitical / constitutional timeline visualization illustrating how checks & balances unfold visually.',
-				id: 'Visualisasi esai naratif politik/konstitusional untuk membuktikan kapasitas penceritaan 3D kompleks secara ringkas.',
+				en: 'Visualizes a dramatic constitutional timeline to demonstrate structured 3D storytelling in a tight vertical format.',
+				id: 'Visualisasi alur peristiwa hukum dan ketatanegaraan secara ringkas melalui penceritaan animasi 3D.',
 			},
 			visualCraft: {
 				en: 'Full 3D architectural scenes, character acting, animated clocks, courthouse scales, & sunset epilogue rendered via Remotion.',
@@ -138,7 +154,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			audioDesign: {
 				en: 'Authoritative English commentary pacing synced cleanly with dramatic court & timeline cues.',
-				id: 'Komentar narasi bahasa Inggris berwibawa yang sinkron presisi dengan ketukan perubahan adegan 3D.',
+				id: 'Narasi berbahasa Inggris yang tegas dan sinkron presisi dengan tiap ketukan pergantian adegan 3D.',
 			},
 			idealFor: {
 				en: 'YouTube Shorts essays, explainer channels, & 3D narrative reels',
@@ -168,24 +184,24 @@ export const VIDEO_WORKS: VideoWork[] = [
 		featured: true,
 		caseStudy: {
 			hook: {
-				en: 'Opens with an everyday relatable habit ("reaching for your phone") backed by psychology research (Mood-Repair Theory) and brain scans.',
-				id: 'Hook langsung menyentuh kebiasaan harian ("tangan otomatis buka HP") sebelum membalikkan rasa bersalah dengan riset psikologi otak.',
+				en: 'Opens with a relatable daily habit ("reaching for your phone") backed by Mood-Repair Theory and brain scan findings.',
+				id: 'Dibuka dari kebiasaan sehari-hari ("tangan otomatis meraih HP"), lalu menjelaskan alasannya lewat riset psikologi emosi otak.',
 			},
 			storyAngle: {
 				en: 'Cites Pychyl & Sirois (2013) plus amygdala brain scan findings in crisp, easy-to-follow vertical storytelling.',
-				id: 'Mengacu riset Pychyl & Sirois (2013) serta studi pemindaian otak amigdala dalam format vertikal yang cepat dipahami.',
+				id: 'Mengacu riset Pychyl & Sirois (2013) serta studi pemindaian otak amigdala dalam format vertikal yang mudah dipahami.',
 			},
 			visualCraft: {
 				en: 'Stop-motion style paper cutouts with smooth desk camera loop back to frame 0 and UI-safe vertical captions.',
-				id: 'Gerak potongan kertas bergaya stop-motion dengan kamera meja mulus kembali ke frame awal & posisi subtitle aman untuk HP.',
+				id: 'Potongan kertas bergaya stop-motion dengan gerakan kamera meja yang berulang (loop) mulus serta posisi subtitle aman di ponsel.',
 			},
 			audioDesign: {
 				en: '42 real paper sound effects / foley (scissors, flips, crumples) paired with soft felt-piano music and crisp narration.',
-				id: '42 efek suara kertas nyata / foley (gunting, lipatan, lembar kertas) dipadukan piano lembut dengan suara narator tetap jernih.',
+				id: '42 efek suara kertas nyata / foley (gunting, lipatan, lembar kertas) dipadukan piano lembut dengan narasi tetap jernih.',
 			},
 			idealFor: {
 				en: 'Mental health, edutech, & high-retention Reels/TikTok',
-				id: 'Konten edukasi, kesehatan mental, & Reels/TikTok berretensi tinggi',
+				id: 'Konten edukasi, kesehatan mental, & Reels/TikTok dengan retensi tinggi',
 			},
 		},
 	},
@@ -219,15 +235,15 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			visualCraft: {
 				en: 'Hand-inked stickman animation with realistic arm-joint mechanics (2-bone IK) and seamless frame-0 looping.',
-				id: 'Sketsa stickman gerak tangan dengan sendi lengan terstruktur (2-bone IK) yang berulang mulus kembali ke frame pertama.',
+				id: 'Animasi stickman bergaya goresan tinta dengan sendi lengan terstruktur (2-bone IK) yang berulang mulus kembali ke frame awal.',
 			},
 			audioDesign: {
 				en: '34 tactile paper, coin, ink stamp, and lever SFX balanced smoothly beneath an intimate narrative voiceover.',
-				id: '34 efek suara nyata / SFX (goresan pensil, koin, stempel, tuas) yang diatur seimbang tanpa menutup suara narator.',
+				id: '34 efek suara nyata / SFX (goresan pensil, koin, stempel, tuas) yang ditata seimbang tanpa menutup suara narator.',
 			},
 			idealFor: {
 				en: 'Personal finance apps, fintech creators, & punchy explainers',
-				id: 'Aplikasi keuangan pribadi, kreator finansial, & edukasi cepat',
+				id: 'Aplikasi keuangan pribadi, kreator finansial, & konten edukasi cepat',
 			},
 		},
 	},
@@ -253,19 +269,19 @@ export const VIDEO_WORKS: VideoWork[] = [
 		caseStudy: {
 			hook: {
 				en: 'Opens straight on impact, proving Meta neuro-tracking 1.3s attention windows through its own aggressive pacing.',
-				id: 'Langsung menghantam di detik 0, membuktikan riset retensi 1,3 detik lewat ritme visualnya sendiri.',
+				id: 'Langsung dibuka dengan hentakan visual sejak detik pertama, membuktikan riset atensi 1,3 detik lewat ritme cepatnya.',
 			},
 			storyAngle: {
 				en: 'Explains why slow brand logo animations drive 35–55% early viewer drop-off.',
-				id: 'Menjelaskan secara konkret mengapa intro logo panjang membuat penonton langsung swipe.',
+				id: 'Menjelaskan secara konkret mengapa intro logo panjang membuat penonton langsung menggeser layar.',
 			},
 			visualCraft: {
-				en: 'High-contrast obsidian dark canvas with volt-lime (#C8F542) razor cuts and razor-wipe loop transitions.',
+				en: 'High-contrast obsidian dark canvas with volt-lime (#C8F542) razor cuts and clean wipe-loop transitions.',
 				id: 'Kanvas gelap kontras tinggi dengan aksen volt-lime (#C8F542) dan potongan gerak cepat tepat ketukan.',
 			},
 			audioDesign: {
 				en: '32 punchy percussive & kinetic SFX synced on frame hits over sidechain-ducked 125 BPM electronic beat.',
-				id: '32 SFX presisi beat di atas musik elektronik 125 BPM dengan musik otomatis merunduk saat narasi masuk.',
+				id: '32 efek suara (SFX) sinkron ketukan di atas musik elektronik 125 BPM yang otomatis melandai saat narasi masuk.',
 			},
 			idealFor: {
 				en: 'Performance ads, creator agencies, & fast product launches',
@@ -299,7 +315,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			storyAngle: {
 				en: 'Turns an abstract economics concept (coined by Pippa Malmgren) into an everyday supermarket observation.',
-				id: 'Mengubah istilah ekonomi makro ("Shrinkflation") menjadi cerita belanja sehari-hari yang langsung relate.',
+				id: 'Mengubah istilah ekonomi ("Shrinkflation") menjadi cerita belanja sehari-hari yang dekat dengan audiens.',
 			},
 			visualCraft: {
 				en: '5 bespoke Three.js matte 3D clay scenes on studio turntables with squash-and-stretch physics.',
@@ -307,7 +323,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			audioDesign: {
 				en: '30 playful elastic sound effects / foley tuned against upbeat acoustic music and natural Indonesian female narration.',
-				id: '30 efek suara / foley benda kenyal dipadukan musik akustik ceria dan suara narator perempuan yang jernih.',
+				id: '30 efek suara / foley berkarakter lembut dipadukan musik akustik ceria serta suara narator perempuan yang jernih.',
 			},
 			idealFor: {
 				en: 'Consumer brands, FMCG explainers, & friendly 3D SaaS',
@@ -326,7 +342,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 		aspectRatio: '9:16',
 		title: {
 			en: "Does Deep Sleep Really 'Wash' Your Brain? (Glymphatic Debate)",
-			id: 'Benarkah Tidur Dalam Mencuci Otak? (Debat Sistem Glifatik)',
+			id: 'Benarkah Tidur Lelap "Mencuci" Otak? (Debat Sistem Glimfatik)',
 		},
 		durationSeconds: 63.07,
 		durationLabel: '01:03',
@@ -337,7 +353,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 		caseStudy: {
 			hook: {
 				en: 'Pits Nedergaard’s classic 2013 glymphatic clearance hypothesis against May 2024 Nature Neuroscience counter-findings.',
-				id: 'Mempertemukan riset klasik sistem glifatik 2013 dengan studi penantang Nature Neuroscience Mei 2024.',
+				id: 'Mempertemukan riset klasik sistem glimfatik 2013 dengan studi penantang Nature Neuroscience Mei 2024.',
 			},
 			storyAngle: {
 				en: 'Balanced science communication showing how scientific consensus evolves through methodology debate.',
@@ -345,15 +361,15 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			visualCraft: {
 				en: 'Dynamic 20-keyframe camera motion (microscope zoom to wide view) with clean 2D vector morphing and crisp transitions.',
-				id: 'Gerak kamera 20 keyframe (dari pembesaran mikroskop ke sudut luas) dengan animasi vektor bersih yang bermorfosis mulus.',
+				id: 'Gerak kamera 20 keyframe (dari pembesaran mikroskop ke sudut luas) dengan transisi bentuk (morphing) vektor yang mulus.',
 			},
 			audioDesign: {
 				en: '25 curated gentle science SFX paired with calm minimal ambient music so scientific explanations stay easy to follow.',
-				id: '25 efek suara sains halus dipadukan musik ambient tenang supaya penjelasan medis tetap mudah disimak.',
+				id: '25 efek suara sains halus dipadukan musik ambient tenang agar penjelasan medis tetap nyaman disimak.',
 			},
 			idealFor: {
 				en: 'HealthTech, science channels, & educational institutions',
-				id: 'HealthTech, kanal sains, & platform pendidikan daring',
+				id: 'HealthTech, kanal sains, & platform edukasi daring',
 			},
 		},
 	},
@@ -379,19 +395,19 @@ export const VIDEO_WORKS: VideoWork[] = [
 		caseStudy: {
 			hook: {
 				en: 'Uses 1980s Riso Kagaku thermal stencils and soy-ink off-registration to champion human agency in design.',
-				id: 'Mengangkat mekanika stensil Riso 1980-an dan tinta kedelai sebagai pembelaan atas sentuhan tangan manusia.',
+				id: 'Mengangkat teknik cetak stensil Riso 1980-an dan tinta kedelai untuk menunjukkan pentingnya sentuhan manusia dalam desain.',
 			},
 			storyAngle: {
 				en: 'Mirrors Kristianto’s own creative philosophy: technology assists speed, human taste and slight imperfection create soul.',
-				id: 'Mencerminkan filosofi kerja pribadi: teknologi membantu produksi, namun selera manusia menentukan jiwanya.',
+				id: 'Mencerminkan filosofi kerja pribadi: teknologi mempercepat produksi, namun selera manusia menentukan jiwanya.',
 			},
 			visualCraft: {
 				en: 'Simulated 4-plate multiply ink registration, procedural halftone dots, and tactile fiber paper texture.',
-				id: 'Simulasi cetak 4 lapisan tinta (4-plate multiply) lengkap dengan titik halftone & tekstur kertas retro nyata.',
+				id: 'Simulasi cetak 4 lapisan tinta (4-plate multiply) lengkap dengan titik halftone & tekstur serat kertas retro.',
 			},
 			audioDesign: {
 				en: '31 press mechanical & shutter SFX layered cleanly onto a warm 95 BPM lo-fi jazz organ loop with clear narration.',
-				id: '31 efek suara mesin cetak & rana kamera di atas loop jazz organ lo-fi 95 BPM dengan suara narator tetap jelas.',
+				id: '31 efek suara mesin cetak & rana kamera di atas loop jazz organ lo-fi 95 BPM dengan narasi tetap jernih.',
 			},
 			idealFor: {
 				en: 'Creative agencies, indie brands, & design thought-leadership',
@@ -410,7 +426,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 		aspectRatio: '16:9',
 		title: {
 			en: "Why AI Doesn't 'Read' Words: Mapping Meaning in 3D Space",
-			id: "Why AI Doesn't 'Read' Words: Memetakan Makna di Ruang Vektor 3D",
+			id: 'Kenapa AI Tidak "Membaca" Kata: Memetakan Makna di Ruang 3D',
 		},
 		durationSeconds: 78.7,
 		durationLabel: '01:18',
@@ -426,7 +442,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			storyAngle: {
 				en: 'Built around the insight that language models map meanings as physical directions & distances in 3D space.',
-				id: 'Mengambil sudut pandang bagaimana AI memetakan hubungan makna layaknya jarak fisik di ruang berdimensi tinggi.',
+				id: 'Mengambil sudut pandang bagaimana model bahasa memetakan makna layaknya jarak fisik di ruang berdimensi tinggi.',
 			},
 			visualCraft: {
 				en: '6,400 GPU-rendered WebGL2 particles with continuous curved camera glides (PCHIP splines) & zero hard cuts.',
@@ -434,7 +450,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			audioDesign: {
 				en: 'Minimalist crystal & bell sound effects (singing bowl, kalimba, glass chimes) balanced cleanly under ambient music and clear voiceover.',
-				id: 'Efek suara kristalin lembut (singing bowl, kalimba, resonansi kaca) berpadu di bawah musik ambient dengan suara narasi jernih.',
+				id: 'Efek suara kristalin lembut (singing bowl, kalimba, denting kaca) berpadu bersama musik ambient tenang tanpa mengganggu narasi.',
 			},
 			idealFor: {
 				en: 'AI startups, SaaS launches, & technical keynotes',
@@ -446,14 +462,14 @@ export const VIDEO_WORKS: VideoWork[] = [
 		id: '08-liquid-glass',
 		badgeNumber: '10',
 		style: 'Liquid Glass Shader',
-		styleTagline: { en: 'UI analysis & WebGL2 optical glass effect', id: 'Esai UI efek kaca optis (WebGL2)' },
+		styleTagline: { en: 'UI analysis & WebGL2 optical glass effect', id: 'Analisis UI efek kaca optis (WebGL2)' },
 		renderTech: 'WebGL2 · Optical Refraction Shader',
 		category: '3d-shader',
 		language: 'EN',
 		aspectRatio: '16:9',
 		title: {
 			en: "Apple's Liquid Glass & The 400ms UX Trap",
-			id: "Apple's Liquid Glass & The 400ms UX Trap",
+			id: 'Liquid Glass Apple & Jebakan UX 400ms',
 		},
 		durationSeconds: 72.93,
 		durationLabel: '01:12',
@@ -465,7 +481,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 		caseStudy: {
 			hook: {
 				en: 'Contrasts Apple WWDC 2025 Liquid Glass visuals against IBM 1982 research on human patience limits (400ms response threshold).',
-				id: 'Membandingkan estetika Liquid Glass Apple (WWDC 2025) dengan riset batas respons cepat IBM 1982 (400 milidetik).',
+				id: 'Membandingkan estetika Liquid Glass Apple (WWDC 2025) dengan riset batas kesabaran pengguna oleh IBM tahun 1982 (ambang 400 milidetik).',
 			},
 			storyAngle: {
 				en: 'Shows how heavy glass effects can slow down perceived responsiveness even when the UI looks gorgeous.',
@@ -508,7 +524,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 		caseStudy: {
 			hook: {
 				en: 'Unpacks 11% VAT asymmetry, ~40% avtur share, Kemenhub TBA caps, and USD aircraft leasing costs on one investigative desk.',
-				id: 'Mengurai paradoks PPN 11%, komponen avtur ~40%, batas atas TBA Kemenhub, dan sewa armada dolar dalam satu meja arsip.',
+				id: 'Mengurai paradoks PPN 11%, komponen avtur ~40%, batas atas TBA Kemenhub, dan sewa armada dalam dolar AS di atas satu meja arsip.',
 			},
 			storyAngle: {
 				en: 'Uses verified regulatory & KPPU supply-chain data so viewers see the structural mechanics behind airfare.',
@@ -520,7 +536,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			audioDesign: {
 				en: '42 real recorded SFX (ink stamps, sharpie markers, shutter clicks, paper flips) layered over ducked pizzicato strings.',
-				id: '42 Real SFX (stempel, goresan spidol, rana kamera, kertas) di atas musik pizzicato investigatif yang seimbang.',
+				id: '42 efek suara nyata (stempel, spidol, rana kamera, kertas) di atas iringan musik pizzicato bertema investigasi.',
 			},
 			idealFor: {
 				en: 'Editorial journalism, public policy, & research explainers',
@@ -554,7 +570,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			storyAngle: {
 				en: 'Distinguishes single-worker UMP vs household consumption fairly while keeping the narrative punchy and visual.',
-				id: 'Membandingkan standar UMP pekerja lajang dan konsumsi rumah tangga secara jujur lewat transisi skala grafik.',
+				id: 'Membandingkan standar UMP pekerja lajang dan konsumsi rumah tangga secara adil lewat transisi skala grafik.',
 			},
 			visualCraft: {
 				en: 'Open editorial chart choreography with fluid scale morphing and clean single-line captions without cluttered boxes.',
@@ -562,7 +578,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			audioDesign: {
 				en: '37 curated data-tick, chime, and air-swish SFX layered cleanly over a laid-back analytical electronic groove.',
-				id: '37 SFX ticker angka & transisi bersih di atas groove elektronik analitis yang menjaga fokus suara narator.',
+				id: '37 efek suara ticker angka & transisi bersih di atas musik elektronik ritmis yang menjaga kejernihan narator.',
 			},
 			idealFor: {
 				en: 'Fintech, economic reports, & SaaS analytics storytelling',
@@ -596,11 +612,11 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			storyAngle: {
 				en: 'Traces from Amazon expired US Patent 5,960,411 to modern distributed payment orchestration.',
-				id: 'Membongkar evolusi dari paten 1-Click Amazon yang telah usai ke orkestrasi pembayaran digital modern.',
+				id: 'Mengulas perjalanan dari berakhirnya paten 1-Click Amazon menuju arsitektur pembayaran digital modern.',
 			},
 			visualCraft: {
 				en: 'Crisp 30° isometric blueprint illustration style on vellum paper texture with smooth panning camera moves across 5 scenes.',
-				id: 'Gaya gambar teknik isometrik 30° di atas kanvas vellum dengan gerak kamera menggeser (pan & zoom) mulus lintas 5 adegan.',
+				id: 'Gaya gambar teknik isometrik 30° di atas kanvas vellum dengan pergerakan kamera (pan & zoom) mulus lintas 5 adegan.',
 			},
 			audioDesign: {
 				en: '29 crisp mechanical clicks, subtle pings, and ambient music bed mixed so complex payment steps feel effortless to follow.',
@@ -634,11 +650,11 @@ export const VIDEO_WORKS: VideoWork[] = [
 		caseStudy: {
 			hook: {
 				en: "Unpacks Hitchcock's visual storytelling tricks (Kuleshov Effect, 3-shot POV editing, & building empathy in Psycho) via shadow play.",
-				id: 'Membedah teknik sutradara klasik (Efek Kuleshov, pola editing 3-shot POV, & membangun empati penonton ala Hitchcock) dalam siluet.',
+				id: 'Membedah teknik penyutradaraan klasik (Efek Kuleshov, pola editing 3-shot POV, & membangun empati ala Hitchcock) dalam siluet.',
 			},
 			storyAngle: {
 				en: 'Born directly from Kristianto’s Film & TV background: proving how shot sequence alone creates viewer empathy without dialogue.',
-				id: 'Lahir langsung dari dasar kuliah Televisi & Film: membuktikan cara urutan potongan gambar memicu emosi penonton tanpa dialog.',
+				id: 'Lahir dari latar belakang kuliah Televisi & Film: membuktikan bagaimana susunan potongan gambar saja mampu membangkitkan emosi tanpa dialog.',
 			},
 			visualCraft: {
 				en: 'Multi-layered night silhouettes with atmospheric lighting gradients and clean scene dissolves without visual overlap.',
@@ -646,7 +662,7 @@ export const VIDEO_WORKS: VideoWork[] = [
 			},
 			audioDesign: {
 				en: '27 atmospheric cinema SFX (projector reel, heartbeat tension, ambient cuts) blended with cello/piano bed.',
-				id: '27 SFX sinematik (proyektor, detak jantung, jeda hening dramatis) bersama iringan string dan piano kelam.',
+				id: '27 SFX sinematik (proyektor, detak jantung, jeda hening dramatis) bersama iringan string dan piano bernuansa kelam.',
 			},
 			idealFor: {
 				en: 'Film essays, creative studios, & narrative brand films',
@@ -667,7 +683,7 @@ export const WORKFLOW_STEPS: {
 		title: { en: 'Story Hook & Fact Check', id: 'Riset Fakta & Hook Pembuka' },
 		desc: {
 			en: 'Strong 3-second opening hooks backed by verified research and real sources, zero generic filler.',
-			id: 'Hook pembuka 3 detik pertama yang kuat dengan data dan riset terverifikasi tanpa basa-basi.',
+			id: 'Hook pembuka 3 detik pertama yang kuat, berlandaskan riset dan sumber terverifikasi tanpa basa-basi.',
 		},
 		tag: { en: 'Film & TV', id: 'Film & TV' },
 	},
@@ -684,8 +700,8 @@ export const WORKFLOW_STEPS: {
 		step: '03',
 		title: { en: 'Code-Driven Motion (Video-as-Code)', id: 'Animasi Berbasis Kode (Video-as-Code)' },
 		desc: {
-			en: 'Creating custom charts, illustrations, and kinetic visuals in code (Remotion, Canvas 2D, Three.js) for crisp, non-template quality.',
-			id: 'Membangun grafik, ilustrasi, & gerakan presisi pakai kode (Remotion, Canvas 2D, Three.js) agar tidak terlihat seperti template pasaran.',
+			en: 'Building custom charts, illustrations, and kinetic visuals in code (Remotion, Canvas 2D, Three.js) for crisp, non-template quality.',
+			id: 'Membangun grafik, ilustrasi, dan animasi presisi menggunakan kode (Remotion, Canvas 2D, Three.js) agar tidak terlihat seperti template pasaran.',
 		},
 		tag: { en: 'Video-as-Code', id: 'Video-as-Code' },
 	},
@@ -694,7 +710,7 @@ export const WORKFLOW_STEPS: {
 		title: { en: 'Editing & Sound Mix', id: 'Editing Akhir & Tata Suara' },
 		desc: {
 			en: 'Hands-on assembly in Premiere Pro, After Effects, or CapCut with safe captions, real sound effects (SFX / foley), and clean narration audio.',
-			id: 'Perakitan akhir di Premiere Pro, After Effects, atau CapCut dengan subtitle rapi, efek suara nyata (SFX / foley), & narasi jernih.',
+			id: 'Penyelesaian akhir di Premiere Pro, After Effects, atau CapCut dengan subtitle rapi, efek suara nyata (SFX / foley), dan narasi jernih.',
 		},
 		tag: { en: 'Final Mix', id: 'Final Mix' },
 	},
@@ -737,20 +753,20 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 		accentColor: '#FD6141',
 		title: {
 			en: 'Short-Form Content (High Retention)',
-			id: 'Short-Form Content (Retensi Tinggi)',
+			id: 'Video Short-Form (Retensi Tinggi)',
 		},
 		format: {
 			en: '9:16 Vertical · TikTok / Reels / Shorts',
 			id: '9:16 Vertikal · TikTok / Reels / Shorts',
 		},
 		summary: {
-			en: 'Fast-paced vertical videos designed to catch attention early and keep viewers watching until the end.',
-			id: 'Video vertikal singkat dengan ritme padat supaya penonton langsung tertarik dan betah nonton sampai habis.',
+			en: 'Fast-paced vertical videos designed to capture attention immediately and keep viewers watching until the end.',
+			id: 'Video vertikal berdurasi singkat dengan ritme padat agar penonton langsung tertarik dan menonton hingga tuntas.',
 		},
 		deliverables: [
-			{ en: 'Strong opening hook & structured pacing', id: 'Pembuka kuat & tempo padat tidak bertele-tele' },
-			{ en: 'Free choice of visual style & voiceover (EN/ID)', id: 'Bebas pilih gaya visual & pengisi suara (ID/EN)' },
-			{ en: 'Clean subtitles safe for app UI + crisp SFX', id: 'Teks layar/subtitle rapi & efek suara tajam' },
+			{ en: 'Strong opening hook & structured pacing', id: 'Hook pembuka kuat dengan ritme padat dan tepat sasaran' },
+			{ en: 'Free choice of visual style & voiceover (EN/ID)', id: 'Bebas memilih gaya visual & pengisi suara (ID/EN)' },
+			{ en: 'Clean subtitles in app-safe zones + crisp SFX', id: 'Subtitle rapi di area aman aplikasi + efek suara tajam' },
 		],
 	},
 	{
@@ -766,16 +782,16 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 		},
 		format: {
 			en: 'Vertical (9:16) or Horizontal (16:9)',
-			id: 'Bisa Vertikal (9:16) atau Horizontal (16:9)',
+			id: 'Vertikal (9:16) atau Horizontal (16:9)',
 		},
 		summary: {
-			en: 'Clear promotional videos showing your product or service benefits visually, ready for social ads, marketplace, or website.',
-			id: 'Video promosi yang menampilkan keunggulan produk atau usahamu secara visual, cocok untuk iklan sosmed maupun dipasang di website.',
+			en: 'Clear promotional videos showing your product or service benefits visually, ready for social ads, marketplaces, or websites.',
+			id: 'Video promosi yang menonjolkan keunggulan produk atau bisnismu secara visual, siap untuk iklan media sosial maupun disematkan di website.',
 		},
 		deliverables: [
 			{ en: 'Choose vertical (Reels/Ads) or horizontal (Web/Presentation)', id: 'Bebas pilih format vertikal (iklan/sosmed) atau horizontal (web/presentasi)' },
-			{ en: 'Clear visual showcase of benefits & call-to-action', id: 'Menjelaskan fungsi & nilai jual produk secara menarik' },
-			{ en: 'Request any animation style & preferred voice', id: 'Bebas request gaya visual & pilihan suara narator' },
+			{ en: 'Clear visual showcase of benefits & call-to-action', id: 'Menjelaskan keunggulan & nilai jual produk secara menarik' },
+			{ en: 'Request any visual style & preferred narrator voice', id: 'Gaya visual & pilihan suara narator menyesuaikan kebutuhan brand' },
 		],
 	},
 	{
@@ -787,7 +803,7 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 		accentColor: '#5CE62E',
 		title: {
 			en: 'Long-Form Video (YouTube & Storytelling)',
-			id: 'Long-Form Video (YouTube & Edukasi)',
+			id: 'Video Durasi Panjang (YouTube & Edukasi)',
 		},
 		format: {
 			en: '16:9 Widescreen · Full-Length Format',
@@ -795,12 +811,12 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 		},
 		summary: {
 			en: 'In-depth YouTube videos, explainers, tutorials, or brand stories edited cleanly with structured pacing so viewers stay hooked.',
-			id: 'Video YouTube durasi panjang, konten edukasi, esai visual, atau storytelling brand yang dirangkai rapi agar enak diikuti sampai selesai.',
+			id: 'Video YouTube durasi panjang, konten edukasi, esai visual, atau storytelling brand yang disusun rapi agar nyaman ditonton hingga akhir.',
 		},
 		deliverables: [
 			{ en: 'Smooth storytelling flow from intro to finale', id: 'Alur cerita tersusun rapi dari pembuka hingga penutup' },
 			{ en: 'Custom explanatory graphics & illustrations matching topic', id: 'Visual penjelas & animasi menyesuaikan tema video' },
-			{ en: 'Clear narration mix, music bed & subtle sound effects', id: 'Audio vokal jernih berpadu musik latar & SFX nyaman' },
+			{ en: 'Clear narration mix, music bed & balanced sound effects', id: 'Keseimbangan audio vokal yang jernih dengan musik latar & SFX' },
 		],
 	},
 	{
@@ -812,20 +828,20 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 		accentColor: '#FFD426',
 		title: {
 			en: 'Custom Video Request',
-			id: 'Custom Request Format Video',
+			id: 'Video Kustom / Konsep Khusus',
 		},
 		format: {
 			en: 'Your Own Concept · Any Format & Length',
-			id: 'Format, Durasi & Gaya Bebas Sesuai Maumu',
+			id: 'Format, Durasi & Gaya Sesuai Kebutuhanmu',
 		},
 		summary: {
 			en: 'Have another video format or reference in mind? Just explain what you want, and we will tailor the style, pacing, and voice around your brief.',
-			id: 'Punya ide atau format video lain di luar daftar? Jelaskan saja kebutuhanmu dan kirim contoh referensinya, nanti kita bahas & kerjakan bersama.',
+			id: 'Punya ide atau format video lain di luar daftar di atas? Ceritakan kebutuhanmu beserta contoh referensinya agar kita wujudkan bersama.',
 		},
 		deliverables: [
-			{ en: 'Just explain your idea with no rigid package limits', id: 'Ceritakan saja konsepnya tanpa terpaku format kaku' },
-			{ en: 'Flexible aspect ratio, duration & editing approach', id: 'Ukuran layar, durasi & gaya editing menyesuaikan brief' },
-			{ en: 'Pick any voiceover style, language, or supply your own audio', id: 'Bebas tentukan pengisi suara, bahasa, atau pakai suaramu sendiri' },
+			{ en: 'Share your concept with no rigid package limits', id: 'Ceritakan konsepnya secara bebas tanpa terpaku format kaku' },
+			{ en: 'Flexible aspect ratio, duration & editing approach', id: 'Rasio layar, durasi & gaya editing menyesuaikan brief' },
+			{ en: 'Pick any voiceover style, language, or supply your own audio', id: 'Bebas memilih bahasa, karakter suara, atau memakai rekaman suaramu sendiri' },
 		],
 	},
 ];
@@ -844,16 +860,16 @@ export const WEBSITE_VIDEO_BUNDLE_PROMO: ServicePackage = {
 	},
 	format: {
 		en: 'Pair Any Website Below With 1 Custom Promo Video',
-		id: 'Pasangkan Website Apa Saja di Bawah + 1 Video Promo Khusus',
+		id: 'Padukan Paket Website Apa Saja + 1 Video Promo Kustom',
 	},
 	summary: {
 		en: 'Need a matching Promo Video embedded cleanly on your new website and ready to post on social media? Activate the "+ Add-On Video Promo" switch right inside any website card below.',
-		id: 'Butuh Video Promo yang desainnya serasi sekaligus langsung terpasang rapi di websitemu (dan siap posting sosmed)? Aktifkan opsi "+ Add-On Video Promo" tepat di kartu website pilihanmu di bawah.',
+		id: 'Butuh Video Promo yang desainnya selaras dengan website sekaligus siap diunggah ke media sosial? Aktifkan tombol "+ Add-On Video Promo" pada kartu layanan website pilihanmu di bawah.',
 	},
 	deliverables: [
-		{ en: 'Works with Landing Page, Compro, Portfolio, Microsite, or Custom Web', id: 'Bebas dipadukan dengan Landing Page, Compro, Portofolio, Microsite, atau Custom' },
-		{ en: 'Includes 1 custom Promo Video (9:16 or 16:9, style & voice free)', id: 'Termasuk 1 Video Promo custom (9:16 atau 16:9, bebas pilih gaya & suara)' },
-		{ en: 'Cohesive colors & branding shared across site and video', id: 'Warna & visual website dibuat menyatu senada dengan videonya' },
+		{ en: 'Works with Landing Page, Compro, Portfolio, Microsite, or Custom Web', id: 'Dapat dipadukan dengan Landing Page, Compro, Portofolio, Microsite, atau Kustom' },
+		{ en: 'Includes 1 custom Promo Video (9:16 or 16:9, style & voice free)', id: 'Termasuk 1 Video Promo kustom (9:16 atau 16:9, bebas pilih gaya & suara)' },
+		{ en: 'Cohesive colors & branding shared across site and video', id: 'Identitas warna dan visual website dibuat serasi dengan videonya' },
 	],
 };
 
@@ -876,12 +892,12 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		},
 		summary: {
 			en: 'A focused single-page website built to present one offer, product, or event clearly and convert visitors into inquiries.',
-			id: 'Website satu halaman yang dirancang rapi untuk mempromosikan satu produk, promo, atau jasa agar pengunjung langsung klik hubungi/order.',
+			id: 'Website satu halaman yang dirancang terfokus untuk memperkenalkan satu produk, penawaran, atau acara agar pengunjung lebih mudah menghubungi atau memesan.',
 		},
 		deliverables: [
-			{ en: 'Clear offer structure & direct WhatsApp/form buttons', id: 'Susunan halaman fokus jualan + tombol WhatsApp/formulir' },
-			{ en: 'Clean responsive display on phones & desktops', id: 'Tampilan rapi dan nyaman dibuka dari HP maupun laptop' },
-			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Bisa ditambah Add-On Video Promo di tombol bawah' },
+			{ en: 'Clear offer structure & direct WhatsApp/form buttons', id: 'Struktur penawaran jelas + tombol WhatsApp & formulir langsung' },
+			{ en: 'Clean responsive display on phones & desktops', id: 'Tampilan responsif dan rapi di ponsel maupun desktop' },
+			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Tersedia tombol Add-On Video Promo di bawah' },
 		],
 	},
 	{
@@ -894,7 +910,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		supportsVideoAddon: true,
 		title: {
 			en: 'Company Profile Website',
-			id: 'Company Profile Website',
+			id: 'Website Company Profile',
 		},
 		format: {
 			en: 'Official Website for Business / Studio / Agency',
@@ -907,7 +923,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		deliverables: [
 			{ en: 'Complete About, Services, Gallery & Contact sections', id: 'Halaman Profil, Layanan, Galeri/Klien & Kontak lengkap' },
 			{ en: 'Custom color palette & layout matching your brand identity', id: 'Desain menyesuaikan logo, warna, & karakter usahamu' },
-			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Bisa ditambah Add-On Video Promo profil usaha' },
+			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Tersedia tombol Add-On Video Promo profil usaha' },
 		],
 	},
 	{
@@ -924,16 +940,16 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		},
 		format: {
 			en: 'Creator / Freelancer / Personal Career Site',
-			id: 'Web Pameran Karya, Profil Diri, & CV Online',
+			id: 'Website Portofolio, Profil Pribadi, & CV Online',
 		},
 		summary: {
 			en: 'Personal showcase website built to display your best works, skills, and experience cleanly so clients or recruiters notice you.',
-			id: 'Website pribadi untuk memajang kumpulan karya terbaik, riwayat pengalaman, dan keahlianmu secara rapi agar menarik klien atau HRD.',
+			id: 'Website pribadi untuk menampilkan kumpulan karya terbaik, riwayat pengalaman, dan keahlianmu secara rapi agar memikat klien maupun rekruter.',
 		},
 		deliverables: [
 			{ en: 'Clean project showcase with image/video preview modal', id: 'Galeri karya rapi lengkap dengan pratinjau foto/video' },
 			{ en: 'Personal bio, work history & easy contact links', id: 'Profil singkat, pengalaman kerja, & tautan kontak langsung' },
-			{ en: 'Optional: Toggle Add-On Showreel / Intro Video', id: 'Opsional: Bisa ditambah Add-On Video Perkenalan / Showreel' },
+			{ en: 'Optional: Toggle Add-On Showreel / Intro Video', id: 'Opsional: Tersedia Add-On Video Perkenalan / Showreel' },
 		],
 	},
 	{
@@ -946,7 +962,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		supportsVideoAddon: true,
 		title: {
 			en: 'Interactive Microsite / Brand Showcase',
-			id: 'Interactive Microsite / Brand Showcase',
+			id: 'Microsite Interaktif / Showcase Brand',
 		},
 		format: {
 			en: 'Custom Animated & Interactive Web Experience',
@@ -954,12 +970,12 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		},
 		summary: {
 			en: 'A standout interactive website (similar to this portfolio!) with playful animations and clickable elements that make your brand memorable.',
-			id: 'Website spesial yang penuh animasi seru dan elemen interaktif untuk diklik pengunjung (seperti web ini) supaya produk/brandmu membekas di ingatan.',
+			id: 'Website unik dengan animasi halus dan elemen interaktif yang bisa dijelajahi langsung (seperti situs ini) agar karakter brand-mu lebih berkesan.',
 		},
 		deliverables: [
 			{ en: 'Custom interactive UI, motion & optional sound accents', id: 'Elemen interaktif unik, animasi mulus, & efek suara opsional' },
 			{ en: 'Original personality far beyond generic templates', id: 'Tampilan berkarakter dan berbeda dari template umum' },
-			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Bisa ditambah Add-On Video Promo dengan gaya senada' },
+			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Tersedia Add-On Video Promo dengan gaya senada' },
 		],
 	},
 	{
@@ -972,20 +988,20 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		supportsVideoAddon: true,
 		title: {
 			en: 'Custom Website Request',
-			id: 'Custom Request Website',
+			id: 'Website Kustom / Konsep Khusus',
 		},
 		format: {
 			en: 'Your Own Request · Flexible Pages & Features',
 			id: 'Konsep, Halaman & Fitur Bebas Sesuai Kebutuhan',
 		},
 		summary: {
-			en: 'Need a website format not listed here or have specific features in mind? Just explain your goals and we will build it around your brief.',
-			id: 'Butuh website dengan konsep, jumlah halaman, atau fitur khusus lain? Ceritakan saja maumu, nanti kita rancang dari nol sesuai brief.',
+			en: 'Need a website format not listed here or have specific features in mind? Share your goals and I will build it specifically around your brief.',
+			id: 'Butuh website dengan konsep, jumlah halaman, atau fitur khusus lainnya? Sampaikan kebutuhanmu agar dapat saya rancang langsung sesuai brief.',
 		},
 		deliverables: [
-			{ en: 'Just explain what your website needs to do', id: 'Cukup ceritakan tujuan & fitur website yang kamu butuhkan' },
-			{ en: 'Custom layout, fast performance & mobile friendly', id: 'Desain custom, ringan diakses, & rapi di semua ukuran layar' },
-			{ en: 'Available as Website-only or with Video Promo add-on', id: 'Bisa pesan Website saja atau aktifkan Add-On Video Promo' },
+			{ en: 'Just explain what your website needs to accomplish', id: 'Cukup ceritakan tujuan & fitur website yang kamu butuhkan' },
+			{ en: 'Custom layout, fast performance & mobile friendly', id: 'Desain kustom, ringan diakses, & rapi di semua ukuran layar' },
+			{ en: 'Available as Website-only or with Video Promo add-on', id: 'Tersedia paket Website saja atau dengan Add-On Video Promo' },
 		],
 	},
 ];
@@ -1051,15 +1067,15 @@ export const EXPERIENCE_CARDS: ExperienceItem[] = [
 		responsibilities: [
 			{
 				en: 'Studied montage rhythm, visual framing, cinematography, and multi-draft scripting.',
-				id: 'Mendalami ritme montase, sinematografi, dan penulisan naskah lintas draf.',
+				id: 'Mendalami teknik montase, framing sinematografi, dan penulisan skenario film.',
 			},
 			{
 				en: 'On-set credits: Screenwriter ("95% Chance to Live") & VT Operator ("HALTE +62").',
-				id: 'Kredit produksi nyata: Penulis ("95% Chance to Live") & VT Operator ("HALTE +62").',
+				id: 'Kredit produksi nyata: Penulis Naskah ("95% Chance to Live") & VT Operator ("HALTE +62").',
 			},
 			{
 				en: 'Built interactive WebGL, Canvas 2D, and React motion graphics tools.',
-				id: 'Mengembangkan grafis gerak interaktif memakai WebGL, Canvas 2D, & React.',
+				id: 'Mengembangkan animasi grafis (motion graphics) memakai WebGL, Canvas 2D, & React.',
 			},
 		],
 	},
@@ -1083,12 +1099,12 @@ export const EXPERIENCE_CARDS: ExperienceItem[] = [
 				id: 'Memverifikasi kelengkapan dokumen arsip pada proyek digitalisasi ATR/BPN Kota Jambi.',
 			},
 			{
-				en: 'Reconciled physical records with central database with zero duplication.',
-				id: 'Rekonsiliasi data fisik dan database dengan akurasi 100% tanpa duplikasi.',
+				en: 'Reconciled physical records against the central database with zero duplication.',
+				id: 'Rekonsiliasi data fisik dan database pusat dengan akurasi 100% tanpa duplikasi.',
 			},
 			{
-				en: 'Delivered daily logs and resolved anomalies directly with the project manager.',
-				id: 'Menyusun laporan progres harian & perbaikan data langsung dengan manajer proyek.',
+				en: 'Delivered daily progress reports and resolved data anomalies directly with the project manager.',
+				id: 'Menyusun laporan progres harian serta menyelesaikan temuan anomali data langsung bersama manajer proyek.',
 			},
 		],
 	},
@@ -1111,7 +1127,7 @@ export const FILM_CREDITS: FilmCreditItem[] = [
 		role: { en: 'Supporting Talent · Official Music Video (AFE Pictures)', id: 'Talent Pendukung · Video Musik Resmi (AFE Pictures)' },
 		desc: {
 			en: 'Stepped in front of the camera for Sigit Wardana’s commercial MV at Hotel Oria Jakarta, sharpening on-set camera blocking & shot continuity.',
-			id: 'Tampil di depan kamera pada produksi MV resmi Sigit Wardana di Hotel Oria Jakarta, melatih kepekaan tata letak kamera (blocking) & kesinambungan gambar saat edit.',
+			id: 'Tampil di depan kamera pada produksi MV resmi Sigit Wardana di Hotel Oria Jakarta, melatih kepekaan blocking kamera & kesinambungan gambar saat editing.',
 		},
 		url: 'https://www.youtube.com/watch?v=NVlzmhpmyWY',
 		thumbPath: '/images/me/studio/credit-luka-tak-berdarah.webp',
@@ -1123,7 +1139,7 @@ export const FILM_CREDITS: FilmCreditItem[] = [
 		role: { en: 'Screenwriter · Short Film (Drama / Thriller)', id: 'Penulis Naskah · Film Pendek (Drama / Thriller)' },
 		desc: {
 			en: 'Six-draft narrative exploring the psychological tension of a bank employee trapped inside a vault.',
-			id: 'Naskah film pendek yang dikembangkan dalam 6 draf mengenai tekanan psikologis pegawai bank yang terjebak di gudang.',
+			id: 'Naskah film pendek yang dikembangkan dalam 6 draf mengenai tekanan psikologis seorang pegawai bank yang terjebak di ruang brankas.',
 		},
 		url: 'https://bit.ly/4lstKmC',
 		thumbPath: '/images/me/studio/credit-95-chance-poster.webp',
@@ -1276,11 +1292,11 @@ export const WEB_PROJECTS: WebProject[] = [
 		name: 'IGNITER',
 		subtitle: {
 			en: 'Startup Pitching & Collaboration Platform',
-			id: 'Platform Pitch Startup & Kolaborasi',
+			id: 'Platform Pitching Startup & Kolaborasi',
 		},
 		description: {
 			en: 'Startup pitching platform with Next.js 15, Tailwind CSS, GitHub OAuth, and Sanity CMS curation.',
-			id: 'Platform pitch startup berbasis Next.js 15, Tailwind CSS, login GitHub, dan Sanity CMS.',
+			id: 'Platform pitching startup berbasis Next.js 15, Tailwind CSS, login GitHub, dan Sanity CMS.',
 		},
 		imagePath: '/images/me/project-1.png',
 		url: 'https://igniter-theta.vercel.app/',
@@ -1295,7 +1311,7 @@ export const WEB_PROJECTS: WebProject[] = [
 		},
 		description: {
 			en: 'This very website: built with tactile retro styling, interactive canvas patch cords, custom Web Audio SFX, bilingual switching, and a 14-work video player.',
-			id: 'Website yang sedang kamu buka ini: dibuat dengan kabel interaktif di hero, lab suara Web Audio, ganti bahasa EN/ID, serta pemutar 14 karya video.',
+			id: 'Website yang sedang kamu kunjungi ini: dilengkapi kabel interaktif di bagian atas, lab suara Web Audio, sakelar dwibahasa EN/ID, serta pemutar 14 karya video.',
 		},
 		imagePath: '',
 		customArtwork: 'portfolio-site',
@@ -1312,7 +1328,7 @@ export const WEB_PROJECTS: WebProject[] = [
 		},
 		description: {
 			en: 'Mobile movie browser built with Expo, React Native, NativeWind, and Appwrite trending analytics.',
-			id: 'Aplikasi film seluler memakai Expo, React Native, NativeWind, dan analitik tren Appwrite.',
+			id: 'Aplikasi eksplorasi film mobile berbasis Expo, React Native, NativeWind, dan analitik tren Appwrite.',
 		},
 		imagePath: '/images/me/project-2.jpg',
 		tags: ['React Native', 'Expo', 'TypeScript', 'Appwrite'],
@@ -1375,7 +1391,7 @@ export const WEB_TECH_STACK: { name: string; sub: LocalizedText; logoKey: StackL
 	},
 	{
 		name: 'TypeScript',
-		sub: { en: 'Type-Safe JavaScript', id: 'JavaScript Aman Tipe Data' },
+		sub: { en: 'Type-Safe JavaScript', id: 'JavaScript dengan Type-Safety' },
 		logoKey: 'typescript',
 	},
 	{
@@ -1405,7 +1421,7 @@ export const WEB_TECH_STACK: { name: string; sub: LocalizedText; logoKey: StackL
 	},
 	{
 		name: 'Python',
-		sub: { en: 'Automation & Scripting', id: 'Otomasi & Pembuatan Skrip' },
+		sub: { en: 'Automation & Scripting', id: 'Otomasi & Skrip' },
 		logoKey: 'python',
 	},
 	{

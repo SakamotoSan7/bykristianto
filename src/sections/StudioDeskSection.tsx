@@ -38,7 +38,7 @@ const CORE_STRENGTHS: StrengthItem[] = [
 		},
 		desc: {
 			en: 'B.A. in Television & Film (Cum Laude, GPA 3.76). Trained in narrative pacing, visual framing, scripting, and clean audio mixing.',
-			id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76). Terbiasa menjaga alur cerita, ritme editing, komposisi gambar, dan tata suara jernih.',
+			id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76). Terlatih menjaga struktur cerita, ritme editing, komposisi gambar, dan tata suara yang jernih.',
 		},
 	},
 	{
@@ -50,8 +50,8 @@ const CORE_STRENGTHS: StrengthItem[] = [
 			id: 'Editing Video & Animasi Berbasis Kode',
 		},
 		desc: {
-			en: 'Combines hands-on editing (Premiere Pro, After Effects, CapCut) with Video-as-Code motion (React & Canvas) for tailored, sharp visuals.',
-			id: 'Menggabungkan editing konvensional (Premiere Pro, After Effects, CapCut) bersama pendekatan Video-as-Code (React & Canvas) agar visual tajam dan fleksibel.',
+			en: 'Combines timeline editing (Premiere Pro, After Effects, CapCut) with Video-as-Code animation (React & Canvas) for sharp, bespoke visuals.',
+			id: 'Memadukan editing timeline (Premiere Pro, After Effects, CapCut) dengan pendekatan Video-as-Code (React & Canvas) untuk menghasilkan visual yang tajam dan presisi.',
 		},
 	},
 	{
@@ -63,8 +63,8 @@ const CORE_STRENGTHS: StrengthItem[] = [
 			id: 'Produksi Video Sekaligus Website',
 		},
 		desc: {
-			en: 'Beyond vertical (9:16) and horizontal (16:9) video edits, I also build responsive landing pages, company profiles, portfolios, and microsites.',
-			id: 'Selain menggarap video vertikal (9:16) dan horizontal (16:9), saya juga membangun website landing page, company profile, portofolio, hingga microsite.',
+			en: 'Beyond vertical (9:16) and horizontal (16:9) video edits, I also design responsive landing pages, company profiles, portfolios, and microsites.',
+			id: 'Selain memproduksi video vertikal (9:16) dan horizontal (16:9), saya juga merancang website landing page, company profile, portofolio, hingga microsite.',
 		},
 	},
 ];
@@ -94,17 +94,17 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 				},
 			},
 			{
-				title: { en: 'Free Visual Style & Voice Choice', id: 'Bebas Pilih Style Visual & Voiceover' },
+				title: { en: 'Free Visual Style & Voice Choice', id: 'Bebas Pilih Gaya Visual & Narator' },
 				desc: {
-					en: 'Pick a visual direction from the portfolio or request your own voiceover language and tone (EN/ID).',
-					id: 'Bebas pilih gaya visual dari portofolio serta tipe suara/bahasa narasi (ID/EN), atau pakai rekaman suara sendiri.',
+					en: 'Pick a visual direction from the portfolio and specify your voiceover language and tone (EN/ID), or provide your own recording.',
+					id: 'Bebas memilih gaya visual dari portofolio beserta karakter suara narator (ID/EN), atau menggunakan rekaman suaramu sendiri.',
 				},
 			},
 			{
-				title: { en: 'Scope Agreed Around Your Brief', id: 'Hasil Akhir Mengikuti Brief Proyek' },
+				title: { en: 'Scope Tailored to Your Brief', id: 'Hasil Akhir Mengikuti Brief Proyek' },
 				desc: {
-					en: 'Duration, revision stages, thumbnails, or subtitle files depend on what your specific video needs.',
-					id: 'Durasi, tahap revisi, thumbnail, atau subtitle disesuaikan dengan kebutuhan nyata proyekmu.',
+					en: 'Duration, revision rounds, thumbnails, and subtitle files are adjusted to match your exact video goals.',
+					id: 'Durasi, tahap revisi, thumbnail, maupun file subtitle disesuaikan langsung dengan kebutuhan proyekmu.',
 				},
 			},
 		],
@@ -119,32 +119,32 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 	},
 	{
 		id: 'website',
-		tabLabel: { en: 'Build a Website', id: 'Bikin Website' },
-		badge: { en: 'LANDING · PROFILE · CUSTOM', id: 'LANDING · PROFILE · CUSTOM' },
+		tabLabel: { en: 'Build a Website', id: 'Buat Website' },
+		badge: { en: 'LANDING · PROFILE · CUSTOM', id: 'LANDING · PROFIL · KUSTOM' },
 		headline: {
 			en: 'Fast, responsive websites tailored to your brand',
-			id: 'Website cepat, rapi di HP, dan disesuaikan dengan brand-mu',
+			id: 'Website cepat, responsif, dan selaras dengan brand-mu',
 		},
 		points: [
 			{
-				title: { en: 'Clear General Website Types', id: 'Pilihan Jenis Website yang Jelas' },
+				title: { en: 'Clear Website Options', id: 'Pilihan Jenis Website yang Jelas' },
 				desc: {
-					en: 'Landing pages, company profiles, personal portfolios, interactive showcases, or custom ideas.',
-					id: 'Tersedia landing page, company profile, website portofolio, showcase interaktif, atau konsep custom.',
+					en: 'Landing pages, company profiles, personal portfolios, interactive showcases, or custom concepts.',
+					id: 'Tersedia landing page, company profile, website portofolio, showcase interaktif, maupun konsep kustom.',
 				},
 			},
 			{
-				title: { en: 'Custom Visuals & Mobile Friendly', id: 'Tampilan Rapi di HP & Desktop' },
+				title: { en: 'Responsive Layouts for Mobile & Desktop', id: 'Tampilan Rapi di HP & Desktop' },
 				desc: {
-					en: 'Structured layouts that load smoothly on phones and desktops without clunky generic bloat.',
-					id: 'Struktur halaman jelas, ringan dibuka, dan nyaman dipakai pengunjung lewat HP maupun laptop.',
+					en: 'Structured layouts that load smoothly across phones and desktops without clunky generic bloat.',
+					id: 'Struktur halaman jelas, ringan dibuka, dan nyaman diakses pengunjung melalui ponsel maupun laptop.',
 				},
 			},
 			{
-				title: { en: 'Optional Video Promo Add-On', id: 'Bisa Tambah Add-On Video Promo' },
+				title: { en: 'Optional Video Promo Add-On', id: 'Opsional: Tambah Video Promo' },
 				desc: {
-					en: 'Need a launch video or vertical ad clip embedded seamlessly into your site? We can build both together.',
-					id: 'Butuh video utama di halaman web atau klip iklan peluncuran? Bisa sekalian digarap agar visualnya selaras.',
+					en: 'Need a launch video or vertical ad clip embedded cleanly into your site? Both can be produced together.',
+					id: 'Butuh video utama di halaman web atau video peluncuran produk? Keduanya dapat diproduksi sekaligus agar visualnya serasi.',
 				},
 			},
 		],
@@ -163,28 +163,28 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 		badge: { en: 'EDITOR · CREATIVE TECH', id: 'EDITOR · CREATIVE TECH' },
 		headline: {
 			en: 'Hiring for a studio, agency, or in-house creative team?',
-			id: 'Mencari Video Editor, Motion Creator, atau Creative Technologist?',
+			id: 'Sedang mencari Video Editor, Motion Creator, atau Creative Technologist?',
 		},
 		points: [
 			{
 				title: { en: 'Commercial & Broadcast Experience', id: 'Pengalaman Produksi Komersial & TV' },
 				desc: {
 					en: 'Interned as a Video Editor at AFE Records (music video post-production, TV rough cuts, podcasts, and Reels).',
-					id: 'Magang Video Editor di PT Afe Perkasa Abadi (AFE Records): menangani MV, rough cut acara TV, podcast, dan Reels.',
+					id: 'Pengalaman magang Video Editor di PT Afe Perkasa Abadi (AFE Records): menangani MV, rough cut program TV, podcast, dan Reels.',
 				},
 			},
 			{
-				title: { en: 'End-to-End Script to Final Video', id: 'Terbiasa dari Naskah hingga Video Final' },
+				title: { en: 'End-to-End Script to Final Cut', id: 'Terbiasa dari Naskah hingga Video Final' },
 				desc: {
-					en: 'On-set production credits (scriptwriting, live broadcast video playback / VT operator) plus 100% accuracy data auditing at PT ISH.',
-					id: 'Kredit penulisan naskah & operator tayangan video siaran (VT playback), ditambah disiplin akurasi data di proyek PT ISH.',
+					en: 'On-set production credits (screenwriting, live broadcast video playback / VT operator) plus 100% accuracy data auditing at PT ISH.',
+					id: 'Memiliki kredit penulisan naskah serta operator tayangan video siaran (VT playback), didukung disiplin akurasi data 100% di proyek PT ISH.',
 				},
 			},
 			{
 				title: { en: 'Added Frontend Web Capability', id: 'Nilai Tambah Membangun Halaman Web' },
 				desc: {
-					en: 'Useful for teams wanting an editor who can also ship campaign microsites, interactive showcases, or web prototypes.',
-					id: 'Membantu tim kreatif yang membutuhkan editor sekaligus mampu membangun landing page atau aset web interaktif.',
+					en: 'Great fit for creative teams seeking an editor who can also ship campaign microsites, interactive showcases, or web prototypes.',
+					id: 'Nilai plus bagi tim kreatif yang membutuhkan editor video sekaligus mampu membangun landing page atau halaman web interaktif.',
 				},
 			},
 		],
@@ -270,7 +270,7 @@ const StudioDeskSection = () => {
 							<div className='flex items-center gap-2 min-w-0'>
 								<span className='size-3 rounded-full bg-[#FFD426] border-2 border-[#050505] shrink-0' />
 								<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
-									{t({ en: 'HOW CAN WE COLLABORATE?', id: 'MAU CARI APA DI SINI?' })}
+									{t({ en: 'HOW CAN WE COLLABORATE?', id: 'PANDUAN KOLABORASI' })}
 								</span>
 							</div>
 

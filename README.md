@@ -1,8 +1,8 @@
-# Kristianto — Film Craft + Code Portfolio
+# Kristianto · Film Craft + Code Portfolio
 
 Live site: [https://bykristianto.my.id](https://bykristianto.my.id)
 
-Interactive portfolio for **Kristianto, S.Sn** — Television & Film graduate (`Cum Laude`), Video Editor, Motion Explainer Producer, and Creative Web Builder. Built with tactile *ligne-claire* / Retro OS styling, live interactive physics & audio labs, bilingual **EN / ID** support, and a 14-work video screening room.
+Interactive portfolio for **Kristianto, S.Sn** · Television & Film graduate (`Cum Laude`), Video Editor, Motion Explainer Producer, and Creative Web Builder. Built with tactile *ligne-claire* / Retro OS styling, live interactive physics & audio labs, bilingual **EN / ID** support, and a 14-work video screening room.
 
 ---
 
@@ -63,4 +63,5 @@ npm run build
 
 - **Email:** kristianto.too@gmail.com
 - **LinkedIn:** [Kristianto](https://www.linkedin.com/in/kristianto-9117)
+- **Instagram:** [@kristianto.too](https://www.instagram.com/kristianto.too/)
 - **GitHub:** [SakamotoSan7](https://github.com/SakamotoSan7)

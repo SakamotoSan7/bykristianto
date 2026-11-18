@@ -56,8 +56,8 @@ const WORKS_DROPDOWN_ITEMS: WorksDropdownItem[] = [
 			id: 'Keahlian & Panduan Klien',
 		},
 		subtitle: {
-			en: 'Editing, Motion Code, Audio & Project Fit',
-			id: 'Editing, Animasi Kode, Audio & Kecocokan Proyek',
+			en: 'Editing, Motion Code, Audio & Collaboration',
+			id: 'Editing, Animasi Kode, Audio & Alur Kolaborasi',
 		},
 		hoverBg: 'hover:bg-[#EBFCE3]',
 	},
@@ -72,8 +72,8 @@ const WORKS_DROPDOWN_ITEMS: WorksDropdownItem[] = [
 			id: 'Lab Interaktif & Mini Game',
 		},
 		subtitle: {
-			en: 'Pick a mode below to jump right in:',
-			id: 'Langsung pilih mode yang ingin dibuka:',
+			en: 'Choose a mode below to try it out:',
+			id: 'Pilih mode interaktif yang ingin dibuka:',
 		},
 		hoverBg: 'hover:bg-[#E7F4FD]',
 		isInteractive: true,
@@ -96,16 +96,16 @@ const BGM_BUTTON_STATE: Record<
 		label: 'BGM',
 		buttonClass: 'bg-[#5CE62E] text-[#050505] hover:bg-[#49D41D]',
 		title: {
-			en: 'Music: Normal · click for soft quiet mode',
-			id: 'Musik: Normal · klik untuk suara kecil',
+			en: 'Music: Normal · click for low volume',
+			id: 'Musik: Normal · klik untuk mode pelan',
 		},
 	},
 	low: {
 		label: 'LOW',
 		buttonClass: 'bg-[#B4DD7F] text-[#050505] hover:bg-[#A2CF6B]',
 		title: {
-			en: 'Music: Quiet · click to turn off',
-			id: 'Musik: Kecil · klik untuk matikan',
+			en: 'Music: Quiet · click to mute',
+			id: 'Musik: Pelan · klik untuk matikan',
 		},
 	},
 	off: {
@@ -223,7 +223,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 					>
 						<button
 							type='button'
-							data-sfx='paper'
+							data-sfx='nav'
 							onClick={() => jumpToSection(subItem.href)}
 							className={`group w-full text-left flex items-center justify-between gap-2.5 ${subItem.hoverBg} transition-colors cursor-pointer ${
 								compact ? 'px-2.5 py-2' : 'px-2.5 py-2.5'
@@ -289,7 +289,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 
 							<button
 								type='button'
-								data-sfx='paper'
+								data-sfx='chess-tab'
 								onClick={() => jumpToCraftTab('chess')}
 								className='group text-left rounded border-[1.5px] border-[#050505] bg-[#F2FCEB] hover:bg-[#5CE62E] px-2 py-1.5 flex sm:flex-col items-center sm:items-start justify-between gap-1.5 shadow-[1.5px_1.5px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 							>
@@ -320,7 +320,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 
 							<button
 								type='button'
-								data-sfx='paper'
+								data-sfx='sfx-tab'
 								onClick={() => jumpToCraftTab('sfx')}
 								className='group text-left rounded border-[1.5px] border-[#050505] border-b-[3px] bg-[#FFF3EF] hover:bg-[#FD6141] px-2 py-1.5 flex sm:flex-col items-center sm:items-start justify-between gap-1.5 shadow-[1.5px_1.5px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 							>
@@ -340,7 +340,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 										{t({ en: 'Meme SFX', id: 'Game SFX' })}
 									</p>
 									<p className='font-mono text-[9px] font-bold text-[#3B404C] leading-tight'>
-										{t({ en: 'Sound Game', id: 'Tebak Suara' })}
+										{t({ en: 'Memory Game', id: 'Memori Suara' })}
 									</p>
 								</div>
 							</button>
@@ -353,7 +353,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 				<button
 					key={subItem.href}
 					type='button'
-					data-sfx='paper'
+					data-sfx='nav'
 					onClick={() => jumpToSection(subItem.href)}
 					className={`group w-full text-left flex items-center justify-between gap-2.5 rounded-md border-2 border-[#050505] bg-[#FFFFFF] ${subItem.hoverBg} transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-[1px] ${
 						compact
@@ -411,6 +411,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 				{/* Brand Emblem + Wordmark */}
 				<a
 					href='#hero'
+					data-sfx='nav'
 					onClick={(e) => {
 						e.preventDefault();
 						window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -444,7 +445,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 								>
 									<button
 										type='button'
-										data-sfx='paper'
+										data-sfx='nav'
 										aria-expanded={worksOpen}
 										onClick={() => jumpToSection(item.href)}
 										className={`ds-header-link inline-flex items-center gap-1 xl:gap-1.5 whitespace-nowrap font-mono font-extrabold text-[11px] uppercase tracking-normal xl:tracking-wider rounded border-[1.5px] border-[#050505]/85 px-1.5 xl:px-2 transition-colors cursor-pointer ${
@@ -486,6 +487,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 													</span>
 													<button
 														type='button'
+														data-sfx='close'
 														aria-label={t({ en: 'Close works menu', id: 'Tutup menu karya' })}
 														onClick={() => setWorksOpen(false)}
 														className='size-4 rounded-sm bg-[#FCF0D3] border border-[#050505] inline-flex items-center justify-center text-[9px] font-black leading-none cursor-pointer shrink-0'
@@ -507,6 +509,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 							<a
 								key={item.href}
 								href={item.href}
+								data-sfx='nav'
 								onClick={(e) => {
 									e.preventDefault();
 									jumpToSection(item.href);
@@ -564,6 +567,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 								data-bgm-toggle='true'
 								data-bgm-level={bgmLevel}
 								data-sfx='custom'
+								data-hover-sfx='switch'
 								onClick={toggleBgm}
 								aria-pressed={bgmEnabled}
 								title={bgmHint}
@@ -585,6 +589,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 					<button
 						type='button'
 						data-sfx='custom'
+						data-hover-sfx='switch'
 						onClick={toggleSound}
 						aria-pressed={soundEnabled}
 						title={t({
@@ -610,6 +615,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 					{/* Readable Green Comic Starburst Badge (14 WORKS / 14 KARYA) */}
 					<button
 						type='button'
+						data-sfx='cassette'
 						onClick={() => jumpToSection('#videos')}
 						aria-label={t({ en: '14 Works: jump to videos', id: '14 Karya: lihat video' })}
 						title={t({ en: 'Jump to 14 Video Works', id: 'Lihat 14 Karya Video' })}
@@ -676,7 +682,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 						</span>
 						<button
 							type='button'
-							data-sfx='switch'
+							data-sfx='close'
 							onClick={() => setMobileOpen(false)}
 							aria-label={t({ en: 'Close mobile menu', id: 'Tutup menu mobile' })}
 							className='size-6 rounded-sm bg-[#FCF0D3] border-2 border-[#050505] font-mono text-xs font-black text-[#050505] inline-flex items-center justify-center cursor-pointer'
@@ -694,7 +700,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 									>
 										<button
 											type='button'
-											data-sfx='paper'
+											data-sfx='nav'
 											aria-expanded={mobileWorksOpen}
 											onClick={() => setMobileWorksOpen((prev) => !prev)}
 											className='w-full flex items-center justify-between gap-2 px-3 py-2.5 font-display font-black text-sm text-[#050505] hover:text-[#FD6141] transition-colors cursor-pointer'
@@ -727,7 +733,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 								<a
 									key={item.href}
 									href={item.href}
-									data-sfx='paper'
+									data-sfx='nav'
 									onClick={(e) => {
 										e.preventDefault();
 										jumpToSection(item.href);

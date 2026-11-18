@@ -32,8 +32,8 @@ const ShowcaseSection = () => {
 					})}
 					badgeColor='green'
 					description={t({
-						en: 'Interactive web applications alongside the video editing, animation, and audio software I use daily.',
-						id: 'Aplikasi web yang sudah dibangun beserta daftar software editing, animasi, dan pemrograman yang dipakai sehari-hari.',
+						en: 'Interactive web builds alongside the video editing, motion, and audio tools I use daily.',
+						id: 'Proyek aplikasi web yang telah dibangun beserta daftar perangkat editing, animasi, dan pemrograman yang digunakan sehari-hari.',
 					})}
 				/>
 
@@ -120,7 +120,7 @@ const ShowcaseSection = () => {
 									{project.isCurrentSite ? (
 										<a
 											href='#hero'
-											data-sfx='keycap'
+											data-sfx='nav'
 											className='w-full py-2.5 px-4 rounded-full border-[2.5px] border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] font-display font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 										>
 											<span>{t({ en: 'You Are Here · Back to Top ↑', id: 'Sedang Dibuka · Ke Atas ↑' })}</span>
@@ -130,6 +130,7 @@ const ShowcaseSection = () => {
 											href={project.url}
 											target='_blank'
 											rel='noopener noreferrer'
+											data-sfx='portal'
 											className='w-full py-2.5 px-4 rounded-full border-[2.5px] border-[#050505] bg-[#FFD426] hover:bg-[#FD6141] text-[#050505] font-display font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 										>
 											<span>{t({ en: 'Launch Live Preview', id: 'Buka Live App' })}</span>

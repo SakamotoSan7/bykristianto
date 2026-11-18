@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { DownloadIcon } from '../components/Icons';
 import { SpaghettiBrandMark, SparkleStar } from '../components/SpaghettiArt';
 import { useLanguage } from '../context/useLanguage';
-import { PUBLIC_CONTACT } from '../data/portfolioData';
+import { getLocalizedCvLink, PUBLIC_CONTACT } from '../data/portfolioData';
 
 const Footer = () => {
 	const { lang, setLang, t } = useLanguage();
@@ -66,7 +67,7 @@ const Footer = () => {
 								<p className='font-mono text-xs font-bold text-[#FCF0D3]/75 mt-1'>
 									{t({
 										en: 'Film & TV Graduate · Video Editor, Motion Explainer Producer & Creative Web Builder',
-										id: 'Sarjana (S.Sn) Televisi & Film · Video Editor, Motion Explainer Producer & Pembangun Web Kreatif',
+										id: 'Sarjana (S.Sn) Televisi & Film · Video Editor, Motion Explainer Producer & Creative Web Builder',
 									})}
 								</p>
 							</div>
@@ -75,8 +76,8 @@ const Footer = () => {
 
 						<p className='text-sm text-[#FCF0D3]/75 leading-relaxed'>
 							{t({
-								en: 'Kristianto Studio Portfolio · Film Craft + Creative Web.',
-								id: 'Portofolio Studio Kristianto · Disiplin Film + Web Kreatif.',
+								en: 'Kristianto Studio Portfolio · Film Craft + Code.',
+								id: 'Portofolio Kristianto · Teknik Film + Kode Kreatif.',
 							})}
 						</p>
 					</div>
@@ -85,12 +86,14 @@ const Footer = () => {
 					<div className='flex flex-wrap items-center gap-2.5'>
 						<a
 							href='#videos'
+							data-sfx='nav'
 							className='px-4 py-2 rounded-full border-2 border-[#050505] bg-[#3886C0] text-white font-mono text-xs font-black hover:bg-[#FFD426] hover:text-[#050505] shadow-[2px_2px_0_#FCF0D3]/35 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 						>
 							{t({ en: '14 Works', id: '14 Karya' })}
 						</a>
 						<a
 							href='#studio-desk'
+							data-sfx='nav'
 							className='px-4 py-2 rounded-full border-2 border-[#050505] bg-[#39754F] text-white font-mono text-xs font-black hover:bg-[#FFD426] hover:text-[#050505] shadow-[2px_2px_0_#FCF0D3]/35 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 						>
 							{t({ en: 'Profile & Guide', id: 'Profil & Panduan' })}
@@ -99,6 +102,7 @@ const Footer = () => {
 							href={PUBLIC_CONTACT.linkedin}
 							target='_blank'
 							rel='noopener noreferrer'
+							data-sfx='portal'
 							className='px-4 py-2 rounded-full border-2 border-white/35 bg-white/10 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] hover:-translate-y-0.5 active:translate-y-[1px] transition-all'
 						>
 							LinkedIn ↗
@@ -107,10 +111,35 @@ const Footer = () => {
 							href={PUBLIC_CONTACT.github}
 							target='_blank'
 							rel='noopener noreferrer'
+							data-sfx='portal'
 							className='px-4 py-2 rounded-full border-2 border-white/35 bg-white/10 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] hover:-translate-y-0.5 active:translate-y-[1px] transition-all'
 						>
 							GitHub ↗
 						</a>
+						<a
+							href={PUBLIC_CONTACT.instagram}
+							target='_blank'
+							rel='noopener noreferrer'
+							data-sfx='portal'
+							className='px-4 py-2 rounded-full border-2 border-white/35 bg-white/10 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] hover:-translate-y-0.5 active:translate-y-[1px] transition-all'
+						>
+							Instagram ↗
+						</a>
+						{(() => {
+							const cv = getLocalizedCvLink(lang);
+							return (
+								<a
+									href={cv.href}
+									target='_blank'
+									rel='noopener noreferrer'
+									data-sfx='keycap'
+									className='inline-flex items-center gap-1.5 px-4 py-2 rounded-full border-2 border-[#050505] bg-[#5CE62E] text-[#050505] font-mono text-xs font-black hover:bg-[#FFD426] shadow-[2px_2px_0_#FCF0D3]/45 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+								>
+									<DownloadIcon className='size-3.5 shrink-0' />
+									<span>{cv.label}</span>
+								</a>
+							);
+						})()}
 						<button
 							type='button'
 							data-sfx='switch'
@@ -127,6 +156,7 @@ const Footer = () => {
 					<span>© {currentYear} Kristianto · Indonesia · GMT+7</span>
 					<a
 						href='#hero'
+						data-sfx='nav'
 						className='text-[#FFD426] hover:text-[#FD6141] font-bold transition-colors'
 					>
 						↑ {t({ en: 'Back to Top', id: 'Kembali ke Atas' })}

@@ -3,6 +3,7 @@ import {
 	ArrowUpRightIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
+	DownloadIcon,
 } from '../components/Icons';
 import TitleHeader from '../components/TitleHeader';
 import { useLanguage } from '../context/useLanguage';
@@ -11,11 +12,12 @@ import {
 	EXPERIENCE_CARDS,
 	FIELD_ARCHIVE_PHOTOS,
 	FILM_CREDITS,
+	getLocalizedCvLink,
 	PUBLIC_CONTACT,
 } from '../data/portfolioData';
 
 const ExperienceSection = () => {
-	const { t } = useLanguage();
+	const { lang, t } = useLanguage();
 	const [archiveIdx, setArchiveIdx] = useState(0);
 
 	const totalPhotos = FIELD_ARCHIVE_PHOTOS.length;
@@ -112,15 +114,15 @@ const ExperienceSection = () => {
 
 									<p className='text-sm text-[#3B404C] leading-relaxed'>
 										{t({
-											en: 'Television & Film graduate (Cum Laude 3.76, ISI Padang Panjang) and former Video Editor Intern at AFE Records Jakarta. I combine cinematic pacing, verified research, clear narration audio (voice-first), and custom motion graphics built in Canvas 2D / WebGL2.',
-											id: 'Lulusan S-1 Televisi & Film (Cum Laude 3,76, ISI Padang Panjang) serta mantan Video Editor Intern di AFE Records Jakarta. Saya memadukan alur edit sinematik, riset fakta, tata suara narasi yang jernih (voice-first), serta animasi berbasis kode (Canvas 2D / WebGL2).',
+											en: 'Television & Film graduate (Cum Laude, GPA 3.76 at ISI Padang Panjang) and former Video Editor Intern at AFE Records Jakarta. I combine cinematic pacing, verified research, clear narration mixing, and custom motion graphics in Canvas 2D / WebGL2.',
+											id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76 di ISI Padang Panjang) dengan pengalaman magang sebagai Video Editor di AFE Records Jakarta. Saya memadukan ritme editing sinematik, riset terverifikasi, tata suara narasi yang jernih, serta animasi berbasis kode (Canvas 2D / WebGL2).',
 										})}
 									</p>
 
 									<div className='flex flex-wrap gap-1.5'>
 										{[
 											{ en: 'Cum Laude 3.76', id: 'Cum Laude 3.76' },
-											{ en: 'Ex-AFE Records', id: 'Eks AFE Records' },
+											{ en: 'Ex-AFE Records', id: 'Magang AFE Records' },
 											{ en: 'TOEFL 610', id: 'TOEFL 610' },
 											{ en: 'Clear Audio + SFX', id: 'Audio Jernih + SFX' },
 										].map((chip) => (
@@ -136,19 +138,44 @@ const ExperienceSection = () => {
 									<div className='flex flex-wrap items-center gap-2.5 pt-1'>
 										<a
 											href='#contact'
-											data-sfx='click'
+											data-sfx='keycap'
 											className='inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] font-display font-black text-xs text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 										>
 											{t({ en: 'Discuss a Project', id: 'Diskusi Proyek' })}
 										</a>
+										{(() => {
+											const cv = getLocalizedCvLink(lang);
+											return (
+												<a
+													href={cv.href}
+													target='_blank'
+													rel='noopener noreferrer'
+													data-sfx='keycap'
+													className='inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] font-mono font-black text-xs text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+												>
+													<DownloadIcon className='size-3.5 shrink-0' />
+													<span>{cv.label}</span>
+												</a>
+											);
+										})()}
 										<a
 											href={PUBLIC_CONTACT.linkedin}
 											target='_blank'
 											rel='noopener noreferrer'
-											data-sfx='click'
+											data-sfx='portal'
 											className='inline-flex items-center gap-1.5 px-3 py-2 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#4D9DE0]/25 font-mono font-bold text-xs text-[#050505] transition-colors'
 										>
 											<span>LinkedIn</span>
+											<ArrowUpRightIcon className='size-3.5' />
+										</a>
+										<a
+											href={PUBLIC_CONTACT.instagram}
+											target='_blank'
+											rel='noopener noreferrer'
+											data-sfx='portal'
+											className='inline-flex items-center gap-1.5 px-3 py-2 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#FD6141]/20 font-mono font-bold text-xs text-[#050505] transition-colors'
+										>
+											<span>Instagram</span>
 											<ArrowUpRightIcon className='size-3.5' />
 										</a>
 									</div>
@@ -205,7 +232,7 @@ const ExperienceSection = () => {
 									<button
 										type='button'
 										onClick={handlePrevPhoto}
-										data-sfx='click'
+										data-sfx='shutter'
 										aria-label={t({ en: 'Previous archive photo', id: 'Foto arsip sebelumnya' })}
 										className='inline-flex items-center gap-1 px-2.5 py-1.5 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 									>
@@ -219,7 +246,7 @@ const ExperienceSection = () => {
 												key={photo.id}
 												type='button'
 												onClick={() => setArchiveIdx(idx)}
-												data-sfx='click'
+												data-sfx='shutter'
 												aria-label={`${t(photo.title)} (${idx + 1}/${totalPhotos})`}
 												aria-current={idx === archiveIdx ? 'true' : undefined}
 												className={`h-2.5 rounded-sm border border-[#050505] transition-all cursor-pointer ${
@@ -234,7 +261,7 @@ const ExperienceSection = () => {
 									<button
 										type='button'
 										onClick={handleNextPhoto}
-										data-sfx='click'
+										data-sfx='shutter'
 										aria-label={t({ en: 'Next archive photo', id: 'Foto arsip berikutnya' })}
 										className='inline-flex items-center gap-1 px-2.5 py-1.5 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 									>
@@ -359,7 +386,7 @@ const ExperienceSection = () => {
 													href={credit.url}
 													target='_blank'
 													rel='noopener noreferrer'
-													data-sfx='click'
+													data-sfx='portal'
 													aria-label={credit.title}
 													className={`group relative shrink-0 w-full sm:w-48 md:w-52 ${
 														isContained ? 'aspect-[4/3] sm:aspect-[16/10]' : 'aspect-video sm:aspect-[16/10]'
@@ -390,6 +417,7 @@ const ExperienceSection = () => {
 														href={credit.url}
 														target='_blank'
 														rel='noopener noreferrer'
+														data-sfx='portal'
 														className='font-display font-black text-sm sm:text-base text-[#050505] hover:text-[#FD6141] underline decoration-2 underline-offset-4 transition-colors inline-flex items-center gap-1'
 													>
 														<span>{credit.title}</span>

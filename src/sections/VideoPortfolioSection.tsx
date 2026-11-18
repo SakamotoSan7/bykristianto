@@ -100,18 +100,18 @@ const VideoPortfolioSection = ({
 					})}
 					title={t({
 						en: 'Selected Video & Motion Explainer Works',
-						id: 'Etalase 14 Karya Video & Motion Explainer',
+						id: '14 Karya Video & Motion Explainer Terpilih',
 					})}
 					bullets={[
 						t({ en: '9:16 Vertical Reels', id: 'Reels Vertikal 9:16' }),
 						t({ en: '16:9 Widescreen Explainers', id: 'Explainer Layar Lebar 16:9' }),
-						t({ en: 'Premiere/AE · Video-as-Code · Clear SFX', id: 'Editing Premiere/AE · Kode Motion · SFX Jernih' }),
+						t({ en: 'Premiere/AE · Video-as-Code · Clear SFX', id: 'Editing Premiere/AE · Motion Kode · SFX Jernih' }),
 					]}
 					badgeColor='yellow'
 					onDarkMat
 					description={t({
-						en: 'Click any card to watch the full video (most feature crisp burned-in captions; CC-badged reels include toggleable subtitle tracks) and read behind-the-scenes production notes.',
-						id: 'Klik kartu untuk menonton video penuh (sebagian besar sudah dilengkapi teks layar permanen; karya berlabel CC memiliki opsi track subtitle) dan membaca catatan produksinya.',
+						en: 'Click any card to watch the full video alongside its production notes. Works badged with CC also include toggleable subtitles.',
+						id: 'Klik kartu mana saja untuk menonton video penuh sekaligus membaca catatan produksinya. Video berlabel CC juga dilengkapi tombol subtitle.',
 					})}
 				/>
 
