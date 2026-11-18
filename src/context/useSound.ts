@@ -27,7 +27,9 @@ export type SoundPresetId =
 	| 'chessLose'
 	| 'chessDraw';
 
-export type BgmLevel = 'full' | 'low' | 'off';
+export type AudioLevel = 'full' | 'low' | 'off';
+export type BgmLevel = AudioLevel;
+export type SfxLevel = AudioLevel;
 
 export type MemePadId =
 	| 'faah'
@@ -63,6 +65,8 @@ export interface ChessMoveAudioSpec {
 }
 
 export interface SoundContextValue {
+	sfxLevel: SfxLevel;
+	setSfxLevel: (level: SfxLevel) => void;
 	soundEnabled: boolean;
 	setSoundEnabled: (enabled: boolean) => void;
 	toggleSound: () => void;

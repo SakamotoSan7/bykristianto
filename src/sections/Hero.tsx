@@ -11,7 +11,7 @@ const HERO_WORDS_ID = ['Motion', 'Explainer', 'Reels 9:16', 'Website'];
 
 const Hero = () => {
 	const { lang, t } = useLanguage();
-	const { soundEnabled, toggleSound } = useSound();
+	const { sfxLevel, soundEnabled, toggleSound } = useSound();
 	const heroRef = useRef<HTMLElement | null>(null);
 	const [lastPlucked, setLastPlucked] = useState<string>('');
 
@@ -279,18 +279,24 @@ const Hero = () => {
 									<button
 										type='button'
 										data-sfx='custom'
+										data-sfx-toggle='true'
+										data-sfx-level={sfxLevel}
 										data-hover-sfx='switch'
 										aria-pressed={soundEnabled}
 										onClick={toggleSound}
 										className={`shrink-0 px-2.5 py-1 rounded border-2 border-[#050505] font-mono text-[10px] font-black shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer ${
-											soundEnabled
+											sfxLevel === 'full'
 												? 'bg-[#5CE62E] text-[#050505]'
-												: 'bg-white text-[#050505] hover:bg-[#FFD426]'
+												: sfxLevel === 'low'
+													? 'bg-[#FFD426] text-[#050505]'
+													: 'bg-white text-[#050505] hover:bg-[#FFD426]'
 										}`}
 									>
-										{soundEnabled
+										{sfxLevel === 'full'
 											? t({ en: '♪ SOUND FX: ON', id: '♪ EFEK SUARA: ON' })
-											: t({ en: '♪ SOUND FX: OFF', id: '♪ EFEK SUARA: OFF' })}
+											: sfxLevel === 'low'
+												? t({ en: '♪ SOUND FX: LOW', id: '♪ EFEK SUARA: LOW' })
+												: t({ en: '♪ SOUND FX: OFF', id: '♪ EFEK SUARA: OFF' })}
 									</button>
 								</div>
 							</div>

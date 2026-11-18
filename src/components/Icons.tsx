@@ -234,6 +234,24 @@ export function GlobeIcon({ className = 'size-4', ...props }: IconProps) {
 	);
 }
 
+export function AudioLowIcon({ className = 'size-5', ...props }: IconProps) {
+	return (
+		<svg
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="1.8"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			className={className}
+			{...props}
+		>
+			<path d="M11 5 6 9H2v6h4l5 4V5z" />
+			<path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+		</svg>
+	);
+}
+
 export function AudioMutedIcon({ className = 'size-5', ...props }: IconProps) {
 	return (
 		<svg

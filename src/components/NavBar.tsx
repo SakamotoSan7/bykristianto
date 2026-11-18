@@ -1,22 +1,21 @@
 import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import { NAV_LINKS, type CraftLabTab, type LocalizedText } from '../data/portfolioData';
 import { useLanguage } from '../context/useLanguage';
-import { useSound, type BgmLevel } from '../context/useSound';
 import { isPageScrollLocked, useScrollLock } from '../utils/scrollLock';
 import { SpaghettiBrandMark, StarburstSticker } from './SpaghettiArt';
 import {
+	BgmToggleButton,
+	LanguageSwitchPill,
+	SfxToggleButton,
+} from './StudioAudioControls';
+import {
 	AudioIcon,
-	AudioMutedIcon,
 	ChessIcon,
 	ChevronRightIcon,
 	CloseIcon,
 	FilmIcon,
-	GlobeIcon,
 	LayersIcon,
 	MenuIcon,
-	MusicIcon,
-	MusicLowIcon,
-	MusicMutedIcon,
 } from './Icons';
 
 interface WorksDropdownItem {
@@ -84,45 +83,10 @@ interface NavBarProps {
 	onSelectCraftTab?: (tab: CraftLabTab) => void;
 }
 
-const BGM_BUTTON_STATE: Record<
-	BgmLevel,
-	{
-		label: string;
-		buttonClass: string;
-		title: LocalizedText;
-	}
-> = {
-	full: {
-		label: 'BGM',
-		buttonClass: 'bg-[#5CE62E] text-[#050505] hover:bg-[#49D41D]',
-		title: {
-			en: 'Music: Normal · click for low volume',
-			id: 'Musik: Normal · klik untuk mode pelan',
-		},
-	},
-	low: {
-		label: 'LOW',
-		buttonClass: 'bg-[#B4DD7F] text-[#050505] hover:bg-[#A2CF6B]',
-		title: {
-			en: 'Music: Quiet · click to mute',
-			id: 'Musik: Pelan · klik untuk matikan',
-		},
-	},
-	off: {
-		label: 'OFF',
-		buttonClass: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]',
-		title: {
-			en: 'Music: Off · click to turn on',
-			id: 'Musik: Mati · klik untuk nyalakan',
-		},
-	},
-};
-
 const SCROLL_SHRINK_DISTANCE = 200;
 
 const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
-	const { lang, setLang, t } = useLanguage();
-	const { soundEnabled, toggleSound, bgmLevel, bgmEnabled, toggleBgm } = useSound();
+	const { t } = useLanguage();
 	const headerRef = useRef<HTMLElement>(null);
 	const [shrinkProgress, setShrinkProgress] = useState(0);
 	const [mobileOpen, setMobileOpen] = useState(false);
@@ -525,92 +489,13 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 				{/* Right Utility Group */}
 				<div className='flex items-center gap-1 min-[360px]:gap-1.5 sm:gap-2 shrink-0'>
 					{/* EN | ID Switcher */}
-					<div
-						className='inline-flex items-center rounded border-2 border-[#050505] bg-[#FFFFFF] p-0.5 text-[10px] min-[360px]:text-[11px] font-mono shadow-[2px_2px_0_#050505] shrink-0'
-						role='group'
-						aria-label='Language switch'
-					>
-						<GlobeIcon className='size-3.5 text-[#050505] ml-1 mr-0.5 hidden sm:block' />
-						<button
-							type='button'
-							data-sfx='switch'
-							onClick={() => setLang('en')}
-							className={`ds-header-lang-btn px-1.5 min-[375px]:px-2 py-0.5 min-[360px]:py-1 rounded-sm font-black transition-colors cursor-pointer ${
-								lang === 'en'
-									? 'bg-[#3886C0] text-[#FFFFFF]'
-									: 'text-[#3B404C] hover:text-[#050505]'
-							}`}
-						>
-							EN
-						</button>
-						<button
-							type='button'
-							data-sfx='switch'
-							onClick={() => setLang('id')}
-							className={`ds-header-lang-btn px-1.5 min-[375px]:px-2 py-0.5 min-[360px]:py-1 rounded-sm font-black transition-colors cursor-pointer ${
-								lang === 'id'
-									? 'bg-[#3886C0] text-[#FFFFFF]'
-									: 'text-[#3B404C] hover:text-[#050505]'
-							}`}
-						>
-							ID
-						</button>
-					</div>
+					<LanguageSwitchPill variant='navbar' />
 
 					{/* 3-Step Background Music Toggle (Normal -> Quiet -> Off -> Normal) */}
-					{(() => {
-						const bgmUi = BGM_BUTTON_STATE[bgmLevel];
-						const bgmHint = t(bgmUi.title);
-						return (
-							<button
-								type='button'
-								data-bgm-toggle='true'
-								data-bgm-level={bgmLevel}
-								data-sfx='custom'
-								data-hover-sfx='switch'
-								onClick={toggleBgm}
-								aria-pressed={bgmEnabled}
-								title={bgmHint}
-								className={`ds-header-toggle-btn inline-flex items-center justify-center gap-1 rounded border-2 border-[#050505] min-w-[28px] h-7 min-[360px]:min-w-[34px] min-[360px]:h-8 min-[390px]:min-w-[36px] min-[390px]:h-9 sm:min-w-0 sm:h-auto sm:px-2 sm:py-1.5 text-[10px] sm:text-[11px] font-mono font-black shadow-[2px_2px_0_#050505] cursor-pointer transition-colors shrink-0 ${bgmUi.buttonClass}`}
-							>
-								{bgmLevel === 'full' ? (
-									<MusicIcon className='size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#050505]' />
-								) : bgmLevel === 'low' ? (
-									<MusicLowIcon className='size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#050505]' />
-								) : (
-									<MusicMutedIcon className='size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#3B404C]' />
-								)}
-								<span className='hidden sm:inline'>{bgmUi.label}</span>
-							</button>
-						);
-					})()}
+					<BgmToggleButton variant='navbar' />
 
-					{/* Global SFX ON/OFF Switch */}
-					<button
-						type='button'
-						data-sfx='custom'
-						data-hover-sfx='switch'
-						onClick={toggleSound}
-						aria-pressed={soundEnabled}
-						title={t({
-							en: soundEnabled ? 'Mute tactile UI sound effects' : 'Enable tactile UI sound effects',
-							id: soundEnabled ? 'Matikan efek suara interaktif' : 'Aktifkan efek suara interaktif',
-						})}
-						className={`ds-header-toggle-btn inline-flex items-center justify-center gap-1 rounded border-2 border-[#050505] min-w-[28px] h-7 min-[360px]:min-w-[34px] min-[360px]:h-8 min-[390px]:min-w-[36px] min-[390px]:h-9 sm:min-w-0 sm:h-auto sm:px-2 sm:py-1.5 text-[10px] sm:text-[11px] font-mono font-black shadow-[2px_2px_0_#050505] cursor-pointer transition-colors shrink-0 ${
-							soundEnabled
-								? 'bg-[#FFD426] text-[#050505] hover:bg-[#5CE62E]'
-								: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]'
-						}`}
-					>
-						{soundEnabled ? (
-							<AudioIcon className='size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#050505]' />
-						) : (
-							<AudioMutedIcon className='size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#3B404C]' />
-						)}
-						<span className='hidden sm:inline'>
-							{soundEnabled ? 'SFX' : 'MUTE'}
-						</span>
-					</button>
+					{/* 3-Step Global SFX Switch (Normal -> Quiet -> Off -> Normal) */}
+					<SfxToggleButton variant='navbar' />
 
 					{/* Readable Green Comic Starburst Badge (14 WORKS / 14 KARYA) */}
 					<button

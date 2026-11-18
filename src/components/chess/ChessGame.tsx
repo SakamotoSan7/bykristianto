@@ -17,6 +17,11 @@ import {
 } from '../../context/useSound';
 import { useScrollLock } from '../../utils/scrollLock';
 import { SparkleStar } from '../SpaghettiArt';
+import {
+	BgmToggleButton,
+	LanguageSwitchPill,
+	SfxToggleButton,
+} from '../StudioAudioControls';
 import { ChallengerAvatar, KristiantoAvatar, type ChessAvatarMood } from './ChessAvatars';
 import { ChessPieceSvg } from './ChessPieces';
 import {
@@ -2739,24 +2744,25 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 
 	const renderHeaderToolbar = (inFullscreen: boolean) => (
 		<div
-			className={`border-[2.5px] sm:border-[3px] border-[#050505] bg-[#FCF0D3] px-2.5 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 shrink-0 ${
+			className={`border-[2.5px] sm:border-[3px] border-[#050505] bg-[#FCF0D3] px-2 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 shrink-0 ${
 				inFullscreen ? 'rounded-none border-x-0 border-t-0' : 'rounded-sm shadow-[4px_4px_0_#050505]'
 			}`}
 		>
-			<div className='flex flex-wrap items-center gap-1.5 sm:gap-2 min-w-0'>
-				<span className='px-2 py-0.5 bg-[#050505] text-[#FFD426] font-mono text-[10px] font-black tracking-wide shrink-0'>
+			<div className='flex items-center gap-1.5 sm:gap-2 min-w-0'>
+				<span className='px-1.5 sm:px-2 py-0.5 bg-[#050505] text-[#FFD426] font-mono text-[9.5px] sm:text-[10px] font-black tracking-wide shrink-0'>
 					{inFullscreen ? (
 						<>
-							<span className='sm:hidden'>CHESS.EXE</span>
-							<span className='hidden sm:inline'>KRIS_CHESS_STUDIO.EXE</span>
+							<span className='md:hidden'>CHESS.EXE</span>
+							<span className='hidden md:inline xl:hidden'>KRIS_CHESS.EXE</span>
+							<span className='hidden xl:inline'>KRIS_CHESS_STUDIO.EXE</span>
 						</>
 					) : (
 						'FIG.CHESS'
 					)}
 				</span>
 				<h3
-					className={`font-display font-black text-sm sm:text-base text-[#050505] leading-tight ${
-						inFullscreen ? 'hidden sm:block' : ''
+					className={`font-display font-black text-sm sm:text-base text-[#050505] leading-tight truncate ${
+						inFullscreen ? 'hidden lg:block' : ''
 					}`}
 				>
 					{t({
@@ -2766,15 +2772,19 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				</h3>
 				<span
 					style={{ backgroundColor: activeProfile.accentHex }}
-					className='hidden sm:inline-block px-2 py-0.5 rounded-sm border border-[#050505] font-mono text-[10px] font-black text-[#050505] shrink-0'
+					className={`${
+						inFullscreen ? 'hidden xl:inline-block' : 'hidden sm:inline-block'
+					} px-2 py-0.5 rounded-sm border border-[#050505] font-mono text-[10px] font-black text-[#050505] shrink-0`}
 				>
 					{opponentElo} ELO · 15:00
 				</span>
 			</div>
 
-			<div className='flex flex-wrap items-center gap-1.5 sm:gap-2 select-none shrink-0'>
+			<div className='flex flex-wrap items-center justify-end gap-1 sm:gap-1.5 select-none shrink-0'>
 				<span
-					className={`inline-flex items-center gap-1 h-6 sm:h-7 px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
+					className={`${
+						inFullscreen ? 'hidden md:inline-flex' : 'inline-flex'
+					} items-center gap-1 h-6 sm:h-7 px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
 						playerColor === 'w'
 							? 'bg-[#FFFFFF] text-[#050505]'
 							: 'bg-[#181A20] text-[#FCF0D3]'
@@ -2782,15 +2792,19 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				>
 					{playerColor === 'w' ? (
 						<>
-							<span className='sm:hidden'>{t({ en: 'WHITE', id: 'PUTIH' })}</span>
-							<span className='hidden sm:inline'>
+							<span className={inFullscreen ? 'xl:hidden' : 'sm:hidden'}>
+								{t({ en: 'WHITE', id: 'PUTIH' })}
+							</span>
+							<span className={inFullscreen ? 'hidden xl:inline' : 'hidden sm:inline'}>
 								{t({ en: 'YOU: WHITE', id: 'KAMU: PUTIH' })}
 							</span>
 						</>
 					) : (
 						<>
-							<span className='sm:hidden'>{t({ en: 'BLACK', id: 'HITAM' })}</span>
-							<span className='hidden sm:inline'>
+							<span className={inFullscreen ? 'xl:hidden' : 'sm:hidden'}>
+								{t({ en: 'BLACK', id: 'HITAM' })}
+							</span>
+							<span className={inFullscreen ? 'hidden xl:inline' : 'hidden sm:inline'}>
 								{t({ en: 'YOU: BLACK', id: 'KAMU: HITAM' })}
 							</span>
 						</>
@@ -2798,7 +2812,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				</span>
 
 				<span
-					className={`inline-flex items-center gap-1.5 h-6 sm:h-7 px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
+					className={`inline-flex items-center gap-1 sm:gap-1.5 h-6 sm:h-7 px-1.5 sm:px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
 						engineState === 'error'
 							? 'bg-[#FD6141] text-[#050505]'
 							: engineState === 'loading' || engineState === 'thinking'
@@ -2807,7 +2821,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					}`}
 				>
 					<span
-						className={`size-1.5 rounded-full bg-[#050505] ${
+						className={`size-1.5 rounded-full bg-[#050505] shrink-0 ${
 							engineState === 'loading' || engineState === 'thinking' ? 'animate-pulse' : ''
 						}`}
 					/>
@@ -2824,8 +2838,10 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						})
 					) : (
 						<>
-							<span className='sm:hidden'>{t({ en: 'READY', id: 'SIAP' })}</span>
-							<span className='hidden sm:inline'>
+							<span className={inFullscreen ? 'md:hidden' : 'sm:hidden'}>
+								{t({ en: 'READY', id: 'SIAP' })}
+							</span>
+							<span className={inFullscreen ? 'hidden md:inline' : 'hidden sm:inline'}>
 								{t({
 									en: `${opponentElo} · READY`,
 									id: `${opponentElo} · SIAP`,
@@ -2835,17 +2851,25 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					)}
 				</span>
 
+				{inFullscreen && (
+					<>
+						<LanguageSwitchPill variant='chess' />
+						<BgmToggleButton variant='chess' />
+						<SfxToggleButton variant='chess' />
+					</>
+				)}
+
 				{inFullscreen ? (
 					<button
 						type='button'
 						data-sfx='custom'
 						data-hover-sfx='close'
 						onClick={exitFullscreen}
-						className='inline-flex items-center gap-1.5 h-6 sm:h-7 px-2 sm:px-3 rounded-sm border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] font-display text-[10.5px] sm:text-xs font-black leading-none cursor-pointer shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all'
+						className='inline-flex items-center gap-1 sm:gap-1.5 h-6 sm:h-7 px-2 sm:px-2.5 lg:px-3 rounded-sm border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] font-display text-[10px] sm:text-xs font-black leading-none cursor-pointer shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all whitespace-nowrap'
 					>
 						<FullscreenExitIcon />
-						<span className='sm:hidden'>{t({ en: 'Exit', id: 'Keluar' })}</span>
-						<span className='hidden sm:inline'>
+						<span className='md:hidden'>{t({ en: 'Exit', id: 'Keluar' })}</span>
+						<span className='hidden md:inline'>
 							{t({ en: 'Exit Fullscreen', id: 'Keluar Penuh' })}
 						</span>
 					</button>
@@ -2855,7 +2879,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						data-sfx='custom'
 						data-hover-sfx='switch'
 						onClick={enterFullscreen}
-						className='inline-flex items-center gap-1.5 h-6 sm:h-7 px-2 sm:px-2.5 rounded-sm border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] text-[#050505] font-display text-[10px] sm:text-[11px] font-black leading-none cursor-pointer shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all'
+						className='inline-flex items-center gap-1.5 h-6 sm:h-7 px-2 sm:px-2.5 rounded-sm border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] text-[#050505] font-display text-[10px] sm:text-[11px] font-black leading-none cursor-pointer shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all whitespace-nowrap'
 					>
 						<FullscreenExpandIcon />
 						<span>{t({ en: 'Fullscreen', id: 'Layar Penuh' })}</span>

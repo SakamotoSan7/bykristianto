@@ -7,12 +7,14 @@ import {
 } from 'react';
 import {
 	SoundContext,
+	type AudioLevel,
 	type BgmLevel,
 	type ChessMoveAudioSpec,
 	type ChessOutcomeSoundId,
 	type ChessPieceCode,
 	type ChessPromotionCode,
 	type MemePadId,
+	type SfxLevel,
 	type SoundPresetId,
 } from './useSound';
 import {
@@ -108,8 +110,9 @@ const BGM_SUBTLE_VOLUME = 0.18;
 const BGM_LOW_VOLUME = 0.06;
 const BGM_FOCUS_ATTENUATED_VOLUME = 0.055;
 const BGM_FOCUS_LOW_VOLUME = 0.032;
+const SFX_LOW_GAIN_SCALE = 0.36;
 
-const NEXT_BGM_LEVEL: Record<BgmLevel, BgmLevel> = {
+const NEXT_AUDIO_LEVEL: Record<AudioLevel, AudioLevel> = {
 	full: 'low',
 	low: 'off',
 	off: 'full',
@@ -121,13 +124,24 @@ const BGM_LEVEL_SFX: Record<BgmLevel, { notes: readonly number[]; gain: number; 
 	off: { notes: [523.25, 392.0, 261.63], gain: 0.095, step: 0.055 },
 };
 
-const parseSavedBgmLevel = (): BgmLevel => {
+const SFX_LEVEL_CUE: Record<
+	SfxLevel,
+	{ notes: readonly number[]; wave: OscillatorType; gain: number; step: number }
+> = {
+	full: { notes: [523.25, 659.25, 783.99], wave: 'triangle', gain: 0.105, step: 0.048 },
+	low: { notes: [587.33, 440.0], wave: 'triangle', gain: 0.052, step: 0.058 },
+	off: { notes: [440.0, 293.66, 220.0], wave: 'sine', gain: 0.065, step: 0.052 },
+};
+
+const parseSavedAudioLevel = (storageKey: string): AudioLevel => {
 	if (typeof window === 'undefined') return 'full';
-	const saved = window.localStorage.getItem('kristianto-bgm');
+	const saved = window.localStorage.getItem(storageKey);
 	if (saved === 'low') return 'low';
 	if (saved === 'false' || saved === 'off') return 'off';
 	return 'full';
 };
+
+const getSfxGainForLevel = (level: SfxLevel): number => (level === 'low' ? SFX_LOW_GAIN_SCALE : 1);
 
 const getBgmTargetVolume = (level: BgmLevel, focusAttenuated: boolean): number => {
 	if (level === 'off') return 0;
@@ -167,20 +181,23 @@ const isPageActiveForeground = (): boolean => {
 };
 
 export function SoundProvider({ children }: { children: ReactNode }) {
-	const [soundEnabled, setSoundEnabledState] = useState<boolean>(() => {
-		if (typeof window === 'undefined') return true;
-		const saved = window.localStorage.getItem('kristianto-sfx');
-		return saved === null ? true : saved === 'true';
-	});
-	const [bgmLevel, setBgmLevelState] = useState<BgmLevel>(parseSavedBgmLevel);
+	const [sfxLevel, setSfxLevelState] = useState<SfxLevel>(() => parseSavedAudioLevel('kristianto-sfx'));
+	const soundEnabled = sfxLevel !== 'off';
+	const [bgmLevel, setBgmLevelState] = useState<BgmLevel>(() => parseSavedAudioLevel('kristianto-bgm'));
 	const bgmEnabled = bgmLevel !== 'off';
 	const [bgmDucked, setBgmDuckedState] = useState<boolean>(false);
 
+	const sfxLevelRef = useRef<SfxLevel>(sfxLevel);
 	const enabledRef = useRef(soundEnabled);
 	const bgmLevelRef = useRef<BgmLevel>(bgmLevel);
 	const bgmDuckedRef = useRef(bgmDucked);
 	const ctxRef = useRef<AudioContext | null>(null);
-	const masterChainRef = useRef<{ ctx: AudioContext; input: AudioNode } | null>(null);
+	const masterChainRef = useRef<{
+		ctx: AudioContext;
+		input: AudioNode;
+		cueInput: AudioNode;
+		sfxLevelGain: GainNode;
+	} | null>(null);
 	const noiseBufRef = useRef<AudioBuffer | null>(null);
 	const bgmBufferRef = useRef<AudioBuffer | null>(null);
 	const bgmBytesPromiseRef = useRef<Promise<ArrayBuffer | null> | null>(null);
@@ -210,9 +227,10 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 	const memeRequestEpochMapRef = useRef<Map<MemePadId, number>>(new Map());
 
 	useEffect(() => {
-		enabledRef.current = soundEnabled;
-		window.localStorage.setItem('kristianto-sfx', String(soundEnabled));
-	}, [soundEnabled]);
+		sfxLevelRef.current = sfxLevel;
+		enabledRef.current = sfxLevel !== 'off';
+		window.localStorage.setItem('kristianto-sfx', sfxLevel);
+	}, [sfxLevel]);
 
 	useEffect(() => {
 		bgmLevelRef.current = bgmLevel;
@@ -287,9 +305,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 	 * while boosting 1.48 kHz presence and gently compressing peaks on coarse touch phones
 	 * so micro-speakers project short foley & UI clicks cleanly without sounding harsh.
 	 */
-	const getMasterDestination = useCallback((ctx: AudioContext): AudioNode => {
+	const ensureMasterChain = useCallback((ctx: AudioContext) => {
 		if (masterChainRef.current?.ctx === ctx) {
-			return masterChainRef.current.input;
+			return masterChainRef.current;
 		}
 
 		const isCompactSpeaker =
@@ -313,6 +331,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 		warmthCap.frequency.value = isCompactSpeaker ? 4800 : 5400;
 		warmthCap.Q.value = 0.6;
 
+		const sfxLevelGain = ctx.createGain();
+		sfxLevelGain.gain.setValueAtTime(getSfxGainForLevel(sfxLevelRef.current), ctx.currentTime);
+
 		const makeup = ctx.createGain();
 		makeup.gain.value = isCompactSpeaker ? 1.52 : 1.0;
 
@@ -325,12 +346,29 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
 		highpass.connect(presence);
 		presence.connect(warmthCap);
-		warmthCap.connect(makeup);
+		warmthCap.connect(sfxLevelGain);
+		sfxLevelGain.connect(makeup);
 		makeup.connect(compressor);
 		compressor.connect(ctx.destination);
 
-		masterChainRef.current = { ctx, input: highpass };
-		return highpass;
+		masterChainRef.current = { ctx, input: highpass, cueInput: makeup, sfxLevelGain };
+		return masterChainRef.current;
+	}, []);
+
+	const getMasterDestination = useCallback(
+		(ctx: AudioContext): AudioNode => ensureMasterChain(ctx).input,
+		[ensureMasterChain]
+	);
+
+	const applySfxTargetGain = useCallback((level: SfxLevel, rampSec = 0.08) => {
+		const ctx = ctxRef.current;
+		const chain = masterChainRef.current;
+		if (!ctx || !chain || chain.ctx !== ctx) return;
+		const now = ctx.currentTime;
+		const target = getSfxGainForLevel(level);
+		chain.sfxLevelGain.gain.cancelScheduledValues(now);
+		chain.sfxLevelGain.gain.setValueAtTime(chain.sfxLevelGain.gain.value, now);
+		chain.sfxLevelGain.gain.linearRampToValueAtTime(target, now + rampSec);
 	}, []);
 
 	const playHoverForMeta = useCallback(
@@ -968,11 +1006,11 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 			const ctx = getOrUnlockAudioContext();
 			runWithContext(ctx, true, (activeCtx) => {
 				const t0 = activeCtx.currentTime;
-				const masterOut = getMasterDestination(activeCtx);
+				const { cueInput } = ensureMasterChain(activeCtx);
 				const lp = activeCtx.createBiquadFilter();
 				lp.type = 'lowpass';
 				lp.frequency.setValueAtTime(2100, t0);
-				lp.connect(masterOut);
+				lp.connect(cueInput);
 
 				notes.forEach((freq, idx) => {
 					const st = t0 + idx * stepSec;
@@ -990,27 +1028,31 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 				});
 			});
 		},
-		[getMasterDestination, getOrUnlockAudioContext, runWithContext]
+		[ensureMasterChain, getOrUnlockAudioContext, runWithContext]
+	);
+
+	const setSfxLevel = useCallback(
+		(next: SfxLevel) => {
+			sfxLevelRef.current = next;
+			enabledRef.current = next !== 'off';
+			setSfxLevelState(next);
+			applySfxTargetGain(next, 0.06);
+			const cue = SFX_LEVEL_CUE[next];
+			playToggleCue(cue.notes, cue.wave, cue.gain, cue.step);
+		},
+		[applySfxTargetGain, playToggleCue]
 	);
 
 	const setSoundEnabled = useCallback(
 		(next: boolean) => {
-			enabledRef.current = next;
-			setSoundEnabledState(next);
-			if (next) {
-				// Crisp 2-step ascending chime = SFX enabled
-				playToggleCue([523.25, 783.99], 'triangle', 0.145, 0.05);
-			} else {
-				// Soft 2-step descending mute drop = SFX muted
-				playToggleCue([440.0, 261.63], 'sine', 0.14, 0.055);
-			}
+			setSfxLevel(next ? 'full' : 'off');
 		},
-		[playToggleCue]
+		[setSfxLevel]
 	);
 
 	const toggleSound = useCallback(() => {
-		setSoundEnabled(!enabledRef.current);
-	}, [setSoundEnabled]);
+		setSfxLevel(NEXT_AUDIO_LEVEL[sfxLevelRef.current]);
+	}, [setSfxLevel]);
 
 	// Attempt foreground AudioContext unlock on load (works immediately when Chrome MEI / Sound Allow permits)
 	// and fall back cleanly to first real user interaction when blocked by browser autoplay policy.
@@ -1433,7 +1475,12 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 			setBgmLevelState(next);
 			if (enabledRef.current) {
 				const cue = BGM_LEVEL_SFX[next];
-				playToggleCue(cue.notes, 'sine', cue.gain, cue.step);
+				playToggleCue(
+					cue.notes,
+					'sine',
+					cue.gain * getSfxGainForLevel(sfxLevelRef.current),
+					cue.step
+				);
 			}
 			if (next !== 'off') {
 				applyBgmTargetGain(next, bgmFocusAttenuatedRef.current, 0.22);
@@ -1456,7 +1503,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 	);
 
 	const toggleBgm = useCallback(() => {
-		setBgmLevel(NEXT_BGM_LEVEL[bgmLevelRef.current]);
+		setBgmLevel(NEXT_AUDIO_LEVEL[bgmLevelRef.current]);
 	}, [setBgmLevel]);
 
 	const setBgmDuckForVideo = useCallback((ducked: boolean) => {
@@ -1571,6 +1618,8 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 	return (
 		<SoundContext.Provider
 			value={{
+				sfxLevel,
+				setSfxLevel,
 				soundEnabled,
 				setSoundEnabled,
 				toggleSound,
