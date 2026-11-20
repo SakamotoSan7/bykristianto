@@ -208,13 +208,7 @@ export function BgmToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 					}
 				/>
 			)}
-			{bgmLevel === 'low' && (
-				<span
-					className='size-1.5 rounded-full bg-[#FD6141] border border-[#050505] shrink-0'
-					aria-hidden='true'
-				/>
-			)}
-			<span className='hidden sm:inline'>{bgmUi.label}</span>
+			<span className='hidden sm:inline-block w-[3ch] text-center'>{bgmUi.label}</span>
 		</button>
 	);
 }
@@ -268,13 +262,7 @@ export function SfxToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 					}
 				/>
 			)}
-			{sfxLevel === 'low' && (
-				<span
-					className='size-1.5 rounded-full bg-[#FD6141] border border-[#050505] shrink-0'
-					aria-hidden='true'
-				/>
-			)}
-			<span className='hidden sm:inline'>{sfxUi.label}</span>
+			<span className='hidden sm:inline-block w-[3ch] text-center'>{sfxUi.label}</span>
 		</button>
 	);
 }

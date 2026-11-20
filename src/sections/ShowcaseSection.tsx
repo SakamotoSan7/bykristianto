@@ -1,7 +1,7 @@
 import TitleHeader from '../components/TitleHeader';
 import { ArrowUpRightIcon } from '../components/Icons';
 import { StackLogoIcon } from '../components/StackLogos';
-import { PortfolioSiteArtwork } from '../components/SpaghettiArt';
+import { PixoraShowcaseArtwork, PortfolioSiteArtwork } from '../components/SpaghettiArt';
 import { useLanguage } from '../context/useLanguage';
 import {
 	CREATIVE_TOOLS,
@@ -44,7 +44,7 @@ const ShowcaseSection = () => {
 						return (
 							<article
 								key={project.id}
-								className='ds-os-window rounded-md overflow-hidden flex flex-col justify-between bg-[#FCF0D3] transition-transform duration-200 hover:-translate-y-1'
+								className='group ds-os-window rounded-md overflow-hidden flex flex-col justify-between bg-[#FCF0D3] transition-transform duration-200 hover:-translate-y-1'
 							>
 								<div>
 									{/* Iconic Color-Coded OS Browser Chrome */}
@@ -78,6 +78,8 @@ const ShowcaseSection = () => {
 									<div className='relative aspect-[19/17] w-full overflow-hidden border-b-[2.5px] border-[#050505] bg-[#121212]'>
 										{project.customArtwork === 'portfolio-site' ? (
 											<PortfolioSiteArtwork className='w-full h-full block transition-transform duration-500 hover:scale-[1.03]' />
+										) : project.customArtwork === 'pixora-showcase' ? (
+											<PixoraShowcaseArtwork className='w-full h-full block' />
 										) : (
 											<img
 												src={project.imagePath}

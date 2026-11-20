@@ -1142,3 +1142,82 @@ export const PortfolioSiteArtwork: FC<SvgClassProps> = ({ className = 'w-full h-
 		<rect x='208' y='306' width='146' height='26' rx='2' fill='#FFFFFF' stroke='#050505' strokeWidth='1.8' />
 	</svg>
 );
+
+export const PixoraShowcaseArtwork = ({ className = 'w-full h-full' }: { className?: string }) => (
+	<div
+		className={`relative overflow-hidden bg-[#FCF0D3] select-none ${className}`}
+		style={{
+			backgroundImage:
+				'linear-gradient(to right, rgba(5, 5, 5, 0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(5, 5, 5, 0.06) 1px, transparent 1px)',
+			backgroundSize: '20px 20px',
+		}}
+	>
+		{/* Angled Cerulean Graphic Ribbon (Digital Spaghetti Studio Accent) */}
+		<div
+			className='pointer-events-none absolute -inset-x-8 bottom-[14%] h-[34%] bg-[#3886C0] border-y-[2.5px] border-[#050505] -rotate-6'
+			aria-hidden='true'
+		/>
+
+		{/* Subtle Drafting Corner Crosses */}
+		<span
+			className='pointer-events-none absolute bottom-2 left-2.5 font-mono text-[10px] font-black text-[#050505]/30'
+			aria-hidden='true'
+		>
+			+
+		</span>
+		<span
+			className='pointer-events-none absolute bottom-2 right-2.5 font-mono text-[10px] font-black text-[#050505]/30'
+			aria-hidden='true'
+		>
+			+
+		</span>
+
+		{/* Top-Left Tilted Canary Stamp & Top-Right Risograph Sparkle */}
+		<span className='pointer-events-none absolute top-2.5 left-3 z-30 px-2 py-0.5 rounded-[2px] bg-[#FFD426] border-[1.5px] border-[#050505] shadow-[2px_2px_0_#050505] font-mono text-[9.5px] font-black uppercase tracking-wider text-[#050505] -rotate-2'>
+			MOBILE UI
+		</span>
+		<SparkleStar
+			className='pointer-events-none absolute top-2.5 right-3 z-30 size-5'
+			fill='#FD6141'
+		/>
+
+		{/* Left Phone: Search Results Screen */}
+		<div className='absolute bottom-[7%] left-[8%] h-[74%] aspect-[420/955] z-10 flex flex-col rounded-[14px] border-[2.5px] border-[#050505] bg-[#0B0D14] p-[3px] shadow-[4px_4px_0_#050505] -rotate-6 origin-bottom transition-transform duration-300 ease-out group-hover:-rotate-8 group-hover:-translate-x-1.5'>
+			<div className='shrink-0 mx-auto my-[2px] w-5 h-[2.5px] rounded-full bg-[#2A2F3D]' aria-hidden='true' />
+			<div className='flex-1 min-h-0 overflow-hidden rounded-[9px] border border-[#050505]/40 bg-[#0F0D23]'>
+				<img
+					src='/images/me/pixora/pixora-search.webp'
+					alt='Pixora mobile search results screen'
+					loading='lazy'
+					className='w-full h-full object-cover object-top block'
+				/>
+			</div>
+		</div>
+
+		{/* Right Phone: Movie Detail Screen */}
+		<div className='absolute bottom-[7%] right-[8%] h-[74%] aspect-[420/955] z-10 flex flex-col rounded-[14px] border-[2.5px] border-[#050505] bg-[#0B0D14] p-[3px] shadow-[4px_4px_0_#050505] rotate-6 origin-bottom transition-transform duration-300 ease-out group-hover:rotate-8 group-hover:translate-x-1.5'>
+			<div className='shrink-0 mx-auto my-[2px] w-5 h-[2.5px] rounded-full bg-[#2A2F3D]' aria-hidden='true' />
+			<div className='flex-1 min-h-0 overflow-hidden rounded-[9px] border border-[#050505]/40 bg-[#0F0D23]'>
+				<img
+					src='/images/me/pixora/pixora-detail.webp'
+					alt='Pixora movie detail screen'
+					loading='lazy'
+					className='w-full h-full object-cover object-top block'
+				/>
+			</div>
+		</div>
+
+		{/* Center Hero Phone: Home Feed Screen */}
+		<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[86%] aspect-[420/955] z-20 flex flex-col rounded-[16px] border-[3px] border-[#050505] bg-[#0B0D14] p-[3.5px] shadow-[6px_6px_0_#050505] ring-2 ring-[#FFD426]/90 transition-transform duration-300 ease-out group-hover:-translate-y-[53%] group-hover:scale-[1.02]'>
+			<div className='shrink-0 mx-auto my-[2px] w-6 h-[3px] rounded-full bg-[#2A2F3D]' aria-hidden='true' />
+			<div className='flex-1 min-h-0 overflow-hidden rounded-[10px] border border-[#050505]/40 bg-[#0F0D23]'>
+				<img
+					src='/images/me/pixora/pixora-home.webp'
+					alt='Pixora home discovery screen'
+					loading='lazy'
+					className='w-full h-full object-cover object-top block'
+				/>
+			</div>
+		</div>
+	</div>
+);

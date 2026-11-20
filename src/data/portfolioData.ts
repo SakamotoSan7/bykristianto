@@ -1280,7 +1280,7 @@ export interface WebProject {
 	subtitle: LocalizedText;
 	description: LocalizedText;
 	imagePath: string;
-	customArtwork?: 'portfolio-site';
+	customArtwork?: 'portfolio-site' | 'pixora-showcase';
 	isCurrentSite?: boolean;
 	url?: string;
 	tags: string[];
@@ -1330,7 +1330,8 @@ export const WEB_PROJECTS: WebProject[] = [
 			en: 'Mobile movie browser built with Expo, React Native, NativeWind, and Appwrite trending analytics.',
 			id: 'Aplikasi eksplorasi film mobile berbasis Expo, React Native, NativeWind, dan analitik tren Appwrite.',
 		},
-		imagePath: '/images/me/project-2.jpg',
+		imagePath: '/images/me/pixora/pixora-home.webp',
+		customArtwork: 'pixora-showcase',
 		tags: ['React Native', 'Expo', 'TypeScript', 'Appwrite'],
 	},
 ];
