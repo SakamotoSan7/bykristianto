@@ -1233,7 +1233,7 @@ export const IgniterShowcaseArtwork = ({ className = 'w-full h-full' }: { classN
 	>
 		{/* Angled Vermilion Graphic Ribbon (Digital Spaghetti Studio Accent) */}
 		<div
-			className='pointer-events-none absolute -inset-x-8 bottom-[15%] h-[30%] bg-[#FD6141] border-y-[2.5px] border-[#050505] rotate-3'
+			className='pointer-events-none absolute -inset-x-8 top-1/2 -translate-y-1/2 h-[30%] bg-[#FD6141] border-y-[2.5px] border-[#050505] rotate-3'
 			aria-hidden='true'
 		/>
 
@@ -1245,19 +1245,19 @@ export const IgniterShowcaseArtwork = ({ className = 'w-full h-full' }: { classN
 			+
 		</span>
 		<span
-			className='pointer-events-none absolute top-2.5 right-2.5 z-10'
+			className='pointer-events-none absolute top-2 right-2.5 z-10'
 			aria-hidden='true'
 		>
 			<SparkleStar className='size-5' fill='#3886C0' />
 		</span>
 
 		{/* Top-Left Tilted Canary Stamp */}
-		<span className='pointer-events-none absolute top-2.5 left-3 z-30 px-2 py-0.5 rounded-[2px] bg-[#FFD426] border-[1.5px] border-[#050505] shadow-[2px_2px_0_#050505] font-mono text-[9.5px] font-black uppercase tracking-wider text-[#050505] -rotate-2'>
+		<span className='pointer-events-none absolute top-2 left-2.5 z-30 px-2 py-0.5 rounded-[2px] bg-[#FFD426] border-[1.5px] border-[#050505] shadow-[2px_2px_0_#050505] font-mono text-[9.5px] font-black uppercase tracking-wider text-[#050505] -rotate-2'>
 			WEB APP
 		</span>
 
-		{/* Tilted Desktop Browser Frame with Mini Chrome + Real Screenshot */}
-		<div className='absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[84%] h-[74%] z-20 flex flex-col rounded-[10px] border-[2.5px] border-[#050505] bg-[#FFFFFF] shadow-[6px_6px_0_#050505] overflow-hidden -rotate-1 transition-transform duration-300 ease-out group-hover:rotate-0 group-hover:-translate-y-[53%] group-hover:scale-[1.015]'>
+		{/* Centered Tilted Desktop Browser Frame with Mini Chrome + Real Screenshot */}
+		<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[84%] h-[74%] z-20 flex flex-col rounded-[10px] border-[2.5px] border-[#050505] bg-[#FFFFFF] shadow-[6px_6px_0_#050505] overflow-hidden -rotate-1 transition-transform duration-300 ease-out group-hover:rotate-0 group-hover:-translate-y-[52%] group-hover:scale-[1.015]'>
 			<div className='h-[20px] shrink-0 px-2 bg-[#FCF0D3] border-b-[2px] border-[#050505] flex items-center justify-between gap-2'>
 				<div className='flex items-center gap-1 shrink-0' aria-hidden='true'>
 					<span className='size-2 rounded-full bg-[#FD6141] border border-[#050505]' />
@@ -1279,7 +1279,7 @@ export const IgniterShowcaseArtwork = ({ className = 'w-full h-full' }: { classN
 		</div>
 
 		{/* Bottom-Right Floating Stack Stamp */}
-		<span className='pointer-events-none absolute bottom-2.5 right-3 z-30 px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#FFD426] border border-[#050505] shadow-[2px_2px_0_#5CE62E] font-mono text-[8.5px] font-black uppercase tracking-wider rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:-translate-y-0.5'>
+		<span className='pointer-events-none absolute bottom-2 right-2.5 z-30 px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#FFD426] border border-[#050505] shadow-[2px_2px_0_#5CE62E] font-mono text-[8.5px] font-black uppercase tracking-wider rotate-2 transition-transform duration-300 group-hover:rotate-0 group-hover:-translate-y-0.5'>
 			NEXT.JS 15
 		</span>
 	</div>
