@@ -26,8 +26,8 @@ export const KRIS_PROFILES: Record<KrisTierId, KrisProfile> = {
 			id: 'Mode Bocil · 15+0 Rapid',
 		},
 		accentHex: '#5CE62E',
-		openingBookMaxPly: 2,
-		thinkRangeMs: [280, 480],
+		openingBookMaxPly: 4,
+		thinkRangeMs: [1100, 3100],
 	},
 	'1500': {
 		id: '1500',
@@ -39,8 +39,8 @@ export const KRIS_PROFILES: Record<KrisTierId, KrisProfile> = {
 			id: 'Mode ABG · 15+0 Rapid',
 		},
 		accentHex: '#94C9F2',
-		openingBookMaxPly: 4,
-		thinkRangeMs: [420, 660],
+		openingBookMaxPly: 7,
+		thinkRangeMs: [1300, 3800],
 	},
 	'1900': {
 		id: '1900',
@@ -52,8 +52,8 @@ export const KRIS_PROFILES: Record<KrisTierId, KrisProfile> = {
 			id: 'Mode Senior · 15+0 Rapid',
 		},
 		accentHex: '#FFD426',
-		openingBookMaxPly: 8,
-		thinkRangeMs: [560, 820],
+		openingBookMaxPly: 10,
+		thinkRangeMs: [1400, 4400],
 	},
 };
 

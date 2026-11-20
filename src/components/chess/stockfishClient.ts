@@ -1,4 +1,12 @@
+import { Chess } from 'chess.js';
 import type { KrisTierId } from './chessProfiles';
+import {
+	TIER_ENGINE_CONFIG,
+	computeHumanThinkMs,
+	encodeMateCp,
+	selectSanakamotoMove,
+	type RawMultiPvCandidate,
+} from './krisMoveSelector';
 
 export type EngineState = 'loading' | 'ready' | 'thinking' | 'error';
 
@@ -8,110 +16,21 @@ export interface StockfishClientOptions {
 	onDownloadProgress?: (percent: number) => void;
 }
 
-/** Calibrated UCI_Elo ceiling for ~1900 Chess.com Rapid (compensates CCRL Blitz compression). */
-const UNC_1900_UCI_ELO = 2290;
-
-interface MultiPvCandidate {
-	pv: number;
-	depth: number;
-	cp: number;
-	isMateInOne: boolean;
-	move: string;
+export interface FindBestMoveContext {
+	ply?: number;
+	prevOpponentToSquare?: string | null;
+	krisClockMs?: number;
 }
 
-interface AccuracyBand {
-	prob: number;
-	minLoss: number;
-	maxLoss: number;
-}
-
-const CALIBRATED_BANDS: Record<'1000' | '1500', readonly AccuracyBand[]> = {
-	// Empirically calibrated (~59cp ACPL, 19% mistakes 100–249cp, 4% blunders >=250cp)
-	'1500': [
-		{ prob: 0.44, minLoss: 0, maxLoss: 25 },
-		{ prob: 0.34, minLoss: 30, maxLoss: 115 },
-		{ prob: 0.16, minLoss: 116, maxLoss: 230 },
-		{ prob: 0.06, minLoss: 231, maxLoss: 340 },
-	],
-	// Empirically calibrated (~145cp ACPL, 28% mistakes 100–249cp, 24% blunders >=250cp)
-	'1000': [
-		{ prob: 0.24, minLoss: 0, maxLoss: 35 },
-		{ prob: 0.32, minLoss: 45, maxLoss: 165 },
-		{ prob: 0.28, minLoss: 170, maxLoss: 340 },
-		{ prob: 0.16, minLoss: 341, maxLoss: 540 },
-	],
-};
-
-function selectCalibratedMultiPvMove(
-	rawCandidates: readonly MultiPvCandidate[],
-	tier: '1000' | '1500'
-): string | null {
-	if (rawCandidates.length === 0) return null;
-
-	// Use the highest reached depth for each distinct root candidate move
-	let maxDepth = 0;
-	for (const c of rawCandidates) {
-		if (c.depth > maxDepth) maxDepth = c.depth;
-	}
-	const byMove = new Map<string, MultiPvCandidate>();
-	for (const c of rawCandidates) {
-		if (c.depth < maxDepth - 1) continue;
-		const existing = byMove.get(c.move);
-		if (!existing || c.depth > existing.depth) {
-			byMove.set(c.move, c);
-		}
-	}
-
-	const sorted = [...byMove.values()].sort((a, b) => b.cp - a.cp);
-	if (sorted.length === 0) return rawCandidates[0].move;
-	if (sorted.length === 1) return sorted[0].move;
-
-	// Obvious mate-in-1 is spotted almost always by 1500 (98%) and usually by 1000 (85%)
-	if (sorted[0].isMateInOne && Math.random() < (tier === '1500' ? 0.98 : 0.85)) {
-		return sorted[0].move;
-	}
-
-	const bestCp = sorted[0].cp;
-	const bands = CALIBRATED_BANDS[tier];
-	const roll = Math.random();
-	let acc = 0;
-	let chosenBand = bands[bands.length - 1];
-	for (const band of bands) {
-		acc += band.prob;
-		if (roll <= acc) {
-			chosenBand = band;
-			break;
-		}
-	}
-
-	const inBand = sorted.filter((c) => {
-		const loss = bestCp - c.cp;
-		return loss >= chosenBand.minLoss && loss <= chosenBand.maxLoss;
-	});
-	if (inBand.length > 0) {
-		return inBand[Math.floor(Math.random() * inBand.length)].move;
-	}
-
-	const withinMax = sorted.filter((c) => bestCp - c.cp <= chosenBand.maxLoss);
-	const fallbackPool = withinMax.length > 0 ? withinMax : sorted;
-	const targetMid = (chosenBand.minLoss + chosenBand.maxLoss) / 2;
-	let closest = fallbackPool[0];
-	let bestDist = Math.abs(bestCp - closest.cp - targetMid);
-	for (let i = 1; i < fallbackPool.length; i += 1) {
-		const cand = fallbackPool[i];
-		const dist = Math.abs(bestCp - cand.cp - targetMid);
-		if (dist < bestDist) {
-			bestDist = dist;
-			closest = cand;
-		}
-	}
-	return closest.move;
+interface SearchOutcome {
+	candidates: RawMultiPvCandidate[];
+	fallbackMove: string | null;
 }
 
 /**
  * Lightweight single-threaded Stockfish 19 Lite WASM Web Worker wrapper.
- * Supports switching seamlessly across 3 calibrated strength profiles
- * ('1900' Unc Kris, '1500' Teen Kris, '1000' Lil' Kris) without reloading WASM.
+ * Runs device-independent node-capped MultiPV searches across all 3 tiers
+ * (`1900` Om Kris, `1500` ABG Kris, `1000` Bocil Kris) with human-like Rapid pacing.
  */
 export class StockfishClient {
 	private worker: Worker | null = null;
@@ -119,7 +38,7 @@ export class StockfishClient {
 	private epoch = 0;
 	private isDisposed = false;
 	private state: EngineState = 'loading';
-	private configuredMode: 'none' | 'uci1900' | 'multipv32' = 'none';
+	private configuredMultiPv: number | null = null;
 	private readonly initialTier: KrisTierId;
 	private readonly onStateChange?: (state: EngineState) => void;
 	private readonly onDownloadProgress?: (percent: number) => void;
@@ -130,9 +49,8 @@ export class StockfishClient {
 
 	private activeSearch: {
 		epoch: number;
-		tier: KrisTierId;
-		candidates: MultiPvCandidate[];
-		resolve: (uciMove: string | null) => void;
+		candidates: RawMultiPvCandidate[];
+		resolve: (outcome: SearchOutcome | null) => void;
 		reject: (err: Error) => void;
 		timeoutId: number;
 	} | null = null;
@@ -165,18 +83,14 @@ export class StockfishClient {
 		this.onStateChange?.(next);
 	}
 
-	private postModeOptions(targetMode: 'uci1900' | 'multipv32') {
+	private postTierOptions(multiPv: number, includeStrengthReset: boolean) {
 		if (!this.worker) return;
-		if (targetMode === 'uci1900') {
-			this.worker.postMessage('setoption name MultiPV value 1');
-			this.worker.postMessage('setoption name UCI_LimitStrength value true');
-			this.worker.postMessage(`setoption name UCI_Elo value ${UNC_1900_UCI_ELO}`);
-		} else {
+		if (includeStrengthReset) {
 			this.worker.postMessage('setoption name UCI_LimitStrength value false');
 			this.worker.postMessage('setoption name Skill Level value 20');
-			this.worker.postMessage('setoption name MultiPV value 32');
 		}
-		this.configuredMode = targetMode;
+		this.worker.postMessage(`setoption name MultiPV value ${multiPv}`);
+		this.configuredMultiPv = multiPv;
 	}
 
 	private initWorker() {
@@ -242,8 +156,8 @@ export class StockfishClient {
 	private handleUciLine(line: string) {
 		if (line === 'uciok' && !this.uciOkReceived) {
 			this.uciOkReceived = true;
-			const targetMode = this.initialTier === '1900' ? 'uci1900' : 'multipv32';
-			this.postModeOptions(targetMode);
+			const cfg = TIER_ENGINE_CONFIG[this.initialTier];
+			this.postTierOptions(cfg.multiPv, true);
 			this.worker?.postMessage('isready');
 			return;
 		}
@@ -263,12 +177,7 @@ export class StockfishClient {
 			return;
 		}
 
-		if (
-			this.activeSearch &&
-			this.activeSearch.tier !== '1900' &&
-			line.startsWith('info depth ') &&
-			line.includes(' pv ')
-		) {
+		if (this.activeSearch && line.startsWith('info depth ') && line.includes(' pv ')) {
 			const match = line.match(
 				/\bdepth\s+(\d+)\b.*\bmultipv\s+(\d+)\b.*\bscore\s+(cp|mate)\s+(-?\d+)\b.*\bpv\s+(\S+)/
 			);
@@ -277,12 +186,7 @@ export class StockfishClient {
 				const pv = Number(match[2]);
 				const scoreKind = match[3];
 				const scoreVal = Number(match[4]);
-				const cp =
-					scoreKind === 'cp'
-						? scoreVal
-						: scoreVal > 0
-							? 2000 - scoreVal
-							: -2000 + Math.abs(scoreVal);
+				const cp = scoreKind === 'cp' ? scoreVal : encodeMateCp(scoreVal);
 				this.activeSearch.candidates.push({
 					depth,
 					pv,
@@ -299,21 +203,13 @@ export class StockfishClient {
 			const engineMove = token && token !== '(none)' ? token : null;
 			if (this.activeSearch) {
 				window.clearTimeout(this.activeSearch.timeoutId);
-				const { resolve, epoch, tier, candidates } = this.activeSearch;
+				const { resolve, epoch, candidates } = this.activeSearch;
 				this.activeSearch = null;
-				if (this.state === 'thinking') {
-					this.setState('ready');
-				}
 				if (epoch !== this.epoch) {
 					resolve(null);
 					return;
 				}
-				if (tier === '1900') {
-					resolve(engineMove);
-				} else {
-					const sampled = selectCalibratedMultiPvMove(candidates, tier);
-					resolve(sampled ?? engineMove);
-				}
+				resolve({ candidates, fallbackMove: engineMove });
 			}
 		}
 	}
@@ -347,9 +243,9 @@ export class StockfishClient {
 
 		this.cancelCurrentSearch();
 		if (tier) {
-			const targetMode = tier === '1900' ? 'uci1900' : 'multipv32';
-			if (this.configuredMode !== targetMode) {
-				this.postModeOptions(targetMode);
+			const cfg = TIER_ENGINE_CONFIG[tier];
+			if (this.configuredMultiPv !== cfg.multiPv) {
+				this.postTierOptions(cfg.multiPv, false);
 			}
 		}
 		this.worker.postMessage('ucinewgame');
@@ -391,18 +287,53 @@ export class StockfishClient {
 	public async findBestMove(
 		fen: string,
 		tier: KrisTierId = '1900',
-		thinkMs = 680
+		context: FindBestMoveContext = {}
 	): Promise<string | null> {
 		await this.readyPromise;
 		if (this.isDisposed || !this.worker) return null;
+
+		const game = new Chess(fen);
+		const legalMoves = game.moves({ verbose: true });
+		if (legalMoves.length === 0) return null;
 
 		this.cancelCurrentSearch();
 		const searchEpoch = this.epoch;
 		this.setState('thinking');
 
-		const targetMode = tier === '1900' ? 'uci1900' : 'multipv32';
-		if (this.configuredMode !== targetMode) {
-			this.postModeOptions(targetMode);
+		const ply = context.ply ?? 0;
+		const krisClockMs = context.krisClockMs ?? 900_000;
+		const isInCheck = game.inCheck();
+
+		// Fast-path forced single legal move without invoking Stockfish search
+		if (legalMoves.length === 1) {
+			const only = legalMoves[0];
+			const onlyUci = `${only.from}${only.to}${only.promotion ?? ''}`;
+			const isRecapture = Boolean(
+				only.captured && context.prevOpponentToSquare && only.to === context.prevOpponentToSquare
+			);
+			const delayMs = computeHumanThinkMs({
+				tier,
+				fromBook: false,
+				ply,
+				legalMoveCount: 1,
+				isRecapture,
+				isInCheck,
+				evalSpreadCp: 0,
+				isOnlyMove: true,
+				krisClockMs,
+			});
+			await this.waitHumanPacing(delayMs);
+			if (this.isDisposed || searchEpoch !== this.epoch) {
+				if (this.state === 'thinking') this.setState('ready');
+				return null;
+			}
+			if (this.state === 'thinking') this.setState('ready');
+			return onlyUci;
+		}
+
+		const cfg = TIER_ENGINE_CONFIG[tier];
+		if (this.configuredMultiPv !== cfg.multiPv) {
+			this.postTierOptions(cfg.multiPv, false);
 			await this.waitReady();
 			if (this.isDisposed || searchEpoch !== this.epoch || !this.worker) {
 				if (this.state === 'thinking') this.setState('ready');
@@ -411,16 +342,15 @@ export class StockfishClient {
 		}
 
 		const startedAt = performance.now();
-		const move = await new Promise<string | null>((resolve, reject) => {
+		const outcome = await new Promise<SearchOutcome | null>((resolve, reject) => {
 			const timeoutId = window.setTimeout(() => {
 				if (this.activeSearch?.epoch === searchEpoch) {
 					this.worker?.postMessage('stop');
 				}
-			}, thinkMs + 8000);
+			}, 10000);
 
 			this.activeSearch = {
 				epoch: searchEpoch,
-				tier,
 				candidates: [],
 				resolve,
 				reject,
@@ -428,31 +358,60 @@ export class StockfishClient {
 			};
 
 			this.worker?.postMessage(`position fen ${fen}`);
-			if (tier === '1900') {
-				this.worker?.postMessage(`go movetime ${thinkMs}`);
-			} else {
-				this.worker?.postMessage('go depth 5');
-			}
+			this.worker?.postMessage(`go depth ${cfg.searchDepth}`);
 		});
 
-		if (!move || this.isDisposed || searchEpoch !== this.epoch) return null;
+		if (!outcome || this.isDisposed || searchEpoch !== this.epoch) {
+			if (this.state === 'thinking') this.setState('ready');
+			return null;
+		}
 
-		// Keep brief natural human pacing for shallow depth-5 MultiPV searches without stalling UI
-		if (tier !== '1900') {
-			const elapsed = performance.now() - startedAt;
-			const remaining = Math.round(thinkMs - elapsed);
-			if (remaining > 15) {
-				this.setState('thinking');
-				await this.waitHumanPacing(remaining);
-				if (this.isDisposed || searchEpoch !== this.epoch) {
-					if (this.state === 'thinking') this.setState('ready');
-					return null;
-				}
+		const picked = selectSanakamotoMove({
+			fen,
+			rawCandidates: outcome.candidates,
+			tier,
+			ply: context.ply,
+			prevOpponentToSquare: context.prevOpponentToSquare ?? null,
+		});
+		const finalMove = picked?.move ?? outcome.fallbackMove;
+		if (!finalMove) {
+			if (this.state === 'thinking') this.setState('ready');
+			return null;
+		}
+
+		const selectedVerbose = legalMoves.find(
+			(m) => `${m.from}${m.to}${m.promotion ?? ''}` === finalMove
+		);
+		const isRecapture = Boolean(
+			selectedVerbose?.captured &&
+				context.prevOpponentToSquare &&
+				selectedVerbose.to === context.prevOpponentToSquare
+		);
+
+		const targetThinkMs = computeHumanThinkMs({
+			tier,
+			fromBook: false,
+			ply,
+			legalMoveCount: legalMoves.length,
+			isRecapture,
+			isInCheck,
+			evalSpreadCp: picked?.evalSpreadCp ?? 0,
+			isOnlyMove: picked?.isOnlyMove ?? false,
+			krisClockMs,
+		});
+
+		const elapsed = performance.now() - startedAt;
+		const remaining = Math.round(targetThinkMs - elapsed);
+		if (remaining > 15) {
+			await this.waitHumanPacing(remaining);
+			if (this.isDisposed || searchEpoch !== this.epoch) {
 				if (this.state === 'thinking') this.setState('ready');
+				return null;
 			}
 		}
 
-		return move;
+		if (this.state === 'thinking') this.setState('ready');
+		return finalMove;
 	}
 
 	public dispose() {

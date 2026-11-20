@@ -56,6 +56,7 @@ import {
 	type KrisDialogueCategory,
 	type KrisLine,
 } from './krisDialogue';
+import { computeHumanThinkMs } from './krisMoveSelector';
 import { pickBookMove } from './openingBook';
 import { StockfishClient, type EngineState } from './stockfishClient';
 
@@ -460,6 +461,10 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 	const isViewingHistoryRef = useRef<boolean>(false);
 	const arrowDrawModeRef = useRef<boolean>(arrowDrawMode);
 	const boardPxRef = useRef<number>(boardPx);
+	const clocksRef = useRef<{ w: number; b: number }>({
+		w: INITIAL_CLOCK_MS,
+		b: INITIAL_CLOCK_MS,
+	});
 	const totalPlies = timeline.length - 1;
 	const displayedPly =
 		viewPly === null ? totalPlies : Math.max(0, Math.min(viewPly, totalPlies));
@@ -497,6 +502,11 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 	useEffect(() => {
 		boardPxRef.current = boardPx;
 	}, [boardPx]);
+
+	useEffect(() => {
+		clocksRef.current.w = whiteMs;
+		clocksRef.current.b = blackMs;
+	}, [whiteMs, blackMs]);
 
 	useEffect(() => {
 		return () => {
@@ -755,12 +765,30 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		async (expectedMatchId: number, currentFen: string) => {
 			clearBookTimer();
 
+			const game = chessRef.current;
 			const currentTier = activeTierRef.current;
 			const profile = KRIS_PROFILES[currentTier];
-			const bookMove = pickBookMove(chessRef.current, profile.openingBookMaxPly);
+			const ply = game.history().length;
+			const krisColor: Color = playerColorRef.current === 'w' ? 'b' : 'w';
+			const krisClockMs = clocksRef.current[krisColor];
+			const prevOpponentToSquare = lastMoveRef.current.player?.to ?? null;
+			const isInCheck = game.inCheck();
+			const legalMoveCount = game.moves().length;
+
+			const bookMove = pickBookMove(game, currentTier, profile.openingBookMaxPly);
 			if (bookMove) {
 				setIsBookThinking(true);
-				const bookDelayMs = 300 + Math.floor(Math.random() * 200);
+				const bookDelayMs = computeHumanThinkMs({
+					tier: currentTier,
+					fromBook: true,
+					ply,
+					legalMoveCount,
+					isRecapture: false,
+					isInCheck,
+					evalSpreadCp: 0,
+					isOnlyMove: legalMoveCount <= 1,
+					krisClockMs,
+				});
 				bookTimerRef.current = window.setTimeout(() => {
 					bookTimerRef.current = null;
 					setIsBookThinking(false);
@@ -772,10 +800,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			const client = engineRef.current;
 			if (!client) return;
 
-			const [minThink, maxThink] = profile.thinkRangeMs;
-			const thinkMs = minThink + Math.floor(Math.random() * Math.max(1, maxThink - minThink));
 			try {
-				const bestUci = await client.findBestMove(currentFen, currentTier, thinkMs);
+				const bestUci = await client.findBestMove(currentFen, currentTier, {
+					ply,
+					prevOpponentToSquare,
+					krisClockMs,
+				});
 				if (bestUci) {
 					applyKrisUciMove(expectedMatchId, bestUci, false);
 				}
@@ -946,6 +976,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			setViewPly(null);
 			setRevision((r) => r + 1);
 			setPlayerHasMoved(false);
+			clocksRef.current = { w: INITIAL_CLOCK_MS, b: INITIAL_CLOCK_MS };
 			setWhiteMs(INITIAL_CLOCK_MS);
 			setBlackMs(INITIAL_CLOCK_MS);
 			setSelectedSquare(null);
@@ -2815,14 +2846,14 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					className={`inline-flex items-center gap-1 sm:gap-1.5 h-6 sm:h-7 px-1.5 sm:px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
 						engineState === 'error'
 							? 'bg-[#FD6141] text-[#050505]'
-							: engineState === 'loading' || engineState === 'thinking'
+							: engineState === 'loading' || isKrisThinking
 								? 'bg-[#FFD426] text-[#050505]'
 								: 'bg-[#5CE62E] text-[#050505]'
 					}`}
 				>
 					<span
 						className={`size-1.5 rounded-full bg-[#050505] shrink-0 ${
-							engineState === 'loading' || engineState === 'thinking' ? 'animate-pulse' : ''
+							engineState === 'loading' || isKrisThinking ? 'animate-pulse' : ''
 						}`}
 					/>
 					{engineState === 'loading' ? (
@@ -2831,7 +2862,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 							: t({ en: 'LOADING...', id: 'MEMUAT...' })
 					) : engineState === 'error' ? (
 						t({ en: 'ERROR', id: 'GAGAL' })
-					) : engineState === 'thinking' ? (
+					) : isKrisThinking ? (
 						t({
 							en: 'THINKING...',
 							id: 'MIKIR...',
