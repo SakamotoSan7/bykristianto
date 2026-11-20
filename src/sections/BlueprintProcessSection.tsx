@@ -55,7 +55,7 @@ const SOUND_PADS: SoundPad[] = [
 		wallHex: '#B38800',
 		glowRgb: '255, 212, 38',
 		title: 'OOF!',
-		sub: { en: 'Classic Roblox', id: 'Roblox Oof' },
+		sub: { en: 'Roblox Oof', id: 'Roblox Oof' },
 	},
 	{
 		id: 'wow',
@@ -64,7 +64,7 @@ const SOUND_PADS: SoundPad[] = [
 		wallHex: '#209008',
 		glowRgb: '92, 230, 46',
 		title: 'WOOOW!',
-		sub: { en: 'Anime Sparkle', id: 'Anime Wow' },
+		sub: { en: 'Anime Wow', id: 'Anime Wow' },
 	},
 	{
 		id: 'bruh',
@@ -110,7 +110,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '201, 24, 120',
 		isDarkFace: true,
 		title: 'GOD!!',
-		sub: { en: 'Dramatic Fail', id: 'Teriakan Gagal' },
+		sub: { en: 'Dramatic Scream', id: 'Teriakan Dramatis' },
 	},
 ];
 
@@ -360,8 +360,8 @@ const BlueprintProcessSection = ({
 				<TitleHeader
 					figCode='FIG.02'
 					sub={t({
-						en: 'PRODUCTION PIPELINE',
-						id: 'ALUR PRODUKSI',
+						en: 'PRODUCTION PROCESS',
+						id: 'PROSES PRODUKSI',
 					})}
 					title={t({
 						en: 'Where Film Craft Meets Editing, Code & Sound',
@@ -415,8 +415,8 @@ const BlueprintProcessSection = ({
 							</span>
 							<p className='font-display font-black text-sm sm:text-base text-[#050505] leading-snug truncate'>
 								{t({
-									en: 'Interactive Craft Lab — Inspect Code & Play',
-									id: 'Lab Interaktif — Uji Kode, Visual & Audio',
+									en: 'Craft Lab — Inspect Code, Visuals & Play',
+									id: 'Lab Kreatif — Uji Kode, Visual & Main',
 								})}
 							</p>
 							<div className='hidden xl:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
@@ -430,7 +430,7 @@ const BlueprintProcessSection = ({
 					{/* Unified Calm Inactive Tabs (Tactile Shadow) + Bold Signature Active State */}
 					<div
 						role='tablist'
-						aria-label={t({ en: 'Craft Lab Interactive Modes', id: 'Pilihan Mode Craft Lab' })}
+						aria-label={t({ en: 'Craft Lab Interactive Modes', id: 'Pilihan Mode Lab Kreatif' })}
 						className='grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#F6EDD6] border-b-[3px] border-[#050505]'
 					>
 						{/* Mode 1: Visual Before / After */}
@@ -459,7 +459,7 @@ const BlueprintProcessSection = ({
 								</span>
 								<div className='min-w-0'>
 									<p className='font-display font-black text-sm leading-tight'>
-										{t({ en: 'Visual Before / After', id: 'Before / After Studio' })}
+										{t({ en: 'Before / After Studio', id: 'Before / After Studio' })}
 									</p>
 									<p
 										className={`font-mono text-[10px] font-bold leading-snug mt-0.5 ${
@@ -479,7 +479,7 @@ const BlueprintProcessSection = ({
 								}`}
 							>
 								{activeTab === 'compare'
-									? t({ en: 'OPEN', id: 'AKTIF' })
+									? t({ en: 'ACTIVE', id: 'AKTIF' })
 									: 'SPLIT'}
 							</span>
 						</button>
@@ -516,7 +516,7 @@ const BlueprintProcessSection = ({
 										{t({ en: 'Chess vs Kris (1000–1900)', id: 'Catur vs Kris (1000–1900)' })}
 									</p>
 									<p className='font-mono text-[10px] font-bold text-[#3B404C] leading-snug mt-0.5'>
-										{t({ en: 'Playable AI Match · 3 ELO', id: 'Lawan Stockfish AI · 3 Level' })}
+										{t({ en: 'Playable AI · 3 Elo Tiers', id: 'Lawan AI · 3 Level Elo' })}
 									</p>
 								</div>
 							</div>
@@ -529,7 +529,7 @@ const BlueprintProcessSection = ({
 								}`}
 							>
 								{activeTab === 'chess'
-									? t({ en: 'PLAYING', id: 'AKTIF' })
+									? t({ en: 'ACTIVE', id: 'AKTIF' })
 									: t({ en: 'PLAY ♟', id: 'MAIN ♟' })}
 							</span>
 						</button>
@@ -566,7 +566,7 @@ const BlueprintProcessSection = ({
 											activeTab === 'sfx' ? 'text-[#050505]/90' : 'text-[#3B404C]'
 										}`}
 									>
-										{t({ en: '8 Foley Pads · Memory Game', id: '8 Pad Suara · Game Memori' })}
+										{t({ en: '8 Sound Pads · Memory Game', id: '8 Pad Suara · Game Memori' })}
 									</p>
 								</div>
 							</div>
@@ -579,7 +579,7 @@ const BlueprintProcessSection = ({
 								}`}
 							>
 								{activeTab === 'sfx'
-									? t({ en: 'OPEN', id: 'AKTIF' })
+									? t({ en: 'ACTIVE', id: 'AKTIF' })
 									: t({ en: '8 PADS', id: '8 PAD' })}
 							</span>
 						</button>

@@ -89,7 +89,7 @@ const Footer = () => {
 							data-sfx='nav'
 							className='px-3.5 py-2 rounded-full border border-white/25 bg-white/8 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] transition-colors'
 						>
-							{t({ en: '14 Works', id: '14 Karya' })}
+							{t({ en: 'Portfolio', id: 'Portofolio' })}
 						</a>
 						<a
 							href='#studio-desk'

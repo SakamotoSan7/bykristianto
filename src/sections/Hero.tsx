@@ -67,18 +67,17 @@ const Hero = () => {
 			id='hero'
 			ref={heroRef}
 			data-hero-stage
-			className='substrate-newsprint relative overflow-hidden border-b-[4px] border-[#050505] pt-24 sm:pt-28 md:pt-[134px] lg:pt-[118px] xl:pt-36 pb-16 lg:pb-20'
+			className='substrate-newsprint relative overflow-hidden border-b-[4px] border-[#050505] min-h-screen min-h-[100dvh] flex flex-col justify-center pt-[84px] sm:pt-[96px] lg:pt-[104px] pb-10 sm:pb-12 lg:pb-14'
 		>
 			{/* Live Verlet Physics Studio Patch Cords Canvas */}
 			<SpaghettiCablesCanvas onPluck={setLastPlucked} />
 
-			{/* Subtle Comic Sparkle Flair */}
-			<SparkleStar
-				className='pointer-events-none hidden md:block absolute top-28 md:top-[134px] lg:top-[118px] xl:top-36 right-12 size-7 z-20'
-				fill='#FFD426'
-			/>
-
-			<div className='relative z-20 max-w-7xl mx-auto px-5 md:px-10'>
+			<div className='relative z-20 w-full max-w-7xl mx-auto px-5 md:px-10'>
+				{/* Subtle Comic Sparkle Flair */}
+				<SparkleStar
+					className='pointer-events-none hidden md:block absolute -top-4 right-5 md:right-10 size-7 z-20'
+					fill='#FFD426'
+				/>
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end'>
 					{/* Left 7 Cols: Editorial Positioning & Metrics */}
 					<div data-hero-copy className='lg:col-span-7 min-w-0 flex flex-col gap-5'>
@@ -184,11 +183,11 @@ const Hero = () => {
 						<div className='ds-hero-stagger pt-5 mt-1 border-t-2 border-dashed border-[#050505]/20 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 max-w-2xl select-none'>
 							{[
 								{
-									val: t({ en: '14 Works', id: '14 Karya' }),
+									val: t({ en: '14 Videos', id: '14 Video' }),
 									lbl: { en: '9:16 · 16:9 Formats', id: 'Format 9:16 · 16:9' },
 								},
 								{
-									val: '3.76 GPA',
+									val: t({ en: '3.76 GPA', id: 'IPK 3,76' }),
 									lbl: { en: 'Cum Laude Film & TV', id: 'Cum Laude TV & Film' },
 								},
 								{
@@ -196,8 +195,8 @@ const Hero = () => {
 									lbl: { en: 'EN / ID Bilingual', id: 'Dwibahasa EN / ID' },
 								},
 								{
-									val: 'AFE Records',
-									lbl: { en: 'Ex-Video Editor Intern', id: 'Magang Video Editor' },
+									val: 'Video & Web',
+									lbl: { en: 'Motion & Custom Sites', id: 'Motion & Web Kustom' },
 								},
 							].map((ticket) => (
 								<div key={ticket.val} className='min-w-0'>
@@ -222,7 +221,7 @@ const Hero = () => {
 						/>
 						<div
 							data-hero-card
-							className='ds-hero-stagger w-full max-w-sm lg:mb-20 xl:mb-10 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'
+							className='ds-hero-stagger w-full max-w-sm lg:mb-14 xl:mb-10 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'
 						>
 							<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
 								<div className='flex items-center gap-2 min-w-0 flex-1'>

@@ -164,7 +164,7 @@ const ServiceCard = ({
 							}`}
 						>
 							{addonApplied
-								? t({ en: 'INCLUDED', id: 'AKTIF' })
+								? t({ en: 'INCLUDED', id: 'TERMASUK' })
 								: t({ en: 'OPTIONAL', id: 'OPSIONAL' })}
 						</span>
 					</button>
@@ -246,7 +246,7 @@ const ServicesSection = ({
 				{/* Progressive Disclosure: Signature Risograph 2-Track Switcher */}
 				<div
 					role='tablist'
-					aria-label={t({ en: 'Service Categories', id: 'Kategori Layanan' })}
+					aria-label={t({ en: 'Service Categories', id: 'Kategori Jasa' })}
 					className='mt-8 inline-flex flex-wrap sm:flex-nowrap w-full sm:w-auto gap-2 p-1.5 rounded-md border-[3px] border-[#050505] bg-[#FCF0D3] shadow-[5px_5px_0_#050505]'
 				>
 					<button

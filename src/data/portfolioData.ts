@@ -69,11 +69,11 @@ export function getLocalizedCvLink(lang: 'en' | 'id') {
 }
 
 export const NAV_LINKS: { label: LocalizedText; href: string }[] = [
-	{ label: { en: 'Works (14)', id: '14 Karya' }, href: '#videos' },
-	{ label: { en: 'Craft Lab', id: 'Alur & Lab' }, href: '#blueprint' },
+	{ label: { en: 'Portfolio', id: 'Portofolio' }, href: '#videos' },
+	{ label: { en: 'Craft Lab', id: 'Lab Kreatif' }, href: '#craft-lab' },
 	{ label: { en: 'Services', id: 'Jasa' }, href: '#services' },
-	{ label: { en: 'About & CV', id: 'Profil & CV' }, href: '#experience' },
-	{ label: { en: 'Web Builds', id: 'Karya Web' }, href: '#web-builds' },
+	{ label: { en: 'About & CV', id: 'Tentang & CV' }, href: '#experience' },
+	{ label: { en: 'Web Builds', id: 'Proyek Web' }, href: '#web-builds' },
 ];
 
 export const VIDEO_WORKS: VideoWork[] = [
@@ -694,7 +694,7 @@ export const WORKFLOW_STEPS: {
 			en: 'Narration rhythm and natural breathing pauses are locked in first before any animation starts.',
 			id: 'Tempo narasi dan jeda napas alami dikunci lebih dulu sebelum gerakan visual dibuat.',
 		},
-		tag: { en: 'Timing', id: 'Sinkronisasi' },
+		tag: { en: 'Voice Pacing', id: 'Ritme Suara' },
 	},
 	{
 		step: '03',
@@ -802,8 +802,8 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 		stickerTag: { en: '16:9 LONG-FORM', id: 'DURASI PANJANG' },
 		accentColor: '#5CE62E',
 		title: {
-			en: 'Long-Form Video (YouTube & Storytelling)',
-			id: 'Video Durasi Panjang (YouTube & Edukasi)',
+			en: 'Long-Form Video (YouTube & Explainers)',
+			id: 'Video Durasi Panjang (YouTube & Explainer)',
 		},
 		format: {
 			en: '16:9 Widescreen · Full-Length Format',
@@ -1023,17 +1023,17 @@ export interface ExperienceItem {
 export const EXPERIENCE_CARDS: ExperienceItem[] = [
 	{
 		id: 'afe-records',
-		role: { en: 'Video Editor Intern', id: 'Video Editor Intern' },
+		role: { en: 'Video Editor Intern', id: 'Magang Video Editor' },
 		organization: 'PT Afe Perkasa Abadi (AFE Records)',
 		location: 'South Jakarta, Indonesia',
 		date: '2025',
 		badgeLabel: { en: 'Commercial Music & TV Post-Production', id: 'Pascaproduksi Musik & Program TV' },
 		cardImagePath: '/images/me/studio/exp-afe-darkroom.webp',
 		cardImageFit: 'cover',
-		cardImageLabel: { en: 'POST-PROD SUITE · AFE RECORDS', id: 'RUANG GRADING · AFE RECORDS' },
+		cardImageLabel: { en: 'POST-PROD SUITE · SOUTH JAKARTA', id: 'RUANG EDITING · JAKARTA SELATAN' },
 		review: {
-			en: 'Handled commercial music video & broadcast TV post-production end-to-end.',
-			id: 'Menangani pascaproduksi video musik komersial dan program TV sesuai standar siaran.',
+			en: 'Contributed to music video editing, TV rough cuts, and multi-cam podcast post-production.',
+			id: 'Mengerjakan editing video musik, rough cut program TV, serta pascaproduksi podcast multi-kamera.',
 		},
 		responsibilities: [
 			{

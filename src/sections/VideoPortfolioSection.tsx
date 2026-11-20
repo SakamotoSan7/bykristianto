@@ -75,7 +75,7 @@ const VideoPortfolioSection = ({
 	const categories: { value: CategoryFilter; label: { en: string; id: string } }[] = [
 		{ value: 'ALL', label: { en: 'All Styles', id: 'Semua Gaya' } },
 		{ value: 'editorial', label: { en: 'Editorial & Collage', id: 'Editorial & Kolase' } },
-		{ value: '3d-shader', label: { en: '3D & Shaders', id: '3D & Efek Visual' } },
+		{ value: '3d-shader', label: { en: '3D & Shaders', id: '3D & Shader' } },
 		{ value: 'systems-data', label: { en: 'Data & Typography', id: 'Data & Tipografi' } },
 		{ value: 'remotion', label: { en: 'React Video (Remotion)', id: 'Video React (Remotion)' } },
 	];
@@ -100,7 +100,7 @@ const VideoPortfolioSection = ({
 					})}
 					title={t({
 						en: 'Selected Video & Motion Explainer Works',
-						id: '14 Karya Video & Motion Explainer Terpilih',
+						id: 'Karya Video & Motion Explainer Terpilih',
 					})}
 					bullets={[
 						t({ en: '9:16 Vertical Reels', id: 'Reels Vertikal 9:16' }),
@@ -128,7 +128,7 @@ const VideoPortfolioSection = ({
 									[
 										{ val: 'ALL', label: { en: 'All (14)', id: 'Semua (14)' } },
 										{ val: '9:16', label: { en: '9:16 Vertical (8)', id: '9:16 Vertikal (8)' } },
-										{ val: '16:9', label: { en: '16:9 Widescreen (6)', id: '16:9 Horizontal (6)' } },
+										{ val: '16:9', label: { en: '16:9 Horizontal (6)', id: '16:9 Horizontal (6)' } },
 									] as const
 								).map((btn) => (
 									<button

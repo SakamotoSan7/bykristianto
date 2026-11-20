@@ -38,8 +38,8 @@ const DEFAULT_PROJECT_OPTIONS = [
 		id: 'Video Promosi Produk / Bisnis',
 	},
 	{
-		en: 'Long-Form Video (YouTube & Storytelling)',
-		id: 'Video Durasi Panjang (YouTube & Edukasi)',
+		en: 'Long-Form Video (YouTube & Explainers)',
+		id: 'Video Durasi Panjang (YouTube & Explainer)',
 	},
 	{
 		en: 'Custom Video Request',
@@ -71,7 +71,7 @@ const DEFAULT_PROJECT_OPTIONS = [
 	},
 	{
 		en: 'Full-Time / Contract Creative Role',
-		id: 'Rekrut Tim Kreatif (Full-Time / Kontrak)',
+		id: 'Posisi Tim Kreatif (Full-Time / Kontrak)',
 	},
 ];
 
@@ -232,7 +232,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 			'',
 			`*${t({ en: 'Name / Studio', id: 'Nama / Perusahaan' })}:* ${form.name.trim() || '-'}`,
 			...(form.email.trim() ? [`*Email:* ${form.email.trim()}`] : []),
-			`*${t({ en: 'Service / Role', id: 'Kebutuhan' })}:* ${form.projectType}`,
+			`*${t({ en: 'Service / Role', id: 'Layanan / Posisi' })}:* ${form.projectType}`,
 			'',
 			`*${t({ en: 'Project Brief', id: 'Detail Proyek' })}:*`,
 			form.message.trim(),
@@ -499,7 +499,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 										htmlFor='contact-type'
 										className='block font-mono text-xs font-black uppercase text-[#050505] mb-1.5'
 									>
-										{t({ en: 'Project Spec / Format', id: 'Pilihan Paket / Kebutuhan' })}
+										{t({ en: 'Service / Project Type', id: 'Jenis Layanan / Proyek' })}
 									</label>
 									<select
 										id='contact-type'

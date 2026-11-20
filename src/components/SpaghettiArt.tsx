@@ -963,8 +963,8 @@ export const PortfolioSiteArtwork: FC<SvgClassProps> = ({ className = 'w-full h-
 		</text>
 
 		{/* Center Nav Pills */}
-		<text x='134' y='34' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='5.5'>
-			14 WORKS ▾  LAB  SERVICES  CV  WEB
+		<text x='128' y='34' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='5.2'>
+			PORTFOLIO ▾  LAB ▾  SERVICES  CV  WEB
 		</text>
 
 		{/* Right Navbar Controls */}

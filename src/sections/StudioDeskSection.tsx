@@ -82,8 +82,8 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 		tabLabel: { en: 'Need a Video', id: 'Butuh Video' },
 		badge: { en: 'REELS · PROMO · YOUTUBE', id: 'REELS · PROMO · YOUTUBE' },
 		headline: {
-			en: 'For brands, creators, & product promos',
-			id: 'Untuk konten sosial media, promo produk, hingga dokumenter',
+			en: 'For social media, product promos, & video explainers',
+			id: 'Untuk konten sosial media, promo produk, hingga video explainer',
 		},
 		points: [
 			{
@@ -113,7 +113,7 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 			href: '#services',
 		},
 		secondaryCta: {
-			label: { en: 'Start a Project Brief →', id: 'Kirim Brief Proyek →' },
+			label: { en: 'Send a Project Brief →', id: 'Kirim Brief Proyek →' },
 			href: '#contact',
 		},
 	},
@@ -162,15 +162,15 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 		tabLabel: { en: 'Hire / Team', id: 'Rekrut / Tim' },
 		badge: { en: 'EDITOR · CREATIVE TECH', id: 'EDITOR · CREATIVE TECH' },
 		headline: {
-			en: 'Hiring for a studio, agency, or in-house creative team?',
+			en: 'Hiring a Video Editor, Motion Creator, or Creative Technologist?',
 			id: 'Sedang mencari Video Editor, Motion Creator, atau Creative Technologist?',
 		},
 		points: [
 			{
-				title: { en: 'Commercial & Broadcast Experience', id: 'Pengalaman Produksi Komersial & TV' },
+				title: { en: 'Music Video, TV & Podcast Editing', id: 'Editing Video Musik, TV & Podcast' },
 				desc: {
-					en: 'Interned as a Video Editor at AFE Records (music video post-production, TV rough cuts, podcasts, and Reels).',
-					id: 'Pengalaman magang Video Editor di PT Afe Perkasa Abadi (AFE Records): menangani MV, rough cut program TV, podcast, dan Reels.',
+					en: 'Hands-on post-production experience across music videos, broadcast TV rough cuts, multi-cam podcasts, and social Reels.',
+					id: 'Pengalaman langsung di pascaproduksi video musik, rough cut program TV, podcast multi-kamera, dan Reels media sosial.',
 				},
 			},
 			{
@@ -224,7 +224,7 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 								<div className='flex items-center gap-2 min-w-0 flex-1'>
 									<span className='size-3 rounded-full bg-[#FD6141] border-2 border-[#050505] shrink-0' />
 									<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
-										{t({ en: 'CORE PROFILE · WHO I AM', id: 'RINGKASAN PROFIL · KEAHLIAN INTI' })}
+										{t({ en: 'CORE PROFILE · KEY STRENGTHS', id: 'RINGKASAN PROFIL · KEAHLIAN INTI' })}
 									</span>
 									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
@@ -277,7 +277,7 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 								<div className='flex items-center gap-2 min-w-0 flex-1'>
 									<span className='size-3 rounded-full bg-[#FFD426] border-2 border-[#050505] shrink-0' />
 									<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
-										{t({ en: 'HOW CAN WE COLLABORATE?', id: 'PANDUAN KOLABORASI' })}
+										{t({ en: 'COLLABORATION GUIDE', id: 'PANDUAN KOLABORASI' })}
 									</span>
 									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>

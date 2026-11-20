@@ -32,8 +32,8 @@ const ShowcaseSection = () => {
 					})}
 					badgeColor='green'
 					description={t({
-						en: 'Interactive web builds alongside the video editing, motion, and audio tools I use daily.',
-						id: 'Proyek aplikasi web yang telah dibangun beserta daftar perangkat editing, animasi, dan pemrograman yang digunakan sehari-hari.',
+						en: 'Interactive web projects alongside the video editing, motion, audio, and web tools I use daily.',
+						id: 'Proyek web interaktif beserta daftar tools video editing, motion, audio, dan pengembangan web yang digunakan sehari-hari.',
 					})}
 				/>
 
@@ -133,7 +133,7 @@ const ShowcaseSection = () => {
 											data-sfx='portal'
 											className='w-full py-2.5 px-4 rounded-lg border-[2.5px] border-[#050505] bg-[#FFD426] hover:bg-[#FD6141] text-[#050505] font-display font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 										>
-											<span>{t({ en: 'Launch Live Preview', id: 'Buka Live App' })}</span>
+											<span>{t({ en: 'Open Live Site', id: 'Buka Live Site' })}</span>
 											<ArrowUpRightIcon className='size-4' />
 										</a>
 									) : (

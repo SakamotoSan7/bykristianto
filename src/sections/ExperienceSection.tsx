@@ -46,13 +46,13 @@ const ExperienceSection = () => {
 					})}
 					title={t({
 						en: 'Experience, Film Credits & Credentials',
-						id: 'Pengalaman Industri, Kredit & Sertifikat',
+						id: 'Pengalaman, Kredit Film & Sertifikat',
 					})}
 					badgeColor='yellow'
 					onDarkMat
 					description={t({
-						en: 'Film & TV education, label post-production experience, and verified certifications.',
-						id: 'Pendidikan film, pengalaman pascaproduksi label musik, dan sertifikasi resmi.',
+						en: 'Film & TV education, studio post-production experience, and verified certifications.',
+						id: 'Pendidikan film, pengalaman pascaproduksi studio, dan sertifikasi resmi.',
 					})}
 				/>
 
@@ -80,8 +80,8 @@ const ExperienceSection = () => {
 										<img
 											src='/images/me/studio/profile-afe-desk.webp'
 											alt={t({
-												en: 'Kristianto at the video editing desk at AFE Records',
-												id: 'Kristianto di meja kerja video editing AFE Records',
+												en: 'Kristianto at a video editing workstation',
+												id: 'Kristianto di meja kerja video editing',
 											})}
 											loading='lazy'
 											className='w-full h-full object-cover object-top'
@@ -89,7 +89,7 @@ const ExperienceSection = () => {
 									</div>
 									<figcaption className='px-2.5 py-1.5 border-t-2 border-[#050505] bg-[#050505] font-mono text-[10px] font-bold flex items-center justify-between gap-2'>
 										<span className='text-[#FCF0D3] truncate'>KRISTIANTO, S.SN</span>
-										<span className='text-[#FFD426] shrink-0'>AFE DESK</span>
+										<span className='text-[#FFD426] shrink-0'>EDITING DESK</span>
 									</figcaption>
 								</figure>
 
@@ -115,16 +115,16 @@ const ExperienceSection = () => {
 
 									<p className='text-sm text-[#3B404C] leading-relaxed'>
 										{t({
-											en: 'Television & Film graduate (Cum Laude, GPA 3.76 at ISI Padang Panjang) and former Video Editor Intern at AFE Records Jakarta. I combine cinematic pacing, verified research, clear narration mixing, and custom motion graphics in Canvas 2D / WebGL2.',
-											id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76 di ISI Padang Panjang) dengan pengalaman magang sebagai Video Editor di AFE Records Jakarta. Saya memadukan ritme editing sinematik, riset terverifikasi, tata suara narasi yang jernih, serta animasi berbasis kode (Canvas 2D / WebGL2).',
+											en: 'Television & Film graduate (Cum Laude, GPA 3.76 at ISI Padang Panjang) with hands-on studio post-production experience across music videos, TV, and digital content. I combine cinematic pacing, verified research, clear narration mixing, and custom motion graphics in Canvas 2D / WebGL2.',
+											id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76 di ISI Padang Panjang) dengan pengalaman pascaproduksi video musik, program TV, dan konten digital. Saya memadukan ritme editing sinematik, riset terverifikasi, tata suara narasi yang jernih, serta animasi berbasis kode (Canvas 2D / WebGL2).',
 										})}
 									</p>
 
 									{/* Clean Inline Credential Strip (zero bordered chip clutter) */}
 									<p className='pt-2 border-t border-dashed border-[#050505]/20 font-mono text-[11px] font-bold text-[#050505] select-none'>
 										{t({
-											en: 'Cum Laude 3.76 · Ex-AFE Records · TOEFL 610 · Video & Web',
-											id: 'Cum Laude 3.76 · Magang AFE Records · TOEFL 610 · Video & Web',
+											en: 'Cum Laude 3.76 · ISI Padang Panjang · TOEFL 610 · Video & Web',
+											id: 'Cum Laude 3,76 · ISI Padang Panjang · TOEFL 610 · Video & Web',
 										})}
 									</p>
 

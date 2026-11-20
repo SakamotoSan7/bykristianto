@@ -2872,7 +2872,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						<FullscreenExitIcon />
 						<span className='md:hidden'>{t({ en: 'Exit', id: 'Keluar' })}</span>
 						<span className='hidden md:inline'>
-							{t({ en: 'Exit Fullscreen', id: 'Keluar Penuh' })}
+							{t({ en: 'Exit Fullscreen', id: 'Tutup Layar Penuh' })}
 						</span>
 					</button>
 				) : (
