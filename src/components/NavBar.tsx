@@ -430,15 +430,16 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 									{worksOpen && (
 										<div className='absolute left-0 top-full pt-2 w-[392px] max-w-[calc(100vw-2rem)] z-50'>
 											<div className='ds-os-window rounded-lg overflow-hidden'>
-												<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-													<div className='flex items-center gap-2 min-w-0'>
-														<span className='size-2.5 rounded-full bg-[#4D9DE0] border border-[#050505] shrink-0' />
+												<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
+													<div className='flex items-center gap-2 min-w-0 flex-1'>
+														<span className='size-2.5 rounded-full bg-[#FFD426] border border-[#050505] shrink-0' />
 														<span className='font-mono text-[10px] font-black text-[#050505] uppercase truncate'>
 															{t({
 																en: 'WORKS · VIDEOS, LAB & MINI GAMES',
 																id: 'MENU KARYA · VIDEO, LAB & MINI GAME',
 															})}
 														</span>
+														<div className='flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
 													</div>
 													<button
 														type='button'
@@ -450,7 +451,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 														✕
 													</button>
 												</div>
-												<div className='p-2.5 bg-[#F6EDD6] space-y-2'>
+												<div className='p-2.5 bg-[#EFE3C4] space-y-2'>
 													{renderWorksDropdownCards(false)}
 												</div>
 											</div>
@@ -533,19 +534,20 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 					data-sfx-gain='0.66'
 					className='lg:hidden mt-2 mx-auto w-full max-w-7xl ds-os-window rounded-lg overflow-hidden'
 				>
-					<div className='flex items-center justify-between px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-						<div className='flex items-center gap-2 min-w-0'>
-							<span className='size-2.5 rounded-full bg-[#4D9DE0] border border-[#050505] shrink-0' />
+					<div className='flex items-center justify-between px-4 py-2 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
+						<div className='flex items-center gap-2 min-w-0 flex-1'>
+							<span className='size-2.5 rounded-full bg-[#FFD426] border border-[#050505] shrink-0' />
 							<span className='font-mono text-xs font-black text-[#050505]'>
 								NAVIGATION.MENUBAR
 							</span>
+							<div className='flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
 						</div>
 						<button
 							type='button'
 							data-sfx='close'
 							onClick={() => setMobileOpen(false)}
 							aria-label={t({ en: 'Close mobile menu', id: 'Tutup menu mobile' })}
-							className='size-6 rounded-sm bg-[#FCF0D3] border-[1.5px] border-[#050505] font-mono text-xs font-black text-[#050505] inline-flex items-center justify-center cursor-pointer'
+							className='size-6 rounded-sm bg-[#FCF0D3] border-2 border-[#050505] font-mono text-xs font-black text-[#050505] inline-flex items-center justify-center cursor-pointer shrink-0'
 						>
 							✕
 						</button>

@@ -410,11 +410,11 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 				/>
 
 				<div className='mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start'>
-					{/* Left: Style D Retro OS Dispatch Brief Form */}
+					{/* Left: Style D Retro OS Dispatch Brief Form with Canary Chrome */}
 					<div className='lg:col-span-7 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'>
-						<div className='flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
+						<div className='flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-[#FFD426] border-b-[3px] border-[#050505]'>
 							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-3 rounded-full bg-[#5CE62E] border border-[#050505] inline-block shrink-0' />
+								<span className='size-3.5 rounded-xs bg-[#5CE62E] border-2 border-[#050505] inline-block shrink-0' />
 								<span className='font-mono text-[11px] sm:text-xs font-black text-[#050505] truncate'>
 									<span className='hidden sm:inline'>PRODUCTION_DISPATCH_2026.FORM</span>
 									<span className='sm:hidden'>DISPATCH_2026.FORM</span>

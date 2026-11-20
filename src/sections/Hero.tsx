@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useLanguage } from '../context/useLanguage';
 import { useSound } from '../context/useSound';
+import { SparkleStar } from '../components/SpaghettiArt';
 import SpaghettiCablesCanvas from '../components/SpaghettiCablesCanvas';
 
 const HERO_WORDS_EN = ['Motion', 'Explainers', '9:16 Reels', 'Websites'];
@@ -70,6 +71,12 @@ const Hero = () => {
 		>
 			{/* Live Verlet Physics Studio Patch Cords Canvas */}
 			<SpaghettiCablesCanvas onPluck={setLastPlucked} />
+
+			{/* Subtle Comic Sparkle Flair */}
+			<SparkleStar
+				className='pointer-events-none hidden md:block absolute top-28 md:top-[134px] lg:top-[118px] xl:top-36 right-12 size-7 z-20'
+				fill='#FFD426'
+			/>
 
 			<div className='relative z-20 max-w-7xl mx-auto px-5 md:px-10'>
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end'>
@@ -217,14 +224,15 @@ const Hero = () => {
 							data-hero-card
 							className='ds-hero-stagger w-full max-w-sm lg:mb-20 xl:mb-10 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'
 						>
-							<div className='flex items-center justify-between px-3 py-1.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-								<div className='flex items-center gap-2'>
-									<span className='size-2.5 rounded-full bg-[#FD6141] border border-[#050505]' />
-									<span className='font-mono text-[11px] font-black text-[#050505] uppercase'>
+							<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+								<div className='flex items-center gap-2 min-w-0 flex-1'>
+									<span className='size-3 rounded-full bg-[#FD6141] border-2 border-[#050505] shrink-0' />
+									<span className='font-mono text-[11px] font-black text-[#050505] uppercase truncate'>
 										PATCH_CORDS.PHYSICS
 									</span>
+									<div className='flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
-								<span className='font-mono text-[10px] font-black px-2 py-0.5 rounded-none bg-[#050505] text-[#5CE62E] select-none'>
+								<span className='font-mono text-[10px] font-black px-2 py-0.5 rounded-none bg-[#050505] text-[#5CE62E] shrink-0 select-none'>
 									60 FPS
 								</span>
 							</div>
@@ -257,11 +265,11 @@ const Hero = () => {
 										data-hover-sfx='switch'
 										aria-pressed={soundEnabled}
 										onClick={toggleSound}
-										className={`shrink-0 px-2.5 py-1 rounded border-[1.5px] border-[#050505] font-mono text-[10px] font-black transition-all cursor-pointer ${
+										className={`shrink-0 px-2.5 py-1 rounded border-2 border-[#050505] font-mono text-[10px] font-black shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer ${
 											sfxLevel === 'full'
-												? 'bg-[#E3F5DA] hover:bg-[#5CE62E] text-[#050505]'
+												? 'bg-[#D8F5C8] hover:bg-[#5CE62E] text-[#050505]'
 												: sfxLevel === 'low'
-													? 'bg-[#FFF3CC] hover:bg-[#FFD426] text-[#050505]'
+													? 'bg-[#FFF0B3] hover:bg-[#FFD426] text-[#050505]'
 													: 'bg-white text-[#3B404C] hover:bg-[#FFD426] hover:text-[#050505]'
 										}`}
 									>

@@ -24,11 +24,11 @@ interface VideoPortfolioSectionProps {
 	onSelectStyleForContact: (styleSummary: LocalizedText) => void;
 }
 
-const CATEGORY_DOT_COLORS: Record<VideoCategory, string> = {
-	editorial: 'bg-[#FD6141]',
-	'3d-shader': 'bg-[#4D9DE0]',
-	'systems-data': 'bg-[#FFD426]',
-	remotion: 'bg-[#5CE62E]',
+const CATEGORY_CHROME: Record<VideoCategory, { dot: string; bar: string }> = {
+	editorial: { dot: 'bg-[#FD6141]', bar: 'bg-[#FFE0D6]' },
+	'3d-shader': { dot: 'bg-[#4D9DE0]', bar: 'bg-[#D6ECFC]' },
+	'systems-data': { dot: 'bg-[#FFD426]', bar: 'bg-[#FFF0B3]' },
+	remotion: { dot: 'bg-[#5CE62E]', bar: 'bg-[#DAF8CE]' },
 };
 
 const VideoPortfolioSection = ({
@@ -115,7 +115,7 @@ const VideoPortfolioSection = ({
 					})}
 				/>
 
-				{/* Calm Archival Filter Bar */}
+				{/* Tactile Risograph Filter Console */}
 				<div className='mt-10 mb-10 rounded-md border-[2.5px] border-[#050505] bg-[#FCF0D3] p-4 sm:p-5 shadow-[5px_5px_0_#050505] space-y-3.5'>
 					<div className='flex flex-wrap items-center justify-between gap-4'>
 						<div className='flex flex-wrap items-center gap-x-6 gap-y-3'>
@@ -137,10 +137,10 @@ const VideoPortfolioSection = ({
 										data-sfx='paper'
 										aria-pressed={ratioFilter === btn.val}
 										onClick={() => setRatioFilter(btn.val)}
-										className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-bold border transition-colors cursor-pointer ${
+										className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-bold border-[1.5px] border-[#050505] transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
 											ratioFilter === btn.val
-												? 'bg-[#050505] text-[#FFD426] border-[#050505]'
-												: 'bg-[#FFFFFF] text-[#050505] border-[#050505]/30 hover:bg-[#EFE5CA]'
+												? 'bg-[#050505] text-[#FFD426] shadow-[2px_2px_0_#FD6141]'
+												: 'bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] hover:bg-[#FFD426]'
 										}`}
 									>
 										{btn.val !== 'ALL' && (
@@ -172,10 +172,10 @@ const VideoPortfolioSection = ({
 										data-sfx='paper'
 										aria-pressed={langFilter === btn.val}
 										onClick={() => setLangFilter(btn.val)}
-										className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-bold border transition-colors cursor-pointer ${
+										className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-mono font-bold border-[1.5px] border-[#050505] transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
 											langFilter === btn.val
-												? 'bg-[#050505] text-[#FFD426] border-[#050505]'
-												: 'bg-[#FFFFFF] text-[#050505] border-[#050505]/30 hover:bg-[#EFE5CA]'
+												? 'bg-[#050505] text-[#FFD426] shadow-[2px_2px_0_#FD6141]'
+												: 'bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] hover:bg-[#FFD426]'
 										}`}
 									>
 										{btn.val !== 'ALL' && (
@@ -208,10 +208,10 @@ const VideoPortfolioSection = ({
 								data-sfx='paper'
 								aria-pressed={categoryFilter === cat.value}
 								onClick={() => setCategoryFilter(cat.value)}
-								className={`px-2.5 py-1 rounded text-xs font-bold border transition-colors cursor-pointer ${
+								className={`px-2.5 py-1 rounded text-xs font-bold border-[1.5px] border-[#050505] transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
 									categoryFilter === cat.value
-										? 'bg-[#050505] text-[#FFD426] border-[#050505]'
-										: 'bg-[#FFFFFF] text-[#050505] border-[#050505]/25 hover:bg-[#EFE5CA]'
+										? 'bg-[#050505] text-[#FFD426] shadow-[2px_2px_0_#FD6141]'
+										: 'bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] hover:bg-[#FFD426]'
 								}`}
 							>
 								{t(cat.label)}
@@ -242,7 +242,7 @@ const VideoPortfolioSection = ({
 					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
 						{filteredVideos.map((video: VideoWork) => {
 							const isVertical = video.aspectRatio === '9:16';
-							const dotColor = CATEGORY_DOT_COLORS[video.category];
+							const headerTheme = CATEGORY_CHROME[video.category];
 
 							return (
 								<article
@@ -260,17 +260,18 @@ const VideoPortfolioSection = ({
 									}}
 									className='ds-panel-paper rounded-md overflow-hidden flex flex-col cursor-pointer group'
 								>
-									{/* Unified Calm Archival Card Header */}
-									<div className='flex items-center justify-between gap-2 px-3.5 py-2 border-b-[2.5px] border-[#050505] bg-[#EFE5CA]'>
-										<div className='flex items-center gap-2 min-w-0'>
-											<span
-												className={`size-2.5 rounded-full border border-[#050505] shrink-0 ${dotColor}`}
-												aria-hidden='true'
-											/>
-											<span className='font-mono text-[11px] font-black text-[#050505] truncate'>
-												{video.badgeNumber} · {video.style}
-											</span>
-										</div>
+									{/* Soft Risograph-Tinted OS Header with Retro Pinstripes */}
+									<div
+										className={`flex items-center gap-2 px-3.5 py-2 border-b-[2.5px] border-[#050505] ${headerTheme.bar}`}
+									>
+										<span
+											className={`size-2.5 rounded-full border border-[#050505] shrink-0 ${headerTheme.dot}`}
+											aria-hidden='true'
+										/>
+										<span className='font-mono text-[11px] font-black text-[#050505] truncate'>
+											{video.badgeNumber} · {video.style}
+										</span>
+										<div className='ds-titlebar-grips flex-1 h-2.5' aria-hidden='true' />
 										<span className='px-1.5 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] leading-none shrink-0 select-none'>
 											{video.durationLabel}
 										</span>
@@ -374,8 +375,8 @@ const VideoPortfolioSection = ({
 											<span className='font-mono text-[11px] font-bold text-[#3B404C]/90 truncate'>
 												{video.renderTech}
 											</span>
-											<span className='shrink-0 font-mono font-black text-xs text-[#C5432F] group-hover:text-[#050505] group-hover:underline underline-offset-4 transition-colors'>
-												{t({ en: 'Watch →', id: 'Tonton →' })}
+											<span className='shrink-0 px-2.5 py-1 rounded border-[1.5px] border-[#050505] bg-[#FFFFFF] group-hover:bg-[#FFD426] text-[#050505] font-mono font-black text-[11px] shadow-[2px_2px_0_#050505] transition-colors'>
+												{t({ en: 'WATCH →', id: 'TONTON →' })}
 											</span>
 										</div>
 									</div>

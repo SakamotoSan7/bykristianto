@@ -58,11 +58,11 @@ const ExperienceSection = () => {
 
 				{/* Top Retro OS Profile + Interactive Field Archive Row */}
 				<div className='mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch'>
-					{/* Left Window: Creator Profile Dossier */}
+					{/* Left Window: Creator Profile Dossier (Canary Retro Chrome) */}
 					<div className='lg:col-span-7 ds-os-window rounded-md overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
+						<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#FFD426] border-b-[3px] border-[#050505]'>
 							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-3 rounded-full bg-[#FD6141] border border-[#050505] inline-block shrink-0' />
+								<span className='size-3.5 rounded-full bg-[#FD6141] border-2 border-[#050505] inline-block shrink-0' />
 								<span className='font-mono text-xs font-black text-[#050505] truncate'>
 									CREATOR_ID.JPG
 								</span>
@@ -178,11 +178,11 @@ const ExperienceSection = () => {
 						</div>
 					</div>
 
-					{/* Right Window: Interactive Behind-The-Scenes & Milestone Photo Switcher */}
+					{/* Right Window: Interactive Behind-The-Scenes & Milestone Photo Switcher (Cerulean Chrome) */}
 					<div className='lg:col-span-5 ds-os-window rounded-md overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
+						<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
 							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-3 rounded-full bg-[#4D9DE0] border border-[#050505] inline-block shrink-0' />
+								<span className='size-3.5 rounded-full bg-[#FFD426] border-2 border-[#050505] inline-block shrink-0' />
 								<span className='font-mono text-xs font-black text-[#050505] truncate'>
 									FIELD_ARCHIVE.APP
 								</span>
@@ -228,7 +228,7 @@ const ExperienceSection = () => {
 										onClick={handlePrevPhoto}
 										data-sfx='shutter'
 										aria-label={t({ en: 'Previous archive photo', id: 'Foto arsip sebelumnya' })}
-										className='inline-flex items-center gap-1 px-2.5 py-1 rounded border border-[#050505]/70 bg-[#FFFFFF] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] transition-colors cursor-pointer'
+										className='inline-flex items-center gap-1 px-2.5 py-1 rounded border-2 border-[#050505] bg-[#FFFFFF] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 									>
 										<ChevronLeftIcon className='size-3.5' />
 										<span>PREV</span>
@@ -257,7 +257,7 @@ const ExperienceSection = () => {
 										onClick={handleNextPhoto}
 										data-sfx='shutter'
 										aria-label={t({ en: 'Next archive photo', id: 'Foto arsip berikutnya' })}
-										className='inline-flex items-center gap-1 px-2.5 py-1 rounded border border-[#050505]/70 bg-[#FFFFFF] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] transition-colors cursor-pointer'
+										className='inline-flex items-center gap-1 px-2.5 py-1 rounded border-2 border-[#050505] bg-[#FFFFFF] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 									>
 										<span>NEXT</span>
 										<ChevronRightIcon className='size-3.5' />
@@ -268,7 +268,7 @@ const ExperienceSection = () => {
 					</div>
 				</div>
 
-				{/* Main 3 Experience & Education Cards (Unified Clean Header + Flush-Top Plate) */}
+				{/* Main 3 Experience & Education Cards (Signature Canary Badge + Grip Header + Flush-Top Plate) */}
 				<div className='mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6'>
 					{EXPERIENCE_CARDS.map((card) => (
 						<article
@@ -276,10 +276,11 @@ const ExperienceSection = () => {
 							className='ds-panel rounded-md overflow-hidden flex flex-col justify-between bg-[#FCF0D3]'
 						>
 							<div>
-								<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-									<span className='font-mono text-[11px] font-black text-[#050505] uppercase truncate select-none'>
+								<div className='flex items-center justify-between gap-2 px-3.5 py-2 bg-[#F6EDD6] border-b-[2.5px] border-[#050505]'>
+									<span className='px-2 py-0.5 rounded-[2px] bg-[#FFD426] border border-[#050505] font-mono text-[10px] font-black text-[#050505] uppercase truncate select-none'>
 										{t(card.badgeLabel)}
 									</span>
+									<div className='hidden sm:block flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
 									<span className='font-mono text-[11px] font-black text-[#204275] shrink-0'>
 										{card.date}
 									</span>
@@ -344,14 +345,15 @@ const ExperienceSection = () => {
 					))}
 				</div>
 
-				{/* Unified Tabbed Archival Window: Film Credits + Verified Certifications (Progressive Disclosure) */}
+				{/* Unified Tabbed Archival Window: Vermilion Chrome + Film Credits & Verified Certs */}
 				<div className='mt-8 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'>
-					<div className='flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 py-2.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-						<div className='flex items-center gap-2 min-w-0'>
-							<span className='size-3 rounded-full bg-[#5CE62E] border border-[#050505] inline-block shrink-0' />
+					<div className='flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 py-2.5 bg-[#FD6141] border-b-[3px] border-[#050505]'>
+						<div className='flex items-center gap-2 min-w-0 flex-1'>
+							<span className='size-3.5 rounded-full bg-[#FCF0D3] border-2 border-[#050505] inline-block shrink-0' />
 							<span className='font-mono text-xs font-black text-[#050505] truncate'>
 								ARCHIVE_LOG.DB
 							</span>
+							<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 						</div>
 
 						<div
@@ -366,10 +368,10 @@ const ExperienceSection = () => {
 								aria-selected={archiveTab === 'credits'}
 								aria-pressed={archiveTab === 'credits'}
 								onClick={() => setArchiveTab('credits')}
-								className={`px-3 py-1 rounded font-mono text-[11px] font-black transition-colors cursor-pointer ${
+								className={`px-3 py-1 rounded font-mono text-[11px] font-black border-[1.5px] border-[#050505] transition-all cursor-pointer ${
 									archiveTab === 'credits'
-										? 'bg-[#050505] text-[#FFD426]'
-										: 'bg-[#FFFFFF]/80 text-[#3B404C] border border-[#050505]/30 hover:bg-[#FFFFFF] hover:text-[#050505]'
+										? 'bg-[#050505] text-[#FFD426] shadow-[2px_2px_0_#FCF0D3]'
+										: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#FFD426]'
 								}`}
 							>
 								{t({
@@ -385,10 +387,10 @@ const ExperienceSection = () => {
 								aria-selected={archiveTab === 'certs'}
 								aria-pressed={archiveTab === 'certs'}
 								onClick={() => setArchiveTab('certs')}
-								className={`px-3 py-1 rounded font-mono text-[11px] font-black transition-colors cursor-pointer ${
+								className={`px-3 py-1 rounded font-mono text-[11px] font-black border-[1.5px] border-[#050505] transition-all cursor-pointer ${
 									archiveTab === 'certs'
-										? 'bg-[#050505] text-[#5CE62E]'
-										: 'bg-[#FFFFFF]/80 text-[#3B404C] border border-[#050505]/30 hover:bg-[#FFFFFF] hover:text-[#050505]'
+										? 'bg-[#050505] text-[#5CE62E] shadow-[2px_2px_0_#FCF0D3]'
+										: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#5CE62E]'
 								}`}
 							>
 								{t({

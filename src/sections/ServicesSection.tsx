@@ -61,14 +61,14 @@ const ServiceCard = ({
 
 	return (
 		<article
-			className={`rounded-md border-[2.5px] border-[#050505] bg-[#FCF0D3] shadow-[4px_4px_0_#050505] overflow-hidden flex flex-col justify-between transition-colors ${className}`}
+			className={`rounded-md border-[3px] border-[#050505] bg-[#FCF0D3] shadow-[5px_5px_0_#050505] overflow-hidden flex flex-col justify-between transition-colors ${className}`}
 		>
 			<div>
-				{/* Calm Archival Card Header Strip */}
-				<div className='flex flex-wrap items-center justify-between gap-x-2 gap-y-1 px-4 py-2 border-b-[2.5px] border-[#050505] bg-[#EFE5CA]'>
+				{/* Ligne-Claire Archival Card Header Strip */}
+				<div className='flex items-center justify-between gap-2 px-4 py-2 border-b-[2.5px] border-[#050505] bg-[#F6EDD6]'>
 					<div className='flex items-center gap-2 shrink-0'>
 						<span
-							className='size-2.5 rounded-full border border-[#050505] shrink-0'
+							className='size-3 rounded-full border-2 border-[#050505] shrink-0'
 							style={{ backgroundColor: pkg.accentColor }}
 							aria-hidden='true'
 						/>
@@ -77,13 +77,15 @@ const ServiceCard = ({
 						</span>
 					</div>
 
+					<div className='flex-1 h-2 ds-titlebar-grips hidden sm:block' aria-hidden='true' />
+
 					<div className='flex items-center gap-1.5 shrink-0'>
 						{addonApplied && (
 							<span className='px-1.5 py-0.5 rounded-[2px] bg-[#5CE62E] border border-[#050505] font-mono text-[9.5px] font-black text-[#050505] select-none whitespace-nowrap'>
 								+ VIDEO
 							</span>
 						)}
-						<span className='font-mono text-[10px] font-bold text-[#3B404C] uppercase select-none whitespace-nowrap'>
+						<span className='px-1.5 py-0.5 rounded-[2px] bg-[#FFD426]/85 border border-[#050505]/70 font-mono text-[9.5px] font-black text-[#050505] uppercase select-none whitespace-nowrap'>
 							{t(pkg.stickerTag)}
 						</span>
 					</div>
@@ -221,7 +223,7 @@ const ServicesSection = ({
 	return (
 		<section
 			id='services'
-			className='substrate-newsprint relative overflow-x-clip border-b-[3.5px] border-[#050505] py-16 sm:py-24 scroll-mt-20'
+			className='substrate-yellow-mat relative overflow-x-clip border-b-[3.5px] border-[#050505] py-16 sm:py-24 scroll-mt-20'
 		>
 			<div className='max-w-7xl mx-auto px-5 md:px-10'>
 				<TitleHeader
@@ -241,11 +243,11 @@ const ServicesSection = ({
 					})}
 				/>
 
-				{/* Progressive Disclosure: Focused 2-Track Switcher */}
+				{/* Progressive Disclosure: Signature Risograph 2-Track Switcher */}
 				<div
 					role='tablist'
 					aria-label={t({ en: 'Service Categories', id: 'Kategori Layanan' })}
-					className='mt-8 inline-flex flex-wrap sm:flex-nowrap w-full sm:w-auto gap-2 p-1.5 rounded-md border-[2.5px] border-[#050505] bg-[#EFE5CA] shadow-[4px_4px_0_#050505]'
+					className='mt-8 inline-flex flex-wrap sm:flex-nowrap w-full sm:w-auto gap-2 p-1.5 rounded-md border-[3px] border-[#050505] bg-[#FCF0D3] shadow-[5px_5px_0_#050505]'
 				>
 					<button
 						type='button'
@@ -257,13 +259,13 @@ const ServicesSection = ({
 						className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded font-display font-black text-xs sm:text-sm transition-all cursor-pointer ${
 							activeTrack === 'video'
 								? 'bg-[#050505] text-[#FFD426] shadow-[2px_2px_0_#FD6141]'
-								: 'bg-transparent text-[#050505] hover:bg-[#FFFFFF]/70'
+								: 'bg-[#FFFFFF]/80 text-[#050505] border border-[#050505]/30 hover:bg-[#FFD426]/40'
 						}`}
 					>
 						<FilmIcon className='size-4 shrink-0' />
 						<span>{t({ en: 'Video Production', id: 'Produksi Video' })}</span>
 						<span
-							className={`px-1.5 py-0.5 rounded-[2px] font-mono text-[10px] font-black leading-none ${
+							className={`px-1.5 py-0.5 rounded-[2px] font-mono text-[10px] font-black leading-none whitespace-nowrap shrink-0 ${
 								activeTrack === 'video'
 									? 'bg-[#FFD426] text-[#050505]'
 									: 'bg-[#050505]/10 text-[#3B404C]'
@@ -283,19 +285,19 @@ const ServicesSection = ({
 						className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded font-display font-black text-xs sm:text-sm transition-all cursor-pointer ${
 							activeTrack === 'website'
 								? 'bg-[#050505] text-[#FFD426] shadow-[2px_2px_0_#4D9DE0]'
-								: 'bg-transparent text-[#050505] hover:bg-[#FFFFFF]/70'
+								: 'bg-[#FFFFFF]/80 text-[#050505] border border-[#050505]/30 hover:bg-[#FFD426]/40'
 						}`}
 					>
 						<CodeIcon className='size-4 shrink-0' />
 						<span>{t({ en: 'Website Builds', id: 'Pembuatan Website' })}</span>
 						<span
-							className={`px-1.5 py-0.5 rounded-[2px] font-mono text-[10px] font-black leading-none ${
+							className={`px-1.5 py-0.5 rounded-[2px] font-mono text-[10px] font-black leading-none whitespace-nowrap shrink-0 ${
 								activeTrack === 'website'
 									? 'bg-[#FFD426] text-[#050505]'
 									: 'bg-[#050505]/10 text-[#3B404C]'
 							}`}
 						>
-							5 + ADD-ON
+							5<span className='hidden sm:inline'> + ADD-ON</span>
 						</span>
 					</button>
 				</div>
@@ -360,24 +362,25 @@ const ServicesSection = ({
 				) : (
 					/* TRACK 02: WEBSITE BUILDS */
 					<div className='mt-8 space-y-6'>
-						{/* Sleek Bundle Highlight Banner */}
+						{/* Sleek Bundle Highlight Banner with Iconic Canary Chrome */}
 						<aside
 							aria-label={t({
 								en: 'Website + Video Promo Bundle Highlight',
 								id: 'Info Paket Bundel Website + Video Promo',
 							})}
-							className='rounded-md border-[2.5px] border-[#050505] bg-[#1A2636] shadow-[5px_5px_0_#050505] overflow-hidden'
+							className='rounded-md border-[3px] border-[#050505] bg-[#1A2636] shadow-[6px_6px_0_#050505] overflow-hidden'
 						>
-							<div className='flex flex-wrap items-center justify-between gap-2 px-4 sm:px-5 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-								<div className='flex items-center gap-2'>
-									<span className='px-1.5 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FFD426]'>
+							<div className='flex flex-wrap items-center justify-between gap-2 px-4 sm:px-5 py-2 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+								<div className='flex items-center gap-2 min-w-0 md:flex-1'>
+									<span className='px-1.5 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] shrink-0 whitespace-nowrap'>
 										{WEBSITE_VIDEO_BUNDLE_PROMO.badge}
 									</span>
-									<span className='font-mono text-[11px] font-black text-[#050505] uppercase tracking-wider'>
+									<span className='font-mono text-[11px] font-black text-[#050505] uppercase tracking-wider truncate'>
 										{t(WEBSITE_VIDEO_BUNDLE_PROMO.stickerTag)}
 									</span>
+									<div className='hidden lg:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
-								<span className='font-mono text-[10px] font-black text-[#3B404C]'>
+								<span className='hidden md:inline font-mono text-[10px] font-black text-[#050505] shrink-0'>
 									{t(WEBSITE_VIDEO_BUNDLE_PROMO.format)}
 								</span>
 							</div>

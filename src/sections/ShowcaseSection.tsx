@@ -37,23 +37,23 @@ const ShowcaseSection = () => {
 					})}
 				/>
 
-				{/* 3 Web Builds framed inside Unified Calm Retro OS Windows */}
+				{/* 3 Web Builds framed inside Color-Coded Retro OS Browser Windows */}
 				<div className='mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
 					{WEB_PROJECTS.map((project, idx) => {
-						const dotBg = WINDOW_BAR_COLORS[idx % WINDOW_BAR_COLORS.length];
+						const barBg = WINDOW_BAR_COLORS[idx % WINDOW_BAR_COLORS.length];
 						return (
 							<article
 								key={project.id}
 								className='ds-os-window rounded-md overflow-hidden flex flex-col justify-between bg-[#FCF0D3] transition-transform duration-200 hover:-translate-y-1'
 							>
 								<div>
-									{/* Unified Calm OS Browser Chrome */}
-									<div className='flex items-center justify-between gap-2 px-3.5 py-2 border-b-[2.5px] border-[#050505] bg-[#EFE5CA]'>
-										<div className='flex items-center gap-2 min-w-0 flex-1'>
-											<span
-												className='size-3 rounded-full border border-[#050505] inline-block shrink-0'
-												style={{ backgroundColor: dotBg }}
-											/>
+									{/* Iconic Color-Coded OS Browser Chrome */}
+									<div
+										className='flex items-center justify-between gap-2 px-3.5 py-2 border-b-[3px] border-[#050505]'
+										style={{ backgroundColor: barBg }}
+									>
+										<div className='flex items-center gap-1.5 min-w-0 flex-1'>
+											<span className='size-3.5 rounded-xs border-2 border-[#050505] bg-[#FD6141] inline-block shrink-0' />
 											<span className='font-mono text-[11px] font-black text-[#050505] truncate'>
 												{project.id.toUpperCase()}.APP
 											</span>
@@ -150,15 +150,19 @@ const ShowcaseSection = () => {
 					})}
 				</div>
 
-				{/* De-Boxed Production Tools & Web Engineering Stack */}
+				{/* Studio Config Windows: De-Boxed Tool Lists with Iconic OS Chrome Headers */}
 				<div className='mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6'>
 					{/* Creative & Motion Suite */}
-					<div className='lg:col-span-7 ds-panel rounded-md p-6 sm:p-7'>
-						<div className='flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b-2 border-dashed border-[#050505]/20'>
-							<h3 className='font-display font-black text-xl text-[#050505]'>
-								{t({ en: 'Video, Motion & Audio Tools', id: 'Tools Video, Motion & Audio' })}
-							</h3>
-							<span className='font-mono text-[11px] font-black text-[#3B404C] select-none'>
+					<div className='lg:col-span-7 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'>
+						<div className='flex items-center justify-between gap-2 px-4 sm:px-5 py-2 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+							<div className='flex items-center gap-2 min-w-0 flex-1'>
+								<span className='size-3 rounded-full bg-[#FD6141] border border-[#050505] shrink-0' />
+								<span className='font-mono text-[11px] font-black text-[#050505] truncate'>
+									CREATIVE_TOOLS.CFG
+								</span>
+								<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
+							</div>
+							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] shrink-0 select-none'>
 								{t({
 									en: `${CREATIVE_TOOLS.length} CORE TOOLS`,
 									id: `${CREATIVE_TOOLS.length} ALAT UTAMA`,
@@ -166,34 +170,44 @@ const ShowcaseSection = () => {
 							</span>
 						</div>
 
-						<div className='grid grid-cols-1 sm:grid-cols-2 gap-1.5'>
-							{CREATIVE_TOOLS.map((tool) => (
-								<div
-									key={tool.name}
-									className='rounded px-2.5 py-2 flex items-center gap-3 hover:bg-[#EFE5CA]/65 transition-colors select-none'
-								>
-									<StackLogoIcon id={tool.logoKey} className='size-8 shrink-0' />
-									<div className='min-w-0'>
-										<p className='font-display font-black text-sm text-[#050505] leading-tight'>
-											{tool.name}
-										</p>
-										<p className='font-mono text-[11px] font-bold text-[#3B404C] leading-snug mt-0.5'>
-											{t(tool.category)}
-										</p>
+						<div className='p-5 sm:p-6'>
+							<h3 className='font-display font-black text-xl text-[#050505] pb-3 mb-3 border-b border-dashed border-[#050505]/20'>
+								{t({ en: 'Video, Motion & Audio Tools', id: 'Tools Video, Motion & Audio' })}
+							</h3>
+
+							<div className='grid grid-cols-1 sm:grid-cols-2 gap-1.5'>
+								{CREATIVE_TOOLS.map((tool) => (
+									<div
+										key={tool.name}
+										className='rounded px-2.5 py-2 flex items-center gap-3 hover:bg-[#EFE5CA]/70 transition-colors select-none'
+									>
+										<StackLogoIcon id={tool.logoKey} className='size-8 shrink-0' />
+										<div className='min-w-0'>
+											<p className='font-display font-black text-sm text-[#050505] leading-tight'>
+												{tool.name}
+											</p>
+											<p className='font-mono text-[11px] font-bold text-[#3B404C] leading-snug mt-0.5'>
+												{t(tool.category)}
+											</p>
+										</div>
 									</div>
-								</div>
-							))}
+								))}
+							</div>
 						</div>
 					</div>
 
 					{/* Engineering Stack Icons */}
-					<div className='lg:col-span-5 ds-panel rounded-md p-6 sm:p-7 flex flex-col justify-between bg-[#FFFFFF]'>
+					<div className='lg:col-span-5 ds-os-window rounded-md overflow-hidden bg-[#FFFFFF] flex flex-col justify-between'>
 						<div>
-							<div className='flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b-2 border-dashed border-[#050505]/20'>
-								<h3 className='font-display font-black text-xl text-[#050505]'>
-									{t({ en: 'Web Development Stack', id: 'Teknologi Pengembangan Web' })}
-								</h3>
-								<span className='font-mono text-[11px] font-black text-[#3B404C] select-none'>
+							<div className='flex items-center justify-between gap-2 px-4 sm:px-5 py-2 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
+								<div className='flex items-center gap-2 min-w-0 flex-1'>
+									<span className='size-3 rounded-full bg-[#FFD426] border border-[#050505] shrink-0' />
+									<span className='font-mono text-[11px] font-black text-[#050505] truncate'>
+										WEB_STACK.CFG
+									</span>
+									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
+								</div>
+								<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FCF0D3] shrink-0 select-none'>
 									{t({
 										en: `${WEB_TECH_STACK.length} TECH ITEMS`,
 										id: `${WEB_TECH_STACK.length} TEKNOLOGI`,
@@ -201,23 +215,29 @@ const ShowcaseSection = () => {
 								</span>
 							</div>
 
-							<div className='grid grid-cols-1 sm:grid-cols-2 gap-1.5'>
-								{WEB_TECH_STACK.map((stack) => (
-									<div
-										key={stack.name}
-										className='rounded px-2.5 py-2 flex items-center gap-2.5 min-w-0 hover:bg-[#FCF0D3] transition-colors select-none'
-									>
-										<StackLogoIcon id={stack.logoKey} className='size-8 shrink-0' />
-										<div className='min-w-0'>
-											<p className='font-display font-black text-xs sm:text-[13px] text-[#050505] leading-tight'>
-												{stack.name}
-											</p>
-											<p className='font-mono text-[10px] font-bold text-[#3B404C] leading-snug mt-0.5'>
-												{t(stack.sub)}
-											</p>
+							<div className='p-5 sm:p-6'>
+								<h3 className='font-display font-black text-xl text-[#050505] pb-3 mb-3 border-b border-dashed border-[#050505]/20'>
+									{t({ en: 'Web Development Stack', id: 'Teknologi Pengembangan Web' })}
+								</h3>
+
+								<div className='grid grid-cols-1 sm:grid-cols-2 gap-1.5'>
+									{WEB_TECH_STACK.map((stack) => (
+										<div
+											key={stack.name}
+											className='rounded px-2.5 py-2 flex items-center gap-2.5 min-w-0 hover:bg-[#FCF0D3] transition-colors select-none'
+										>
+											<StackLogoIcon id={stack.logoKey} className='size-8 shrink-0' />
+											<div className='min-w-0'>
+												<p className='font-display font-black text-xs sm:text-[13px] text-[#050505] leading-tight'>
+													{stack.name}
+												</p>
+												<p className='font-mono text-[10px] font-bold text-[#3B404C] leading-snug mt-0.5'>
+													{t(stack.sub)}
+												</p>
+											</div>
 										</div>
-									</div>
-								))}
+									))}
+								</div>
 							</div>
 						</div>
 					</div>

@@ -96,8 +96,8 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 			{
 				title: { en: 'Free Visual Style & Voice Choice', id: 'Bebas Pilih Gaya Visual & Narator' },
 				desc: {
-					en: 'Pick a visual direction from the portfolio and specify your voiceover language and tone (EN/ID), or provide your own recording.',
-					id: 'Bebas memilih gaya visual dari portofolio beserta karakter suara narator (ID/EN), atau menggunakan rekaman suaramu sendiri.',
+					en: 'Pick a visual direction from the portfolio above and specify your voiceover language and tone (EN/ID), or provide your own recording.',
+					id: 'Bebas memilih gaya visual dari karya di atas beserta karakter suara narator (ID/EN), atau menggunakan rekaman suaramu sendiri.',
 				},
 			},
 			{
@@ -109,12 +109,12 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 			},
 		],
 		primaryCta: {
-			label: { en: 'Watch 14 Videos ↓', id: 'Tonton 14 Karya ↓' },
-			href: '#videos',
+			label: { en: 'See Video Services ↓', id: 'Lihat Jasa Video ↓' },
+			href: '#services',
 		},
 		secondaryCta: {
-			label: { en: 'See Video Services →', id: 'Lihat Jasa Video →' },
-			href: '#services',
+			label: { en: 'Start a Project Brief →', id: 'Kirim Brief Proyek →' },
+			href: '#contact',
 		},
 	},
 	{
@@ -149,12 +149,12 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 			},
 		],
 		primaryCta: {
-			label: { en: 'See Web Builds ↓', id: 'Lihat Karya Web ↓' },
-			href: '#web-builds',
+			label: { en: 'See Website Services ↓', id: 'Lihat Jasa Website ↓' },
+			href: '#services',
 		},
 		secondaryCta: {
-			label: { en: 'See Website Services →', id: 'Lihat Jasa Website →' },
-			href: '#services',
+			label: { en: 'See Web Builds ↓', id: 'Lihat Karya Web ↓' },
+			href: '#web-builds',
 		},
 	},
 	{
@@ -217,15 +217,16 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 		>
 			<div className='max-w-7xl mx-auto px-5 md:px-10'>
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-8 items-stretch'>
-					{/* LEFT PANEL: Clean De-Boxed Core Profile Pillars */}
-					<div className='lg:col-span-6 ds-panel rounded-md overflow-hidden bg-[#FCF0D3] flex flex-col justify-between'>
+					{/* LEFT OS WINDOW: Digital Spaghetti Canary Chrome + Clean De-Boxed Content */}
+					<div className='lg:col-span-6 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3] flex flex-col justify-between'>
 						<div>
-							<div className='flex items-center justify-between px-4 sm:px-5 py-2.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-								<div className='flex items-center gap-2 min-w-0'>
-									<span className='size-2.5 rounded-full bg-[#FD6141] border border-[#050505] shrink-0' />
+							<div className='flex items-center justify-between gap-2 px-4 sm:px-5 py-2.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+								<div className='flex items-center gap-2 min-w-0 flex-1'>
+									<span className='size-3 rounded-full bg-[#FD6141] border-2 border-[#050505] shrink-0' />
 									<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
 										{t({ en: 'CORE PROFILE · WHO I AM', id: 'RINGKASAN PROFIL · KEAHLIAN INTI' })}
 									</span>
+									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
 								<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] shrink-0 select-none'>
 									{t({ en: '3 PILLARS', id: '3 PILAR' })}
@@ -237,7 +238,7 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 									<div key={item.id} className='py-4 sm:py-5'>
 										<div className='flex items-center gap-2 mb-1'>
 											<span
-												className='size-2 rounded-full border border-[#050505] shrink-0'
+												className='size-2.5 rounded-full border border-[#050505] shrink-0'
 												style={{ backgroundColor: item.accent }}
 												aria-hidden='true'
 											/>
@@ -257,7 +258,7 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 						</div>
 
 						{/* Concise Borderless Summary Strip */}
-						<div className='px-5 sm:px-6 py-3.5 bg-[#EFE5CA]/65 border-t-2 border-[#050505]/20 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] font-bold text-[#050505] select-none'>
+						<div className='px-5 sm:px-6 py-3.5 bg-[#EFE5CA]/75 border-t-2 border-[#050505]/25 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] font-bold text-[#050505] select-none'>
 							{QUICK_FACTS.map((fact, idx) => (
 								<span key={fact.en} className='inline-flex items-center gap-2'>
 									{idx > 0 && (
@@ -269,26 +270,27 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 						</div>
 					</div>
 
-					{/* RIGHT PANEL: Practical Visitor Goal Router (Clean Single Surface) */}
-					<div className='lg:col-span-6 ds-panel rounded-md overflow-hidden bg-[#FFFFFF] flex flex-col justify-between'>
+					{/* RIGHT OS WINDOW: Cerulean Retro Chrome + Practical Visitor Goal Router */}
+					<div className='lg:col-span-6 ds-os-window rounded-md overflow-hidden bg-[#FFFFFF] flex flex-col justify-between'>
 						<div>
-							<div className='flex items-center justify-between gap-2 px-4 sm:px-5 py-2.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-								<div className='flex items-center gap-2 min-w-0'>
-									<span className='size-2.5 rounded-full bg-[#4D9DE0] border border-[#050505] shrink-0' />
+							<div className='flex items-center justify-between gap-2 px-4 sm:px-5 py-2.5 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
+								<div className='flex items-center gap-2 min-w-0 flex-1'>
+									<span className='size-3 rounded-full bg-[#FFD426] border-2 border-[#050505] shrink-0' />
 									<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
 										{t({ en: 'HOW CAN WE COLLABORATE?', id: 'PANDUAN KOLABORASI' })}
 									</span>
+									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
-								<span className='font-mono text-[10px] font-bold text-[#3B404C] shrink-0'>
+								<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FCF0D3] shrink-0 select-none'>
 									{t({ en: 'QUICK GUIDE', id: 'PANDUAN SINGKAT' })}
 								</span>
 							</div>
 
-							{/* Unified Clean 3-Tab Switcher */}
+							{/* Unified Clean 3-Tab Switcher with Tactile Active Pop */}
 							<div
 								role='tablist'
 								aria-label={t({ en: 'Visitor goal guide', id: 'Panduan kebutuhan pengunjung' })}
-								className='grid grid-cols-3 gap-1.5 p-2 bg-[#F6EDD6] border-b-2 border-[#050505]/20'
+								className='grid grid-cols-3 gap-2 p-2.5 bg-[#F6EDD6] border-b-2 border-[#050505]'
 							>
 								{VISITOR_GOALS.map((goal) => {
 									const isActive = goal.id === activeGoal.id;
@@ -303,8 +305,8 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 											onClick={() => setActiveGoalId(goal.id)}
 											className={`px-2 py-2 rounded font-mono text-[10px] sm:text-[11px] font-black uppercase transition-all cursor-pointer ${
 												isActive
-													? 'bg-[#050505] text-[#FFD426] shadow-[2px_2px_0_#FD6141]'
-													: 'bg-transparent text-[#3B404C] hover:bg-[#FFFFFF] hover:text-[#050505]'
+													? 'bg-[#050505] text-[#FFD426] shadow-[3px_3px_0_#FD6141]'
+													: 'bg-[#FFFFFF]/80 border border-[#050505]/35 text-[#050505] hover:bg-[#FFD426]/40'
 											}`}
 										>
 											{t(goal.tabLabel)}
@@ -344,11 +346,16 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 							</div>
 						</div>
 
-						{/* Contextual Jump Actions */}
+						{/* Contextual Tactile Jump Actions */}
 						<div className='px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-dashed border-[#050505]/15 flex flex-wrap items-center gap-3'>
 							<a
 								href={activeGoal.primaryCta.href}
 								data-sfx='keycap'
+								onClick={() => {
+									if (activeGoal.primaryCta.href === '#services') {
+										onSelectServiceTrack?.(activeGoal.id === 'website' ? 'website' : 'video');
+									}
+								}}
 								className='px-5 py-2.5 rounded-lg bg-[#FD6141] border-[2.5px] border-[#050505] text-[#050505] font-display font-black text-sm shadow-[3px_3px_0_#050505] hover:bg-[#FFD426] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 							>
 								{t(activeGoal.primaryCta.label)}
@@ -361,7 +368,7 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 										onSelectServiceTrack?.(activeGoal.id === 'website' ? 'website' : 'video');
 									}
 								}}
-								className='px-4 py-2.5 rounded-lg bg-[#FCF0D3] border-2 border-[#050505]/80 text-[#050505] font-display font-bold text-sm hover:bg-[#FFFFFF] hover:-translate-y-0.5 active:translate-y-[1px] transition-all'
+								className='px-4 py-2.5 rounded-lg bg-[#FCF0D3] border-2 border-[#050505] text-[#050505] font-display font-bold text-sm shadow-[2px_2px_0_#050505] hover:bg-[#FFD426] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 							>
 								{t(activeGoal.secondaryCta.label)}
 							</a>

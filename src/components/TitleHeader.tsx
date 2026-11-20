@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { SparkleStar } from './SpaghettiArt';
 
 export interface TitleHeaderProps {
 	title: string;
@@ -64,15 +65,21 @@ const TitleHeader = ({
 					</div>
 				</div>
 
-				<h2
-					className={`font-display font-black text-3xl sm:text-4xl md:text-[44px] leading-[1.06] tracking-tight ${
-						onDarkMat
-							? 'text-[#FCF0D3] drop-shadow-[3px_3px_0_#050505]'
-							: 'text-[#050505]'
-					}`}
-				>
-					{title}
-				</h2>
+				<div className='relative w-fit max-w-full'>
+					<h2
+						className={`font-display font-black text-3xl sm:text-4xl md:text-[44px] leading-[1.06] tracking-tight ${
+							onDarkMat
+								? 'text-[#FCF0D3] drop-shadow-[3px_3px_0_#050505]'
+								: 'text-[#050505]'
+						}`}
+					>
+						{title}
+					</h2>
+					<SparkleStar
+						className='hidden sm:block absolute -top-3 -right-8 size-5 pointer-events-none'
+						fill='#FFD426'
+					/>
+				</div>
 
 				{bullets && bullets.length > 0 && (
 					<div

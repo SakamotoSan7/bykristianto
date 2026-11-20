@@ -116,13 +116,13 @@
 	}
 }
 
-/* Substrate 5: Amber Drafting Mat (#FCAE1F) */
+/* Substrate 5: Editorial Mustard-Amber Drafting Mat (#F0B429) */
 .substrate-yellow-mat {
-	background-color: #fcae1f;
+	background-color: #f0b429;
 	background-image:
-		linear-gradient(to right, rgba(255, 248, 224, 0.38) 1px, transparent 1px),
-		linear-gradient(to bottom, rgba(255, 248, 224, 0.38) 1px, transparent 1px),
-		radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.08) 0%, rgba(155, 82, 8, 0.22) 100%);
+		linear-gradient(to right, rgba(255, 248, 224, 0.34) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(255, 248, 224, 0.34) 1px, transparent 1px),
+		radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.08) 0%, rgba(140, 74, 8, 0.24) 100%);
 	background-size: 48px 48px, 48px 48px, 100% 100%;
 }
 

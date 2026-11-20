@@ -374,22 +374,24 @@ const BlueprintProcessSection = ({
 					})}
 				/>
 
-				{/* 4 Clean Workflow Step Cards */}
-				<div className='mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6'>
+				{/* 4 Signature Ligne-Claire Workflow Cards with Tilted Canary Drafting Tape */}
+				<div className='mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
 					{WORKFLOW_STEPS.map((item) => (
 						<article
 							key={item.step}
-							className='rounded-md border-[2.5px] border-[#050505] bg-[#FFFFFF] shadow-[4px_4px_0_#050505] p-6 flex flex-col justify-between gap-4'
+							className='relative ds-panel-paper rounded-md p-6 pt-8 flex flex-col justify-between gap-4'
 						>
+							<div
+								className='absolute -top-3 left-5 px-2.5 py-0.5 bg-[#FFD426] border-2 border-[#050505] font-mono text-[11px] font-black text-[#050505] -rotate-2 shadow-[2px_2px_0_#050505] select-none'
+								aria-hidden='true'
+							>
+								STEP {item.step}
+							</div>
+
 							<div className='space-y-2.5'>
-								<div className='flex items-center justify-between gap-2 pb-2 border-b border-dashed border-[#050505]/20'>
-									<span className='font-mono text-2xl font-black text-[#FD6141]'>
-										{item.step}
-									</span>
-									<span className='font-mono text-[10px] font-black uppercase tracking-wider text-[#3886C0] select-none'>
-										{t(item.tag)}
-									</span>
-								</div>
+								<p className='font-mono text-[10px] font-black uppercase tracking-wider text-[#3886C0] select-none'>
+									{t(item.tag)}
+								</p>
 								<h3 className='font-display font-black text-lg text-[#050505] leading-snug'>
 									{t(item.title)}
 								</h3>
@@ -401,35 +403,35 @@ const BlueprintProcessSection = ({
 					))}
 				</div>
 
-				{/* Style D Retro OS Interactive Craft Lab Window */}
-				<div id='craft-lab' className='mt-12 ds-os-window rounded-md overflow-hidden scroll-mt-24'>
-					{/* Calm Editorial Title Bar */}
-					<div className='flex flex-wrap items-center justify-between gap-2.5 px-4 sm:px-6 py-2.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
-						<div className='flex flex-wrap items-center gap-2 sm:gap-2.5 min-w-0'>
-							<span className='size-5 rounded-[3px] border-[1.5px] border-[#050505] bg-[#FD6141] inline-flex items-center justify-center font-mono text-[10px] font-black text-[#050505] shrink-0'>
+				{/* Style D Retro OS Interactive Craft Lab Window with Iconic Canary Chrome */}
+				<div id='craft-lab' className='mt-14 ds-os-window rounded-md overflow-hidden scroll-mt-24'>
+					<div className='flex flex-wrap items-center justify-between gap-2.5 px-4 sm:px-6 py-2.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+						<div className='flex items-center gap-2 sm:gap-2.5 min-w-0 flex-1'>
+							<span className='size-5 rounded-[3px] border-2 border-[#050505] bg-[#FD6141] inline-flex items-center justify-center font-mono text-[10px] font-black text-[#050505] shrink-0'>
 								⚙
 							</span>
 							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#FFD426] font-mono text-xs font-bold shrink-0'>
 								CRAFT_LAB.EXE
 							</span>
-							<p className='font-display font-black text-sm sm:text-base text-[#050505] leading-snug'>
+							<p className='font-display font-black text-sm sm:text-base text-[#050505] leading-snug truncate'>
 								{t({
 									en: 'Before / After Studio, Chess vs Kristianto & Meme SFX',
 									id: 'Komparasi Before / After, Catur vs Kristianto & Meme SFX',
 								})}
 							</p>
+							<div className='hidden xl:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 						</div>
 
-						<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase tracking-wider shrink-0 select-none'>
+						<span className='px-2.5 py-0.5 rounded-[2px] bg-[#FCF0D3] border-[1.5px] border-[#050505] font-mono text-[10px] font-black text-[#050505] uppercase tracking-wider shrink-0 select-none'>
 							{t({ en: '3 INTERACTIVE MODES', id: '3 MODE INTERAKTIF' })}
 						</span>
 					</div>
 
-					{/* Unified Calm Inactive Tabs + Distinct Signature Highlight Only When Active */}
+					{/* Unified Calm Inactive Tabs (Tactile Shadow) + Bold Signature Active State */}
 					<div
 						role='tablist'
 						aria-label={t({ en: 'Craft Lab Interactive Modes', id: 'Pilihan Mode Craft Lab' })}
-						className='grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#F6EDD6] border-b-[3px] border-[#050505]'
+						className='grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#EFE3C4] border-b-[3px] border-[#050505]'
 					>
 						{/* Mode 1: Visual Before / After */}
 						<button
@@ -439,10 +441,10 @@ const BlueprintProcessSection = ({
 							aria-selected={activeTab === 'compare'}
 							aria-pressed={activeTab === 'compare'}
 							onClick={() => switchCraftTab('compare')}
-							className={`group text-left rounded-md border-2 p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
+							className={`group text-left rounded-md border-2 border-[#050505] p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
 								activeTab === 'compare'
-									? 'border-[#050505] bg-[#3886C0] text-white shadow-[4px_4px_0_#050505] -translate-y-0.5'
-									: 'border-[#050505]/70 bg-[#FFFFFF] text-[#050505] hover:bg-[#FCF0D3] hover:-translate-y-0.5 active:translate-y-[1px]'
+									? 'bg-[#3886C0] text-white shadow-[4px_4px_0_#050505]'
+									: 'bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] hover:bg-[#FCF0D3]'
 							}`}
 						>
 							<div className='flex items-center gap-2.5 min-w-0'>
@@ -490,10 +492,10 @@ const BlueprintProcessSection = ({
 							aria-selected={activeTab === 'chess'}
 							aria-pressed={activeTab === 'chess'}
 							onClick={() => switchCraftTab('chess')}
-							className={`group text-left rounded-md border-2 p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
+							className={`group text-left rounded-md border-2 border-[#050505] p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
 								activeTab === 'chess'
-									? 'border-[#050505] bg-[#5CE62E] text-[#050505] shadow-[4px_4px_0_#050505] -translate-y-0.5'
-									: 'border-[#050505]/70 bg-[#FFFFFF] text-[#050505] hover:bg-[#FCF0D3] hover:-translate-y-0.5 active:translate-y-[1px]'
+									? 'bg-[#5CE62E] text-[#050505] shadow-[4px_4px_0_#050505]'
+									: 'bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] hover:bg-[#FCF0D3]'
 							}`}
 						>
 							<div className='flex items-center gap-2.5 min-w-0'>
@@ -540,10 +542,10 @@ const BlueprintProcessSection = ({
 							aria-selected={activeTab === 'sfx'}
 							aria-pressed={activeTab === 'sfx'}
 							onClick={() => switchCraftTab('sfx')}
-							className={`group text-left rounded-md border-2 p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
+							className={`group text-left rounded-md border-2 border-[#050505] border-b-[4px] p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
 								activeTab === 'sfx'
-									? 'border-[#050505] bg-[#FD6141] text-[#050505] shadow-[4px_4px_0_#050505] -translate-y-0.5'
-									: 'border-[#050505]/70 bg-[#FFFFFF] text-[#050505] hover:bg-[#FCF0D3] hover:-translate-y-0.5 active:translate-y-[1px]'
+									? 'bg-[#FD6141] text-[#050505] shadow-[4px_4px_0_#050505]'
+									: 'bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] hover:bg-[#FCF0D3]'
 							}`}
 						>
 							<div className='flex items-center gap-2.5 min-w-0'>
