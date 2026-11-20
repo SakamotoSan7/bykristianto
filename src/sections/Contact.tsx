@@ -411,23 +411,23 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 
 				<div className='mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start'>
 					{/* Left: Style D Retro OS Dispatch Brief Form */}
-					<div className='lg:col-span-7 ds-os-window rounded-sm overflow-hidden bg-[#FCF0D3]'>
-						<div className='flex items-center justify-between gap-2 px-3 sm:px-4 py-2.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+					<div className='lg:col-span-7 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'>
+						<div className='flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
 							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-4 bg-[#5CE62E] border-2 border-[#050505] inline-block shrink-0' />
+								<span className='size-3 rounded-full bg-[#5CE62E] border border-[#050505] inline-block shrink-0' />
 								<span className='font-mono text-[11px] sm:text-xs font-black text-[#050505] truncate'>
 									<span className='hidden sm:inline'>PRODUCTION_DISPATCH_2026.FORM</span>
 									<span className='sm:hidden'>DISPATCH_2026.FORM</span>
 								</span>
-								<div className='hidden sm:block flex-1 h-3 ds-titlebar-grips' aria-hidden='true' />
+								<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 							</div>
-							<span className='px-2 py-0.5 rounded-sm bg-[#050505] text-[#5CE62E] font-mono text-[10px] font-bold shrink-0 whitespace-nowrap'>
+							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#5CE62E] font-mono text-[10px] font-bold shrink-0 whitespace-nowrap'>
 								{t({ en: 'WA FIRST · EMAIL READY', id: 'WA CEPAT · EMAIL SIAP' })}
 							</span>
 						</div>
 
 						<div className='p-6 sm:p-8'>
-							<div className='pb-4 mb-5 border-b-2 border-dashed border-[#050505]/25'>
+							<div className='pb-4 mb-5 border-b border-dashed border-[#050505]/25'>
 								<h3 className='font-display font-black text-2xl text-[#050505]'>
 									{t({ en: 'Project Request Sheet', id: 'Formulir Kebutuhan Proyek' })}
 								</h3>
@@ -470,7 +470,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 											value={form.name}
 											onChange={handleChange}
 											placeholder={t({ en: 'e.g. Alex / Creative Lead', id: 'Misal: Budi / Tim Brand' })}
-											className='w-full rounded-sm border-[2.5px] border-[#050505] bg-white px-4 py-3 text-sm font-medium text-[#050505] placeholder:text-[#3B404C]/60 focus:bg-[#FAF3CF] focus:outline-none shadow-[2px_2px_0_#050505]'
+											className='w-full rounded-sm border-2 border-[#050505]/75 bg-white px-4 py-3 text-sm font-medium text-[#050505] placeholder:text-[#3B404C]/60 focus:border-[#050505] focus:bg-[#FAF3CF] focus:shadow-[3px_3px_0_#050505] focus:outline-none transition-all'
 										/>
 									</div>
 
@@ -489,7 +489,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 											value={form.email}
 											onChange={handleChange}
 											placeholder='name@company.com'
-											className='w-full rounded-sm border-[2.5px] border-[#050505] bg-white px-4 py-3 text-sm font-medium text-[#050505] placeholder:text-[#3B404C]/60 focus:bg-[#FAF3CF] focus:outline-none shadow-[2px_2px_0_#050505]'
+											className='w-full rounded-sm border-2 border-[#050505]/75 bg-white px-4 py-3 text-sm font-medium text-[#050505] placeholder:text-[#3B404C]/60 focus:border-[#050505] focus:bg-[#FAF3CF] focus:shadow-[3px_3px_0_#050505] focus:outline-none transition-all'
 										/>
 									</div>
 								</div>
@@ -506,7 +506,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 										name='projectType'
 										value={form.projectType}
 										onChange={handleChange}
-										className='w-full rounded-sm border-[2.5px] border-[#050505] bg-white px-4 py-3 text-sm font-bold text-[#050505] focus:bg-[#FAF3CF] focus:outline-none cursor-pointer shadow-[2px_2px_0_#050505]'
+										className='w-full rounded-sm border-2 border-[#050505]/75 bg-white px-4 py-3 text-sm font-bold text-[#050505] focus:border-[#050505] focus:bg-[#FAF3CF] focus:shadow-[3px_3px_0_#050505] focus:outline-none cursor-pointer transition-all'
 									>
 										{selectOptions.map((opt) => (
 											<option key={opt} value={opt}>
@@ -535,7 +535,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 											en: 'Share your topic, aspect ratio (9:16 / 16:9), website goals, or hiring role...',
 											id: 'Jelaskan topik video, rasio layar (9:16 / 16:9), konsep website, referensi gaya, atau posisi kerja...',
 										})}
-										className='w-full rounded-sm border-[2.5px] border-[#050505] bg-white px-4 py-3 text-sm font-medium text-[#050505] placeholder:text-[#3B404C]/60 focus:bg-[#FAF3CF] focus:outline-none shadow-[2px_2px_0_#050505]'
+										className='w-full rounded-sm border-2 border-[#050505]/75 bg-white px-4 py-3 text-sm font-medium text-[#050505] placeholder:text-[#3B404C]/60 focus:border-[#050505] focus:bg-[#FAF3CF] focus:shadow-[3px_3px_0_#050505] focus:outline-none transition-all'
 									/>
 								</div>
 
@@ -578,7 +578,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 									<button
 										type='submit'
 										data-sfx='bell'
-										className='rounded-full border-[3px] border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] px-7 py-3.5 text-sm font-display font-black inline-flex items-center gap-1.5 cursor-pointer shadow-[4px_4px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
+										className='rounded-lg border-[2.5px] border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] px-6 py-3 text-sm font-display font-black inline-flex items-center gap-1.5 cursor-pointer shadow-[4px_4px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 									>
 										<span>
 											{t({
@@ -594,7 +594,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 										data-sfx='bell'
 										disabled={loading || cooldownSeconds > 0}
 										onClick={handleEmailSend}
-										className='rounded-full border-[2.5px] border-[#050505] bg-white hover:bg-[#FFD426] px-5 py-3.5 text-sm font-display font-bold text-[#050505] inline-flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-white disabled:hover:translate-y-0 transition-all shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none'
+										className='rounded-lg border-2 border-[#050505]/80 bg-white hover:bg-[#FFD426] px-5 py-3 text-sm font-display font-bold text-[#050505] inline-flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:bg-white transition-colors'
 									>
 										<span>
 											{loading
@@ -614,28 +614,29 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 					</div>
 
 					{/* Right: Production Standards & Direct Channels Card */}
-					<div className='lg:col-span-5 ds-panel rounded-sm p-6 sm:p-8 space-y-5 bg-[#FCF0D3]'>
-						<div className='flex flex-wrap items-center justify-between gap-2'>
-							<span className='px-2.5 py-0.5 rounded-sm bg-[#5CE62E]/25 text-[#050505] border border-dashed border-[#050505]/65 font-mono text-xs font-black select-none'>
-								{t({ en: 'STUDIO AVAILABILITY', id: 'STATUS KETERSEDIAAN' })}
+					<div className='lg:col-span-5 ds-panel rounded-md p-6 sm:p-8 space-y-5 bg-[#FCF0D3]'>
+						<div className='flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] font-bold'>
+							<span className='inline-flex items-center gap-1.5 text-[#050505]'>
+								<span className='size-2 rounded-full bg-[#5CE62E] border border-[#050505]' />
+								<span>{t({ en: 'AVAILABLE FOR PROJECTS', id: 'SIAP UNTUK PROYEK' })}</span>
 							</span>
-							<span className='font-mono text-xs font-black text-[#3886C0]'>
+							<span className='font-black text-[#3886C0]'>
 								{t({ en: 'INDONESIA · REMOTE READY', id: 'INDONESIA · SIAP REMOTE' })}
 							</span>
 						</div>
 
-						<div className='flex items-center gap-3.5 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] p-3 shadow-[3px_3px_0_#050505]'>
+						<div className='flex items-center gap-3.5 pb-4 border-b border-dashed border-[#050505]/20'>
 							<img
 								src='/images/me/studio/avatar-kristianto.webp'
 								alt='Kristianto'
 								loading='lazy'
-								className='size-14 sm:size-16 shrink-0 rounded-sm border-[2.5px] border-[#050505] object-cover object-top bg-[#14171D]'
+								className='size-14 sm:size-16 shrink-0 rounded-sm border-2 border-[#050505] object-cover object-top bg-[#14171D]'
 							/>
 							<div className='min-w-0 space-y-0.5'>
 								<p className='font-display font-black text-base text-[#050505] leading-tight truncate'>
 									Kristianto, S.Sn
 								</p>
-								<p className='font-mono text-[11px] font-bold text-[#FD6141] leading-snug'>
+								<p className='font-mono text-[11px] font-bold text-[#C5432F] leading-snug'>
 									{t({
 										en: 'Video Editor & Creative Technologist',
 										id: 'Video Editor & Creative Producer',
@@ -650,14 +651,14 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 							</div>
 						</div>
 
-						<h3 className='font-display font-black text-2xl text-[#050505]'>
+						<h3 className='font-display font-black text-xl text-[#050505]'>
 							{t({
 								en: 'Production Standards',
 								id: 'Standar Kerja',
 							})}
 						</h3>
 
-						<ul className='space-y-3 text-sm text-[#050505]'>
+						<ul className='space-y-2.5 text-sm text-[#050505]'>
 							{[
 								{
 									en: 'Film & TV storytelling structure paired with well-paced editing.',
@@ -683,7 +684,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 							))}
 						</ul>
 
-						<div className='pt-4 border-t-2 border-dashed border-[#050505]/25 space-y-2.5 font-mono text-xs'>
+						<div className='pt-4 border-t border-dashed border-[#050505]/20 space-y-3 font-mono text-xs'>
 							<p className='font-black text-[#3B404C] uppercase'>
 								{t({ en: 'Direct Channels:', id: 'Kontak Resmi:' })}
 							</p>
@@ -692,12 +693,12 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 								target='_blank'
 								rel='noopener noreferrer'
 								data-sfx='bell'
-								className='inline-flex items-center gap-2 px-3.5 py-2 rounded-sm border-2 border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] text-xs sm:text-sm font-black text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+								className='inline-flex items-center gap-2 px-3.5 py-2 rounded border-2 border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] text-xs sm:text-sm font-black text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 							>
 								<span>WhatsApp: {PUBLIC_CONTACT.whatsappDisplay}</span>
 								<ArrowUpRightIcon className='size-3.5' />
 							</a>
-							<div className='flex flex-wrap items-center gap-2.5 pt-1'>
+							<div className='flex flex-wrap items-center gap-2.5 pt-0.5'>
 								<a
 									href={`mailto:${PUBLIC_CONTACT.email}`}
 									data-sfx='bell'
@@ -710,10 +711,10 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 									onClick={handleCopyEmail}
 									data-sfx='copy'
 									aria-label={t({ en: 'Copy email address', id: 'Salin alamat email' })}
-									className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-sm border-2 border-[#050505] font-mono text-[11px] font-black shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer ${
+									className={`inline-flex items-center gap-1 px-2 py-0.5 rounded border font-mono text-[11px] font-black transition-colors cursor-pointer ${
 										emailCopied
-											? 'bg-[#5CE62E] text-[#050505]'
-											: 'bg-white hover:bg-[#FFD426] text-[#050505]'
+											? 'border-[#050505] bg-[#5CE62E] text-[#050505]'
+											: 'border-[#050505]/45 bg-white hover:bg-[#FFD426] text-[#050505]'
 									}`}
 								>
 									{emailCopied ? (
@@ -726,34 +727,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 									)}
 								</button>
 							</div>
-							<div className='flex flex-wrap gap-2 pt-2'>
-								<a
-									href={PUBLIC_CONTACT.linkedin}
-									target='_blank'
-									rel='noopener noreferrer'
-									data-sfx='portal'
-									className='px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-white hover:bg-[#FFD426] font-bold text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
-								>
-									LinkedIn ↗
-								</a>
-								<a
-									href={PUBLIC_CONTACT.github}
-									target='_blank'
-									rel='noopener noreferrer'
-									data-sfx='portal'
-									className='px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-white hover:bg-[#FFD426] font-bold text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
-								>
-									GitHub ↗
-								</a>
-								<a
-									href={PUBLIC_CONTACT.instagram}
-									target='_blank'
-									rel='noopener noreferrer'
-									data-sfx='portal'
-									className='px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-white hover:bg-[#FFD426] font-bold text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
-								>
-									Instagram ↗
-								</a>
+							<div className='flex flex-wrap items-center gap-x-4 gap-y-2 pt-2'>
 								{(() => {
 									const cv = getLocalizedCvLink(lang);
 									return (
@@ -762,13 +736,40 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 											target='_blank'
 											rel='noopener noreferrer'
 											data-sfx='keycap'
-											className='inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] font-black text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+											className='inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] font-black text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 										>
 											<DownloadIcon className='size-3.5 shrink-0' />
 											<span>{cv.label}</span>
 										</a>
 									);
 								})()}
+								<a
+									href={PUBLIC_CONTACT.linkedin}
+									target='_blank'
+									rel='noopener noreferrer'
+									data-sfx='portal'
+									className='font-bold text-[#204275] hover:text-[#FD6141] underline underline-offset-4 transition-colors'
+								>
+									LinkedIn ↗
+								</a>
+								<a
+									href={PUBLIC_CONTACT.github}
+									target='_blank'
+									rel='noopener noreferrer'
+									data-sfx='portal'
+									className='font-bold text-[#204275] hover:text-[#FD6141] underline underline-offset-4 transition-colors'
+								>
+									GitHub ↗
+								</a>
+								<a
+									href={PUBLIC_CONTACT.instagram}
+									target='_blank'
+									rel='noopener noreferrer'
+									data-sfx='portal'
+									className='font-bold text-[#204275] hover:text-[#FD6141] underline underline-offset-4 transition-colors'
+								>
+									Instagram ↗
+								</a>
 							</div>
 						</div>
 					</div>

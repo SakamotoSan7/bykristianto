@@ -18,13 +18,15 @@ const BGM_BUTTON_STATE: Record<
 	BgmLevel,
 	{
 		label: string;
-		buttonClass: string;
+		navbarClass: string;
+		chessClass: string;
 		title: LocalizedText;
 	}
 > = {
 	full: {
 		label: 'BGM',
-		buttonClass: 'bg-[#5CE62E] text-[#050505] hover:bg-[#49D41D]',
+		navbarClass: 'bg-[#E3F5DA] text-[#050505] hover:bg-[#D2EEBE]',
+		chessClass: 'bg-[#5CE62E] text-[#050505] hover:bg-[#49D41D]',
 		title: {
 			en: 'Music: Normal · click for low volume',
 			id: 'Musik: Normal · klik untuk mode pelan',
@@ -32,7 +34,8 @@ const BGM_BUTTON_STATE: Record<
 	},
 	low: {
 		label: 'LOW',
-		buttonClass: 'bg-[#B4DD7F] text-[#050505] hover:bg-[#A2CF6B]',
+		navbarClass: 'bg-[#FFF3CC] text-[#050505] hover:bg-[#FFE999]',
+		chessClass: 'bg-[#B4DD7F] text-[#050505] hover:bg-[#A2CF6B]',
 		title: {
 			en: 'Music: Quiet · click to mute',
 			id: 'Musik: Pelan · klik untuk matikan',
@@ -40,7 +43,8 @@ const BGM_BUTTON_STATE: Record<
 	},
 	off: {
 		label: 'OFF',
-		buttonClass: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]',
+		navbarClass: 'bg-[#FFFFFF] text-[#5B606B] hover:bg-[#F6EDD6]',
+		chessClass: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]',
 		title: {
 			en: 'Music: Off · click to turn on',
 			id: 'Musik: Mati · klik untuk nyalakan',
@@ -52,13 +56,15 @@ const SFX_BUTTON_STATE: Record<
 	SfxLevel,
 	{
 		label: string;
-		buttonClass: string;
+		navbarClass: string;
+		chessClass: string;
 		title: LocalizedText;
 	}
 > = {
 	full: {
 		label: 'SFX',
-		buttonClass: 'bg-[#FFD426] text-[#050505] hover:bg-[#5CE62E]',
+		navbarClass: 'bg-[#FFF2C2] text-[#050505] hover:bg-[#FFE699]',
+		chessClass: 'bg-[#FFD426] text-[#050505] hover:bg-[#5CE62E]',
 		title: {
 			en: 'SFX: Normal · click for low volume',
 			id: 'Efek Suara: Normal · klik untuk mode pelan',
@@ -66,7 +72,8 @@ const SFX_BUTTON_STATE: Record<
 	},
 	low: {
 		label: 'LOW',
-		buttonClass: 'bg-[#FFE999] text-[#050505] hover:bg-[#FFD426]',
+		navbarClass: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#FFE999]',
+		chessClass: 'bg-[#FFE999] text-[#050505] hover:bg-[#FFD426]',
 		title: {
 			en: 'SFX: Quiet · click to mute',
 			id: 'Efek Suara: Pelan · klik untuk matikan',
@@ -74,7 +81,8 @@ const SFX_BUTTON_STATE: Record<
 	},
 	off: {
 		label: 'OFF',
-		buttonClass: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]',
+		navbarClass: 'bg-[#FFFFFF] text-[#5B606B] hover:bg-[#F6EDD6]',
+		chessClass: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]',
 		title: {
 			en: 'SFX: Off · click to turn on',
 			id: 'Efek Suara: Mati · klik untuk nyalakan',
@@ -92,7 +100,7 @@ export function LanguageSwitchPill({ variant = 'navbar' }: { variant?: ControlVa
 		<div
 			className={
 				isNavbar
-					? 'inline-flex items-center rounded border-2 border-[#050505] bg-[#FFFFFF] p-0.5 text-[10px] min-[360px]:text-[11px] font-mono shadow-[2px_2px_0_#050505] shrink-0'
+					? 'inline-flex items-center rounded border-[1.5px] border-[#050505]/80 bg-[#FFFFFF] p-0.5 text-[10px] min-[360px]:text-[11px] font-mono shrink-0'
 					: 'inline-flex items-center h-6 sm:h-7 rounded-sm border-2 border-[#050505] bg-[#FFFFFF] p-0.5 text-[9.5px] sm:text-[10.5px] font-mono shadow-[2px_2px_0_#050505] shrink-0'
 			}
 			role='group'
@@ -101,7 +109,7 @@ export function LanguageSwitchPill({ variant = 'navbar' }: { variant?: ControlVa
 			<GlobeIcon
 				className={
 					isNavbar
-						? 'size-3.5 text-[#050505] ml-1 mr-0.5 hidden sm:block'
+						? 'size-3.5 text-[#3B404C] ml-1 mr-0.5 hidden sm:block'
 						: 'size-3 text-[#050505] ml-0.5 mr-0.5 hidden xl:block'
 				}
 			/>
@@ -112,9 +120,9 @@ export function LanguageSwitchPill({ variant = 'navbar' }: { variant?: ControlVa
 				onClick={() => setLang('en')}
 				className={
 					isNavbar
-						? `ds-header-lang-btn px-1.5 min-[375px]:px-2 py-0.5 min-[360px]:py-1 rounded-sm font-black transition-colors cursor-pointer ${
+						? `ds-header-lang-btn px-1.5 min-[375px]:px-2 py-0.5 min-[360px]:py-1 rounded-[3px] font-black transition-colors cursor-pointer ${
 								lang === 'en'
-									? 'bg-[#3886C0] text-[#FFFFFF]'
+									? 'bg-[#050505] text-[#FCF0D3]'
 									: 'text-[#3B404C] hover:text-[#050505]'
 							}`
 						: `h-full px-1.5 sm:px-2 inline-flex items-center justify-center rounded-[2px] font-black leading-none transition-colors cursor-pointer ${
@@ -133,9 +141,9 @@ export function LanguageSwitchPill({ variant = 'navbar' }: { variant?: ControlVa
 				onClick={() => setLang('id')}
 				className={
 					isNavbar
-						? `ds-header-lang-btn px-1.5 min-[375px]:px-2 py-0.5 min-[360px]:py-1 rounded-sm font-black transition-colors cursor-pointer ${
+						? `ds-header-lang-btn px-1.5 min-[375px]:px-2 py-0.5 min-[360px]:py-1 rounded-[3px] font-black transition-colors cursor-pointer ${
 								lang === 'id'
-									? 'bg-[#3886C0] text-[#FFFFFF]'
+									? 'bg-[#050505] text-[#FCF0D3]'
 									: 'text-[#3B404C] hover:text-[#050505]'
 							}`
 						: `h-full px-1.5 sm:px-2 inline-flex items-center justify-center rounded-[2px] font-black leading-none transition-colors cursor-pointer ${
@@ -169,11 +177,11 @@ export function BgmToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 			aria-pressed={bgmEnabled}
 			aria-label={hint}
 			title={hint}
-			className={`inline-flex items-center justify-center gap-1 border-2 border-[#050505] font-mono font-black shadow-[2px_2px_0_#050505] cursor-pointer transition-colors shrink-0 ${
+			className={`inline-flex items-center justify-center gap-1 font-mono font-black cursor-pointer transition-colors shrink-0 ${
 				isNavbar
-					? 'ds-header-toggle-btn rounded min-w-[28px] h-7 min-[360px]:min-w-[34px] min-[360px]:h-8 min-[390px]:min-w-[36px] min-[390px]:h-9 sm:min-w-0 sm:h-auto sm:px-2 sm:py-1.5 text-[10px] sm:text-[11px]'
-					: 'rounded-sm w-7 h-6 sm:w-auto sm:h-7 sm:px-2 text-[9.5px] sm:text-[10.5px] leading-none'
-			} ${bgmUi.buttonClass}`}
+					? `ds-header-toggle-btn border-[1.5px] border-[#050505]/80 rounded min-w-[28px] h-7 min-[360px]:min-w-[34px] min-[360px]:h-8 min-[390px]:min-w-[36px] min-[390px]:h-9 sm:min-w-0 sm:h-auto sm:px-2 sm:py-1.5 text-[10px] sm:text-[11px] ${bgmUi.navbarClass}`
+					: `border-2 border-[#050505] shadow-[2px_2px_0_#050505] rounded-sm w-7 h-6 sm:w-auto sm:h-7 sm:px-2 text-[9.5px] sm:text-[10.5px] leading-none ${bgmUi.chessClass}`
+			}`}
 		>
 			{bgmLevel === 'full' ? (
 				<MusicIcon
@@ -195,7 +203,7 @@ export function BgmToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 				<MusicMutedIcon
 					className={
 						isNavbar
-							? 'size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#3B404C]'
+							? 'size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#5B606B]'
 							: 'size-3.5 text-[#3B404C]'
 					}
 				/>
@@ -223,11 +231,11 @@ export function SfxToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 			aria-pressed={soundEnabled}
 			aria-label={hint}
 			title={hint}
-			className={`inline-flex items-center justify-center gap-1 border-2 border-[#050505] font-mono font-black shadow-[2px_2px_0_#050505] cursor-pointer transition-colors shrink-0 ${
+			className={`inline-flex items-center justify-center gap-1 font-mono font-black cursor-pointer transition-colors shrink-0 ${
 				isNavbar
-					? 'ds-header-toggle-btn rounded min-w-[28px] h-7 min-[360px]:min-w-[34px] min-[360px]:h-8 min-[390px]:min-w-[36px] min-[390px]:h-9 sm:min-w-0 sm:h-auto sm:px-2 sm:py-1.5 text-[10px] sm:text-[11px]'
-					: 'rounded-sm w-7 h-6 sm:w-auto sm:h-7 sm:px-2 text-[9.5px] sm:text-[10.5px] leading-none'
-			} ${sfxUi.buttonClass}`}
+					? `ds-header-toggle-btn border-[1.5px] border-[#050505]/80 rounded min-w-[28px] h-7 min-[360px]:min-w-[34px] min-[360px]:h-8 min-[390px]:min-w-[36px] min-[390px]:h-9 sm:min-w-0 sm:h-auto sm:px-2 sm:py-1.5 text-[10px] sm:text-[11px] ${sfxUi.navbarClass}`
+					: `border-2 border-[#050505] shadow-[2px_2px_0_#050505] rounded-sm w-7 h-6 sm:w-auto sm:h-7 sm:px-2 text-[9.5px] sm:text-[10.5px] leading-none ${sfxUi.chessClass}`
+			}`}
 		>
 			{sfxLevel === 'full' ? (
 				<AudioIcon
@@ -249,7 +257,7 @@ export function SfxToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 				<AudioMutedIcon
 					className={
 						isNavbar
-							? 'size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#3B404C]'
+							? 'size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#5B606B]'
 							: 'size-3.5 text-[#3B404C]'
 					}
 				/>

@@ -7,7 +7,7 @@ import Hero from './sections/Hero';
 import StudioDeskSection from './sections/StudioDeskSection';
 import VideoPortfolioSection from './sections/VideoPortfolioSection';
 import BlueprintProcessSection from './sections/BlueprintProcessSection';
-import ServicesSection from './sections/ServicesSection';
+import ServicesSection, { type ServiceTrack } from './sections/ServicesSection';
 import ExperienceSection from './sections/ExperienceSection';
 import ShowcaseSection from './sections/ShowcaseSection';
 import Contact, { type ContactPreselection } from './sections/Contact';
@@ -17,6 +17,7 @@ import type { CraftLabTab, LocalizedText } from './data/portfolioData';
 const App = () => {
 	const [preselectedTopic, setPreselectedTopic] = useState<ContactPreselection | null>(null);
 	const [activeCraftTab, setActiveCraftTab] = useState<CraftLabTab>('compare');
+	const [activeServiceTrack, setActiveServiceTrack] = useState<ServiceTrack>('video');
 
 	const handleSelectPackageForContact = (label: LocalizedText) => {
 		setPreselectedTopic((prev) => ({
@@ -41,13 +42,17 @@ const App = () => {
 					<NavBar onSelectCraftTab={handleSelectCraftTab} />
 					<main>
 						<Hero />
-						<StudioDeskSection />
 						<VideoPortfolioSection onSelectStyleForContact={handleSelectPackageForContact} />
+						<StudioDeskSection onSelectServiceTrack={setActiveServiceTrack} />
 						<BlueprintProcessSection
 							activeTab={activeCraftTab}
 							onTabChange={setActiveCraftTab}
 						/>
-						<ServicesSection onSelectPackageForContact={handleSelectPackageForContact} />
+						<ServicesSection
+							activeTrack={activeServiceTrack}
+							onTrackChange={setActiveServiceTrack}
+							onSelectPackageForContact={handleSelectPackageForContact}
+						/>
 						<ExperienceSection />
 						<ShowcaseSection />
 						<Contact preselectedSelection={preselectedTopic} />

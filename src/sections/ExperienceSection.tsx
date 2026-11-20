@@ -19,6 +19,7 @@ import {
 const ExperienceSection = () => {
 	const { lang, t } = useLanguage();
 	const [archiveIdx, setArchiveIdx] = useState(0);
+	const [archiveTab, setArchiveTab] = useState<'credits' | 'certs'>('credits');
 
 	const totalPhotos = FIELD_ARCHIVE_PHOTOS.length;
 	const activePhoto = FIELD_ARCHIVE_PHOTOS[archiveIdx] ?? FIELD_ARCHIVE_PHOTOS[0];
@@ -34,7 +35,7 @@ const ExperienceSection = () => {
 	return (
 		<section
 			id='experience'
-			className='substrate-rust-mat relative overflow-x-clip border-b-[3.5px] border-[#050505] py-16 sm:py-24 scroll-mt-20'
+			className='substrate-studio-slate relative overflow-x-clip border-b-[3.5px] border-[#050505] py-16 sm:py-24 scroll-mt-20'
 		>
 			<div className='max-w-7xl mx-auto px-5 md:px-10'>
 				<TitleHeader
@@ -58,23 +59,23 @@ const ExperienceSection = () => {
 				{/* Top Retro OS Profile + Interactive Field Archive Row */}
 				<div className='mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch'>
 					{/* Left Window: Creator Profile Dossier */}
-					<div className='lg:col-span-7 ds-os-window rounded-sm overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-4 py-2.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+					<div className='lg:col-span-7 ds-os-window rounded-md overflow-hidden flex flex-col'>
+						<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
 							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-4 bg-[#FCF0D3] border-2 border-[#050505] inline-block shrink-0' />
+								<span className='size-3 rounded-full bg-[#FD6141] border border-[#050505] inline-block shrink-0' />
 								<span className='font-mono text-xs font-black text-[#050505] truncate'>
 									CREATOR_ID.JPG
 								</span>
-								<div className='hidden sm:block flex-1 h-3 ds-titlebar-grips' aria-hidden='true' />
+								<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 							</div>
-							<span className='px-2 py-0.5 rounded-sm bg-[#050505] text-[#5CE62E] font-mono text-[10px] font-black shrink-0 select-none'>
+							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#5CE62E] font-mono text-[10px] font-black shrink-0 select-none'>
 								ID / EN
 							</span>
 						</div>
 
 						<div className='p-5 sm:p-6 bg-[#FCF0D3] flex-1 flex items-center'>
 							<div className='grid grid-cols-1 sm:grid-cols-12 gap-5 items-center w-full'>
-								<figure className='sm:col-span-5 rounded-sm border-[3px] border-[#050505] bg-[#14171D] shadow-[4px_4px_0_#050505] overflow-hidden'>
+								<figure className='sm:col-span-5 rounded-sm border-[2.5px] border-[#050505] bg-[#14171D] shadow-[4px_4px_0_#050505] overflow-hidden'>
 									<div className='aspect-[4/5] w-full overflow-hidden'>
 										<img
 											src='/images/me/studio/profile-afe-desk.webp'
@@ -93,18 +94,18 @@ const ExperienceSection = () => {
 								</figure>
 
 								<div className='sm:col-span-7 space-y-3.5'>
-									<span className='inline-block px-2 py-0.5 rounded-sm bg-[#4D9DE0]/20 border border-[#050505] font-mono text-[11px] font-black text-[#050505]'>
+									<p className='font-mono text-[10.5px] font-black uppercase tracking-wider text-[#204275]'>
 										{t({
 											en: 'FILM & TV GRADUATE · CREATIVE TECHNOLOGIST',
 											id: 'S.SN TELEVISI & FILM · CREATIVE VIDEO PRODUCER',
 										})}
-									</span>
+									</p>
 
 									<div>
-										<h3 className='font-display font-black text-2xl sm:text-[26px] leading-tight text-[#050505]'>
+										<h3 className='font-display font-black text-2xl sm:text-[28px] leading-tight text-[#050505]'>
 											Kristianto
 										</h3>
-										<p className='font-mono text-xs font-bold text-[#FD6141] mt-0.5'>
+										<p className='font-mono text-xs font-bold text-[#C5432F] mt-0.5'>
 											{t({
 												en: 'Video Editor & AI-Assisted Visual Storyteller',
 												id: 'Video Editor & Motion Content Creator',
@@ -119,27 +120,20 @@ const ExperienceSection = () => {
 										})}
 									</p>
 
-									<div className='flex flex-wrap gap-1.5'>
-										{[
-											{ en: 'Cum Laude 3.76', id: 'Cum Laude 3.76' },
-											{ en: 'Ex-AFE Records', id: 'Magang AFE Records' },
-											{ en: 'TOEFL 610', id: 'TOEFL 610' },
-											{ en: 'Clear Audio + SFX', id: 'Audio Jernih + SFX' },
-										].map((chip) => (
-											<span
-												key={chip.en}
-												className='px-2 py-0.5 rounded-sm border border-[#050505]/70 bg-[#F6EDD6] font-mono text-[10px] font-black text-[#050505]'
-											>
-												{t(chip)}
-											</span>
-										))}
-									</div>
+									{/* Clean Inline Credential Strip (zero bordered chip clutter) */}
+									<p className='pt-2 border-t border-dashed border-[#050505]/20 font-mono text-[11px] font-bold text-[#050505] select-none'>
+										{t({
+											en: 'Cum Laude 3.76 · Ex-AFE Records · TOEFL 610 · Clear Audio + SFX',
+											id: 'Cum Laude 3.76 · Magang AFE Records · TOEFL 610 · Audio Jernih + SFX',
+										})}
+									</p>
 
-									<div className='flex flex-wrap items-center gap-2.5 pt-1'>
+									{/* Focused CTA Hierarchy + Subtle Text Links */}
+									<div className='flex flex-wrap items-center gap-3 pt-1'>
 										<a
 											href='#contact'
 											data-sfx='keycap'
-											className='inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] font-display font-black text-xs text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+											className='inline-flex items-center gap-1.5 px-4 py-2 rounded border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] font-display font-black text-xs text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 										>
 											{t({ en: 'Discuss a Project', id: 'Diskusi Proyek' })}
 										</a>
@@ -151,7 +145,7 @@ const ExperienceSection = () => {
 													target='_blank'
 													rel='noopener noreferrer'
 													data-sfx='keycap'
-													className='inline-flex items-center gap-1.5 px-3.5 py-2 rounded-sm border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] font-mono font-black text-xs text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+													className='inline-flex items-center gap-1.5 px-3.5 py-2 rounded border-2 border-[#050505] bg-[#FFFFFF] hover:bg-[#FFD426] font-mono font-black text-xs text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 												>
 													<DownloadIcon className='size-3.5 shrink-0' />
 													<span>{cv.label}</span>
@@ -163,7 +157,7 @@ const ExperienceSection = () => {
 											target='_blank'
 											rel='noopener noreferrer'
 											data-sfx='portal'
-											className='inline-flex items-center gap-1.5 px-3 py-2 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#4D9DE0]/25 font-mono font-bold text-xs text-[#050505] transition-colors'
+											className='inline-flex items-center gap-1 font-mono font-bold text-xs text-[#204275] hover:text-[#FD6141] underline underline-offset-4 transition-colors'
 										>
 											<span>LinkedIn</span>
 											<ArrowUpRightIcon className='size-3.5' />
@@ -173,7 +167,7 @@ const ExperienceSection = () => {
 											target='_blank'
 											rel='noopener noreferrer'
 											data-sfx='portal'
-											className='inline-flex items-center gap-1.5 px-3 py-2 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#FD6141]/20 font-mono font-bold text-xs text-[#050505] transition-colors'
+											className='inline-flex items-center gap-1 font-mono font-bold text-xs text-[#204275] hover:text-[#FD6141] underline underline-offset-4 transition-colors'
 										>
 											<span>Instagram</span>
 											<ArrowUpRightIcon className='size-3.5' />
@@ -185,16 +179,16 @@ const ExperienceSection = () => {
 					</div>
 
 					{/* Right Window: Interactive Behind-The-Scenes & Milestone Photo Switcher */}
-					<div className='lg:col-span-5 ds-os-window rounded-sm overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-4 py-2.5 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
+					<div className='lg:col-span-5 ds-os-window rounded-md overflow-hidden flex flex-col'>
+						<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
 							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-4 bg-[#FFD426] border-2 border-[#050505] inline-block shrink-0' />
+								<span className='size-3 rounded-full bg-[#4D9DE0] border border-[#050505] inline-block shrink-0' />
 								<span className='font-mono text-xs font-black text-[#050505] truncate'>
 									FIELD_ARCHIVE.APP
 								</span>
-								<div className='hidden sm:block flex-1 h-3 ds-titlebar-grips' aria-hidden='true' />
+								<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 							</div>
-							<span className='px-2 py-0.5 rounded-sm bg-[#050505] text-[#FCF0D3] font-mono text-[10px] font-black shrink-0 select-none'>
+							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#FCF0D3] font-mono text-[10px] font-black shrink-0 select-none'>
 								{String(archiveIdx + 1).padStart(2, '0')} / {String(totalPhotos).padStart(2, '0')}
 							</span>
 						</div>
@@ -213,13 +207,13 @@ const ExperienceSection = () => {
 									loading='lazy'
 									className='relative z-10 w-full h-full object-contain p-2'
 								/>
-								<span className='absolute top-2.5 left-2.5 z-20 px-2 py-0.5 rounded-sm bg-[#FFD426] border-[1.5px] border-[#050505] font-mono text-[10px] font-black text-[#050505] shadow-[2px_2px_0_#050505]'>
+								<span className='absolute top-2.5 left-2.5 z-20 px-2 py-0.5 rounded-[2px] bg-[#FFD426] border border-[#050505] font-mono text-[10px] font-black text-[#050505] shadow-[2px_2px_0_#050505]'>
 									{t(activePhoto.tag)}
 								</span>
 							</div>
 
 							<div className='space-y-3'>
-								<div className='rounded-sm border-2 border-[#050505]/75 bg-[#F6EDD6] p-3 space-y-1'>
+								<div className='pt-1 space-y-1'>
 									<h3 className='font-display font-black text-sm sm:text-base text-[#050505] leading-snug'>
 										{t(activePhoto.title)}
 									</h3>
@@ -228,13 +222,13 @@ const ExperienceSection = () => {
 									</p>
 								</div>
 
-								<div className='flex items-center justify-between gap-2'>
+								<div className='flex items-center justify-between gap-2 pt-2 border-t border-dashed border-[#050505]/20'>
 									<button
 										type='button'
 										onClick={handlePrevPhoto}
 										data-sfx='shutter'
 										aria-label={t({ en: 'Previous archive photo', id: 'Foto arsip sebelumnya' })}
-										className='inline-flex items-center gap-1 px-2.5 py-1.5 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
+										className='inline-flex items-center gap-1 px-2.5 py-1 rounded border border-[#050505]/70 bg-[#FFFFFF] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] transition-colors cursor-pointer'
 									>
 										<ChevronLeftIcon className='size-3.5' />
 										<span>PREV</span>
@@ -252,7 +246,7 @@ const ExperienceSection = () => {
 												className={`h-2.5 rounded-sm border border-[#050505] transition-all cursor-pointer ${
 													idx === archiveIdx
 														? 'w-6 bg-[#FD6141]'
-														: 'w-2.5 bg-[#F6EDD6] hover:bg-[#FFD426]'
+														: 'w-2.5 bg-[#FFFFFF] hover:bg-[#FFD426]'
 												}`}
 											/>
 										))}
@@ -263,7 +257,7 @@ const ExperienceSection = () => {
 										onClick={handleNextPhoto}
 										data-sfx='shutter'
 										aria-label={t({ en: 'Next archive photo', id: 'Foto arsip berikutnya' })}
-										className='inline-flex items-center gap-1 px-2.5 py-1.5 rounded-sm border-2 border-[#050505] bg-[#F6EDD6] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
+										className='inline-flex items-center gap-1 px-2.5 py-1 rounded border border-[#050505]/70 bg-[#FFFFFF] hover:bg-[#FFD426] font-mono text-[11px] font-black text-[#050505] transition-colors cursor-pointer'
 									>
 										<span>NEXT</span>
 										<ChevronRightIcon className='size-3.5' />
@@ -274,25 +268,25 @@ const ExperienceSection = () => {
 					</div>
 				</div>
 
-				{/* Main 3 Experience & Education Ligne-Claire Dossiers */}
+				{/* Main 3 Experience & Education Cards (Unified Clean Header + Flush-Top Plate) */}
 				<div className='mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6'>
 					{EXPERIENCE_CARDS.map((card) => (
 						<article
 							key={card.id}
-							className='ds-panel rounded-sm p-5 sm:p-6 flex flex-col justify-between gap-5'
+							className='ds-panel rounded-md overflow-hidden flex flex-col justify-between bg-[#FCF0D3]'
 						>
-							<div className='space-y-4'>
-								<div className='flex items-start justify-between gap-3'>
-									<span className='px-2 py-0.5 rounded-sm bg-[#FFD426]/80 border border-[#050505]/60 font-mono text-[11px] font-black text-[#050505] select-none'>
+							<div>
+								<div className='flex items-center justify-between gap-2 px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
+									<span className='font-mono text-[11px] font-black text-[#050505] uppercase truncate select-none'>
 										{t(card.badgeLabel)}
 									</span>
-									<span className='font-mono text-xs font-extrabold text-[#204275]'>
+									<span className='font-mono text-[11px] font-black text-[#204275] shrink-0'>
 										{card.date}
 									</span>
 								</div>
 
 								{card.cardImagePath && (
-									<figure className='rounded-sm border-2 border-[#050505] overflow-hidden bg-[#F6EDD6] shadow-[3px_3px_0_#050505]'>
+									<figure className='border-b-[2.5px] border-[#050505] overflow-hidden bg-[#14171D]'>
 										<div
 											className={`aspect-[3/2] w-full overflow-hidden ${
 												card.cardImageFit === 'contain' ? 'bg-white p-4' : 'bg-[#14171D]'
@@ -308,78 +302,112 @@ const ExperienceSection = () => {
 											/>
 										</div>
 										{card.cardImageLabel && (
-											<figcaption className='px-2.5 py-1.5 border-t-2 border-[#050505] bg-[#050505] text-[#FCF0D3] font-mono text-[10px] font-bold tracking-wide truncate'>
+											<figcaption className='px-3 py-1 border-t border-[#050505] bg-[#050505] text-[#FCF0D3] font-mono text-[10px] font-bold tracking-wide truncate'>
 												{t(card.cardImageLabel)}
 											</figcaption>
 										)}
 									</figure>
 								)}
 
-								<div>
-									<h3 className='font-display font-black text-xl text-[#050505]'>
-										{t(card.role)}
-									</h3>
-									<p className='text-sm font-black text-[#FD6141] mt-0.5'>
-										{card.organization}
+								<div className='p-5 sm:p-6 space-y-3.5'>
+									<div>
+										<h3 className='font-display font-black text-xl text-[#050505]'>
+											{t(card.role)}
+										</h3>
+										<p className='text-sm font-black text-[#C5432F] mt-0.5'>
+											{card.organization}
+										</p>
+									</div>
+
+									<p className='text-[13.5px] text-[#3B404C] italic leading-relaxed border-l-[3px] border-[#3886C0] pl-3'>
+										&ldquo;{t(card.review)}&rdquo;
 									</p>
+
+									<ul className='space-y-2 pt-3 border-t border-dashed border-[#050505]/20'>
+										{card.responsibilities.map((item) => (
+											<li
+												key={item.en}
+												className='flex items-start gap-2 text-xs sm:text-[13px] text-[#050505] leading-snug'
+											>
+												<span className='text-[#3886C0] font-black'>◆</span>
+												<span>{t(item)}</span>
+											</li>
+										))}
+									</ul>
 								</div>
-
-								<p className='text-sm text-[#3B404C] italic leading-relaxed border-l-4 border-[#3886C0] pl-3'>
-									&ldquo;{t(card.review)}&rdquo;
-								</p>
-
-								<ul className='space-y-2 pt-3 border-t-2 border-dashed border-[#050505]/25'>
-									{card.responsibilities.map((item) => (
-										<li
-											key={item.en}
-											className='flex items-start gap-2 text-xs sm:text-sm text-[#050505]'
-										>
-											<span className='text-[#3886C0] font-black'>◆</span>
-											<span>{t(item)}</span>
-										</li>
-									))}
-								</ul>
 							</div>
 
-							<div className='pt-3 border-t-2 border-[#050505]/20 font-mono text-[11px] font-bold text-[#3B404C]'>
+							<div className='px-5 sm:px-6 pb-4 pt-3 border-t border-dashed border-[#050505]/15 font-mono text-[11px] font-bold text-[#3B404C]'>
 								{card.location}
 							</div>
 						</article>
 					))}
 				</div>
 
-				{/* Dual Style D Retro OS Archival Windows: Film Credits + Verified Certificates */}
-				<div className='mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch'>
-					{/* Left Window: Film & TV Credits (Larger 7-col showcase for production thumbnails & poster) */}
-					<div className='lg:col-span-7 ds-os-window rounded-sm overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-4 py-2.5 bg-[#FD6141] border-b-[3px] border-[#050505]'>
-							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-4 bg-[#FCF0D3] border-2 border-[#050505] inline-block shrink-0' />
-								<span className='font-mono text-xs font-black text-[#050505] truncate'>
-									CREDITS_LOG.TXT
-								</span>
-								<div className='hidden sm:block flex-1 h-3 ds-titlebar-grips' aria-hidden='true' />
-							</div>
-							<span className='px-2 py-0.5 rounded-sm bg-[#050505] text-[#FFD426] font-mono text-[10px] font-bold shrink-0'>
-								{t({
-									en: `${FILM_CREDITS.length} CREDITS`,
-									id: `${FILM_CREDITS.length} KREDIT`,
-								})}
+				{/* Unified Tabbed Archival Window: Film Credits + Verified Certifications (Progressive Disclosure) */}
+				<div className='mt-8 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'>
+					<div className='flex flex-wrap items-center justify-between gap-3 px-4 sm:px-5 py-2.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
+						<div className='flex items-center gap-2 min-w-0'>
+							<span className='size-3 rounded-full bg-[#5CE62E] border border-[#050505] inline-block shrink-0' />
+							<span className='font-mono text-xs font-black text-[#050505] truncate'>
+								ARCHIVE_LOG.DB
 							</span>
 						</div>
 
-						<div className='p-5 sm:p-6 bg-[#FCF0D3] space-y-4 flex-1'>
-							<h3 className='font-display font-black text-lg text-[#050505]'>
-								{t({ en: 'Film & Production Credits', id: 'Kredit Film & Produksi' })}
-							</h3>
+						<div
+							role='tablist'
+							aria-label={t({ en: 'Credits and Certifications', id: 'Kredit Film & Sertifikasi' })}
+							className='flex flex-wrap items-center gap-1.5'
+						>
+							<button
+								type='button'
+								role='tab'
+								data-sfx='paper'
+								aria-selected={archiveTab === 'credits'}
+								aria-pressed={archiveTab === 'credits'}
+								onClick={() => setArchiveTab('credits')}
+								className={`px-3 py-1 rounded font-mono text-[11px] font-black transition-colors cursor-pointer ${
+									archiveTab === 'credits'
+										? 'bg-[#050505] text-[#FFD426]'
+										: 'bg-[#FFFFFF]/80 text-[#3B404C] border border-[#050505]/30 hover:bg-[#FFFFFF] hover:text-[#050505]'
+								}`}
+							>
+								{t({
+									en: `Film Credits (${FILM_CREDITS.length})`,
+									id: `Kredit Film (${FILM_CREDITS.length})`,
+								})}
+							</button>
 
-							<div className='space-y-3.5'>
+							<button
+								type='button'
+								role='tab'
+								data-sfx='paper'
+								aria-selected={archiveTab === 'certs'}
+								aria-pressed={archiveTab === 'certs'}
+								onClick={() => setArchiveTab('certs')}
+								className={`px-3 py-1 rounded font-mono text-[11px] font-black transition-colors cursor-pointer ${
+									archiveTab === 'certs'
+										? 'bg-[#050505] text-[#5CE62E]'
+										: 'bg-[#FFFFFF]/80 text-[#3B404C] border border-[#050505]/30 hover:bg-[#FFFFFF] hover:text-[#050505]'
+								}`}
+							>
+								{t({
+									en: `Verified Certs (${CERTIFICATES.length})`,
+									id: `Sertifikat Resmi (${CERTIFICATES.length})`,
+								})}
+							</button>
+						</div>
+					</div>
+
+					<div className='p-5 sm:p-6 bg-[#FCF0D3]'>
+						{archiveTab === 'credits' ? (
+							<div className='divide-y divide-dashed divide-[#050505]/20'>
 								{FILM_CREDITS.map((credit) => {
 									const isContained = credit.thumbFit === 'contain';
 									return (
 										<div
 											key={credit.title}
-											className='rounded-sm border-2 border-[#050505]/75 bg-[#F6EDD6] p-3.5 sm:p-4 flex flex-col sm:flex-row items-start gap-4'
+											className='py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row items-start gap-4'
 										>
 											{credit.thumbPath && (
 												<a
@@ -418,19 +446,19 @@ const ExperienceSection = () => {
 														target='_blank'
 														rel='noopener noreferrer'
 														data-sfx='portal'
-														className='font-display font-black text-sm sm:text-base text-[#050505] hover:text-[#FD6141] underline decoration-2 underline-offset-4 transition-colors inline-flex items-center gap-1'
+														className='font-display font-black text-base text-[#050505] hover:text-[#C5432F] underline decoration-2 underline-offset-4 transition-colors inline-flex items-center gap-1'
 													>
 														<span>{credit.title}</span>
 														<span className='text-xs'>↗</span>
 													</a>
-													<span className='shrink-0 px-2 py-0.5 rounded-sm bg-[#FFD426]/70 border border-[#050505]/50 font-mono text-[11px] font-black text-[#050505] select-none'>
+													<span className='shrink-0 font-mono text-xs font-black text-[#204275] select-none'>
 														{credit.year}
 													</span>
 												</div>
 												<p className='font-mono text-[11px] text-[#3886C0] font-bold'>
 													{t(credit.role)}
 												</p>
-												<p className='text-xs sm:text-[13px] text-[#3B404C] leading-relaxed'>
+												<p className='text-xs sm:text-[13px] text-[#3B404C] leading-relaxed max-w-2xl'>
 													{t(credit.desc)}
 												</p>
 											</div>
@@ -438,62 +466,37 @@ const ExperienceSection = () => {
 									);
 								})}
 							</div>
-						</div>
+						) : (
+							<div className='grid grid-cols-1 md:grid-cols-2 gap-3.5'>
+								{CERTIFICATES.map((cert) => (
+									<div
+										key={cert.title.en}
+										className='rounded bg-[#F6EDD6] p-4 flex flex-col justify-between gap-1.5'
+									>
+										<div className='flex items-center justify-between gap-2'>
+											<span className='font-mono text-[11px] font-black text-[#204275] uppercase'>
+												{cert.issuer}
+											</span>
+											<span className='font-mono text-[10px] font-black text-[#C5432F] select-none shrink-0'>
+												{t(cert.meta)}
+											</span>
+										</div>
+										<p className='font-display font-bold text-sm text-[#050505] leading-snug'>
+											{t(cert.title)}
+										</p>
+									</div>
+								))}
+							</div>
+						)}
 					</div>
 
-					{/* Right Window: Verified Certifications (Compact 5-col single-column list on lg) */}
-					<div className='lg:col-span-5 ds-os-window rounded-sm overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-4 py-2.5 bg-[#3886C0] border-b-[3px] border-[#050505]'>
-							<div className='flex items-center gap-2 min-w-0 flex-1'>
-								<span className='size-4 bg-[#5CE62E] border-2 border-[#050505] inline-block shrink-0' />
-								<span className='font-mono text-xs font-black text-[#050505] truncate'>
-									VERIFIED_CERTS.DB
-								</span>
-								<div className='hidden sm:block flex-1 h-3 ds-titlebar-grips' aria-hidden='true' />
-							</div>
-							<span className='px-2 py-0.5 rounded-none bg-[#050505] text-[#5CE62E] font-mono text-[10px] font-black shrink-0 select-none'>
-								{t({
-									en: `${CERTIFICATES.length} CERTS`,
-									id: `${CERTIFICATES.length} SERTIFIKAT`,
-								})}
-							</span>
-						</div>
-
-						<div className='p-5 sm:p-6 bg-[#FCF0D3] flex-1 flex flex-col justify-between gap-4'>
-							<div className='space-y-4'>
-								<h3 className='font-display font-black text-lg text-[#050505]'>
-									{t({ en: 'Verified Cloud & Language Credentials', id: 'Sertifikasi Resmi & Bahasa' })}
-								</h3>
-
-								<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3'>
-									{CERTIFICATES.map((cert) => (
-										<div
-											key={cert.title.en}
-											className='rounded-sm border-2 border-[#050505]/75 bg-[#F6EDD6] p-3.5 flex flex-col justify-between gap-1.5'
-										>
-											<div className='flex items-center justify-between gap-2'>
-												<span className='font-mono text-[11px] font-black text-[#204275] uppercase'>
-													{cert.issuer}
-												</span>
-												<span className='px-2 py-0.5 rounded-sm bg-[#FFD426]/70 border border-[#050505]/50 font-mono text-[10px] font-black text-[#050505] select-none shrink-0'>
-													{t(cert.meta)}
-												</span>
-											</div>
-											<p className='font-display font-bold text-sm text-[#050505] leading-snug'>
-												{t(cert.title)}
-											</p>
-										</div>
-									))}
-								</div>
-							</div>
-
-							<p className='pt-3 border-t-2 border-dashed border-[#050505]/25 font-mono text-[11px] font-bold text-[#3B404C]'>
-								{t({
-									en: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · GPA 3.76/4.00',
-									id: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · IPK 3,76/4,00',
-								})}
-							</p>
-						</div>
+					<div className='px-5 sm:px-6 py-3 bg-[#EFE5CA]/65 border-t-2 border-[#050505]/20 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] font-bold text-[#3B404C]'>
+						<span>
+							{t({
+								en: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · GPA 3.76/4.00',
+								id: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · IPK 3,76/4,00',
+							})}
+						</span>
 					</div>
 				</div>
 			</div>

@@ -15,7 +15,6 @@ interface BlueprintProcessSectionProps {
 	onTabChange?: (tab: CraftLabTab) => void;
 }
 
-const FIG_LETTERS = ['Fig.A', 'Fig.B', 'Fig.C', 'Fig.D'];
 const BEST_LEVEL_STORAGE_KEY = 'kris_foley_memory_best_lvl';
 
 function loadBestLevel(): number {
@@ -375,26 +374,19 @@ const BlueprintProcessSection = ({
 					})}
 				/>
 
-				{/* 4 Style A Ligne-Claire Assembly Cards with Canary Drafting Tape */}
-				<div className='mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
-					{WORKFLOW_STEPS.map((item, idx) => (
+				{/* 4 Clean Workflow Step Cards */}
+				<div className='mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6'>
+					{WORKFLOW_STEPS.map((item) => (
 						<article
 							key={item.step}
-							className='relative ds-panel-paper rounded-sm p-6 pt-8 flex flex-col justify-between gap-4'
+							className='rounded-md border-[2.5px] border-[#050505] bg-[#FFFFFF] shadow-[4px_4px_0_#050505] p-6 flex flex-col justify-between gap-4'
 						>
-							<div
-								className='absolute -top-3 left-6 px-2.5 py-0.5 bg-[#FFD426] border-2 border-[#050505] font-mono text-[11px] font-black text-[#050505] -rotate-2 shadow-[2px_2px_0_#050505]'
-								aria-hidden='true'
-							>
-								{FIG_LETTERS[idx] ?? `Fig.${item.step}`}
-							</div>
-
-							<div className='space-y-3'>
-								<div className='flex items-center justify-between gap-2'>
+							<div className='space-y-2.5'>
+								<div className='flex items-center justify-between gap-2 pb-2 border-b border-dashed border-[#050505]/20'>
 									<span className='font-mono text-2xl font-black text-[#FD6141]'>
 										{item.step}
 									</span>
-									<span className='px-2 py-0.5 rounded-sm bg-[#FCF0D3] border border-dashed border-[#050505]/50 font-mono text-[10px] font-black uppercase text-[#3886C0] select-none'>
+									<span className='font-mono text-[10px] font-black uppercase tracking-wider text-[#3886C0] select-none'>
 										{t(item.tag)}
 									</span>
 								</div>
@@ -410,14 +402,14 @@ const BlueprintProcessSection = ({
 				</div>
 
 				{/* Style D Retro OS Interactive Craft Lab Window */}
-				<div id='craft-lab' className='mt-14 ds-os-window rounded-sm overflow-hidden scroll-mt-24'>
-					{/* Title Bar */}
-					<div className='flex flex-wrap items-center justify-between gap-2.5 px-4 sm:px-6 py-3 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+				<div id='craft-lab' className='mt-12 ds-os-window rounded-md overflow-hidden scroll-mt-24'>
+					{/* Calm Editorial Title Bar */}
+					<div className='flex flex-wrap items-center justify-between gap-2.5 px-4 sm:px-6 py-2.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
 						<div className='flex flex-wrap items-center gap-2 sm:gap-2.5 min-w-0'>
-							<span className='size-5 border-2 border-[#050505] bg-[#FD6141] inline-flex items-center justify-center font-mono text-[10px] font-black text-[#050505] shrink-0'>
+							<span className='size-5 rounded-[3px] border-[1.5px] border-[#050505] bg-[#FD6141] inline-flex items-center justify-center font-mono text-[10px] font-black text-[#050505] shrink-0'>
 								⚙
 							</span>
-							<span className='px-2 py-0.5 rounded-sm bg-[#050505] text-[#FFD426] font-mono text-xs font-bold shrink-0'>
+							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#FFD426] font-mono text-xs font-bold shrink-0'>
 								CRAFT_LAB.EXE
 							</span>
 							<p className='font-display font-black text-sm sm:text-base text-[#050505] leading-snug'>
@@ -428,18 +420,18 @@ const BlueprintProcessSection = ({
 							</p>
 						</div>
 
-						<span className='px-2.5 py-0.5 rounded-sm bg-[#FCF0D3] border-2 border-[#050505] font-mono text-[10px] font-black text-[#050505] uppercase tracking-wider shrink-0 select-none'>
+						<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase tracking-wider shrink-0 select-none'>
 							{t({ en: '3 INTERACTIVE MODES', id: '3 MODE INTERAKTIF' })}
 						</span>
 					</div>
 
-					{/* Distinct Content-Styled Interactive Mode Switcher Deck */}
+					{/* Unified Calm Inactive Tabs + Distinct Signature Highlight Only When Active */}
 					<div
 						role='tablist'
 						aria-label={t({ en: 'Craft Lab Interactive Modes', id: 'Pilihan Mode Craft Lab' })}
-						className='grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#EFE3C4] border-b-[3.5px] border-[#050505]'
+						className='grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#F6EDD6] border-b-[3px] border-[#050505]'
 					>
-						{/* Mode 1: Visual Before / After (Split-Screen Studio Style) */}
+						{/* Mode 1: Visual Before / After */}
 						<button
 							type='button'
 							role='tab'
@@ -447,21 +439,21 @@ const BlueprintProcessSection = ({
 							aria-selected={activeTab === 'compare'}
 							aria-pressed={activeTab === 'compare'}
 							onClick={() => switchCraftTab('compare')}
-							className={`group text-left rounded-md border-[2.5px] border-[#050505] p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
+							className={`group text-left rounded-md border-2 p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
 								activeTab === 'compare'
-									? 'bg-[#3886C0] text-white shadow-[4px_4px_0_#050505] -translate-y-0.5'
-									: 'bg-[#FFFFFF] text-[#050505] hover:bg-[#E7F4FD] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none'
+									? 'border-[#050505] bg-[#3886C0] text-white shadow-[4px_4px_0_#050505] -translate-y-0.5'
+									: 'border-[#050505]/70 bg-[#FFFFFF] text-[#050505] hover:bg-[#FCF0D3] hover:-translate-y-0.5 active:translate-y-[1px]'
 							}`}
 						>
 							<div className='flex items-center gap-2.5 min-w-0'>
 								<span
-									className='size-10 rounded border-2 border-[#050505] shadow-[2px_2px_0_#050505] flex items-center justify-center shrink-0'
+									className='size-9 rounded border-[1.5px] border-[#050505] flex items-center justify-center shrink-0'
 									style={{
 										background: 'linear-gradient(90deg, #161B26 50%, #4D9DE0 50%)',
 									}}
 									aria-hidden='true'
 								>
-									<LayersIcon className='size-4.5 text-[#FCF0D3] drop-shadow-[0_1px_1px_#050505]' />
+									<LayersIcon className='size-4 text-[#FCF0D3] drop-shadow-[0_1px_1px_#050505]' />
 								</span>
 								<div className='min-w-0'>
 									<p className='font-display font-black text-sm leading-tight'>
@@ -478,10 +470,10 @@ const BlueprintProcessSection = ({
 							</div>
 
 							<span
-								className={`px-2 py-0.5 rounded-[3px] border border-[#050505] font-mono text-[9.5px] font-black shrink-0 whitespace-nowrap select-none ${
+								className={`px-2 py-0.5 rounded-[3px] font-mono text-[9.5px] font-black shrink-0 whitespace-nowrap select-none ${
 									activeTab === 'compare'
-										? 'bg-[#FFD426] text-[#050505]'
-										: 'bg-[#E7F4FD] text-[#204275]'
+										? 'border border-[#050505] bg-[#FFD426] text-[#050505]'
+										: 'bg-[#F6EDD6] text-[#3B404C]'
 								}`}
 							>
 								{activeTab === 'compare'
@@ -490,7 +482,7 @@ const BlueprintProcessSection = ({
 							</span>
 						</button>
 
-						{/* Mode 2: Chess vs Kris (Emerald Chessboard Motif + Clear PLAY Hint) */}
+						{/* Mode 2: Chess vs Kris */}
 						<button
 							type='button'
 							role='tab'
@@ -498,40 +490,40 @@ const BlueprintProcessSection = ({
 							aria-selected={activeTab === 'chess'}
 							aria-pressed={activeTab === 'chess'}
 							onClick={() => switchCraftTab('chess')}
-							className={`group text-left rounded-md border-[2.5px] border-[#050505] p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
+							className={`group text-left rounded-md border-2 p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
 								activeTab === 'chess'
-									? 'bg-[#5CE62E] text-[#050505] shadow-[4px_4px_0_#050505] -translate-y-0.5'
-									: 'bg-[#F2FCEB] text-[#050505] hover:bg-[#DCF9C8] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none'
+									? 'border-[#050505] bg-[#5CE62E] text-[#050505] shadow-[4px_4px_0_#050505] -translate-y-0.5'
+									: 'border-[#050505]/70 bg-[#FFFFFF] text-[#050505] hover:bg-[#FCF0D3] hover:-translate-y-0.5 active:translate-y-[1px]'
 							}`}
 						>
 							<div className='flex items-center gap-2.5 min-w-0'>
 								<span
-									className='size-10 rounded border-2 border-[#050505] shadow-[2px_2px_0_#050505] flex items-center justify-center shrink-0'
+									className='size-9 rounded border-[1.5px] border-[#050505] flex items-center justify-center shrink-0'
 									style={{
 										backgroundImage:
 											'conic-gradient(#39754F 90deg, #F6EDD6 90deg 180deg, #39754F 180deg 270deg, #F6EDD6 270deg)',
 									}}
 									aria-hidden='true'
 								>
-									<span className='size-6 rounded-[3px] bg-[#FCF0D3]/95 border border-[#050505] flex items-center justify-center'>
-										<ChessIcon className='size-4 text-[#163824]' />
+									<span className='size-5 rounded-[2px] bg-[#FCF0D3]/95 border border-[#050505] flex items-center justify-center'>
+										<ChessIcon className='size-3.5 text-[#163824]' />
 									</span>
 								</span>
 								<div className='min-w-0'>
 									<p className='font-display font-black text-sm leading-tight'>
 										{t({ en: 'Chess vs Kris (1000–1900)', id: 'Catur vs Kris (1000–1900)' })}
 									</p>
-									<p className='font-mono text-[10px] font-bold text-[#1D3E2B] leading-snug mt-0.5'>
+									<p className='font-mono text-[10px] font-bold text-[#3B404C] leading-snug mt-0.5'>
 										{t({ en: 'Playable AI Match · 3 ELO', id: 'Lawan Stockfish AI · 3 Level' })}
 									</p>
 								</div>
 							</div>
 
 							<span
-								className={`px-2 py-0.5 rounded-[3px] border border-[#050505] font-mono text-[9.5px] font-black shrink-0 whitespace-nowrap select-none ${
+								className={`px-2 py-0.5 rounded-[3px] font-mono text-[9.5px] font-black shrink-0 whitespace-nowrap select-none ${
 									activeTab === 'chess'
-										? 'bg-[#050505] text-[#5CE62E]'
-										: 'bg-[#5CE62E] text-[#050505] group-hover:bg-[#FFD426]'
+										? 'border border-[#050505] bg-[#050505] text-[#5CE62E]'
+										: 'bg-[#F6EDD6] text-[#1D3E2B]'
 								}`}
 							>
 								{activeTab === 'chess'
@@ -540,7 +532,7 @@ const BlueprintProcessSection = ({
 							</span>
 						</button>
 
-						{/* Mode 3: Meme SFX Game (3D Tactile Drum-Pad Keycap Style) */}
+						{/* Mode 3: Meme SFX Game */}
 						<button
 							type='button'
 							role='tab'
@@ -548,20 +540,20 @@ const BlueprintProcessSection = ({
 							aria-selected={activeTab === 'sfx'}
 							aria-pressed={activeTab === 'sfx'}
 							onClick={() => switchCraftTab('sfx')}
-							className={`group text-left rounded-md border-[2.5px] border-[#050505] border-b-[4.5px] p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
+							className={`group text-left rounded-md border-2 p-2.5 sm:p-3 flex items-center justify-between gap-2.5 cursor-pointer transition-all ${
 								activeTab === 'sfx'
-									? 'bg-[#FD6141] text-[#050505] shadow-[4px_4px_0_#050505] -translate-y-0.5'
-									: 'bg-[#FFF3EF] text-[#050505] hover:bg-[#FFE1D8] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none'
+									? 'border-[#050505] bg-[#FD6141] text-[#050505] shadow-[4px_4px_0_#050505] -translate-y-0.5'
+									: 'border-[#050505]/70 bg-[#FFFFFF] text-[#050505] hover:bg-[#FCF0D3] hover:-translate-y-0.5 active:translate-y-[1px]'
 							}`}
 						>
 							<div className='flex items-center gap-2.5 min-w-0'>
 								<span
-									className={`size-10 rounded-md border-2 border-[#050505] border-b-[3.5px] flex items-center justify-center shrink-0 ${
+									className={`size-9 rounded border-[1.5px] border-[#050505] flex items-center justify-center shrink-0 ${
 										activeTab === 'sfx' ? 'bg-[#FCF0D3]' : 'bg-[#FD6141]'
 									}`}
 									aria-hidden='true'
 								>
-									<AudioIcon className='size-4.5 text-[#050505]' />
+									<AudioIcon className='size-4 text-[#050505]' />
 								</span>
 								<div className='min-w-0'>
 									<p className='font-display font-black text-sm leading-tight'>
@@ -569,7 +561,7 @@ const BlueprintProcessSection = ({
 									</p>
 									<p
 										className={`font-mono text-[10px] font-bold leading-snug mt-0.5 ${
-											activeTab === 'sfx' ? 'text-[#050505]/85' : 'text-[#3B404C]'
+											activeTab === 'sfx' ? 'text-[#050505]/90' : 'text-[#3B404C]'
 										}`}
 									>
 										{t({ en: '8 Foley Pads · Memory Game', id: '8 Pad Suara · Game Memori' })}
@@ -578,10 +570,10 @@ const BlueprintProcessSection = ({
 							</div>
 
 							<span
-								className={`px-2 py-0.5 rounded-[3px] border border-[#050505] font-mono text-[9.5px] font-black shrink-0 whitespace-nowrap select-none ${
+								className={`px-2 py-0.5 rounded-[3px] font-mono text-[9.5px] font-black shrink-0 whitespace-nowrap select-none ${
 									activeTab === 'sfx'
-										? 'bg-[#050505] text-[#FFD426]'
-										: 'bg-[#FFD426] text-[#050505]'
+										? 'border border-[#050505] bg-[#050505] text-[#FFD426]'
+										: 'bg-[#F6EDD6] text-[#3B404C]'
 								}`}
 							>
 								{activeTab === 'sfx'

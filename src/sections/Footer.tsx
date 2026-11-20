@@ -82,19 +82,19 @@ const Footer = () => {
 						</p>
 					</div>
 
-					{/* Quick Pill Links + Language Toggle */}
+					{/* Harmonized Pill Links + Single Accent CV Download */}
 					<div className='flex flex-wrap items-center gap-2.5'>
 						<a
 							href='#videos'
 							data-sfx='nav'
-							className='px-4 py-2 rounded-full border-2 border-[#050505] bg-[#3886C0] text-white font-mono text-xs font-black hover:bg-[#FFD426] hover:text-[#050505] shadow-[2px_2px_0_#FCF0D3]/35 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+							className='px-3.5 py-2 rounded-full border border-white/25 bg-white/8 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] transition-colors'
 						>
 							{t({ en: '14 Works', id: '14 Karya' })}
 						</a>
 						<a
 							href='#studio-desk'
 							data-sfx='nav'
-							className='px-4 py-2 rounded-full border-2 border-[#050505] bg-[#39754F] text-white font-mono text-xs font-black hover:bg-[#FFD426] hover:text-[#050505] shadow-[2px_2px_0_#FCF0D3]/35 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+							className='px-3.5 py-2 rounded-full border border-white/25 bg-white/8 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] transition-colors'
 						>
 							{t({ en: 'Profile & Guide', id: 'Profil & Panduan' })}
 						</a>
@@ -103,7 +103,7 @@ const Footer = () => {
 							target='_blank'
 							rel='noopener noreferrer'
 							data-sfx='portal'
-							className='px-4 py-2 rounded-full border-2 border-white/35 bg-white/10 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] hover:-translate-y-0.5 active:translate-y-[1px] transition-all'
+							className='px-3.5 py-2 rounded-full border border-white/25 bg-white/8 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] transition-colors'
 						>
 							LinkedIn ↗
 						</a>
@@ -112,7 +112,7 @@ const Footer = () => {
 							target='_blank'
 							rel='noopener noreferrer'
 							data-sfx='portal'
-							className='px-4 py-2 rounded-full border-2 border-white/35 bg-white/10 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] hover:-translate-y-0.5 active:translate-y-[1px] transition-all'
+							className='px-3.5 py-2 rounded-full border border-white/25 bg-white/8 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] transition-colors'
 						>
 							GitHub ↗
 						</a>
@@ -121,7 +121,7 @@ const Footer = () => {
 							target='_blank'
 							rel='noopener noreferrer'
 							data-sfx='portal'
-							className='px-4 py-2 rounded-full border-2 border-white/35 bg-white/10 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] hover:-translate-y-0.5 active:translate-y-[1px] transition-all'
+							className='px-3.5 py-2 rounded-full border border-white/25 bg-white/8 text-[#FCF0D3] font-mono text-xs font-bold hover:border-[#FFD426] hover:text-[#FFD426] transition-colors'
 						>
 							Instagram ↗
 						</a>
@@ -133,7 +133,7 @@ const Footer = () => {
 									target='_blank'
 									rel='noopener noreferrer'
 									data-sfx='keycap'
-									className='inline-flex items-center gap-1.5 px-4 py-2 rounded-full border-2 border-[#050505] bg-[#5CE62E] text-[#050505] font-mono text-xs font-black hover:bg-[#FFD426] shadow-[2px_2px_0_#FCF0D3]/45 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+									className='inline-flex items-center gap-1.5 px-4 py-2 rounded-full border-2 border-[#050505] bg-[#FFD426] text-[#050505] font-mono text-xs font-black hover:bg-[#FD6141] shadow-[2px_2px_0_#FCF0D3]/35 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 								>
 									<DownloadIcon className='size-3.5 shrink-0' />
 									<span>{cv.label}</span>
@@ -144,7 +144,7 @@ const Footer = () => {
 							type='button'
 							data-sfx='switch'
 							onClick={() => setLang(lang === 'en' ? 'id' : 'en')}
-							className='px-4 py-2 rounded-full border-2 border-[#050505] bg-[#FFD426] text-[#050505] font-mono text-xs font-black cursor-pointer hover:bg-[#FD6141] shadow-[2px_2px_0_#FCF0D3]/45 hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+							className='px-3.5 py-2 rounded-full border border-[#FFD426]/60 bg-transparent text-[#FFD426] font-mono text-xs font-black cursor-pointer hover:bg-[#FFD426] hover:text-[#050505] transition-colors'
 						>
 							{lang === 'en' ? 'Switch to ID' : 'Ganti ke EN'}
 						</button>

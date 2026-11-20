@@ -136,6 +136,16 @@
 	background-size: 48px 48px, 48px 48px, 100% 100%;
 }
 
+/* Substrate 6b: Prussian-Charcoal Studio Slate (#1A2636) for calm high-contrast editorial mats */
+.substrate-studio-slate {
+	background-color: #1a2636;
+	background-image:
+		linear-gradient(to right, rgba(246, 237, 214, 0.08) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(246, 237, 214, 0.08) 1px, transparent 1px),
+		radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.04) 0%, rgba(10, 16, 24, 0.35) 100%);
+	background-size: 48px 48px, 48px 48px, 100% 100%;
+}
+
 /* Substrate 7: Variant A Carbon End-Card Dark (#121212) + 16mm dust specks */
 .substrate-carbon {
 	background-color: #121212;

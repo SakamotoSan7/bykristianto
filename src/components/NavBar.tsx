@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, type CSSProperties } from 'react';
 import { NAV_LINKS, type CraftLabTab, type LocalizedText } from '../data/portfolioData';
 import { useLanguage } from '../context/useLanguage';
 import { isPageScrollLocked, useScrollLock } from '../utils/scrollLock';
-import { SpaghettiBrandMark, StarburstSticker } from './SpaghettiArt';
+import { SpaghettiBrandMark } from './SpaghettiArt';
 import {
 	BgmToggleButton,
 	LanguageSwitchPill,
@@ -395,7 +395,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 
 				{/* Desktop Nav Links */}
 				<nav
-					className='hidden lg:flex items-center gap-1.5 xl:gap-5'
+					className='hidden lg:flex items-center gap-4 xl:gap-6'
 					aria-label={t({ en: 'Main Navigation', id: 'Navigasi Utama' })}
 				>
 					{NAV_LINKS.map((item) => {
@@ -412,27 +412,15 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 										data-sfx='nav'
 										aria-expanded={worksOpen}
 										onClick={() => jumpToSection(item.href)}
-										className={`ds-header-link inline-flex items-center gap-1 xl:gap-1.5 whitespace-nowrap font-mono font-extrabold text-[11px] uppercase tracking-normal xl:tracking-wider rounded border-[1.5px] border-[#050505]/85 px-1.5 xl:px-2 transition-colors cursor-pointer ${
+										className={`ds-header-link inline-flex items-center gap-1 whitespace-nowrap font-mono font-extrabold text-[11px] uppercase tracking-normal xl:tracking-wider py-1 transition-colors cursor-pointer ${
 											worksOpen
-												? 'bg-[#FFD426] text-[#050505] shadow-[2px_2px_0_#050505]'
-												: 'bg-[#FFFDF5] text-[#050505] hover:bg-[#FFF3CC] shadow-[2px_2px_0_#050505]'
+												? 'text-[#FD6141]'
+												: 'text-[#050505] hover:text-[#FD6141]'
 										}`}
 									>
 										<span>{t(item.label)}</span>
 										<span
-											className='inline-flex items-center gap-1 px-1.5 py-0.5 rounded-[2px] bg-[#5CE62E] border border-[#050505] text-[9px] font-black leading-none text-[#050505]'
-											title={t({
-												en: 'Includes playable Chess AI & Mini Games',
-												id: 'Termasuk Game Catur AI & Mini Game',
-											})}
-										>
-											<ChessIcon className='size-2.5 shrink-0' />
-											<span className='hidden xl:inline'>
-												{t({ en: '+ GAMES', id: '+ GAME' })}
-											</span>
-										</span>
-										<span
-											className='inline-flex items-center justify-center size-3.5 rounded-[2px] bg-[#FFD426] border border-[#050505] text-[9px] leading-none text-[#050505]'
+											className='text-[10px] leading-none opacity-75'
 											aria-hidden='true'
 										>
 											{worksOpen ? '▴' : '▾'}
@@ -442,13 +430,16 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 									{worksOpen && (
 										<div className='absolute left-0 top-full pt-2 w-[392px] max-w-[calc(100vw-2rem)] z-50'>
 											<div className='ds-os-window rounded-lg overflow-hidden'>
-												<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
-													<span className='font-mono text-[10px] font-black text-[#050505] uppercase truncate'>
-														{t({
-															en: 'WORKS · VIDEOS, LAB & MINI GAMES',
-															id: 'MENU KARYA · VIDEO, LAB & MINI GAME',
-														})}
-													</span>
+												<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
+													<div className='flex items-center gap-2 min-w-0'>
+														<span className='size-2.5 rounded-full bg-[#4D9DE0] border border-[#050505] shrink-0' />
+														<span className='font-mono text-[10px] font-black text-[#050505] uppercase truncate'>
+															{t({
+																en: 'WORKS · VIDEOS, LAB & MINI GAMES',
+																id: 'MENU KARYA · VIDEO, LAB & MINI GAME',
+															})}
+														</span>
+													</div>
 													<button
 														type='button'
 														data-sfx='close'
@@ -459,7 +450,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 														✕
 													</button>
 												</div>
-												<div className='p-2.5 bg-[#EFE3C4] space-y-2'>
+												<div className='p-2.5 bg-[#F6EDD6] space-y-2'>
 													{renderWorksDropdownCards(false)}
 												</div>
 											</div>
@@ -487,37 +478,18 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 				</nav>
 
 				{/* Right Utility Group */}
-				<div className='flex items-center gap-1 min-[360px]:gap-1.5 sm:gap-2 shrink-0'>
+				<div className='flex items-center gap-1.5 sm:gap-2 shrink-0'>
 					{/* EN | ID Switcher */}
 					<LanguageSwitchPill variant='navbar' />
 
-					{/* 3-Step Background Music Toggle (Normal -> Quiet -> Off -> Normal) */}
+					<span
+						className='hidden sm:inline-block h-4 w-[1.5px] bg-[#050505]/20 mx-0.5'
+						aria-hidden='true'
+					/>
+
+					{/* 3-Step Background Music & SFX Toggles */}
 					<BgmToggleButton variant='navbar' />
-
-					{/* 3-Step Global SFX Switch (Normal -> Quiet -> Off -> Normal) */}
 					<SfxToggleButton variant='navbar' />
-
-					{/* Readable Green Comic Starburst Badge (14 WORKS / 14 KARYA) */}
-					<button
-						type='button'
-						data-sfx='cassette'
-						onClick={() => jumpToSection('#videos')}
-						aria-label={t({ en: '14 Works: jump to videos', id: '14 Karya: lihat video' })}
-						title={t({ en: 'Jump to 14 Video Works', id: 'Lihat 14 Karya Video' })}
-						className='hidden md:inline-flex lg:hidden xl:inline-flex items-center justify-center shrink-0 -rotate-6 hover:rotate-3 hover:scale-105 transition-transform cursor-pointer'
-					>
-						<StarburstSticker
-							label='14'
-							sublabel={t({ en: 'WORKS', id: 'KARYA' })}
-							color='#5CE62E'
-							textColor='#FFFFFF'
-							sublabelColor='#FFD426'
-							textStroke={true}
-							labelFontSize={31}
-							sublabelFontSize={16}
-							className='ds-header-starburst size-[58px]'
-						/>
-					</button>
 
 					{/* Primary Contact CTA */}
 					<a
@@ -527,7 +499,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 							e.preventDefault();
 							jumpToSection('#contact');
 						}}
-						className='ds-header-cta hidden sm:inline-flex items-center justify-center whitespace-nowrap rounded border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] font-display font-black text-xs px-2.5 py-1.5 shadow-[3px_3px_0_#050505] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-[background-color,transform,box-shadow] duration-150 shrink-0'
+						className='ds-header-cta hidden sm:inline-flex items-center justify-center whitespace-nowrap rounded border-2 border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] font-display font-black text-xs px-3 py-1.5 ml-0.5 shadow-[3px_3px_0_#050505] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-[background-color,transform,box-shadow] duration-150 shrink-0'
 					>
 						{t({ en: 'Book a Project', id: 'Mulai Proyek' })}
 					</a>
@@ -544,7 +516,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 								: t({ en: 'Open navigation menu', id: 'Buka menu navigasi' })
 						}
 						aria-expanded={mobileOpen}
-						className='ds-header-menu-btn lg:hidden w-8 h-7 min-[360px]:w-9 min-[360px]:h-8 min-[390px]:w-9 min-[390px]:h-9 sm:w-10 sm:h-9 rounded border-2 border-[#050505] bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] cursor-pointer shrink-0 inline-flex items-center justify-center'
+						className='ds-header-menu-btn lg:hidden w-8 h-7 min-[360px]:w-9 min-[360px]:h-8 min-[390px]:w-9 min-[390px]:h-9 sm:w-10 sm:h-9 rounded border-[1.5px] border-[#050505] bg-[#FFFFFF] text-[#050505] shadow-[2px_2px_0_#050505] cursor-pointer shrink-0 inline-flex items-center justify-center'
 					>
 						{mobileOpen ? (
 							<CloseIcon className='size-4 min-[360px]:size-5' />
@@ -561,16 +533,19 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 					data-sfx-gain='0.66'
 					className='lg:hidden mt-2 mx-auto w-full max-w-7xl ds-os-window rounded-lg overflow-hidden'
 				>
-					<div className='flex items-center justify-between px-4 py-2 bg-[#4D9DE0] border-b-[3px] border-[#050505]'>
-						<span className='font-mono text-xs font-black text-[#050505]'>
-							NAVIGATION.MENUBAR
-						</span>
+					<div className='flex items-center justify-between px-4 py-2 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
+						<div className='flex items-center gap-2 min-w-0'>
+							<span className='size-2.5 rounded-full bg-[#4D9DE0] border border-[#050505] shrink-0' />
+							<span className='font-mono text-xs font-black text-[#050505]'>
+								NAVIGATION.MENUBAR
+							</span>
+						</div>
 						<button
 							type='button'
 							data-sfx='close'
 							onClick={() => setMobileOpen(false)}
 							aria-label={t({ en: 'Close mobile menu', id: 'Tutup menu mobile' })}
-							className='size-6 rounded-sm bg-[#FCF0D3] border-2 border-[#050505] font-mono text-xs font-black text-[#050505] inline-flex items-center justify-center cursor-pointer'
+							className='size-6 rounded-sm bg-[#FCF0D3] border-[1.5px] border-[#050505] font-mono text-xs font-black text-[#050505] inline-flex items-center justify-center cursor-pointer'
 						>
 							✕
 						</button>
@@ -593,7 +568,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 											<span className='inline-flex items-center gap-2'>
 												<span>{t(item.label)}</span>
 											</span>
-											<span className='inline-flex items-center gap-1.5 font-mono text-[10px] font-black px-2 py-0.5 rounded-sm bg-[#5CE62E] text-[#050505] border-[1.5px] border-[#050505] shadow-[1px_1px_0_#050505] whitespace-nowrap shrink-0'>
+											<span className='inline-flex items-center gap-1.5 font-mono text-[10px] font-black px-2 py-0.5 rounded-[2px] bg-[#E3F5DA] text-[#050505] border border-[#050505]/70 whitespace-nowrap shrink-0'>
 												<ChessIcon className='size-3 shrink-0' />
 												<span>{t({ en: 'VIDEOS + GAMES', id: 'VIDEO + GAME' })}</span>
 												<span aria-hidden='true'>{mobileWorksOpen ? '▴' : '▾'}</span>
@@ -601,9 +576,9 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 										</button>
 
 										{mobileWorksOpen && (
-											<div className='border-t-2 border-[#050505] bg-[#CFE3F5] p-2.5 space-y-2'>
-												<div className='flex items-center justify-between px-2 py-1 rounded-sm bg-[#204275] border border-[#050505]'>
-													<span className='font-mono text-[10px] font-black text-[#FCF0D3] uppercase'>
+											<div className='border-t-2 border-[#050505] bg-[#EFE5CA] p-2.5 space-y-2'>
+												<div className='flex items-center justify-between px-1 py-0.5'>
+													<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase'>
 														{t({ en: 'WORKS · VIDEOS, LAB & MINI GAMES', id: 'ISI KARYA · VIDEO, LAB & MINI GAME' })}
 													</span>
 												</div>

@@ -17,7 +17,7 @@ const ShowcaseSection = () => {
 	return (
 		<section
 			id='web-builds'
-			className='substrate-newsprint relative overflow-x-clip border-b-[3.5px] border-[#050505] py-16 sm:py-24 scroll-mt-20'
+			className='substrate-grid-paper relative overflow-x-clip border-b-[3.5px] border-[#050505] py-16 sm:py-24 scroll-mt-20'
 		>
 			<div className='max-w-7xl mx-auto px-5 md:px-10'>
 				<TitleHeader
@@ -37,30 +37,30 @@ const ShowcaseSection = () => {
 					})}
 				/>
 
-				{/* 3 Web Builds framed inside Style D Retro OS Browser Windows */}
+				{/* 3 Web Builds framed inside Unified Calm Retro OS Windows */}
 				<div className='mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
 					{WEB_PROJECTS.map((project, idx) => {
-						const barBg = WINDOW_BAR_COLORS[idx % WINDOW_BAR_COLORS.length];
+						const dotBg = WINDOW_BAR_COLORS[idx % WINDOW_BAR_COLORS.length];
 						return (
 							<article
 								key={project.id}
-								className='ds-os-window rounded-sm overflow-hidden flex flex-col justify-between bg-[#FCF0D3] transition-transform duration-200 hover:-translate-y-1'
+								className='ds-os-window rounded-md overflow-hidden flex flex-col justify-between bg-[#FCF0D3] transition-transform duration-200 hover:-translate-y-1'
 							>
 								<div>
-									{/* Style D OS Browser Chrome */}
-									<div
-										className='flex items-center justify-between gap-2 px-3.5 py-2 border-b-[3px] border-[#050505]'
-										style={{ backgroundColor: barBg }}
-									>
-										<div className='flex items-center gap-1.5 min-w-0 flex-1'>
-											<span className='size-3.5 rounded-xs border-2 border-[#050505] bg-[#FD6141] inline-block shrink-0' />
+									{/* Unified Calm OS Browser Chrome */}
+									<div className='flex items-center justify-between gap-2 px-3.5 py-2 border-b-[2.5px] border-[#050505] bg-[#EFE5CA]'>
+										<div className='flex items-center gap-2 min-w-0 flex-1'>
+											<span
+												className='size-3 rounded-full border border-[#050505] inline-block shrink-0'
+												style={{ backgroundColor: dotBg }}
+											/>
 											<span className='font-mono text-[11px] font-black text-[#050505] truncate'>
 												{project.id.toUpperCase()}.APP
 											</span>
 											<div className='flex-1 h-2.5 ds-titlebar-grips ml-1' aria-hidden='true' />
 										</div>
 										<span
-											className={`px-2 py-0.5 rounded-none font-mono text-[10px] font-bold shrink-0 select-none ${
+											className={`px-2 py-0.5 rounded-[2px] font-mono text-[10px] font-bold shrink-0 select-none ${
 												project.isCurrentSite
 													? 'bg-[#050505] text-[#5CE62E]'
 													: 'bg-[#050505] text-[#FCF0D3]'
@@ -75,7 +75,7 @@ const ShowcaseSection = () => {
 									</div>
 
 									{/* Exact aspect-[19/17] Preview Screenshot or Custom Website Artwork */}
-									<div className='relative aspect-[19/17] w-full overflow-hidden border-b-[3px] border-[#050505] bg-[#121212]'>
+									<div className='relative aspect-[19/17] w-full overflow-hidden border-b-[2.5px] border-[#050505] bg-[#121212]'>
 										{project.customArtwork === 'portfolio-site' ? (
 											<PortfolioSiteArtwork className='w-full h-full block transition-transform duration-500 hover:scale-[1.03]' />
 										) : (
@@ -107,7 +107,7 @@ const ShowcaseSection = () => {
 											{project.tags.map((tag) => (
 												<span
 													key={tag}
-													className='px-2 py-0.5 rounded-sm bg-[#F6EDD6] border border-dashed border-[#050505]/45 font-mono text-[10px] font-bold text-[#3B404C] select-none'
+													className='px-2 py-0.5 rounded-[2px] bg-[#F6EDD6] border border-[#050505]/20 font-mono text-[10px] font-bold text-[#3B404C] select-none'
 												>
 													{tag}
 												</span>
@@ -121,7 +121,7 @@ const ShowcaseSection = () => {
 										<a
 											href='#hero'
 											data-sfx='nav'
-											className='w-full py-2.5 px-4 rounded-full border-[2.5px] border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] font-display font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
+											className='w-full py-2.5 px-4 rounded-lg border-2 border-[#050505]/80 bg-[#FFFFFF] hover:bg-[#EFE5CA] text-[#050505] font-display font-bold text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 transition-colors'
 										>
 											<span>{t({ en: 'You Are Here · Back to Top ↑', id: 'Sedang Dibuka · Ke Atas ↑' })}</span>
 										</a>
@@ -131,13 +131,13 @@ const ShowcaseSection = () => {
 											target='_blank'
 											rel='noopener noreferrer'
 											data-sfx='portal'
-											className='w-full py-2.5 px-4 rounded-full border-[2.5px] border-[#050505] bg-[#FFD426] hover:bg-[#FD6141] text-[#050505] font-display font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
+											className='w-full py-2.5 px-4 rounded-lg border-[2.5px] border-[#050505] bg-[#FFD426] hover:bg-[#FD6141] text-[#050505] font-display font-black text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
 										>
 											<span>{t({ en: 'Launch Live Preview', id: 'Buka Live App' })}</span>
 											<ArrowUpRightIcon className='size-4' />
 										</a>
 									) : (
-										<div className='w-full py-2.5 px-4 rounded-full border-[2.5px] border-dashed border-[#050505] bg-[#F6EDD6] text-[#3B404C] font-mono font-bold text-xs text-center'>
+										<div className='w-full py-2.5 px-4 rounded-lg border border-dashed border-[#050505]/45 bg-[#F6EDD6] text-[#3B404C] font-mono font-bold text-xs text-center'>
 											{t({
 												en: 'Mobile App Case Study',
 												id: 'Studi Kasus Aplikasi Mobile',
@@ -150,15 +150,15 @@ const ShowcaseSection = () => {
 					})}
 				</div>
 
-				{/* Creative Production Tools & Web Engineering Stack Dual Index */}
+				{/* De-Boxed Production Tools & Web Engineering Stack */}
 				<div className='mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6'>
 					{/* Creative & Motion Suite */}
-					<div className='lg:col-span-7 ds-panel rounded-sm p-6 sm:p-7'>
-						<div className='flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b-2 border-dashed border-[#050505]/25'>
+					<div className='lg:col-span-7 ds-panel rounded-md p-6 sm:p-7'>
+						<div className='flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b-2 border-dashed border-[#050505]/20'>
 							<h3 className='font-display font-black text-xl text-[#050505]'>
 								{t({ en: 'Video, Motion & Audio Tools', id: 'Tools Video, Motion & Audio' })}
 							</h3>
-							<span className='px-2.5 py-0.5 rounded-sm bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] select-none'>
+							<span className='font-mono text-[11px] font-black text-[#3B404C] select-none'>
 								{t({
 									en: `${CREATIVE_TOOLS.length} CORE TOOLS`,
 									id: `${CREATIVE_TOOLS.length} ALAT UTAMA`,
@@ -166,37 +166,34 @@ const ShowcaseSection = () => {
 							</span>
 						</div>
 
-						<div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+						<div className='grid grid-cols-1 sm:grid-cols-2 gap-1.5'>
 							{CREATIVE_TOOLS.map((tool) => (
 								<div
 									key={tool.name}
-									className='rounded-sm border-2 border-[#050505]/75 bg-[#F6EDD6] px-3.5 py-2.5 flex items-center justify-between gap-2.5 select-none'
+									className='rounded px-2.5 py-2 flex items-center gap-3 hover:bg-[#EFE5CA]/65 transition-colors select-none'
 								>
-									<div className='flex items-center gap-3 min-w-0'>
-										<StackLogoIcon id={tool.logoKey} className='size-9 shrink-0' />
-										<div className='min-w-0'>
-											<p className='font-display font-black text-sm text-[#050505] leading-tight'>
-												{tool.name}
-											</p>
-											<p className='font-mono text-[11px] font-bold text-[#3B404C] leading-snug mt-0.5'>
-												{t(tool.category)}
-											</p>
-										</div>
+									<StackLogoIcon id={tool.logoKey} className='size-8 shrink-0' />
+									<div className='min-w-0'>
+										<p className='font-display font-black text-sm text-[#050505] leading-tight'>
+											{tool.name}
+										</p>
+										<p className='font-mono text-[11px] font-bold text-[#3B404C] leading-snug mt-0.5'>
+											{t(tool.category)}
+										</p>
 									</div>
-									<span className='size-2 rounded-full bg-[#5CE62E] border border-[#050505] shrink-0' />
 								</div>
 							))}
 						</div>
 					</div>
 
 					{/* Engineering Stack Icons */}
-					<div className='lg:col-span-5 ds-panel rounded-sm p-6 sm:p-7 flex flex-col justify-between'>
+					<div className='lg:col-span-5 ds-panel rounded-md p-6 sm:p-7 flex flex-col justify-between bg-[#FFFFFF]'>
 						<div>
-							<div className='flex flex-wrap items-center justify-between gap-2 pb-4 mb-5 border-b-2 border-dashed border-[#050505]/25'>
+							<div className='flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b-2 border-dashed border-[#050505]/20'>
 								<h3 className='font-display font-black text-xl text-[#050505]'>
 									{t({ en: 'Web Development Stack', id: 'Teknologi Pengembangan Web' })}
 								</h3>
-								<span className='px-2.5 py-0.5 rounded-sm bg-[#050505] font-mono text-[10px] font-black text-[#FD6141] select-none'>
+								<span className='font-mono text-[11px] font-black text-[#3B404C] select-none'>
 									{t({
 										en: `${WEB_TECH_STACK.length} TECH ITEMS`,
 										id: `${WEB_TECH_STACK.length} TEKNOLOGI`,
@@ -204,13 +201,13 @@ const ShowcaseSection = () => {
 								</span>
 							</div>
 
-							<div className='grid grid-cols-1 sm:grid-cols-2 gap-3'>
+							<div className='grid grid-cols-1 sm:grid-cols-2 gap-1.5'>
 								{WEB_TECH_STACK.map((stack) => (
 									<div
 										key={stack.name}
-										className='rounded-sm border-2 border-[#050505]/75 bg-white p-2.5 sm:p-3 flex items-center gap-2.5 sm:gap-3 min-w-0 select-none'
+										className='rounded px-2.5 py-2 flex items-center gap-2.5 min-w-0 hover:bg-[#FCF0D3] transition-colors select-none'
 									>
-										<StackLogoIcon id={stack.logoKey} className='size-8 sm:size-9 shrink-0' />
+										<StackLogoIcon id={stack.logoKey} className='size-8 shrink-0' />
 										<div className='min-w-0'>
 											<p className='font-display font-black text-xs sm:text-[13px] text-[#050505] leading-tight'>
 												{stack.name}

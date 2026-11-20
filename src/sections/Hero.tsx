@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useLanguage } from '../context/useLanguage';
 import { useSound } from '../context/useSound';
-import { SparkleStar, StarburstSticker } from '../components/SpaghettiArt';
 import SpaghettiCablesCanvas from '../components/SpaghettiCablesCanvas';
 
 const HERO_WORDS_EN = ['Motion', 'Explainers', '9:16 Reels', 'Websites'];
@@ -72,19 +71,13 @@ const Hero = () => {
 			{/* Live Verlet Physics Studio Patch Cords Canvas */}
 			<SpaghettiCablesCanvas onPluck={setLastPlucked} />
 
-			{/* Decorative Comic Sparkles */}
-			<SparkleStar
-				className='pointer-events-none hidden md:block absolute top-28 md:top-[134px] lg:top-[118px] xl:top-36 right-12 size-8 z-20'
-				fill='#FFD426'
-			/>
-
 			<div className='relative z-20 max-w-7xl mx-auto px-5 md:px-10'>
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-end'>
 					{/* Left 7 Cols: Editorial Positioning & Metrics */}
 					<div data-hero-copy className='lg:col-span-7 min-w-0 flex flex-col gap-5'>
-						{/* Archival Status Tag (Non-interactive status label) */}
-						<div className='ds-hero-stagger self-start w-fit max-w-full inline-flex items-center gap-2 rounded border-2 border-dashed border-[#050505]/60 bg-[#FCF0D3]/85 px-3.5 py-1.5 text-[11px] sm:text-xs font-mono font-extrabold text-[#050505] select-none'>
-							<span className='size-2.5 shrink-0 rounded-full bg-[#5CE62E] border border-[#050505] animate-pulse' />
+						{/* Calm Editorial Status Tag */}
+						<div className='ds-hero-stagger self-start w-fit max-w-full inline-flex items-center gap-2 rounded border border-[#050505]/30 bg-[#FCF0D3]/90 px-3 py-1 text-[11px] sm:text-xs font-mono font-extrabold text-[#050505] select-none'>
+							<span className='size-2 shrink-0 rounded-full bg-[#5CE62E] border border-[#050505]' />
 							<span className='leading-snug'>
 								{t({
 									en: 'OPEN FOR WORK · VIDEO, MOTION & WEB',
@@ -94,7 +87,7 @@ const Hero = () => {
 						</div>
 
 						{/* Display Headline + Layout-Locked Rotating Canary Pill */}
-						<h1 className='ds-hero-stagger font-display font-black text-[28px] sm:text-[40px] lg:text-[42px] xl:text-[48px] leading-[1.12] text-[#050505]'>
+						<h1 className='ds-hero-stagger font-display font-black text-[30px] sm:text-[42px] lg:text-[44px] xl:text-[50px] leading-[1.1] text-[#050505]'>
 							<span className='flex flex-wrap sm:flex-nowrap items-center gap-x-3 gap-y-1.5 mb-1'>
 								<span className='whitespace-nowrap'>
 									{t({ en: 'Creating', id: 'Merancang' })}
@@ -153,13 +146,13 @@ const Hero = () => {
 							})}
 						</p>
 
-						{/* Comic Ink CTAs */}
+						{/* Clear CTA Hierarchy: 1 Primary Vermilion Action + 1 Calm Secondary Action */}
 						<div className='ds-hero-stagger flex flex-wrap items-center gap-3.5 pt-1'>
 							<button
 								type='button'
 								data-sfx='keycap'
 								onClick={() => scrollTo('videos')}
-								className='rounded border-[2.5px] border-[#050505] bg-[#3886C0] hover:bg-[#4D9DE0] text-[#FFFFFF] px-6 py-3 text-sm sm:text-base font-display font-black shadow-[4px_4px_0_#050505] hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer'
+								className='rounded border-[2.5px] border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] px-6 py-3 text-sm sm:text-base font-display font-black shadow-[4px_4px_0_#050505] hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer'
 							>
 								{t({
 									en: 'Watch 14 Video Works ↓',
@@ -169,58 +162,38 @@ const Hero = () => {
 
 							<button
 								type='button'
-								data-sfx='keycap'
+								data-sfx='paper'
 								onClick={() => scrollTo('studio-desk')}
-								className='rounded border-[2.5px] border-[#050505] bg-[#FCF0D3] hover:bg-[#FFD426] text-[#050505] px-6 py-3 text-sm sm:text-base font-display font-black shadow-[4px_4px_0_#050505] hover:-translate-y-0.5 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all cursor-pointer'
+								className='rounded border-2 border-[#050505]/80 bg-[#FCF0D3]/90 hover:bg-[#FFFFFF] text-[#050505] px-5 py-3 text-sm sm:text-base font-display font-bold shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 							>
 								{t({
 									en: 'Skills & Service Guide →',
 									id: 'Profil & Panduan Jasa →',
 								})}
 							</button>
-
-							<div className='hidden sm:block ml-1.5 ds-sticker-stepped pointer-events-none select-none' aria-hidden='true'>
-								<StarburstSticker
-									label='MIXED'
-									sublabel='MEDIA'
-									color='#FD6141'
-									textColor='#FFFFFF'
-									sublabelColor='#FFD426'
-									labelFontSize={20}
-									sublabelFontSize={15.5}
-									className='size-[84px]'
-								/>
-							</div>
 						</div>
 
-						{/* 4× Archival Spec Index Tickets (Flat non-clickable summary readout) */}
-						<div className='ds-hero-stagger pt-3 grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 max-w-2xl'>
+						{/* Clean De-boxed Archival Spec Strip */}
+						<div className='ds-hero-stagger pt-5 mt-1 border-t-2 border-dashed border-[#050505]/20 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5 max-w-2xl select-none'>
 							{[
 								{
 									val: t({ en: '14 Works', id: '14 Karya' }),
 									lbl: { en: '9:16 · 16:9 Formats', id: 'Format 9:16 · 16:9' },
-									bg: 'bg-[#FFFFFF]/90',
 								},
 								{
 									val: '3.76 GPA',
 									lbl: { en: 'Cum Laude Film & TV', id: 'Cum Laude TV & Film' },
-									bg: 'bg-[#FFD426]/65',
 								},
 								{
 									val: '610 TOEFL',
 									lbl: { en: 'EN / ID Bilingual', id: 'Dwibahasa EN / ID' },
-									bg: 'bg-[#FFFFFF]/90',
 								},
 								{
 									val: 'Audio + SFX',
 									lbl: { en: 'Clean Voice & SFX', id: 'Narasi Jernih & SFX' },
-									bg: 'bg-[#FCF0D3]/85',
 								},
 							].map((ticket) => (
-								<div
-									key={ticket.val}
-									className={`min-w-0 rounded-sm border-2 border-[#050505]/70 ${ticket.bg} px-3 py-2 sm:px-3.5 sm:py-2.5 select-none`}
-								>
+								<div key={ticket.val} className='min-w-0'>
 									<p className='font-display font-black text-base sm:text-lg text-[#050505] leading-tight'>
 										{ticket.val}
 									</p>
@@ -244,9 +217,9 @@ const Hero = () => {
 							data-hero-card
 							className='ds-hero-stagger w-full max-w-sm lg:mb-20 xl:mb-10 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3]'
 						>
-							<div className='flex items-center justify-between px-3 py-1.5 bg-[#F2C94C] border-b-[3px] border-[#050505]'>
+							<div className='flex items-center justify-between px-3 py-1.5 bg-[#EFE5CA] border-b-[2.5px] border-[#050505]'>
 								<div className='flex items-center gap-2'>
-									<span className='size-3 rounded-full bg-[#FD6141] border-2 border-[#050505]' />
+									<span className='size-2.5 rounded-full bg-[#FD6141] border border-[#050505]' />
 									<span className='font-mono text-[11px] font-black text-[#050505] uppercase'>
 										PATCH_CORDS.PHYSICS
 									</span>
@@ -266,7 +239,7 @@ const Hero = () => {
 									</span>
 								</div>
 
-								<div className='flex items-center justify-between gap-2 pt-1.5 border-t-2 border-dashed border-[#050505]/25'>
+								<div className='flex items-center justify-between gap-2 pt-2 border-t border-dashed border-[#050505]/25'>
 									<span className='font-mono text-[11px] font-bold text-[#204275] truncate min-w-0 flex-1'>
 										{lastPlucked
 											? `PLUCKED: ${lastPlucked}`
@@ -284,12 +257,12 @@ const Hero = () => {
 										data-hover-sfx='switch'
 										aria-pressed={soundEnabled}
 										onClick={toggleSound}
-										className={`shrink-0 px-2.5 py-1 rounded border-2 border-[#050505] font-mono text-[10px] font-black shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer ${
+										className={`shrink-0 px-2.5 py-1 rounded border-[1.5px] border-[#050505] font-mono text-[10px] font-black transition-all cursor-pointer ${
 											sfxLevel === 'full'
-												? 'bg-[#5CE62E] text-[#050505]'
+												? 'bg-[#E3F5DA] hover:bg-[#5CE62E] text-[#050505]'
 												: sfxLevel === 'low'
-													? 'bg-[#FFD426] text-[#050505]'
-													: 'bg-white text-[#050505] hover:bg-[#FFD426]'
+													? 'bg-[#FFF3CC] hover:bg-[#FFD426] text-[#050505]'
+													: 'bg-white text-[#3B404C] hover:bg-[#FFD426] hover:text-[#050505]'
 										}`}
 									>
 										{sfxLevel === 'full'
