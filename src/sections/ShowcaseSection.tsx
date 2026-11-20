@@ -1,7 +1,7 @@
 import TitleHeader from '../components/TitleHeader';
 import { ArrowUpRightIcon } from '../components/Icons';
 import { StackLogoIcon } from '../components/StackLogos';
-import { PixoraShowcaseArtwork, PortfolioSiteArtwork } from '../components/SpaghettiArt';
+import { IgniterShowcaseArtwork, PixoraShowcaseArtwork, PortfolioSiteArtwork } from '../components/SpaghettiArt';
 import { useLanguage } from '../context/useLanguage';
 import {
 	CREATIVE_TOOLS,
@@ -80,6 +80,8 @@ const ShowcaseSection = () => {
 											<PortfolioSiteArtwork className='w-full h-full block transition-transform duration-500 hover:scale-[1.03]' />
 										) : project.customArtwork === 'pixora-showcase' ? (
 											<PixoraShowcaseArtwork className='w-full h-full block' />
+										) : project.customArtwork === 'igniter-showcase' ? (
+											<IgniterShowcaseArtwork className='w-full h-full block' />
 										) : (
 											<img
 												src={project.imagePath}

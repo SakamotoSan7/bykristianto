@@ -1280,7 +1280,7 @@ export interface WebProject {
 	subtitle: LocalizedText;
 	description: LocalizedText;
 	imagePath: string;
-	customArtwork?: 'portfolio-site' | 'pixora-showcase';
+	customArtwork?: 'portfolio-site' | 'pixora-showcase' | 'igniter-showcase';
 	isCurrentSite?: boolean;
 	url?: string;
 	tags: string[];
@@ -1298,7 +1298,8 @@ export const WEB_PROJECTS: WebProject[] = [
 			en: 'Startup pitching platform with Next.js 15, Tailwind CSS, GitHub OAuth, and Sanity CMS curation.',
 			id: 'Platform pitching startup berbasis Next.js 15, Tailwind CSS, login GitHub, dan Sanity CMS.',
 		},
-		imagePath: '/images/me/project-1.png',
+		imagePath: '/images/me/igniter/igniter-home.webp',
+		customArtwork: 'igniter-showcase',
 		url: 'https://igniter-theta.vercel.app/',
 		tags: ['Next.js 15', 'TypeScript', 'Sanity CMS', 'Tailwind CSS'],
 	},

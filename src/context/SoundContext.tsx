@@ -446,10 +446,10 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 			// Cohesive nylon/patch-cord pluck DNA across a Cmaj9 palette: preserve upper-mid harmonics
 			// so C4/E4 read clearly even on compact smartphone speakers.
 			const profiles = [
-				{ bodyGain: 0.148, harmonicGain: 0.026, cutoffStart: 2100, cutoffEnd: 780, decay: 0.24 },
-				{ bodyGain: 0.138, harmonicGain: 0.028, cutoffStart: 2400, cutoffEnd: 860, decay: 0.21 },
-				{ bodyGain: 0.132, harmonicGain: 0.032, cutoffStart: 2700, cutoffEnd: 940, decay: 0.19 },
-				{ bodyGain: 0.118, harmonicGain: 0.034, cutoffStart: 3000, cutoffEnd: 1080, decay: 0.17 },
+				{ bodyGain: 0.115, harmonicGain: 0.020, cutoffStart: 2100, cutoffEnd: 780, decay: 0.24 },
+				{ bodyGain: 0.108, harmonicGain: 0.022, cutoffStart: 2400, cutoffEnd: 860, decay: 0.21 },
+				{ bodyGain: 0.103, harmonicGain: 0.025, cutoffStart: 2700, cutoffEnd: 940, decay: 0.19 },
+				{ bodyGain: 0.092, harmonicGain: 0.026, cutoffStart: 3000, cutoffEnd: 1080, decay: 0.17 },
 			];
 			const profile = profiles[((strandIndex % profiles.length) + profiles.length) % profiles.length];
 
