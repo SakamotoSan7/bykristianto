@@ -897,7 +897,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		deliverables: [
 			{ en: 'Clear offer structure & direct WhatsApp/form buttons', id: 'Struktur penawaran jelas + tombol WhatsApp & formulir langsung' },
 			{ en: 'Clean responsive display on phones & desktops', id: 'Tampilan responsif dan rapi di ponsel maupun desktop' },
-			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Tersedia tombol Add-On Video Promo di bawah' },
+			{ en: 'Optional bilingual EN/ID switch & hero media slot', id: 'Opsi dwibahasa EN/ID serta slot showcase foto/video utama' },
 		],
 	},
 	{
@@ -923,7 +923,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		deliverables: [
 			{ en: 'Complete About, Services, Gallery & Contact sections', id: 'Halaman Profil, Layanan, Galeri/Klien & Kontak lengkap' },
 			{ en: 'Custom color palette & layout matching your brand identity', id: 'Desain menyesuaikan logo, warna, & karakter usahamu' },
-			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Tersedia tombol Add-On Video Promo profil usaha' },
+			{ en: 'Structured inquiry flow to official WhatsApp & email', id: 'Alur pertanyaan klien terstruktur ke WhatsApp & email resmi' },
 		],
 	},
 	{
@@ -949,7 +949,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		deliverables: [
 			{ en: 'Clean project showcase with image/video preview modal', id: 'Galeri karya rapi lengkap dengan pratinjau foto/video' },
 			{ en: 'Personal bio, work history & easy contact links', id: 'Profil singkat, pengalaman kerja, & tautan kontak langsung' },
-			{ en: 'Optional: Toggle Add-On Showreel / Intro Video', id: 'Opsional: Tersedia Add-On Video Perkenalan / Showreel' },
+			{ en: 'Built-in project breakdown & easy CV/reel access', id: 'Ringkasan studi kasus karya & akses cepat CV maupun showreel' },
 		],
 	},
 	{
@@ -975,7 +975,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		deliverables: [
 			{ en: 'Custom interactive UI, motion & optional sound accents', id: 'Elemen interaktif unik, animasi mulus, & efek suara opsional' },
 			{ en: 'Original personality far beyond generic templates', id: 'Tampilan berkarakter dan berbeda dari template umum' },
-			{ en: 'Optional: Toggle Add-On Promo Video below', id: 'Opsional: Tersedia Add-On Video Promo dengan gaya senada' },
+			{ en: 'Smooth performance tested on mobile & desktop screens', id: 'Performa halus yang diuji langsung di layar ponsel maupun desktop' },
 		],
 	},
 	{
@@ -984,7 +984,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		artKey: 'custom-website',
 		badge: 'WEB 05',
 		stickerTag: { en: 'CUSTOM IDEA', id: 'BEBAS KONSEP' },
-		accentColor: '#FCAE1F',
+		accentColor: '#FFD426',
 		supportsVideoAddon: true,
 		title: {
 			en: 'Custom Website Request',
@@ -1001,7 +1001,7 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 		deliverables: [
 			{ en: 'Just explain what your website needs to accomplish', id: 'Cukup ceritakan tujuan & fitur website yang kamu butuhkan' },
 			{ en: 'Custom layout, fast performance & mobile friendly', id: 'Desain kustom, ringan diakses, & rapi di semua ukuran layar' },
-			{ en: 'Available as Website-only or with Video Promo add-on', id: 'Tersedia paket Website saja atau dengan Add-On Video Promo' },
+			{ en: 'Flexible page structure & clean repository handoff', id: 'Struktur halaman fleksibel dengan serah terima kode yang rapi' },
 		],
 	},
 ];
@@ -1138,8 +1138,8 @@ export const FILM_CREDITS: FilmCreditItem[] = [
 		title: '95% Chance to Live',
 		role: { en: 'Screenwriter · Short Film (Drama / Thriller)', id: 'Penulis Naskah · Film Pendek (Drama / Thriller)' },
 		desc: {
-			en: 'Six-draft narrative exploring the psychological tension of a bank employee trapped inside a vault.',
-			id: 'Naskah film pendek yang dikembangkan dalam 6 draf mengenai tekanan psikologis seorang pegawai bank yang terjebak di ruang brankas.',
+			en: 'Six-draft narrative exploring the psychological tension of a bank employee trapped inside a warehouse.',
+			id: 'Naskah film pendek yang dikembangkan dalam 6 draf mengenai tekanan psikologis seorang pegawai bank yang terjebak di dalam gudang.',
 		},
 		url: 'https://bit.ly/4lstKmC',
 		thumbPath: '/images/me/studio/credit-95-chance-poster.webp',

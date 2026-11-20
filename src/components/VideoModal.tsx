@@ -90,15 +90,8 @@ const VideoModal = ({
 						<span className='size-5 border-2 border-[#050505] bg-[#FCF0D3] flex items-center justify-center font-mono text-[10px] font-black text-[#050505] shrink-0'>
 							▶
 						</span>
-						<span className='px-2 py-0.5 rounded-none bg-[#FFD426] border border-[#050505]/70 font-mono text-xs font-black text-[#050505] select-none'>
+						<span className='px-2 py-0.5 rounded-none bg-[#FFD426] border border-[#050505] font-mono text-xs font-black text-[#050505] select-none'>
 							FIG.{video.badgeNumber.replace(/^#/, '')} · {video.style}
-						</span>
-						<span className='inline-flex items-center gap-1.5 px-2 py-0.5 rounded-none bg-[#FCF0D3] text-[#050505] border border-dashed border-[#050505]/60 font-mono text-xs font-bold select-none'>
-							<AspectFrameIcon orientation={video.aspectRatio} className='size-3.5 shrink-0' />
-							<span>{video.aspectRatio}</span>
-							<span className='opacity-40'>·</span>
-							<LanguageFlagIcon lang={video.language} className='w-3.5 h-2.5 shrink-0' />
-							<span>{video.language === 'EN' ? 'ENGLISH' : 'INDONESIA'}</span>
 						</span>
 						<div className='hidden md:block flex-1 h-4 ds-titlebar-grips mx-1' aria-hidden='true' />
 						<span className='px-2 py-0.5 rounded-sm bg-[#121212] text-[#FCF0D3] font-mono text-[11px] font-bold'>
@@ -217,25 +210,41 @@ const VideoModal = ({
 						</div>
 					</div>
 
-					{/* Right Production Case Study Notes */}
-					<div className='max-lg:shrink-0 lg:col-span-5 p-5 sm:p-6 flex flex-col justify-between gap-5 bg-[#FAF3CF] lg:max-h-[calc(92dvh-58px)] lg:overflow-y-auto lg:overscroll-contain'>
-						<div className='space-y-4'>
-							<div className='border-b-2 border-dashed border-[#050505]/30 pb-3'>
-								<p className='font-mono text-xs font-black uppercase tracking-wider text-[#3886C0]'>
-									{t(video.styleTagline)}
-								</p>
+					{/* Right Production Spec Sheet + Pinned Action Bar */}
+					<div className='max-lg:shrink-0 lg:col-span-5 flex flex-col min-h-0 bg-[#FCF0D3] lg:max-h-[calc(92dvh-58px)]'>
+						<div className='flex-1 min-h-0 p-5 sm:p-6 lg:overflow-y-auto lg:overscroll-contain space-y-4'>
+							<div className='border-b-2 border-[#050505]/15 pb-4 space-y-2'>
+								<div className='flex flex-wrap items-center justify-between gap-2'>
+									<p className='font-mono text-[11px] font-black uppercase tracking-wider text-[#3886C0]'>
+										{t(video.styleTagline)}
+									</p>
+									<span className='inline-flex items-center gap-1.5 font-mono text-[11px] font-extrabold text-[#050505]'>
+										<AspectFrameIcon orientation={video.aspectRatio} className='size-3.5 shrink-0' />
+										<span>{video.aspectRatio}</span>
+										<span className='text-[#050505]/35'>·</span>
+										<LanguageFlagIcon lang={video.language} className='w-3.5 h-2.5 shrink-0' />
+										<span>{video.language === 'EN' ? 'ENGLISH' : 'INDONESIA'}</span>
+										{video.subtitlePath && (
+											<span className='ml-0.5 px-1.5 py-0.5 rounded-[2px] bg-[#050505] text-[#FFD426] text-[9.5px] font-black leading-none'>
+												CC
+											</span>
+										)}
+									</span>
+								</div>
 								<h3
 									id='video-modal-title'
-									className='font-display font-black text-xl sm:text-2xl text-[#050505] leading-snug mt-1'
+									className='font-display font-black text-xl sm:text-2xl text-[#050505] leading-snug'
 								>
 									{t(video.title)}
 								</h3>
 							</div>
 
-							<div className='space-y-3 text-sm'>
-								<div className='p-3.5 rounded-sm bg-[#FCF0D3] border-[2.5px] border-[#050505] shadow-[3px_3px_0_#050505]'>
-									<div className='flex items-center gap-2 font-display font-black text-[#050505] mb-1'>
-										<FilmIcon className='size-4 text-[#FD6141]' />
+							<div className='divide-y divide-[#050505]/15 text-sm'>
+								<div className='pb-3.5 first:pt-0'>
+									<div className='flex items-center gap-2 font-display font-black text-[#050505] mb-1.5'>
+										<span className='size-6 rounded-[3px] border border-[#050505] bg-[#FD6141] flex items-center justify-center shrink-0'>
+											<FilmIcon className='size-3.5 text-[#050505]' />
+										</span>
 										<span>{t({ en: 'Opening Hook & Research', id: 'Pembuka (Hook) & Riset Cerita' })}</span>
 									</div>
 									<p className='text-[#050505] leading-relaxed text-xs sm:text-sm font-medium'>
@@ -246,9 +255,11 @@ const VideoModal = ({
 									</p>
 								</div>
 
-								<div className='p-3.5 rounded-sm bg-[#FCF0D3] border-[2.5px] border-[#050505] shadow-[3px_3px_0_#050505]'>
-									<div className='flex items-center gap-2 font-display font-black text-[#050505] mb-1'>
-										<CodeIcon className='size-4 text-[#3886C0]' />
+								<div className='py-3.5'>
+									<div className='flex items-center gap-2 font-display font-black text-[#050505] mb-1.5'>
+										<span className='size-6 rounded-[3px] border border-[#050505] bg-[#3886C0] flex items-center justify-center shrink-0'>
+											<CodeIcon className='size-3.5 text-[#FFFFFF]' />
+										</span>
 										<span>{t({ en: 'Visuals & Motion Technique', id: 'Visual & Teknik Animasi' })}</span>
 									</div>
 									<p className='text-xs font-mono font-extrabold text-[#204275] mb-1'>
@@ -259,9 +270,11 @@ const VideoModal = ({
 									</p>
 								</div>
 
-								<div className='p-3.5 rounded-sm bg-[#FCF0D3] border-[2.5px] border-[#050505] shadow-[3px_3px_0_#050505]'>
-									<div className='flex items-center gap-2 font-display font-black text-[#050505] mb-1'>
-										<AudioIcon className='size-4 text-[#39754F]' />
+								<div className='py-3.5'>
+									<div className='flex items-center gap-2 font-display font-black text-[#050505] mb-1.5'>
+										<span className='size-6 rounded-[3px] border border-[#050505] bg-[#5CE62E] flex items-center justify-center shrink-0'>
+											<AudioIcon className='size-3.5 text-[#050505]' />
+										</span>
 										<span>{t({ en: 'Sound Design & Effects (SFX)', id: 'Tata Suara & Efek Suara (SFX)' })}</span>
 									</div>
 									<p className='text-[#3B404C] text-xs sm:text-sm leading-relaxed'>
@@ -269,7 +282,7 @@ const VideoModal = ({
 									</p>
 								</div>
 
-								<div className='flex items-start gap-2 text-xs text-[#2C313A] px-1'>
+								<div className='pt-3.5 flex items-start gap-2 text-xs text-[#2C313A]'>
 									<LayersIcon className='size-4 shrink-0 text-[#050505] mt-0.5' />
 									<span>
 										<strong className='text-[#050505]'>
@@ -281,7 +294,7 @@ const VideoModal = ({
 							</div>
 						</div>
 
-						<div className='pt-3 border-t-2 border-dashed border-[#050505]/30'>
+						<div className='shrink-0 px-5 sm:px-6 py-3.5 bg-[#F6EDD6] border-t-[2.5px] border-[#050505]'>
 							<button
 								type='button'
 								data-sfx='keycap'
@@ -291,7 +304,7 @@ const VideoModal = ({
 										id: `Gaya visual serupa: ${video.style} (${video.aspectRatio} · ${video.language})`,
 									})
 								}
-								className='w-full py-3 px-5 rounded-full border-[3px] border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] text-sm font-display font-black flex items-center justify-center gap-2 cursor-pointer shadow-[4px_4px_0_#050505] transition-colors'
+								className='w-full py-3 px-5 rounded-full border-[2.5px] border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] text-sm font-display font-black flex items-center justify-center gap-2 cursor-pointer shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 							>
 								<span>
 									{t({

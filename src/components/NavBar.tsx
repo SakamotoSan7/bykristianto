@@ -42,7 +42,7 @@ const WORKS_DROPDOWN_ITEMS: WorksDropdownItem[] = [
 			en: '8 vertical Reels (9:16) & 6 Explainers (16:9)',
 			id: '8 Reels vertikal (9:16) & 6 Explainer (16:9)',
 		},
-		hoverBg: 'hover:bg-[#FFF6D6]',
+		hoverBg: 'hover:bg-[#F6EDD6]',
 	},
 	{
 		href: '#studio-desk',
@@ -58,7 +58,7 @@ const WORKS_DROPDOWN_ITEMS: WorksDropdownItem[] = [
 			en: 'Editing, Motion Code, Audio & Collaboration',
 			id: 'Editing, Animasi Kode, Audio & Alur Kolaborasi',
 		},
-		hoverBg: 'hover:bg-[#EBFCE3]',
+		hoverBg: 'hover:bg-[#F6EDD6]',
 	},
 	{
 		href: '#craft-lab',
@@ -71,10 +71,10 @@ const WORKS_DROPDOWN_ITEMS: WorksDropdownItem[] = [
 			id: 'Lab Interaktif & Mini Game',
 		},
 		subtitle: {
-			en: 'Choose a mode below to try it out:',
-			id: 'Pilih mode interaktif yang ingin dibuka:',
+			en: 'Before/After code split viewer, Chess AI (1000–1900 Elo), & Meme SFX',
+			id: 'Komparasi kode before/after, Catur AI (1000–1900 Elo), & Game SFX',
 		},
-		hoverBg: 'hover:bg-[#E7F4FD]',
+		hoverBg: 'hover:bg-[#F6EDD6]',
 		isInteractive: true,
 	},
 ];
@@ -179,73 +179,65 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 		WORKS_DROPDOWN_ITEMS.map((subItem) => {
 			if (subItem.isInteractive) {
 				return (
-					<div
-						key={subItem.href}
-						className={`rounded-md border-2 border-[#050505] bg-[#FFFFFF] overflow-hidden ${
-							compact ? 'shadow-[2px_2px_0_#050505]' : 'shadow-[2.5px_2.5px_0_#050505]'
-						}`}
-					>
+					<div key={subItem.href} className='flex flex-col'>
 						<button
 							type='button'
 							data-sfx='nav'
 							onClick={() => jumpToSection(subItem.href)}
-							className={`group w-full text-left flex items-center justify-between gap-2.5 ${subItem.hoverBg} transition-colors cursor-pointer ${
-								compact ? 'px-2.5 py-2' : 'px-2.5 py-2.5'
+							className={`group w-full text-left flex items-center justify-between gap-3 ${subItem.hoverBg} transition-colors cursor-pointer ${
+								compact ? 'px-3 py-2.5' : 'px-3.5 py-3'
 							}`}
 						>
-							<div className='flex items-center gap-2.5 min-w-0'>
+							<div className='flex items-center gap-3 min-w-0'>
 								<span
-									className={`size-9 rounded border-2 border-[#050505] shadow-[1.5px_1.5px_0_#050505] flex items-center justify-center shrink-0 ${subItem.tileBg}`}
+									className={`size-9 rounded border-2 border-[#050505] shadow-[2px_2px_0_#050505] flex items-center justify-center shrink-0 ${subItem.tileBg}`}
 									aria-hidden='true'
 								>
 									<ChessIcon className='size-4' />
 								</span>
 
-								<div className='min-w-0 space-y-0.5'>
-									<div className='flex flex-wrap items-center gap-1.5'>
-										<span className='font-mono text-[9px] font-black px-1.5 py-0.5 rounded-[2px] bg-[#050505] text-[#5CE62E] leading-none uppercase'>
-											{subItem.num} · {t(subItem.badge)}
-										</span>
-										<p className='font-display font-black text-[12.5px] text-[#050505] leading-snug'>
-											{t(subItem.title)}
-										</p>
-									</div>
-									<p className='font-mono text-[10px] font-medium text-[#3B404C] leading-snug'>
+								<div className='min-w-0'>
+									<span className='block font-mono text-[9.5px] font-black uppercase tracking-wider text-[#3886C0] leading-none mb-1'>
+										{subItem.num} · {t(subItem.badge)}
+									</span>
+									<p className='font-display font-black text-[13px] text-[#050505] leading-tight'>
+										{t(subItem.title)}
+									</p>
+									<p className='font-mono text-[10px] font-medium text-[#3B404C] leading-snug mt-0.5'>
 										{t(subItem.subtitle)}
 									</p>
 								</div>
 							</div>
 
-							<span className='size-6 rounded border-[1.5px] border-[#050505] bg-[#FCF0D3] group-hover:bg-[#FFD426] flex items-center justify-center shrink-0 transition-colors'>
+							<span className='size-6 rounded border-[1.5px] border-[#050505] bg-[#FFFFFF] group-hover:bg-[#FFD426] flex items-center justify-center shrink-0 transition-colors'>
 								<ChevronRightIcon className='size-3.5 text-[#050505]' />
 							</span>
 						</button>
 
-						{/* Direct Styled Launch Shortcuts matching Before/After, Chess vs Kris, and Meme SFX */}
-						<div className='px-2.5 pb-2.5 pt-2 border-t-2 border-dashed border-[#050505]/20 bg-[#FAF3CF] grid grid-cols-1 sm:grid-cols-3 gap-1.5'>
+						{/* Clean Craft Lab Quick-Launch Trio */}
+						<div
+							className={`${
+								compact ? 'px-3 pb-3 pt-1' : 'px-3.5 pb-3.5 pt-1'
+							} grid grid-cols-1 sm:grid-cols-3 gap-2`}
+						>
 							<button
 								type='button'
 								data-sfx='paper'
 								onClick={() => jumpToCraftTab('compare')}
-								className='group text-left rounded border-[1.5px] border-[#050505] bg-[#FFFFFF] hover:bg-[#E7F4FD] px-2 py-1.5 flex sm:flex-col items-center sm:items-start justify-between gap-1.5 shadow-[1.5px_1.5px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
+								className='group text-left rounded border-2 border-[#050505] bg-[#FFFFFF] hover:bg-[#FFD426] px-2.5 py-2 flex sm:flex-col items-center sm:items-start gap-2 shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 							>
-								<div className='flex items-center justify-between w-auto sm:w-full gap-1.5'>
-									<span
-										className='size-5 rounded-[2px] border border-[#050505] flex items-center justify-center shrink-0'
-										style={{ background: 'linear-gradient(90deg, #161B26 50%, #3886C0 50%)' }}
-										aria-hidden='true'
-									>
-										<LayersIcon className='size-3 text-white' />
-									</span>
-									<span className='px-1 py-0.5 rounded-[2px] bg-[#E7F4FD] border border-[#050505]/60 font-mono text-[8px] font-black text-[#204275] leading-none'>
-										SPLIT
-									</span>
-								</div>
+								<span
+									className='size-5 rounded-[2px] border border-[#050505] flex items-center justify-center shrink-0'
+									style={{ background: 'linear-gradient(90deg, #161B26 50%, #3886C0 50%)' }}
+									aria-hidden='true'
+								>
+									<LayersIcon className='size-3 text-white' />
+								</span>
 								<div className='min-w-0 flex-1 sm:w-full'>
 									<p className='font-display font-black text-[11px] text-[#050505] leading-tight'>
 										{t({ en: 'Before / After', id: 'Before / After' })}
 									</p>
-									<p className='font-mono text-[9px] font-bold text-[#3B404C] leading-tight'>
+									<p className='font-mono text-[9.5px] font-bold text-[#3B404C] group-hover:text-[#050505] leading-tight mt-0.5'>
 										{t({ en: '3 Studio Demos', id: '3 Demo Studio' })}
 									</p>
 								</div>
@@ -255,29 +247,24 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 								type='button'
 								data-sfx='chess-tab'
 								onClick={() => jumpToCraftTab('chess')}
-								className='group text-left rounded border-[1.5px] border-[#050505] bg-[#F2FCEB] hover:bg-[#5CE62E] px-2 py-1.5 flex sm:flex-col items-center sm:items-start justify-between gap-1.5 shadow-[1.5px_1.5px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
+								className='group text-left rounded border-2 border-[#050505] bg-[#FFFFFF] hover:bg-[#5CE62E] px-2.5 py-2 flex sm:flex-col items-center sm:items-start gap-2 shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 							>
-								<div className='flex items-center justify-between w-auto sm:w-full gap-1.5'>
-									<span
-										className='size-5 rounded-[2px] border border-[#050505] flex items-center justify-center shrink-0'
-										style={{
-											backgroundImage:
-												'conic-gradient(#39754F 90deg, #F6EDD6 90deg 180deg, #39754F 180deg 270deg, #F6EDD6 270deg)',
-										}}
-										aria-hidden='true'
-									>
-										<ChessIcon className='size-3 text-[#050505] drop-shadow-[0_0_2px_#FCF0D3]' />
-									</span>
-									<span className='px-1 py-0.5 rounded-[2px] bg-[#5CE62E] group-hover:bg-[#050505] group-hover:text-[#5CE62E] border border-[#050505] font-mono text-[8px] font-black text-[#050505] leading-none'>
-										{t({ en: 'PLAY ♟', id: 'MAIN ♟' })}
-									</span>
-								</div>
+								<span
+									className='size-5 rounded-[2px] border border-[#050505] flex items-center justify-center shrink-0'
+									style={{
+										backgroundImage:
+											'conic-gradient(#39754F 90deg, #F6EDD6 90deg 180deg, #39754F 180deg 270deg, #F6EDD6 270deg)',
+									}}
+									aria-hidden='true'
+								>
+									<ChessIcon className='size-3 text-[#050505] drop-shadow-[0_0_2px_#FCF0D3]' />
+								</span>
 								<div className='min-w-0 flex-1 sm:w-full'>
 									<p className='font-display font-black text-[11px] text-[#050505] leading-tight'>
 										{t({ en: 'Chess vs Kris', id: 'Catur vs Kris' })}
 									</p>
-									<p className='font-mono text-[9px] font-bold text-[#1D3E2B] leading-tight'>
-										1000–1900 Elo AI
+									<p className='font-mono text-[9.5px] font-bold text-[#1D3E2B] group-hover:text-[#050505] leading-tight mt-0.5'>
+										1000–1900 Elo
 									</p>
 								</div>
 							</button>
@@ -286,25 +273,20 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 								type='button'
 								data-sfx='sfx-tab'
 								onClick={() => jumpToCraftTab('sfx')}
-								className='group text-left rounded border-[1.5px] border-[#050505] border-b-[3px] bg-[#FFF3EF] hover:bg-[#FD6141] px-2 py-1.5 flex sm:flex-col items-center sm:items-start justify-between gap-1.5 shadow-[1.5px_1.5px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
+								className='group text-left rounded border-2 border-[#050505] bg-[#FFFFFF] hover:bg-[#FD6141] px-2.5 py-2 flex sm:flex-col items-center sm:items-start gap-2 shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 							>
-								<div className='flex items-center justify-between w-auto sm:w-full gap-1.5'>
-									<span
-										className='size-5 rounded-[2px] border border-[#050505] bg-[#FD6141] group-hover:bg-[#FCF0D3] flex items-center justify-center shrink-0'
-										aria-hidden='true'
-									>
-										<AudioIcon className='size-3 text-[#050505]' />
-									</span>
-									<span className='px-1 py-0.5 rounded-[2px] bg-[#FFD426] border border-[#050505] font-mono text-[8px] font-black text-[#050505] leading-none'>
-										{t({ en: '8 PADS', id: '8 PAD' })}
-									</span>
-								</div>
+								<span
+									className='size-5 rounded-[2px] border border-[#050505] bg-[#FD6141] group-hover:bg-[#FCF0D3] flex items-center justify-center shrink-0 transition-colors'
+									aria-hidden='true'
+								>
+									<AudioIcon className='size-3 text-[#050505]' />
+								</span>
 								<div className='min-w-0 flex-1 sm:w-full'>
 									<p className='font-display font-black text-[11px] text-[#050505] leading-tight'>
 										{t({ en: 'Meme SFX', id: 'Game SFX' })}
 									</p>
-									<p className='font-mono text-[9px] font-bold text-[#3B404C] leading-tight'>
-										{t({ en: 'Memory Game', id: 'Memori Suara' })}
+									<p className='font-mono text-[9.5px] font-bold text-[#3B404C] group-hover:text-[#050505] leading-tight mt-0.5'>
+										{t({ en: '8-Pad Memory', id: 'Memori 8 Pad' })}
 									</p>
 								</div>
 							</button>
@@ -319,15 +301,13 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 					type='button'
 					data-sfx='nav'
 					onClick={() => jumpToSection(subItem.href)}
-					className={`group w-full text-left flex items-center justify-between gap-2.5 rounded-md border-2 border-[#050505] bg-[#FFFFFF] ${subItem.hoverBg} transition-all cursor-pointer hover:-translate-y-0.5 active:translate-y-[1px] ${
-						compact
-							? 'px-2.5 py-2 shadow-[2px_2px_0_#050505]'
-							: 'px-2.5 py-2.5 shadow-[2.5px_2.5px_0_#050505] hover:shadow-[3.5px_3.5px_0_#050505]'
+					className={`group w-full text-left flex items-center justify-between gap-3 ${subItem.hoverBg} transition-colors cursor-pointer ${
+						compact ? 'px-3 py-2.5' : 'px-3.5 py-3'
 					}`}
 				>
-					<div className='flex items-center gap-2.5 min-w-0'>
+					<div className='flex items-center gap-3 min-w-0'>
 						<span
-							className={`size-9 rounded border-2 border-[#050505] shadow-[1.5px_1.5px_0_#050505] flex items-center justify-center shrink-0 ${subItem.tileBg}`}
+							className={`size-9 rounded border-2 border-[#050505] shadow-[2px_2px_0_#050505] flex items-center justify-center shrink-0 ${subItem.tileBg}`}
 							aria-hidden='true'
 						>
 							{subItem.icon === 'film' ? (
@@ -337,22 +317,20 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 							)}
 						</span>
 
-						<div className='min-w-0 space-y-0.5'>
-							<div className='flex flex-wrap items-center gap-1.5'>
-								<span className='font-mono text-[9px] font-black px-1.5 py-0.5 rounded-[2px] bg-[#050505] text-[#FFD426] leading-none uppercase'>
-									{subItem.num} · {t(subItem.badge)}
-								</span>
-								<p className='font-display font-black text-[12.5px] text-[#050505] leading-snug'>
-									{t(subItem.title)}
-								</p>
-							</div>
-							<p className='font-mono text-[10px] font-medium text-[#3B404C] leading-snug'>
+						<div className='min-w-0'>
+							<span className='block font-mono text-[9.5px] font-black uppercase tracking-wider text-[#3886C0] leading-none mb-1'>
+								{subItem.num} · {t(subItem.badge)}
+							</span>
+							<p className='font-display font-black text-[13px] text-[#050505] leading-tight'>
+								{t(subItem.title)}
+							</p>
+							<p className='font-mono text-[10px] font-medium text-[#3B404C] leading-snug mt-0.5'>
 								{t(subItem.subtitle)}
 							</p>
 						</div>
 					</div>
 
-					<span className='size-6 rounded border-[1.5px] border-[#050505] bg-[#FCF0D3] group-hover:bg-[#FFD426] flex items-center justify-center shrink-0 transition-colors'>
+					<span className='size-6 rounded border-[1.5px] border-[#050505] bg-[#FFFFFF] group-hover:bg-[#FFD426] flex items-center justify-center shrink-0 transition-colors'>
 						<ChevronRightIcon className='size-3.5 text-[#050505]' />
 					</span>
 				</button>
@@ -451,7 +429,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 														✕
 													</button>
 												</div>
-												<div className='p-2.5 bg-[#EFE3C4] space-y-2'>
+												<div className='bg-[#FCF0D3] divide-y divide-[#050505]/15'>
 													{renderWorksDropdownCards(false)}
 												</div>
 											</div>
@@ -570,7 +548,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 											<span className='inline-flex items-center gap-2'>
 												<span>{t(item.label)}</span>
 											</span>
-											<span className='inline-flex items-center gap-1.5 font-mono text-[10px] font-black px-2 py-0.5 rounded-[2px] bg-[#E3F5DA] text-[#050505] border border-[#050505]/70 whitespace-nowrap shrink-0'>
+											<span className='inline-flex items-center gap-1.5 font-mono text-[10px] font-black px-2 py-0.5 rounded-[2px] bg-[#FFD426] text-[#050505] border border-[#050505] whitespace-nowrap shrink-0'>
 												<ChessIcon className='size-3 shrink-0' />
 												<span>{t({ en: 'VIDEOS + GAMES', id: 'VIDEO + GAME' })}</span>
 												<span aria-hidden='true'>{mobileWorksOpen ? '▴' : '▾'}</span>
@@ -578,8 +556,8 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 										</button>
 
 										{mobileWorksOpen && (
-											<div className='border-t-2 border-[#050505] bg-[#EFE5CA] p-2.5 space-y-2'>
-												<div className='flex items-center justify-between px-1 py-0.5'>
+											<div className='border-t-2 border-[#050505] bg-[#FCF0D3] divide-y divide-[#050505]/15'>
+												<div className='px-3 py-2 bg-[#F6EDD6] flex items-center justify-between'>
 													<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase'>
 														{t({ en: 'WORKS · VIDEOS, LAB & MINI GAMES', id: 'ISI KARYA · VIDEO, LAB & MINI GAME' })}
 													</span>

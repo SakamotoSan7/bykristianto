@@ -121,7 +121,7 @@ const ShowcaseSection = () => {
 										<a
 											href='#hero'
 											data-sfx='nav'
-											className='w-full py-2.5 px-4 rounded-lg border-2 border-[#050505]/80 bg-[#FFFFFF] hover:bg-[#EFE5CA] text-[#050505] font-display font-bold text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 transition-colors'
+											className='w-full py-2.5 px-4 rounded-lg border-2 border-[#050505]/80 bg-[#FFFFFF] hover:bg-[#FCF0D3] text-[#050505] font-display font-bold text-xs sm:text-sm inline-flex items-center justify-center gap-1.5 transition-colors'
 										>
 											<span>{t({ en: 'You Are Here · Back to Top ↑', id: 'Sedang Dibuka · Ke Atas ↑' })}</span>
 										</a>
@@ -137,7 +137,7 @@ const ShowcaseSection = () => {
 											<ArrowUpRightIcon className='size-4' />
 										</a>
 									) : (
-										<div className='w-full py-2.5 px-4 rounded-lg border border-dashed border-[#050505]/45 bg-[#F6EDD6] text-[#3B404C] font-mono font-bold text-xs text-center'>
+										<div className='w-full py-2.5 px-4 rounded-lg border-2 border-[#050505]/25 bg-[#F6EDD6] text-[#3B404C] font-mono font-bold text-xs text-center'>
 											{t({
 												en: 'Mobile App Case Study',
 												id: 'Studi Kasus Aplikasi Mobile',
@@ -179,7 +179,7 @@ const ShowcaseSection = () => {
 								{CREATIVE_TOOLS.map((tool) => (
 									<div
 										key={tool.name}
-										className='rounded px-2.5 py-2 flex items-center gap-3 hover:bg-[#EFE5CA]/70 transition-colors select-none'
+										className='rounded px-2.5 py-2 flex items-center gap-3 hover:bg-[#F6EDD6] transition-colors select-none'
 									>
 										<StackLogoIcon id={tool.logoKey} className='size-8 shrink-0' />
 										<div className='min-w-0'>

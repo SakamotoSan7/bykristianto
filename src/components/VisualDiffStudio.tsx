@@ -2213,7 +2213,7 @@ export default function VisualDiffStudio() {
 							id: 'GESER PEGANGAN KUNING ATAU KLIK PRESET DI BAWAH (0% – 100%)',
 						})}
 					</span>
-					<span className='px-2 py-0.5 rounded-sm bg-[#F6EDD6] border border-dashed border-[#050505]/60 text-[#050505] select-none'>
+					<span className='font-black text-[#050505] tabular-nums select-none'>
 						{Math.round(splitPercent)}% {t({ en: 'BEFORE', id: 'SEBELUM' })} ·{' '}
 						{Math.round(100 - splitPercent)}% {t({ en: 'AFTER', id: 'SESUDAH' })}
 					</span>
@@ -2297,7 +2297,7 @@ export default function VisualDiffStudio() {
 									className={`px-2.5 py-1 rounded-sm border-2 border-[#050505] font-mono text-[10px] sm:text-[11px] font-black cursor-pointer transition-colors ${
 										isCurrent
 											? 'bg-[#FFD426] text-[#050505] shadow-[2px_2px_0_#050505]'
-											: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#EFE3C4]'
+											: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]'
 									}`}
 								>
 									{t(preset.label)}
@@ -2311,50 +2311,46 @@ export default function VisualDiffStudio() {
 						data-sfx='custom'
 						data-hover-sfx='portal'
 						onClick={jumpToVideos}
-						className='px-3 py-1 rounded-sm border-2 border-[#050505] bg-[#5CE62E] hover:bg-[#FFD426] font-mono text-[10px] sm:text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] cursor-pointer transition-colors'
+						className='px-3 py-1 rounded-sm border-2 border-[#050505] bg-[#FFD426] hover:bg-[#5CE62E] font-mono text-[10px] sm:text-[11px] font-black text-[#050505] shadow-[2px_2px_0_#050505] cursor-pointer transition-colors'
 					>
 						{t({ en: 'Watch All 14 Final Cuts ↑', id: 'Tonton Semua 14 Karya ↑' })}
 					</button>
 				</div>
 
-				{/* Mini Studio Window Cards */}
-				<div className='grid grid-cols-1 md:grid-cols-2 gap-3 pt-1'>
-					<div className='rounded-md border-[2.5px] border-[#050505] bg-[#FFF6F3] shadow-[3px_3px_0_#050505] overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#FD6141] border-b-2 border-[#050505]'>
-							<span className='font-mono text-[10px] font-black text-[#050505] uppercase tracking-wide'>
+				{/* Unified Before / After Split Breakdown Panel */}
+				<div className='rounded-md border-[2.5px] border-[#050505] bg-[#FFFFFF] shadow-[3px_3px_0_#050505] overflow-hidden grid grid-cols-1 md:grid-cols-2 divide-y-2 md:divide-y-0 md:divide-x-2 divide-[#050505]'>
+					<div className='p-3.5 sm:p-4 space-y-1.5'>
+						<div className='flex items-center justify-between gap-2'>
+							<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase tracking-wider'>
 								{t({ en: '01 · TYPICAL PROBLEM', id: '01 · MASALAH UMUM' })}
 							</span>
-							<span className='px-1.5 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[9px] font-black text-[#FFD426] leading-none'>
+							<span className='px-1.5 py-0.5 rounded-[2px] bg-[#FD6141] border border-[#050505] font-mono text-[9.5px] font-black text-[#050505] leading-none'>
 								✕ BEFORE
 							</span>
 						</div>
-						<div className='p-3 sm:p-3.5'>
-							<h4 className='font-display font-black text-sm text-[#050505] leading-snug'>
-								{t(activeMode.beforePointTitle)}
-							</h4>
-							<p className='text-xs text-[#3B404C] leading-relaxed mt-1'>
-								{t(activeMode.beforePointDesc)}
-							</p>
-						</div>
+						<h4 className='font-display font-black text-sm text-[#050505] leading-snug'>
+							{t(activeMode.beforePointTitle)}
+						</h4>
+						<p className='text-xs text-[#3B404C] leading-relaxed'>
+							{t(activeMode.beforePointDesc)}
+						</p>
 					</div>
 
-					<div className='rounded-md border-[2.5px] border-[#050505] bg-[#F3FCEB] shadow-[3px_3px_0_#050505] overflow-hidden flex flex-col'>
-						<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#5CE62E] border-b-2 border-[#050505]'>
-							<span className='font-mono text-[10px] font-black text-[#050505] uppercase tracking-wide'>
+					<div className='p-3.5 sm:p-4 space-y-1.5'>
+						<div className='flex items-center justify-between gap-2'>
+							<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase tracking-wider'>
 								{t({ en: '02 · STUDIO FINISH', id: '02 · HASIL STUDIO' })}
 							</span>
-							<span className='px-1.5 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[9px] font-black text-[#5CE62E] leading-none'>
+							<span className='px-1.5 py-0.5 rounded-[2px] bg-[#5CE62E] border border-[#050505] font-mono text-[9.5px] font-black text-[#050505] leading-none'>
 								✓ AFTER
 							</span>
 						</div>
-						<div className='p-3 sm:p-3.5'>
-							<h4 className='font-display font-black text-sm text-[#050505] leading-snug'>
-								{t(activeMode.afterPointTitle)}
-							</h4>
-							<p className='text-xs text-[#3B404C] leading-relaxed mt-1'>
-								{t(activeMode.afterPointDesc)}
-							</p>
-						</div>
+						<h4 className='font-display font-black text-sm text-[#050505] leading-snug'>
+							{t(activeMode.afterPointTitle)}
+						</h4>
+						<p className='text-xs text-[#3B404C] leading-relaxed'>
+							{t(activeMode.afterPointDesc)}
+						</p>
 					</div>
 				</div>
 			</div>

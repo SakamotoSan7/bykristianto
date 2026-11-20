@@ -669,8 +669,8 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 									id: 'Komposisi visual yang bersih serta tata letak web yang rapi di ponsel maupun desktop.',
 								},
 								{
-									en: 'Clear voice mixing paired with tailored sound effects (SFX & foley).',
-									id: 'Mixing narasi jernih dipadukan efek suara nyata (SFX / foley) yang tepat.',
+									en: 'Clear voice-first mixing paired with real recorded sound effects (SFX & foley).',
+									id: 'Mixing narasi voice-first yang jernih bersama efek suara nyata (SFX & foley).',
 								},
 								{
 									en: 'Fluent in both English (TOEFL 610) & Indonesian.',

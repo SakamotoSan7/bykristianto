@@ -24,11 +24,11 @@ interface VideoPortfolioSectionProps {
 	onSelectStyleForContact: (styleSummary: LocalizedText) => void;
 }
 
-const CATEGORY_CHROME: Record<VideoCategory, { dot: string; bar: string }> = {
-	editorial: { dot: 'bg-[#FD6141]', bar: 'bg-[#FFE0D6]' },
-	'3d-shader': { dot: 'bg-[#4D9DE0]', bar: 'bg-[#D6ECFC]' },
-	'systems-data': { dot: 'bg-[#FFD426]', bar: 'bg-[#FFF0B3]' },
-	remotion: { dot: 'bg-[#5CE62E]', bar: 'bg-[#DAF8CE]' },
+const CATEGORY_CHROME: Record<VideoCategory, { dot: string; accentBorder: string }> = {
+	editorial: { dot: 'bg-[#FD6141]', accentBorder: 'border-l-[#FD6141]' },
+	'3d-shader': { dot: 'bg-[#3886C0]', accentBorder: 'border-l-[#3886C0]' },
+	'systems-data': { dot: 'bg-[#FFD426]', accentBorder: 'border-l-[#FFD426]' },
+	remotion: { dot: 'bg-[#5CE62E]', accentBorder: 'border-l-[#5CE62E]' },
 };
 
 const VideoPortfolioSection = ({
@@ -105,7 +105,7 @@ const VideoPortfolioSection = ({
 					bullets={[
 						t({ en: '9:16 Vertical Reels', id: 'Reels Vertikal 9:16' }),
 						t({ en: '16:9 Widescreen Explainers', id: 'Explainer Layar Lebar 16:9' }),
-						t({ en: 'Premiere/AE · Video-as-Code · Clear SFX', id: 'Editing Premiere/AE · Motion Kode · SFX Jernih' }),
+						t({ en: 'Motion Code & Premiere', id: 'Motion Kode & Premiere' }),
 					]}
 					badgeColor='yellow'
 					onDarkMat
@@ -260,9 +260,9 @@ const VideoPortfolioSection = ({
 									}}
 									className='ds-panel-paper rounded-md overflow-hidden flex flex-col cursor-pointer group'
 								>
-									{/* Soft Risograph-Tinted OS Header with Retro Pinstripes */}
+									{/* Crisp Cream OS Header with Category Accent Edge & Dot */}
 									<div
-										className={`flex items-center gap-2 px-3.5 py-2 border-b-[2.5px] border-[#050505] ${headerTheme.bar}`}
+										className={`flex items-center gap-2 px-3.5 py-2 bg-[#F6EDD6] border-b-[2.5px] border-[#050505] border-l-[6px] ${headerTheme.accentBorder}`}
 									>
 										<span
 											className={`size-2.5 rounded-full border border-[#050505] shrink-0 ${headerTheme.dot}`}

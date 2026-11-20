@@ -369,8 +369,8 @@ const BlueprintProcessSection = ({
 					})}
 					badgeColor='yellow'
 					description={t({
-						en: 'Each video combines fact-checked storytelling, code-driven animation (Video-as-Code), Premiere/AE editing, and clear narration & SFX mixing.',
-						id: 'Tiap karya memadukan riset naskah terverifikasi, animasi berbasis kode (Video-as-Code), editing Premiere/AE, serta mixing narasi & SFX yang jernih.',
+						en: 'From fact-checked storytelling and code-based animation (Video-as-Code) to Premiere/AE editing and clean voice-first mixing.',
+						id: 'Dari riset naskah terverifikasi dan animasi berbasis kode (Video-as-Code) hingga editing Premiere/AE dan mixing audio jernih.',
 					})}
 				/>
 
@@ -415,8 +415,8 @@ const BlueprintProcessSection = ({
 							</span>
 							<p className='font-display font-black text-sm sm:text-base text-[#050505] leading-snug truncate'>
 								{t({
-									en: 'Before / After Studio, Chess vs Kristianto & Meme SFX',
-									id: 'Komparasi Before / After, Catur vs Kristianto & Meme SFX',
+									en: 'Interactive Craft Lab — Inspect Code & Play',
+									id: 'Lab Interaktif — Uji Kode, Visual & Audio',
 								})}
 							</p>
 							<div className='hidden xl:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
@@ -431,7 +431,7 @@ const BlueprintProcessSection = ({
 					<div
 						role='tablist'
 						aria-label={t({ en: 'Craft Lab Interactive Modes', id: 'Pilihan Mode Craft Lab' })}
-						className='grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#EFE3C4] border-b-[3px] border-[#050505]'
+						className='grid grid-cols-1 md:grid-cols-3 gap-2.5 sm:gap-3 p-3 sm:p-4 bg-[#F6EDD6] border-b-[3px] border-[#050505]'
 					>
 						{/* Mode 1: Visual Before / After */}
 						<button
@@ -665,16 +665,16 @@ const BlueprintProcessSection = ({
 													<span
 														className={`inline-flex items-center justify-center min-w-[4.25rem] h-6 px-2 rounded-sm font-mono text-[11px] sm:text-xs font-black leading-none transition-colors ${
 															isGameRunning
-																? 'bg-[#FFD426] text-[#050505]'
-																: 'bg-[#0B0D12] text-[#FCF0D3]/45 border border-dashed border-[#FCF0D3]/25'
+																? 'bg-[#FFD426] text-[#050505] border border-[#050505]'
+																: 'bg-[#181D27] text-[#FCF0D3]/60 border border-[#FCF0D3]/25'
 														}`}
 													>
 														{isGameRunning ? `LVL ${level}` : 'LVL --'}
 													</span>
-													<span className='inline-flex items-center h-6 px-2 rounded-sm bg-[#0B0D12] text-[#FFD426] border border-dashed border-[#FFD426]/45 font-mono text-[11px] sm:text-xs font-bold leading-none'>
+													<span className='inline-flex items-center h-6 px-2 rounded-sm bg-[#181D27] text-[#FFD426] border border-[#FFD426]/65 font-mono text-[11px] sm:text-xs font-bold leading-none'>
 														BEST: {bestLevel}
 													</span>
-													<span className='inline-flex items-center h-6 px-2 rounded-sm bg-[#0B0D12] text-[#5CE62E] border border-dashed border-[#5CE62E]/45 font-mono text-[11px] sm:text-xs font-bold leading-none'>
+													<span className='inline-flex items-center h-6 px-2 rounded-sm bg-[#181D27] text-[#5CE62E] border border-[#5CE62E]/65 font-mono text-[11px] sm:text-xs font-bold leading-none'>
 														TAP: {tapCount}
 													</span>
 												</div>

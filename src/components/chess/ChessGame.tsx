@@ -1776,7 +1776,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		return (
 			<div
 				className={`w-full rounded-sm border-[2.5px] sm:border-[3px] border-[#050505] px-2.5 py-1.5 sm:px-3 sm:py-1.5 flex items-center justify-between gap-2.5 transition-colors shadow-[4px_4px_0_#050505] ${
-					isSideTurn ? 'bg-[#FFF7DC]' : 'bg-[#FCF0D3]'
+					isSideTurn ? 'bg-[#FFFFFF]' : 'bg-[#FCF0D3]'
 				}`}
 			>
 				<div className='flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1'>
@@ -2126,11 +2126,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						{(engineState === 'loading' || engineState === 'error') && (
 							<div className='absolute inset-0 z-30 bg-[#050505]/65 backdrop-blur-[1px] flex items-center justify-center p-4'>
 								<div className='w-full max-w-xs ds-os-window rounded-sm overflow-hidden text-[#050505]'>
-									<div className='px-3 py-1.5 bg-[#FFD426] border-b-[3px] border-[#050505] flex items-center justify-between'>
-										<span className='font-mono text-[10px] font-black uppercase'>
+									<div className='px-3 py-1.5 bg-[#FFD426] border-b-[3px] border-[#050505] flex items-center justify-between gap-2'>
+										<span className='font-mono text-[10px] font-black uppercase shrink-0'>
 											KRIS_CHESS.EXE
 										</span>
-										<span className='font-mono text-[10px] font-black'>
+										<div className='flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
+										<span className='font-mono text-[10px] font-black shrink-0'>
 											{opponentElo} ELO
 										</span>
 									</div>
@@ -2200,15 +2201,16 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 									className='ds-os-window rounded-sm overflow-hidden text-[#050505] w-full max-w-[270px]'
 									onClick={(e) => e.stopPropagation()}
 								>
-									<div className='px-3 py-1.5 bg-[#4D9DE0] border-b-[3px] border-[#050505] flex items-center justify-between'>
-										<span className='font-mono text-[10px] font-black uppercase'>
+									<div className='px-3 py-1.5 bg-[#4D9DE0] border-b-[3px] border-[#050505] flex items-center justify-between gap-2'>
+										<span className='font-mono text-[10px] font-black uppercase shrink-0'>
 											{t({ en: 'PROMOTE PAWN', id: 'PROMOSI BIDAK' })}
 										</span>
+										<div className='flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
 										<button
 											type='button'
 											data-sfx='close'
 											onClick={() => setPendingPromotion(null)}
-											className='size-4 rounded-sm bg-[#FCF0D3] border border-[#050505] font-mono text-[9px] font-black leading-none cursor-pointer'
+											className='size-4 rounded-sm bg-[#FCF0D3] border border-[#050505] font-mono text-[9px] font-black leading-none cursor-pointer shrink-0'
 											aria-label='Cancel promotion'
 										>
 											✕
@@ -2244,7 +2246,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 							<div className='absolute inset-0 z-30 bg-[#050505]/60 flex items-center justify-center p-4'>
 								<div className='ds-os-window rounded-sm overflow-hidden text-[#050505] w-full max-w-xs'>
 									<div
-										className={`px-3 py-1.5 border-b-[3px] border-[#050505] flex items-center justify-between ${
+										className={`px-3 py-1.5 border-b-[3px] border-[#050505] flex items-center justify-between gap-2 ${
 											outcomeBanner.tone === 'green'
 												? 'bg-[#5CE62E]'
 												: outcomeBanner.tone === 'red'
@@ -2252,15 +2254,16 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 													: 'bg-[#FFD426]'
 										}`}
 									>
-										<span className='font-mono text-[11px] font-black uppercase'>
+										<span className='font-mono text-[11px] font-black uppercase shrink-0'>
 											MATCH_RESULT · {outcomeBanner.badge}
 										</span>
+										<div className='flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
 										<button
 											type='button'
 											data-sfx='close'
 											onClick={() => setDismissedEndModal(true)}
 											aria-label='Inspect board'
-											className='size-5 rounded-sm bg-[#FCF0D3] border border-[#050505] font-mono text-[10px] font-black leading-none cursor-pointer'
+											className='size-5 rounded-sm bg-[#FCF0D3] border border-[#050505] font-mono text-[10px] font-black leading-none cursor-pointer shrink-0'
 										>
 											✕
 										</button>
@@ -2287,7 +2290,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 												type='button'
 												data-sfx='close'
 												onClick={() => setDismissedEndModal(true)}
-												className='py-2 px-3 rounded-lg border-2 border-[#050505] bg-white hover:bg-[#FFE7BF] font-mono text-[11px] font-black shadow-[3px_3px_0_#050505] cursor-pointer'
+												className='py-2 px-3 rounded-lg border-2 border-[#050505] bg-white hover:bg-[#FFD426] font-mono text-[11px] font-black shadow-[3px_3px_0_#050505] cursor-pointer'
 											>
 												{t({ en: 'View Board', id: 'Lihat Papan' })}
 											</button>
@@ -2344,7 +2347,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										? 'translate-y-[1px] shadow-none text-[#050505]'
 										: isConfirming
 											? 'text-[#050505] shadow-[2px_2px_0_#050505]'
-											: 'bg-[#FFFFFF] hover:bg-[#FFF7DC] text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none'
+											: 'bg-[#FFFFFF] hover:bg-[#FCF0D3] text-[#050505] shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none'
 								}`}
 							>
 								<span className='block font-display text-[10.5px] sm:text-[11px] font-black leading-tight truncate'>
@@ -2546,10 +2549,10 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					onClick={handleResignClick}
 					className={`h-[38px] sm:h-[40px] px-2 rounded-xl border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center transition-all ${
 						result !== null || engineState === 'loading' || !playerHasMoved
-							? 'bg-[#EAE0C8] text-[#050505]/40 cursor-not-allowed shadow-none'
+							? 'bg-[#F6EDD6] text-[#050505]/35 cursor-not-allowed shadow-none'
 							: confirmResign
 								? 'bg-[#FD6141] text-[#050505] shadow-[3px_3px_0_#050505] cursor-pointer animate-pulse'
-								: 'bg-[#FFE7BF] hover:bg-[#FD6141] text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none cursor-pointer'
+								: 'bg-[#FFFFFF] hover:bg-[#FD6141] text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none cursor-pointer'
 					}`}
 				>
 					{confirmResign
@@ -2596,17 +2599,17 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 
 			{/* Retro OS Move History Log + Chess.com History Navigator Strip */}
 			<div className='ds-os-window rounded-sm overflow-hidden flex-1 flex flex-col min-h-0'>
-				<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#FD6141] border-b-[3px] border-[#050505] shrink-0'>
+				<div className='flex items-center justify-between gap-2 px-3 py-1.5 bg-[#1A2636] border-b-[3px] border-[#050505] shrink-0'>
 					<div className='flex items-center gap-2 min-w-0 flex-1'>
-						<span className='size-2.5 rounded-full bg-[#FFD426] border-2 border-[#050505] shrink-0' />
-						<span className='font-mono text-[11px] font-black text-[#050505] shrink-0'>
+						<span className='size-2.5 rounded-full bg-[#FFD426] border border-[#050505] shrink-0' />
+						<span className='font-mono text-[11px] font-black text-[#FFD426] shrink-0'>
 							MOVES.PGN
 						</span>
-						<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
+						<div className='hidden sm:block flex-1 border-t border-[#FCF0D3]/20' aria-hidden='true' />
 					</div>
 
 					<div className='flex items-center gap-1.5 shrink-0'>
-						<span className='px-1.5 py-0.5 rounded-none bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] tabular-nums'>
+						<span className='px-1.5 py-0.5 rounded-none bg-[#050505] border border-[#FCF0D3]/25 font-mono text-[10px] font-black text-[#5CE62E] tabular-nums'>
 							PLY {snapshot.plyCount}
 						</span>
 						<button
@@ -2758,28 +2761,30 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						&gt;|
 					</button>
 				</div>
-			</div>
 
-			{/* Compact Rules & Tip Footer */}
-			<div className='rounded-sm border-[2.5px] border-[#050505] bg-[#FFE7BF] px-3 py-2 shadow-[3px_3px_0_#050505] font-mono text-[10px] sm:text-[10.5px] text-[#050505] shrink-0'>
-				<span className='font-black'>15+0 RAPID · RANDOM SIDE:</span>{' '}
-				<span className='text-[#2C313A] font-semibold'>
-					{t({
-						en: 'Timer starts on 1st move. Right-drag or use Arrow Mode to mark squares; ←/→ steps moves.',
-						id: 'Waktu dimulai pada langkah pertama. Klik kanan lalu tarik atau pakai Mode Panah untuk menandai papan; ←/→ untuk meninjau langkah.',
-					})}
-				</span>
+				{/* Compact Rules & Tip Footer inside MOVES.PGN */}
+				<div className='px-3 py-1.5 bg-[#F6EDD6] border-t-2 border-[#050505]/20 font-mono text-[10px] text-[#3B404C] shrink-0 leading-snug'>
+					<span className='font-black text-[#050505]'>15+0 RAPID · RANDOM SIDE:</span>{' '}
+					<span>
+						{t({
+							en: 'Clock starts on 1st move · Right-drag or Arrow Mode to mark · ←/→ steps moves.',
+							id: 'Waktu mulai di langkah ke-1 · Klik kanan / Mode Panah utk tandai · ←/→ tinjau langkah.',
+						})}
+					</span>
+				</div>
 			</div>
 		</div>
 	);
 
 	const renderHeaderToolbar = (inFullscreen: boolean) => (
 		<div
-			className={`border-[2.5px] sm:border-[3px] border-[#050505] bg-[#FCF0D3] px-2 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 shrink-0 ${
-				inFullscreen ? 'rounded-none border-x-0 border-t-0' : 'rounded-sm shadow-[4px_4px_0_#050505]'
+			className={`border-[2.5px] sm:border-[3px] border-[#050505] px-2 sm:px-3.5 lg:px-4 py-1.5 sm:py-2 flex flex-wrap items-center justify-between gap-1.5 sm:gap-2 shrink-0 ${
+				inFullscreen
+					? 'bg-[#FFD426] rounded-none border-x-0 border-t-0'
+					: 'bg-[#FCF0D3] rounded-sm shadow-[4px_4px_0_#050505]'
 			}`}
 		>
-			<div className='flex items-center gap-1.5 sm:gap-2 min-w-0'>
+			<div className='flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1'>
 				<span className='px-1.5 sm:px-2 py-0.5 bg-[#050505] text-[#FFD426] font-mono text-[9.5px] sm:text-[10px] font-black tracking-wide shrink-0'>
 					{inFullscreen ? (
 						<>
@@ -2801,59 +2806,28 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						id: `Catur Lawan ${opponentLabel}`,
 					})}
 				</h3>
-				<span
-					style={{ backgroundColor: activeProfile.accentHex }}
-					className={`${
-						inFullscreen ? 'hidden xl:inline-block' : 'hidden sm:inline-block'
-					} px-2 py-0.5 rounded-sm border border-[#050505] font-mono text-[10px] font-black text-[#050505] shrink-0`}
-				>
-					{opponentElo} ELO · 15:00
-				</span>
+				{inFullscreen && (
+					<div className='hidden lg:block flex-1 h-2.5 ds-titlebar-grips mx-1' aria-hidden='true' />
+				)}
 			</div>
 
 			<div className='flex flex-wrap items-center justify-end gap-1 sm:gap-1.5 select-none shrink-0'>
 				<span
-					className={`${
-						inFullscreen ? 'hidden md:inline-flex' : 'inline-flex'
-					} items-center gap-1 h-6 sm:h-7 px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
-						playerColor === 'w'
-							? 'bg-[#FFFFFF] text-[#050505]'
-							: 'bg-[#181A20] text-[#FCF0D3]'
-					}`}
-				>
-					{playerColor === 'w' ? (
-						<>
-							<span className={inFullscreen ? 'xl:hidden' : 'sm:hidden'}>
-								{t({ en: 'WHITE', id: 'PUTIH' })}
-							</span>
-							<span className={inFullscreen ? 'hidden xl:inline' : 'hidden sm:inline'}>
-								{t({ en: 'YOU: WHITE', id: 'KAMU: PUTIH' })}
-							</span>
-						</>
-					) : (
-						<>
-							<span className={inFullscreen ? 'xl:hidden' : 'sm:hidden'}>
-								{t({ en: 'BLACK', id: 'HITAM' })}
-							</span>
-							<span className={inFullscreen ? 'hidden xl:inline' : 'hidden sm:inline'}>
-								{t({ en: 'YOU: BLACK', id: 'KAMU: HITAM' })}
-							</span>
-						</>
-					)}
-				</span>
-
-				<span
-					className={`inline-flex items-center gap-1 sm:gap-1.5 h-6 sm:h-7 px-1.5 sm:px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
+					className={`inline-flex items-center gap-1 sm:gap-1.5 h-6 sm:h-7 px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
 						engineState === 'error'
 							? 'bg-[#FD6141] text-[#050505]'
 							: engineState === 'loading' || isKrisThinking
-								? 'bg-[#FFD426] text-[#050505]'
-								: 'bg-[#5CE62E] text-[#050505]'
+								? 'bg-[#3886C0] text-[#FFFFFF]'
+								: 'bg-[#FCF0D3] text-[#050505]'
 					}`}
 				>
 					<span
-						className={`size-1.5 rounded-full bg-[#050505] shrink-0 ${
-							engineState === 'loading' || isKrisThinking ? 'animate-pulse' : ''
+						className={`size-2 rounded-full border border-[#050505] shrink-0 ${
+							engineState === 'error'
+								? 'bg-[#FFFFFF]'
+								: engineState === 'loading' || isKrisThinking
+									? 'bg-[#FFD426] animate-pulse'
+									: 'bg-[#5CE62E]'
 						}`}
 					/>
 					{engineState === 'loading' ? (
@@ -2873,10 +2847,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 								{t({ en: 'READY', id: 'SIAP' })}
 							</span>
 							<span className={inFullscreen ? 'hidden md:inline' : 'hidden sm:inline'}>
-								{t({
-									en: `${opponentElo} · READY`,
-									id: `${opponentElo} · SIAP`,
-								})}
+								{`${opponentElo} ELO · 15+0`}
 							</span>
 						</>
 					)}

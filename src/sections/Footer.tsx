@@ -76,8 +76,8 @@ const Footer = () => {
 
 						<p className='text-sm text-[#FCF0D3]/75 leading-relaxed'>
 							{t({
-								en: 'Kristianto Studio Portfolio · Film Craft + Code.',
-								id: 'Portofolio Kristianto · Teknik Film + Kode Kreatif.',
+								en: 'Based in Indonesia · Available for remote video editing, motion explainers, & creative web builds.',
+								id: 'Berbasis di Indonesia · Terbuka untuk proyek remote video editing, motion explainer, & website kreatif.',
 							})}
 						</p>
 					</div>

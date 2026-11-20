@@ -25,8 +25,8 @@ const BGM_BUTTON_STATE: Record<
 > = {
 	full: {
 		label: 'BGM',
-		navbarClass: 'bg-[#D8F5C8] text-[#050505] hover:bg-[#C1EEAA]',
-		chessClass: 'bg-[#5CE62E] text-[#050505] hover:bg-[#49D41D]',
+		navbarClass: 'bg-[#FFD426] text-[#050505] hover:bg-[#5CE62E]',
+		chessClass: 'bg-[#FFD426] text-[#050505] hover:bg-[#5CE62E]',
 		title: {
 			en: 'Music: Normal · click for low volume',
 			id: 'Musik: Normal · klik untuk mode pelan',
@@ -34,8 +34,8 @@ const BGM_BUTTON_STATE: Record<
 	},
 	low: {
 		label: 'LOW',
-		navbarClass: 'bg-[#FFF0B3] text-[#050505] hover:bg-[#FFE380]',
-		chessClass: 'bg-[#B4DD7F] text-[#050505] hover:bg-[#A2CF6B]',
+		navbarClass: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#FFD426]',
+		chessClass: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#FFD426]',
 		title: {
 			en: 'Music: Quiet · click to mute',
 			id: 'Musik: Pelan · klik untuk matikan',
@@ -43,8 +43,8 @@ const BGM_BUTTON_STATE: Record<
 	},
 	off: {
 		label: 'OFF',
-		navbarClass: 'bg-[#FFFFFF] text-[#5B606B] hover:bg-[#FCF0D3]',
-		chessClass: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]',
+		navbarClass: 'bg-[#FFFFFF] text-[#5B606B] hover:bg-[#FCF0D3] hover:text-[#050505]',
+		chessClass: 'bg-[#FFFFFF] text-[#454A54] hover:bg-[#FCF0D3] hover:text-[#050505]',
 		title: {
 			en: 'Music: Off · click to turn on',
 			id: 'Musik: Mati · klik untuk nyalakan',
@@ -63,7 +63,7 @@ const SFX_BUTTON_STATE: Record<
 > = {
 	full: {
 		label: 'SFX',
-		navbarClass: 'bg-[#FFF0B3] text-[#050505] hover:bg-[#FFD426]',
+		navbarClass: 'bg-[#FFD426] text-[#050505] hover:bg-[#5CE62E]',
 		chessClass: 'bg-[#FFD426] text-[#050505] hover:bg-[#5CE62E]',
 		title: {
 			en: 'SFX: Normal · click for low volume',
@@ -72,8 +72,8 @@ const SFX_BUTTON_STATE: Record<
 	},
 	low: {
 		label: 'LOW',
-		navbarClass: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#FFE380]',
-		chessClass: 'bg-[#FFE999] text-[#050505] hover:bg-[#FFD426]',
+		navbarClass: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#FFD426]',
+		chessClass: 'bg-[#FCF0D3] text-[#050505] hover:bg-[#FFD426]',
 		title: {
 			en: 'SFX: Quiet · click to mute',
 			id: 'Efek Suara: Pelan · klik untuk matikan',
@@ -81,8 +81,8 @@ const SFX_BUTTON_STATE: Record<
 	},
 	off: {
 		label: 'OFF',
-		navbarClass: 'bg-[#FFFFFF] text-[#5B606B] hover:bg-[#FCF0D3]',
-		chessClass: 'bg-[#FFFFFF] text-[#3B404C] hover:bg-[#FCF0D3]',
+		navbarClass: 'bg-[#FFFFFF] text-[#5B606B] hover:bg-[#FCF0D3] hover:text-[#050505]',
+		chessClass: 'bg-[#FFFFFF] text-[#454A54] hover:bg-[#FCF0D3] hover:text-[#050505]',
 		title: {
 			en: 'SFX: Off · click to turn on',
 			id: 'Efek Suara: Mati · klik untuk nyalakan',
@@ -204,8 +204,14 @@ export function BgmToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 					className={
 						isNavbar
 							? 'size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#5B606B]'
-							: 'size-3.5 text-[#3B404C]'
+							: 'size-3.5 text-[#5B606B]'
 					}
+				/>
+			)}
+			{bgmLevel === 'low' && (
+				<span
+					className='size-1.5 rounded-full bg-[#FD6141] border border-[#050505] shrink-0'
+					aria-hidden='true'
 				/>
 			)}
 			<span className='hidden sm:inline'>{bgmUi.label}</span>
@@ -258,8 +264,14 @@ export function SfxToggleButton({ variant = 'navbar' }: { variant?: ControlVaria
 					className={
 						isNavbar
 							? 'size-3.5 min-[360px]:size-4 sm:size-3.5 text-[#5B606B]'
-							: 'size-3.5 text-[#3B404C]'
+							: 'size-3.5 text-[#5B606B]'
 					}
+				/>
+			)}
+			{sfxLevel === 'low' && (
+				<span
+					className='size-1.5 rounded-full bg-[#FD6141] border border-[#050505] shrink-0'
+					aria-hidden='true'
 				/>
 			)}
 			<span className='hidden sm:inline'>{sfxUi.label}</span>

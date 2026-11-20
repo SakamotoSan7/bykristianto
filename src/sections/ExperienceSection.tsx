@@ -123,8 +123,8 @@ const ExperienceSection = () => {
 									{/* Clean Inline Credential Strip (zero bordered chip clutter) */}
 									<p className='pt-2 border-t border-dashed border-[#050505]/20 font-mono text-[11px] font-bold text-[#050505] select-none'>
 										{t({
-											en: 'Cum Laude 3.76 · Ex-AFE Records · TOEFL 610 · Clear Audio + SFX',
-											id: 'Cum Laude 3.76 · Magang AFE Records · TOEFL 610 · Audio Jernih + SFX',
+											en: 'Cum Laude 3.76 · Ex-AFE Records · TOEFL 610 · Video & Web',
+											id: 'Cum Laude 3.76 · Magang AFE Records · TOEFL 610 · Video & Web',
 										})}
 									</p>
 
@@ -492,11 +492,11 @@ const ExperienceSection = () => {
 						)}
 					</div>
 
-					<div className='px-5 sm:px-6 py-3 bg-[#EFE5CA]/65 border-t-2 border-[#050505]/20 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] font-bold text-[#3B404C]'>
+					<div className='px-5 sm:px-6 py-3 bg-[#F6EDD6] border-t-2 border-[#050505]/20 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] font-bold text-[#3B404C]'>
 						<span>
 							{t({
-								en: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · GPA 3.76/4.00',
-								id: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · IPK 3,76/4,00',
+								en: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · CITRA FILM SCHOOL',
+								id: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · CITRA FILM SCHOOL',
 							})}
 						</span>
 					</div>

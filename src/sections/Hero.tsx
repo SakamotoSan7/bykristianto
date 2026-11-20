@@ -87,8 +87,8 @@ const Hero = () => {
 							<span className='size-2 shrink-0 rounded-full bg-[#5CE62E] border border-[#050505]' />
 							<span className='leading-snug'>
 								{t({
-									en: 'OPEN FOR WORK · VIDEO, MOTION & WEB',
-									id: 'TERBUKA UNTUK PROYEK · VIDEO, MOTION & WEB',
+									en: 'AVAILABLE FOR PROJECTS & FULL-TIME ROLES',
+									id: 'TERBUKA UNTUK PROYEK & KERJA PENUH WAKTU',
 								})}
 							</span>
 						</div>
@@ -148,8 +148,8 @@ const Hero = () => {
 						{/* Concise Positioning Copy */}
 						<p className='ds-hero-stagger text-base sm:text-lg text-[#2C313A] leading-relaxed max-w-xl font-medium'>
 							{t({
-								en: 'Cum Laude TV & Film graduate producing story-driven explainers, 9:16 reels, code-based animation, clear sound design (SFX), and interactive websites.',
-								id: 'Lulusan Cum Laude Televisi & Film yang memproduksi video explainer, reels 9:16, animasi berbasis kode, tata suara & SFX yang jernih, serta website interaktif.',
+								en: 'Cum Laude TV & Film graduate producing story-driven explainers, 9:16 reels, code-driven motion graphics, and interactive web builds.',
+								id: 'Lulusan Cum Laude Televisi & Film yang memproduksi video explainer, reels 9:16, motion berbasis kode, serta website interaktif.',
 							})}
 						</p>
 
@@ -174,7 +174,7 @@ const Hero = () => {
 								className='rounded border-2 border-[#050505]/80 bg-[#FCF0D3]/90 hover:bg-[#FFFFFF] text-[#050505] px-5 py-3 text-sm sm:text-base font-display font-bold shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all cursor-pointer'
 							>
 								{t({
-									en: 'Skills & Service Guide →',
+									en: 'Profile & Service Guide →',
 									id: 'Profil & Panduan Jasa →',
 								})}
 							</button>
@@ -196,8 +196,8 @@ const Hero = () => {
 									lbl: { en: 'EN / ID Bilingual', id: 'Dwibahasa EN / ID' },
 								},
 								{
-									val: 'Audio + SFX',
-									lbl: { en: 'Clean Voice & SFX', id: 'Narasi Jernih & SFX' },
+									val: 'AFE Records',
+									lbl: { en: 'Ex-Video Editor Intern', id: 'Magang Video Editor' },
 								},
 							].map((ticket) => (
 								<div key={ticket.val} className='min-w-0'>
@@ -267,10 +267,10 @@ const Hero = () => {
 										onClick={toggleSound}
 										className={`shrink-0 px-2.5 py-1 rounded border-2 border-[#050505] font-mono text-[10px] font-black shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all cursor-pointer ${
 											sfxLevel === 'full'
-												? 'bg-[#D8F5C8] hover:bg-[#5CE62E] text-[#050505]'
+												? 'bg-[#FFD426] hover:bg-[#5CE62E] text-[#050505]'
 												: sfxLevel === 'low'
-													? 'bg-[#FFF0B3] hover:bg-[#FFD426] text-[#050505]'
-													: 'bg-white text-[#3B404C] hover:bg-[#FFD426] hover:text-[#050505]'
+													? 'bg-[#FCF0D3] hover:bg-[#FFD426] text-[#050505]'
+													: 'bg-white text-[#5B606B] hover:bg-[#FCF0D3] hover:text-[#050505]'
 										}`}
 									>
 										{sfxLevel === 'full'

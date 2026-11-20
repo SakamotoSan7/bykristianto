@@ -176,8 +176,8 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 			{
 				title: { en: 'End-to-End Script to Final Cut', id: 'Terbiasa dari Naskah hingga Video Final' },
 				desc: {
-					en: 'On-set production credits (screenwriting, live broadcast video playback / VT operator) plus 100% accuracy data auditing at PT ISH.',
-					id: 'Memiliki kredit penulisan naskah serta operator tayangan video siaran (VT playback), didukung disiplin akurasi data 100% di proyek PT ISH.',
+					en: 'Production credits across screenwriting and live broadcast VT playback, backed by disciplined data verification experience at PT ISH (Telkom Indonesia project).',
+					id: 'Berpengalaman sebagai penulis naskah, operator tayangan video siaran (VT playback), serta verifikasi ketelitian data proyek Telkom Indonesia di PT ISH.',
 				},
 			},
 			{
@@ -258,7 +258,7 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 						</div>
 
 						{/* Concise Borderless Summary Strip */}
-						<div className='px-5 sm:px-6 py-3.5 bg-[#EFE5CA]/75 border-t-2 border-[#050505]/25 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] font-bold text-[#050505] select-none'>
+						<div className='px-5 sm:px-6 py-3.5 bg-[#F6EDD6] border-t-2 border-[#050505]/20 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] font-bold text-[#050505] select-none'>
 							{QUICK_FACTS.map((fact, idx) => (
 								<span key={fact.en} className='inline-flex items-center gap-2'>
 									{idx > 0 && (

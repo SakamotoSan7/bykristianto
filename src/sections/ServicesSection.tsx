@@ -137,10 +137,10 @@ const ServiceCard = ({
 						aria-checked={addonApplied}
 						data-sfx='switch'
 						onClick={onToggleAddon}
-						className={`w-full py-2 px-3 rounded-lg border-2 font-mono text-[11px] font-black flex items-center justify-between gap-2 cursor-pointer transition-colors ${
+						className={`w-full py-2 px-3 rounded-lg border-2 font-mono text-[11px] font-black flex items-center justify-between gap-2 cursor-pointer transition-all ${
 							addonApplied
-								? 'border-[#050505] bg-[#E3F5DA] text-[#050505]'
-								: 'border-[#050505]/45 bg-[#FFFFFF] text-[#050505] hover:border-[#050505] hover:bg-[#FFF8DF]'
+								? 'border-[#050505] bg-[#5CE62E] text-[#050505] shadow-[2px_2px_0_#050505]'
+								: 'border-[#050505] bg-[#FFFFFF] text-[#050505] hover:bg-[#FCF0D3]'
 						}`}
 					>
 						<span className='flex items-center gap-2 min-w-0'>
@@ -159,8 +159,8 @@ const ServiceCard = ({
 						<span
 							className={`px-1.5 py-0.5 rounded-[2px] text-[9px] shrink-0 whitespace-nowrap ${
 								addonApplied
-									? 'bg-[#5CE62E] border border-[#050505] text-[#050505]'
-									: 'bg-[#EFE5CA] text-[#3B404C]'
+									? 'bg-[#050505] border border-[#050505] text-[#5CE62E]'
+									: 'bg-[#FCF0D3] border border-[#050505]/35 text-[#3B404C]'
 							}`}
 						>
 							{addonApplied
@@ -328,7 +328,7 @@ const ServicesSection = ({
 							</div>
 
 							<div className='flex items-start gap-3 p-4 sm:p-5'>
-								<span className='size-8 rounded border border-[#050505] bg-[#5CE62E] flex items-center justify-center shrink-0 text-[#050505]'>
+								<span className='size-8 rounded border border-[#050505] bg-[#4D9DE0] flex items-center justify-center shrink-0 text-[#050505]'>
 									<AudioIcon className='size-4' />
 								</span>
 								<div>
