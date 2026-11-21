@@ -36,6 +36,7 @@ interface SoundPad {
 	isDarkFace?: boolean;
 	title: string;
 	sub: { en: string; id: string };
+	memeImg: string;
 }
 
 const SOUND_PADS: SoundPad[] = [
@@ -47,6 +48,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '253, 97, 65',
 		title: 'FAAAH!',
 		sub: { en: 'Viral Scream', id: 'Teriakan Viral' },
+		memeImg: '/images/memes/faah.webp',
 	},
 	{
 		id: 'oof',
@@ -56,6 +58,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '255, 212, 38',
 		title: 'OOF!',
 		sub: { en: 'Roblox Oof', id: 'Roblox Oof' },
+		memeImg: '/images/memes/oof.webp',
 	},
 	{
 		id: 'wow',
@@ -65,6 +68,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '92, 230, 46',
 		title: 'WOOOW!',
 		sub: { en: 'Anime Wow', id: 'Anime Wow' },
+		memeImg: '/images/memes/wow.webp',
 	},
 	{
 		id: 'bruh',
@@ -74,6 +78,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '252, 240, 211',
 		title: 'BRUH!',
 		sub: { en: 'Deadpan Meme', id: 'Reaksi Datar' },
+		memeImg: '/images/memes/bruh.webp',
 	},
 	{
 		id: 'omg',
@@ -83,6 +88,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '77, 157, 224',
 		title: 'OH MY GOD!',
 		sub: { en: 'Shock Hype', id: 'Kaget Viral' },
+		memeImg: '/images/memes/omg.webp',
 	},
 	{
 		id: 'yay',
@@ -92,6 +98,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '252, 174, 31',
 		title: 'YAY!',
 		sub: { en: 'Kids Cheer', id: 'Sorak Hore' },
+		memeImg: '/images/memes/yay.webp',
 	},
 	{
 		id: 'okay',
@@ -101,6 +108,7 @@ const SOUND_PADS: SoundPad[] = [
 		glowRgb: '252, 240, 211',
 		title: 'OKAY',
 		sub: { en: 'Awkward Okay', id: 'Reaksi Okay' },
+		memeImg: '/images/memes/okay.webp',
 	},
 	{
 		id: 'god',
@@ -111,6 +119,7 @@ const SOUND_PADS: SoundPad[] = [
 		isDarkFace: true,
 		title: 'GOD!!',
 		sub: { en: 'Dramatic Scream', id: 'Teriakan Dramatis' },
+		memeImg: '/images/memes/god.webp',
 	},
 ];
 
@@ -858,8 +867,8 @@ const BlueprintProcessSection = ({
 											</div>
 										</div>
 
-										{/* Compact Tactile 3D 8-Pad Matrix (2x4 Phone, 4x2 Tablet/Desktop) */}
-										<div className='grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3.5'>
+										{/* Compact Tactile 3D 8-Pad Matrix (2x4 Phone/Tablet, 4x2 Desktop) */}
+										<div className='grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5'>
 											{SOUND_PADS.map((pad) => {
 												const isPressed = pressedPadId === pad.id;
 												const isDemoLit = demoLitPadId === pad.id;
@@ -906,7 +915,7 @@ const BlueprintProcessSection = ({
 																	triggerPad(pad.id);
 																}
 															}}
-															className={`w-full text-left rounded-[11px] border-2 border-[#050505] p-2.5 sm:p-3 h-[68px] sm:h-[82px] overflow-hidden transition-all duration-75 select-none flex flex-col justify-between gap-1 ${
+															className={`group/pad w-full text-left rounded-[11px] border-2 border-[#050505] p-2 sm:p-2.5 lg:px-2 lg:py-2 xl:p-2.5 h-[98px] min-[390px]:h-[102px] sm:h-[88px] lg:h-[86px] xl:h-[90px] overflow-hidden transition-all duration-75 select-none grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] sm:grid-rows-[auto_auto] items-start sm:items-center gap-x-1.5 gap-y-1 sm:gap-x-2.5 sm:gap-y-0 lg:gap-x-1.5 xl:gap-x-2.5 ${
 																pad.isDarkFace ? 'text-white' : 'text-[#050505]'
 															} ${
 																isLockedInput ? 'cursor-wait' : 'cursor-pointer'
@@ -935,7 +944,7 @@ const BlueprintProcessSection = ({
 																		: `inset 0 2px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(0,0,0,0.14), 0 4.5px 0 ${pad.wallHex}, 0 6px 0 #050505, 0 8px 10px rgba(0,0,0,0.42)`,
 															}}
 														>
-															<div className='flex items-center justify-between gap-1.5 w-full h-[20px] shrink-0'>
+															<div className='col-start-1 row-start-1 self-start flex items-center gap-1 sm:gap-1.5 h-[18px] shrink-0'>
 																<span
 																	className={`inline-flex items-center h-[18px] px-1.5 rounded font-mono text-[9px] sm:text-[10px] font-black leading-none ${
 																		isLit
@@ -946,17 +955,29 @@ const BlueprintProcessSection = ({
 																	{pad.keyNum}
 																</span>
 																{isExpectedTarget ? (
-																	<span className='inline-flex items-center h-[18px] px-1.5 rounded border border-[#050505] bg-[#FD6141] text-[#050505] font-mono text-[9px] font-black leading-none'>
+																	<span className='inline-flex items-center h-[18px] px-1.5 rounded border border-[#050505] bg-[#FD6141] text-[#050505] font-mono text-[8px] sm:text-[9px] font-black leading-none'>
 																		TARGET
 																	</span>
 																) : null}
 															</div>
 
-															<div className='min-w-0'>
-																<h4 className='font-display font-black text-sm sm:text-base leading-tight truncate'>
+															<div className='col-start-2 row-start-1 sm:row-span-2 justify-self-end sm:self-center relative shrink-0 size-[46px] min-[390px]:size-[50px] sm:size-[62px] lg:size-[54px] xl:size-[64px] rounded-[7px] sm:rounded-[8px] border-2 border-[#050505] bg-[#0B0D14] overflow-hidden shadow-[2px_2px_0_#050505]'>
+																<img
+																	src={pad.memeImg}
+																	alt={pad.title}
+																	loading='lazy'
+																	draggable={false}
+																	className={`w-full h-full object-cover object-center block pointer-events-none transition-transform duration-150 ${
+																		isLit ? 'scale-110' : 'group-hover/pad:scale-105'
+																	}`}
+																/>
+															</div>
+
+															<div className='col-span-2 sm:col-span-1 sm:col-start-1 row-start-2 self-end min-w-0 w-full'>
+																<h4 className='font-display font-black text-[12.5px] min-[390px]:text-[13.5px] sm:text-[15px] lg:text-[13.5px] xl:text-[15.5px] leading-tight truncate'>
 																	{pad.title}
 																</h4>
-																<p className='font-mono text-[9px] sm:text-[10px] font-bold opacity-85 truncate'>
+																<p className='font-mono text-[8.5px] min-[390px]:text-[9px] sm:text-[10px] lg:text-[9px] xl:text-[10px] tracking-tight sm:tracking-normal lg:tracking-tight xl:tracking-normal font-bold opacity-85 truncate mt-0.5'>
 																	{t(pad.sub)}
 																</p>
 															</div>
