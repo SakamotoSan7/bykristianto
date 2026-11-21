@@ -1,9 +1,47 @@
-<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="11" y="11" width="46" height="46" rx="10" fill="#050505" />
-  <rect x="7" y="7" width="46" height="46" rx="10" fill="#FFD426" stroke="#050505" stroke-width="3.5" />
-  <rect x="13" y="13" width="34" height="22" rx="4" fill="#121212" stroke="#050505" stroke-width="2.5" />
-  <path d="M16 40 C22 33, 27 45, 34 38 C39 33, 42 42, 46 39" stroke="#FD6141" stroke-width="4.5" stroke-linecap="round" />
-  <path d="M16 46 C23 40, 29 50, 36 44 C41 40, 44 47, 47 45" stroke="#3886C0" stroke-width="4" stroke-linecap="round" />
-  <polygon points="26,18 36,24 26,30" fill="#5CE62E" stroke="#FFFFFF" stroke-width="1.5" stroke-linejoin="round" />
-  <circle cx="40" cy="19" r="2.5" fill="#FD6141" />
+<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="fav-dots" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="#FFD426" />
+      <circle cx="4" cy="4" r="1.6" fill="#D49600" />
+    </pattern>
+    <clipPath id="fav-clip">
+      <rect x="0" y="0" width="80" height="80" rx="12" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#fav-clip)">
+    <rect width="80" height="80" fill="url(#fav-dots)" />
+    <polygon points="0,62 80,44 80,80 0,80" fill="#FCAE1F" opacity="0.55" />
+    <path d="M7 82 C9 61, 20 54, 29 52.5 L51 52.5 C60 54, 71 61, 73 82 Z" fill="#1B1F2A" stroke="#050505" stroke-width="3" stroke-linejoin="round" />
+    <path d="M50 54 C58 56, 68 62.5, 70 80.5 H53 L47 55 Z" fill="#11141C" />
+    <path d="M30 52.5 L35.5 78 H44.5 L50 52.5 Z" fill="#121318" stroke="#050505" stroke-width="2.3" stroke-linejoin="round" />
+    <path d="M33 52.5 C36.5 57.5, 43.5 57.5, 47 52.5" fill="none" stroke="#3886C0" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M29 52.5 L23.5 63.5 L31.5 68 L35.5 78" fill="#3886C0" stroke="#050505" stroke-width="2.2" stroke-linejoin="round" />
+    <path d="M51 52.5 L56.5 63.5 L48.5 68 L44.5 78" fill="#204275" stroke="#050505" stroke-width="2.2" stroke-linejoin="round" />
+    <circle cx="58.5" cy="69" r="3.6" fill="#FFD426" stroke="#050505" stroke-width="1.7" />
+    <path d="M33 44 V56 C37 59, 43 59, 47 56 V44 Z" fill="#E5B28B" stroke="#050505" stroke-width="2.6" />
+    <path d="M34.5 46 C38 51.5, 43 52, 46 47 V53.5 C42 55.5, 37.5 55.5, 34.5 53 Z" fill="#C68B61" />
+    <path d="M19.5 33 C18 18.5, 26.5 9, 40 9 C53.5 9, 62 18.5, 60.5 33 L58 39 H22 Z" fill="#16181F" stroke="#050505" stroke-width="2.8" />
+    <ellipse cx="23" cy="36" rx="3.4" ry="5" fill="#DFAA82" stroke="#050505" stroke-width="2.4" />
+    <ellipse cx="57" cy="36" rx="3.4" ry="5" fill="#C68B61" stroke="#050505" stroke-width="2.4" />
+    <rect x="54.8" y="34.2" width="3.8" height="5.4" rx="1.4" fill="#121212" stroke="#050505" stroke-width="1.4" />
+    <circle cx="56.7" cy="36" r="0.8" fill="#74B9FF" />
+    <path d="M24 27 C24 18, 56 18, 56 27 V36 C56 46, 48.5 51.5, 40 51.5 C31.5 51.5, 24 46, 24 36 Z" fill="#E5B28B" stroke="#050505" stroke-width="2.8" stroke-linejoin="round" />
+    <path d="M54.5 29 V36 C54.5 44.5, 48 49.5, 40 49.8 C46.5 48.2, 50.5 42.5, 51 35 V28.5 Z" fill="#C68B61" />
+    <path d="M28.2 28.5 Q32 26.6 35.8 29.4" fill="none" stroke="#181A20" stroke-width="2.2" stroke-linecap="round" />
+    <path d="M44.2 30.2 Q48 29.2 51.8 30.4" fill="none" stroke="#181A20" stroke-width="2.2" stroke-linecap="round" />
+    <ellipse cx="32.3" cy="34.9" rx="2.6" ry="1.5" fill="#15171C" />
+    <ellipse cx="47.7" cy="34.9" rx="2.6" ry="1.5" fill="#15171C" />
+    <line x1="29.2" y1="33.2" x2="35.4" y2="33.2" stroke="#050505" stroke-width="1.9" stroke-linecap="round" />
+    <line x1="44.6" y1="33.2" x2="50.8" y2="33.2" stroke="#050505" stroke-width="1.9" stroke-linecap="round" />
+    <circle cx="31.6" cy="34.3" r="0.75" fill="#FFFFFF" />
+    <circle cx="47" cy="34.3" r="0.75" fill="#FFFFFF" />
+    <path d="M40 34.5 V39.5 L42 40.5" fill="none" stroke="#050505" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M35.4 45.2 Q41.5 47 46.2 42.6" fill="none" stroke="#050505" stroke-width="2.1" stroke-linecap="round" />
+    <path d="M20.8 32.2 C19.5 19.5, 25.5 9.8, 36.2 9.5 C38.6 9.5, 39.8 10.6, 40.5 11.4 C41.6 10.2, 43.2 9.5, 45.2 9.6 C55.2 10.2, 60.5 19.5, 59.2 32.2 C56.8 29.8, 55.2 26.8, 53.5 28.4 C50.5 30.2, 46.8 28.2, 43.4 25.8 C41.6 24.4, 40.8 22.2, 40.2 19.2 C39.4 22.5, 38.2 25.2, 36.2 26.8 C32.8 29.5, 29.2 30.2, 26.5 28.2 C24.8 27, 23.2 30, 20.8 32.2 Z" fill="#16181F" stroke="#050505" stroke-width="2.6" stroke-linejoin="round" />
+    <path d="M25.5 19.2 C29.5 15.2, 34.5 15.8, 37.2 21" fill="none" stroke="#2F3542" stroke-width="1.8" stroke-linecap="round" />
+    <path d="M54.2 19.2 C50.2 15.2, 45.5 15.8, 42.8 21" fill="none" stroke="#2F3542" stroke-width="1.8" stroke-linecap="round" />
+    <path d="M13 13 L14.6 16.4 L18 18 L14.6 19.6 L13 23 L11.4 19.6 L8 18 L11.4 16.4 Z" fill="#FFFFFF" stroke="#050505" stroke-width="1.4" stroke-linejoin="round" />
+    <path d="M67 11 L68.2 13.8 L71 15 L68.2 16.2 L67 19 L65.8 16.2 L63 15 L65.8 13.8 Z" fill="#FFD426" stroke="#050505" stroke-width="1.3" stroke-linejoin="round" />
+  </g>
+  <rect x="1.75" y="1.75" width="76.5" height="76.5" rx="11" fill="none" stroke="#050505" stroke-width="3.5" />
 </svg>
