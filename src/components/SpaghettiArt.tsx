@@ -91,12 +91,15 @@ export const SpaghettiBrandMark: FC<SvgClassProps> = ({ className = 'size-10' })
 					<circle cx='4' cy='4' r='1.6' fill='#D49600' />
 				</pattern>
 				<clipPath id={clipId}>
-					<rect x='2' y='2' width='78' height='78' rx='11' />
+					<rect x='5.5' y='5.5' width='71' height='71' rx='10.5' />
 				</clipPath>
 			</defs>
 
 			{/* Hard Offset Drop Shadow */}
-			<rect x='6' y='6' width='78' height='78' rx='11' fill='#050505' />
+			<rect x='6' y='6' width='78' height='78' rx='14' fill='#050505' />
+
+			{/* Solid Outer Ink Frame Plate (concentric 3.5px border, zero corner bleed) */}
+			<rect x='2' y='2' width='78' height='78' rx='14' fill='#050505' />
 
 			{/* Clipped K01 Gold Director Character Portrait */}
 			<g clipPath={`url(#${clipId})`}>
@@ -224,8 +227,8 @@ export const SpaghettiBrandMark: FC<SvgClassProps> = ({ className = 'size-10' })
 				</g>
 			</g>
 
-			{/* Crisp Outer Ink Frame */}
-			<rect x='2' y='2' width='78' height='78' rx='11' fill='none' stroke='#050505' strokeWidth='3.5' />
+			{/* Crisp Inner Seal Stroke */}
+			<rect x='5.5' y='5.5' width='71' height='71' rx='10.5' fill='none' stroke='#050505' strokeWidth='1.2' />
 		</svg>
 	);
 };
