@@ -640,9 +640,9 @@ const BlueprintProcessSection = ({
 						</div>
 					)}
 
-					{/* TAB 3: Compact Meme SFX Board + Ready-Cued Memory Game */}
+					{/* TAB 3: Digital Spaghetti Analog Sampler Deck (MEME-808) */}
 					{activeTab === 'sfx' && (
-						<div className='p-3.5 sm:p-5 lg:p-6 bg-[#121212] text-[#FCF0D3] space-y-3 sm:space-y-3.5'>
+						<div className='substrate-grid-paper p-2.5 sm:p-5 lg:p-6 text-[#050505]'>
 							{(() => {
 								const isGameRunning =
 									gamePhase === 'ready' ||
@@ -653,257 +653,320 @@ const BlueprintProcessSection = ({
 									gamePhase === 'ready' ||
 									gamePhase === 'playing_seq' ||
 									gamePhase === 'level_clear';
+								const isAnyPadActive = Boolean(pressedPadId || demoLitPadId);
 								const expectedPad = SOUND_PADS.find((p) => p.id === expectedPadId);
 								const targetKeyNum = expectedPad?.keyNum ?? '??';
 								const targetLabel = expectedPad?.title ?? '';
 
-								return (
-									<>
-										{/* Fixed-Track Header & Score Telemetry (never wraps or shifts height across phases) */}
-										<div className='space-y-2.5'>
-											<div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2'>
-												<h3 className='font-display font-black text-base sm:text-xl text-white leading-tight whitespace-nowrap'>
-													{t({
-														en: 'Meme SFX Game',
-														id: 'Game Meme SFX',
-													})}
-												</h3>
+								const vuBars = [
+									{ idle: 'h-1.5', peak: 'h-3.5', color: '#5CE62E' },
+									{ idle: 'h-2.5', peak: 'h-4', color: '#5CE62E' },
+									{ idle: 'h-2', peak: 'h-5', color: '#FFD426' },
+									{ idle: 'h-1.5', peak: 'h-4.5', color: '#FCAE1F' },
+									{ idle: 'h-1', peak: 'h-3.5', color: '#FD6141' },
+								] as const;
 
-												{/* Always-mounted fixed telemetry bar (LVL slot stays reserved so width/height never jump) */}
-												<div className='flex items-center gap-1.5 sm:gap-2 select-none shrink-0 h-6 sm:h-7 whitespace-nowrap tabular-nums'>
+								const lcdPhaseClass =
+									gamePhase === 'ready' || gamePhase === 'playing_seq'
+										? 'bg-[#FFD426] text-[#050505]'
+										: gamePhase === 'level_clear'
+											? 'bg-[#5CE62E] text-[#050505]'
+											: gamePhase === 'gameover'
+												? 'bg-[#FD6141] text-[#050505]'
+												: gamePhase === 'awaiting_input'
+													? 'bg-[#1A2636] text-[#FFFFFF]'
+													: 'bg-[#1A2636] text-[#FCF0D3]';
+
+								return (
+									<div className='relative rounded-xl border-[3px] border-[#050505] bg-[#FCF0D3] shadow-[6px_6px_0_#050505] overflow-hidden'>
+										{/* Top Hardware Control Faceplate */}
+										<div className='relative bg-[#FFE7BF] border-b-[3px] border-[#050505] p-3 sm:p-4 space-y-3'>
+											{/* Top Corner Screw Rivets (hidden on narrow mobile) */}
+											<span
+												aria-hidden='true'
+												className='hidden sm:flex items-center justify-center absolute top-2 left-2 size-2.5 rounded-full bg-[#F6EDD6] border-[1.5px] border-[#050505]'
+											>
+												<span className='w-1.5 h-[1.5px] bg-[#050505] rotate-45' />
+											</span>
+											<span
+												aria-hidden='true'
+												className='hidden sm:flex items-center justify-center absolute top-2 right-2 size-2.5 rounded-full bg-[#F6EDD6] border-[1.5px] border-[#050505]'
+											>
+												<span className='w-1.5 h-[1.5px] bg-[#050505] -rotate-45' />
+											</span>
+
+											{/* Row 1: Model Badge + Title + 5-Bar Analog VU Meter | Recessed 3-Bay Mechanical Counter */}
+											<div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 sm:px-3'>
+												<div className='flex items-center gap-2 sm:gap-2.5 min-w-0'>
+													<span className='inline-flex items-center px-1.5 py-0.5 rounded-[3px] bg-[#050505] text-[#FFD426] font-mono text-[9.5px] sm:text-[10px] font-black tracking-wider shrink-0'>
+														MEME-808
+													</span>
+													<h3 className='font-display font-black text-base sm:text-xl text-[#050505] leading-tight whitespace-nowrap'>
+														{t({
+															en: 'Meme SFX Game',
+															id: 'Game Meme SFX',
+														})}
+													</h3>
+
+													{/* 5-Bar Stepped Analog VU Meter */}
+													<div
+														aria-hidden='true'
+														className='inline-flex items-end gap-[2px] h-5 px-1.5 py-0.5 rounded-[4px] border-[1.5px] border-[#050505] bg-[#121212] shrink-0'
+													>
+														{vuBars.map((bar, idx) => (
+															<span
+																key={idx}
+																className={`w-1.5 rounded-[1px] border border-[#050505] transition-all duration-100 ${
+																	isAnyPadActive ? bar.peak : bar.idle
+																}`}
+																style={{ backgroundColor: bar.color }}
+															/>
+														))}
+													</div>
+												</div>
+
+												{/* Unified Recessed 3-Bay Mechanical Counter Housing */}
+												<div className='inline-flex items-stretch rounded-md border-[2.5px] border-[#050505] bg-[#121212] shadow-[3px_3px_0_#050505] overflow-hidden divide-x-2 divide-[#050505] select-none shrink-0 self-start sm:self-auto tabular-nums font-mono text-[10.5px] sm:text-xs font-black'>
 													<span
-														className={`inline-flex items-center justify-center min-w-[4.25rem] h-6 px-2 rounded-sm font-mono text-[11px] sm:text-xs font-black leading-none transition-colors ${
+														className={`min-w-[4.6rem] h-7 px-2 flex items-center justify-center transition-colors ${
 															isGameRunning
-																? 'bg-[#FFD426] text-[#050505] border border-[#050505]'
-																: 'bg-[#181D27] text-[#FCF0D3]/60 border border-[#FCF0D3]/25'
+																? 'bg-[#FFD426] text-[#050505]'
+																: 'bg-[#181D27] text-[#FCF0D3]/65'
 														}`}
 													>
 														{isGameRunning ? `LVL ${level}` : 'LVL --'}
 													</span>
-													<span className='inline-flex items-center h-6 px-2 rounded-sm bg-[#181D27] text-[#FFD426] border border-[#FFD426]/65 font-mono text-[11px] sm:text-xs font-bold leading-none'>
+													<span className='h-7 px-2.5 flex items-center justify-center bg-[#181D27] text-[#FFD426]'>
 														BEST: {bestLevel}
 													</span>
-													<span className='inline-flex items-center h-6 px-2 rounded-sm bg-[#181D27] text-[#5CE62E] border border-[#5CE62E]/65 font-mono text-[11px] sm:text-xs font-bold leading-none'>
+													<span className='h-7 px-2.5 flex items-center justify-center bg-[#181D27] text-[#5CE62E]'>
 														TAP: {tapCount}
 													</span>
 												</div>
 											</div>
 
-											{/* Locked-Height Action Control Strip (exact 42px across idle/active states & all viewports) */}
-											<div className='grid grid-cols-2 gap-2 w-full sm:w-[320px] h-[42px]'>
-												{isGameRunning ? (
-													<button
-														type='button'
-														data-sfx='close'
-														onClick={exitToFreeMode}
-														className='col-span-2 h-[42px] px-4 rounded-xl bg-[#FCF0D3] hover:bg-[#FD6141] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
-													>
-														{t({ en: '✕ STOP · FREE PAD', id: '✕ STOP · MODE BEBAS' })}
-													</button>
-												) : (
-													<>
+											{/* Row 2: Mechanical Transport Keys + Recessed Retro LCD Monitor */}
+											<div className='flex flex-col md:flex-row md:items-center gap-2.5 sm:gap-3 sm:px-3'>
+												<div className='grid grid-cols-2 gap-2 w-full md:w-[270px] lg:w-[290px] h-[44px] shrink-0'>
+													{isGameRunning ? (
 														<button
 															type='button'
-															data-sfx='sfx-tab'
-															onClick={playMiniSequence}
-															className='h-[42px] px-3 rounded-xl bg-[#FCF0D3] hover:bg-[#FFD426] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
+															data-sfx='close'
+															onClick={exitToFreeMode}
+															className='col-span-2 h-[44px] px-4 rounded-lg bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_4px_0_#050505] hover:-translate-y-0.5 active:translate-y-[3px] active:shadow-none transition-all'
 														>
-															♪ DEMO
+															{t({ en: '✕ STOP · FREE PAD', id: '✕ STOP · MODE BEBAS' })}
 														</button>
-														<button
-															type='button'
-															data-sfx='keycap'
-															onClick={startFoleyGame}
-															className='h-[42px] px-3 rounded-xl bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[2px] active:shadow-none transition-all'
-														>
-															{gamePhase === 'gameover'
-																? t({ en: '↻ PLAY AGAIN', id: '↻ MAIN LAGI' })
-																: t({ en: '▶ PLAY GAME', id: '▶ MAIN GAME' })}
-														</button>
-													</>
-												)}
-											</div>
-										</div>
+													) : (
+														<>
+															<button
+																type='button'
+																data-sfx='sfx-tab'
+																onClick={playMiniSequence}
+																className='h-[44px] px-3 rounded-lg bg-[#FFFFFF] hover:bg-[#FFD426] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_4px_0_#050505] hover:-translate-y-0.5 active:translate-y-[3px] active:shadow-none transition-all'
+															>
+																♪ DEMO
+															</button>
+															<button
+																type='button'
+																data-sfx='keycap'
+																onClick={startFoleyGame}
+																className='h-[44px] px-3 rounded-lg bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] border-[2.5px] border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[0_4px_0_#050505] hover:-translate-y-0.5 active:translate-y-[3px] active:shadow-none transition-all'
+															>
+																{gamePhase === 'gameover'
+																	? t({ en: '↻ PLAY AGAIN', id: '↻ MAIN LAGI' })
+																	: t({ en: '▶ PLAY GAME', id: '▶ MAIN GAME' })}
+															</button>
+														</>
+													)}
+												</div>
 
-										{/* Locked-Height Single-Row Status Banner (exact 48px/50px, zero bounce across all phases & widths) */}
-										<div
-											className={`h-[48px] sm:h-[50px] rounded-lg border-2 px-2.5 sm:px-3 flex flex-nowrap items-center justify-between gap-2 overflow-hidden font-mono text-xs transition-colors ${
-												gamePhase === 'ready'
-													? 'border-[#FFD426] bg-[#2B2005]'
-													: gamePhase === 'level_clear'
-														? 'border-[#5CE62E] bg-[#0E2611]'
-														: gamePhase === 'gameover'
-															? 'border-[#FD6141] bg-[#29100D]'
-															: 'border-[#2D333F] bg-[#0B0D12]'
-											}`}
-										>
-											<div className='flex items-center gap-2 min-w-0 flex-1 overflow-hidden'>
-												{gamePhase === 'free' && (
-													<>
-														<span className='inline-flex items-center h-6 px-2 rounded bg-[#1D2430] text-[#5CE62E] border border-[#5CE62E]/60 font-black leading-none shrink-0 whitespace-nowrap'>
-															{t({ en: '● FREE', id: '● BEBAS' })}
-														</span>
-														<span className='text-[#FCF0D3]/85 text-[11px] sm:text-xs truncate min-w-0'>
-															{t({
-																en: 'Tap any meme pad or press Play Game',
-																id: 'Tap pad meme atau tekan Main Game',
-															})}
-														</span>
-													</>
-												)}
-
-												{gamePhase === 'ready' && (
-													<>
-														<span className='inline-flex items-center h-6 px-2 rounded bg-[#FFD426] text-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
-															{t({
-																en: `READY · LVL ${level}`,
-																id: `SIAP · LVL ${level}`,
-															})}
-														</span>
-														<span className='text-[#FFD426] font-bold text-[11px] sm:text-xs truncate min-w-0'>
-															{readyIsNextLevel
-																? t({
-																		en: 'Next level starting soon...',
-																		id: 'Naik level! Bersiap...',
-																	})
-																: t({
-																		en: 'Watch sequence after countdown...',
-																		id: 'Perhatikan urutan setelah hitungan...',
+												{/* Recessed Retro LCD Monitor */}
+												<div
+													className={`flex-1 min-w-0 h-[44px] sm:h-[46px] rounded-lg border-[2.5px] border-[#050505] px-2.5 sm:px-3 flex flex-nowrap items-center justify-between gap-2 overflow-hidden font-mono text-xs shadow-[inset_0_3px_0_rgba(0,0,0,0.22)] transition-colors ${lcdPhaseClass}`}
+													style={{
+														backgroundImage:
+															'repeating-linear-gradient(to bottom, transparent 0px, transparent 3px, rgba(5,5,5,0.06) 3px, rgba(5,5,5,0.06) 4px)',
+													}}
+												>
+													<div className='flex items-center gap-2 min-w-0 flex-1 overflow-hidden'>
+														{gamePhase === 'free' && (
+															<>
+																<span className='inline-flex items-center h-6 px-2 rounded-[4px] bg-[#5CE62E] text-[#050505] border border-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
+																	{t({ en: '● FREE', id: '● BEBAS' })}
+																</span>
+																<span className='font-bold text-[11px] sm:text-xs truncate min-w-0'>
+																	{t({
+																		en: 'Tap any meme pad or press Play Game',
+																		id: 'Tap pad meme atau tekan Main Game',
 																	})}
-														</span>
-													</>
-												)}
+																</span>
+															</>
+														)}
 
-												{gamePhase === 'playing_seq' && (
-													<>
-														<span className='inline-flex items-center h-6 px-2 rounded bg-[#FFD426] text-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
-															{t({ en: 'WATCH', id: 'SIMAK' })}
-														</span>
-														<span className='text-[#FFD426] font-bold text-[11px] sm:text-xs truncate min-w-0'>
-															{t({
-																en: `Lvl ${level} · Memorize ${sequence.length} sounds`,
-																id: `Lvl ${level} · Hafalkan ${sequence.length} suara`,
-															})}
-														</span>
-													</>
-												)}
+														{gamePhase === 'ready' && (
+															<>
+																<span className='inline-flex items-center h-6 px-2 rounded-[4px] bg-[#050505] text-[#FFD426] border border-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
+																	{t({
+																		en: `READY · LVL ${level}`,
+																		id: `SIAP · LVL ${level}`,
+																	})}
+																</span>
+																<span className='font-black text-[11px] sm:text-xs truncate min-w-0'>
+																	{readyIsNextLevel
+																		? t({
+																				en: 'Next level starting soon...',
+																				id: 'Naik level! Bersiap...',
+																			})
+																		: t({
+																				en: 'Watch sequence after countdown...',
+																				id: 'Perhatikan urutan setelah hitungan...',
+																			})}
+																</span>
+															</>
+														)}
 
-												{gamePhase === 'awaiting_input' && (
-													<>
-														<span className='inline-flex items-center h-6 px-2 rounded bg-[#5CE62E] text-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
-															{t({ en: 'YOUR TURN', id: 'GILIRANMU' })}
-														</span>
-														<span className='text-white font-bold text-[11px] sm:text-xs tabular-nums truncate min-w-0'>
-															{playerIndex}/{sequence.length}
-															{level >= 4 ? ' · STREAK!' : ''}
-														</span>
-													</>
-												)}
+														{gamePhase === 'playing_seq' && (
+															<>
+																<span className='inline-flex items-center h-6 px-2 rounded-[4px] bg-[#050505] text-[#FFD426] border border-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
+																	{t({ en: 'WATCH', id: 'SIMAK' })}
+																</span>
+																<span className='font-black text-[11px] sm:text-xs truncate min-w-0'>
+																	{t({
+																		en: `Lvl ${level} · Memorize ${sequence.length} sounds`,
+																		id: `Lvl ${level} · Hafalkan ${sequence.length} suara`,
+																	})}
+																</span>
+															</>
+														)}
 
-												{gamePhase === 'level_clear' && (
-													<>
-														<span className='inline-flex items-center h-6 px-2 rounded bg-[#5CE62E] text-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
-															★ LVL {level} CLEAR!
-														</span>
-														<span className='text-[#5CE62E] font-bold text-[11px] sm:text-xs truncate min-w-0'>
-															{t({
-																en: `Awesome! Level ${level + 1} next...`,
-																id: `Mantap! Lanjut Level ${level + 1}...`,
-															})}
-														</span>
-													</>
-												)}
+														{gamePhase === 'awaiting_input' && (
+															<>
+																<span className='inline-flex items-center h-6 px-2 rounded-[4px] bg-[#5CE62E] text-[#050505] border border-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
+																	{t({ en: 'YOUR TURN', id: 'GILIRANMU' })}
+																</span>
+																<span className='font-bold text-[11px] sm:text-xs tabular-nums truncate min-w-0'>
+																	{playerIndex}/{sequence.length}
+																	{level >= 4 ? ' · STREAK!' : ''}
+																</span>
+															</>
+														)}
 
-												{gamePhase === 'gameover' && (
-													<>
-														<span className='inline-flex items-center h-6 px-2 rounded bg-[#FD6141] text-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
-															{t({ en: 'MISSED', id: 'SALAH' })}
-														</span>
-														<span className='text-[#FD6141] font-bold text-[11px] sm:text-xs truncate min-w-0'>
-															{t({
-																en: `Target: ${targetKeyNum} (${targetLabel})`,
-																id: `Harusnya: ${targetKeyNum} (${targetLabel})`,
-															})}
-														</span>
-													</>
-												)}
-											</div>
+														{gamePhase === 'level_clear' && (
+															<>
+																<span className='inline-flex items-center h-6 px-2 rounded-[4px] bg-[#050505] text-[#5CE62E] border border-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
+																	★ LVL {level} CLEAR!
+																</span>
+																<span className='font-black text-[11px] sm:text-xs truncate min-w-0'>
+																	{t({
+																		en: `Awesome! Level ${level + 1} next...`,
+																		id: `Mantap! Lanjut Level ${level + 1}...`,
+																	})}
+																</span>
+															</>
+														)}
 
-											<div className='h-7 flex items-center justify-end shrink-0'>
-												{gamePhase === 'ready' ? (
-													<span className='inline-flex items-center justify-center h-7 min-w-[3.25rem] px-2 rounded-md bg-[#FFD426] text-[#050505] border-2 border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap animate-pulse'>
-														{readyCount === 0
-															? t({ en: 'GO!', id: 'MULAI!' })
-															: readyCount}
-													</span>
-												) : (
-													sequence.length > 0 &&
-													gamePhase !== 'free' && (
-														<div
-															className={`flex flex-nowrap items-center justify-end ${
-																sequence.length > 7 ? 'gap-[3px]' : 'gap-1'
-															}`}
-															aria-hidden='true'
-														>
-															{sequence.map((_, dotIdx) => (
-																<span
-																	key={dotIdx}
-																	className={`rounded-full border border-white/40 transition-colors shrink-0 ${
-																		sequence.length > 7
-																			? 'size-1.5 sm:size-2'
-																			: 'size-2 sm:size-2.5'
-																	} ${
-																		dotIdx < playerIndex
-																			? 'bg-[#5CE62E] border-[#5CE62E]'
-																			: gamePhase === 'gameover' && dotIdx === playerIndex
-																				? 'bg-[#FD6141] border-[#FD6141]'
-																				: 'bg-white/15'
+														{gamePhase === 'gameover' && (
+															<>
+																<span className='inline-flex items-center h-6 px-2 rounded-[4px] bg-[#050505] text-[#FFD426] border border-[#050505] font-black leading-none shrink-0 whitespace-nowrap'>
+																	{t({ en: 'MISSED', id: 'SALAH' })}
+																</span>
+																<span className='font-black text-[11px] sm:text-xs truncate min-w-0'>
+																	{t({
+																		en: `Target: ${targetKeyNum} (${targetLabel})`,
+																		id: `Harusnya: ${targetKeyNum} (${targetLabel})`,
+																	})}
+																</span>
+															</>
+														)}
+													</div>
+
+													<div className='h-7 flex items-center justify-end shrink-0'>
+														{gamePhase === 'ready' ? (
+															<span className='inline-flex items-center justify-center h-7 min-w-[3.25rem] px-2 rounded-[4px] bg-[#FFFFFF] text-[#050505] border-2 border-[#050505] font-display text-xs sm:text-sm font-black leading-none whitespace-nowrap animate-pulse'>
+																{readyCount === 0
+																	? t({ en: 'GO!', id: 'MULAI!' })
+																	: readyCount}
+															</span>
+														) : (
+															sequence.length > 0 &&
+															gamePhase !== 'free' && (
+																<div
+																	className={`flex flex-nowrap items-center justify-end ${
+																		sequence.length > 7 ? 'gap-[3px]' : 'gap-1'
 																	}`}
-																/>
-															))}
-														</div>
-													)
-												)}
+																	aria-hidden='true'
+																>
+																	{sequence.map((_, dotIdx) => (
+																		<span
+																			key={dotIdx}
+																			className={`rounded-[2px] border border-[#050505] transition-colors shrink-0 ${
+																				sequence.length > 7
+																					? 'size-2 sm:size-2.5'
+																					: 'size-2.5 sm:size-3'
+																			} ${
+																				dotIdx < playerIndex
+																					? 'bg-[#5CE62E]'
+																					: gamePhase === 'gameover' && dotIdx === playerIndex
+																						? 'bg-[#FFD426]'
+																						: 'bg-[#FCF0D3]/30'
+																			}`}
+																		/>
+																	))}
+																</div>
+															)
+														)}
+													</div>
+												</div>
 											</div>
 										</div>
 
-										{/* Compact Tactile 3D 8-Pad Matrix (2x4 Phone/Tablet, 4x2 Desktop) */}
-										<div className='grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5'>
-											{SOUND_PADS.map((pad) => {
-												const isPressed = pressedPadId === pad.id;
-												const isDemoLit = demoLitPadId === pad.id;
-												const isLit = isDemoLit || isPressed;
-												const isWrong = wrongPadId === pad.id;
-												const isExpectedTarget =
-													gamePhase === 'gameover' && expectedPadId === pad.id;
-												const isDimmedBySeq =
-													Boolean(demoLitPadId) && !isLit && !isWrong && !isExpectedTarget;
+										{/* 8-Pad Sampler Deck Bed (Printed Newsprint Dot Grid + Risograph Cartridge Keycaps) */}
+										<div
+											className='p-2.5 sm:p-4 bg-[#F6EDD6]'
+											style={{
+												backgroundImage: 'radial-gradient(rgba(5,5,5,0.10) 1px, transparent 0)',
+												backgroundSize: '14px 14px',
+											}}
+										>
+											<div className='grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-3.5'>
+												{SOUND_PADS.map((pad) => {
+													const isPressed = pressedPadId === pad.id;
+													const isDemoLit = demoLitPadId === pad.id;
+													const isLit = isDemoLit || isPressed;
+													const isWrong = wrongPadId === pad.id;
+													const isExpectedTarget =
+														gamePhase === 'gameover' && expectedPadId === pad.id;
+													const isDimmedBySeq =
+														Boolean(demoLitPadId) && !isLit && !isWrong && !isExpectedTarget;
 
-												return (
-													<div
-														key={pad.id}
-														className={`rounded-[16px] p-[3px] pb-[7px] sm:p-[4px] sm:pb-[9px] border-2 transition-all duration-75 ${
-															isLit
-																? 'bg-[#171B26] border-white ring-[3px] ring-white'
-																: isWrong
-																	? 'bg-[#261110] border-[#FD6141] ring-[3px] ring-[#FD6141]'
-																	: isExpectedTarget
-																		? 'bg-[#221B0A] border-[#FFD426] ring-[3px] ring-[#FFD426]'
-																		: 'bg-[#07080C] border-[#2A303D] shadow-[inset_0_2px_4px_rgba(0,0,0,0.85)]'
-														}`}
-														style={
-															isLit
-																? {
-																		boxShadow: `0 0 22px rgba(255,255,255,0.75), 0 0 32px rgba(${pad.glowRgb},0.7)`,
-																	}
-																: isWrong
-																	? { boxShadow: '0 0 18px rgba(253,97,65,0.65)' }
-																	: isExpectedTarget
-																		? { boxShadow: '0 0 18px rgba(255,212,38,0.6)' }
-																		: undefined
-														}
-													>
+													const keycapDepthClass = isLit
+														? 'translate-y-[4px] shadow-[0_1px_0_#050505] ring-[3px] ring-[#050505] outline outline-[3px] outline-[#FFD426] brightness-105'
+														: isWrong
+															? 'translate-y-[3px] shadow-[0_1px_0_#050505] ring-[3px] ring-[#FD6141]'
+															: isExpectedTarget
+																? 'translate-y-0 shadow-[0_5px_0_#050505] ring-[3px] ring-[#FFD426]'
+																: isLockedInput
+																	? `translate-y-0 ${
+																			isDimmedBySeq
+																				? 'opacity-45 saturate-50 shadow-[0_3px_0_#050505]'
+																				: 'shadow-[0_5px_0_#050505]'
+																		}`
+																	: 'translate-y-0 shadow-[0_5px_0_#050505] hover:-translate-y-0.5 hover:shadow-[0_7px_0_#050505] active:translate-y-[4px] active:shadow-[0_1px_0_#050505]';
+
+													const ledClass = isLit
+														? pad.faceHex === '#FCF0D3'
+															? 'bg-[#5CE62E]'
+															: 'bg-[#FFFFFF]'
+														: isWrong
+															? 'bg-[#FD6141]'
+															: isExpectedTarget
+																? 'bg-[#FFD426]'
+																: 'bg-[#050505]/20';
+
+													return (
 														<button
+															key={pad.id}
 															type='button'
 															data-sfx='custom'
 															data-hover-sfx='none'
@@ -915,53 +978,15 @@ const BlueprintProcessSection = ({
 																	triggerPad(pad.id);
 																}
 															}}
-															className={`group/pad w-full text-left rounded-[11px] border-2 border-[#050505] p-2 sm:p-2.5 lg:px-2 lg:py-2 xl:p-2.5 h-[98px] min-[390px]:h-[102px] sm:h-[88px] lg:h-[86px] xl:h-[90px] overflow-hidden transition-all duration-75 select-none grid grid-cols-[1fr_auto] grid-rows-[auto_1fr] sm:grid-rows-[auto_auto] items-start sm:items-center gap-x-1.5 gap-y-1 sm:gap-x-2.5 sm:gap-y-0 lg:gap-x-1.5 xl:gap-x-2.5 ${
+															className={`group/pad w-full text-left rounded-lg border-[2.5px] border-[#050505] p-1.5 sm:p-2 flex flex-col justify-between transition-all duration-75 select-none ${
 																pad.isDarkFace ? 'text-white' : 'text-[#050505]'
 															} ${
 																isLockedInput ? 'cursor-wait' : 'cursor-pointer'
-															} ${
-																isLit
-																	? 'translate-y-[3px] brightness-110'
-																	: isWrong
-																		? 'translate-y-[2px]'
-																		: isLockedInput
-																			? `translate-y-0 ${
-																					isDimmedBySeq
-																						? 'opacity-45 brightness-75 saturate-75'
-																						: ''
-																				}`
-																			: 'translate-y-0 hover:-translate-y-[1px] hover:brightness-[1.04] active:translate-y-[3px]'
-															}`}
-															style={{
-																backgroundColor: pad.faceHex,
-																backgroundImage: isLit
-																	? 'linear-gradient(180deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.08) 55%, rgba(0,0,0,0.04) 100%)'
-																	: 'linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.02) 48%, rgba(0,0,0,0.09) 100%)',
-																boxShadow: isLit
-																	? `inset 0 0 0 2px rgba(255,255,255,0.92), inset 0 2px 5px rgba(255,255,255,0.42), 0 2px 0 ${pad.wallHex}, 0 3px 0 #050505`
-																	: isWrong
-																		? `inset 0 2px 0 rgba(255,255,255,0.4), 0 3px 0 ${pad.wallHex}, 0 4.5px 0 #050505`
-																		: `inset 0 2px 0 rgba(255,255,255,0.55), inset 0 -2px 0 rgba(0,0,0,0.14), 0 4.5px 0 ${pad.wallHex}, 0 6px 0 #050505, 0 8px 10px rgba(0,0,0,0.42)`,
-															}}
+															} ${keycapDepthClass}`}
+															style={{ backgroundColor: pad.faceHex }}
 														>
-															<div className='col-start-1 row-start-1 self-start flex items-center gap-1 sm:gap-1.5 h-[18px] shrink-0'>
-																<span
-																	className={`inline-flex items-center h-[18px] px-1.5 rounded font-mono text-[9px] sm:text-[10px] font-black leading-none ${
-																		isLit
-																			? 'bg-[#050505] text-white ring-1 ring-white/80'
-																			: 'bg-[#050505] text-[#FFD426]'
-																	}`}
-																>
-																	{pad.keyNum}
-																</span>
-																{isExpectedTarget ? (
-																	<span className='inline-flex items-center h-[18px] px-1.5 rounded border border-[#050505] bg-[#FD6141] text-[#050505] font-mono text-[8px] sm:text-[9px] font-black leading-none'>
-																		TARGET
-																	</span>
-																) : null}
-															</div>
-
-															<div className='col-start-2 row-start-1 sm:row-span-2 justify-self-end sm:self-center relative shrink-0 size-[46px] min-[390px]:size-[50px] sm:size-[62px] lg:size-[54px] xl:size-[64px] rounded-[7px] sm:rounded-[8px] border-2 border-[#050505] bg-[#0B0D14] overflow-hidden shadow-[2px_2px_0_#050505]'>
+															{/* Top Real Meme Frame (16:10 Cartridge Window) */}
+															<div className='relative w-full aspect-[16/10] rounded-[5px] border-2 border-[#050505] bg-[#121212] overflow-hidden'>
 																<img
 																	src={pad.memeImg}
 																	alt={pad.title}
@@ -971,22 +996,83 @@ const BlueprintProcessSection = ({
 																		isLit ? 'scale-110' : 'group-hover/pad:scale-105'
 																	}`}
 																/>
+
+																{/* Flush Corner Key Number Stamp */}
+																<span
+																	className={`absolute top-0 left-0 px-1.5 py-0.5 font-mono text-[9.5px] sm:text-[10px] font-black leading-none border-r-2 border-b-2 border-[#050505] ${
+																		isLit
+																			? 'bg-[#FFD426] text-[#050505]'
+																			: 'bg-[#050505] text-[#FFD426]'
+																	}`}
+																>
+																	{pad.keyNum}
+																</span>
+
+																{/* Active / Target Corner Sticker */}
+																{isExpectedTarget ? (
+																	<span className='absolute top-1 right-1 px-1.5 py-0.5 rounded-[3px] border-[1.5px] border-[#050505] bg-[#FD6141] text-[#050505] font-mono text-[8.5px] font-black leading-none shadow-[1.5px_1.5px_0_#050505]'>
+																		TARGET
+																	</span>
+																) : isLit ? (
+																	<span className='absolute top-1 right-1 px-1.5 py-0.5 rounded-[3px] border-[1.5px] border-[#050505] bg-[#FFD426] text-[#050505] font-mono text-[8.5px] font-black leading-none shadow-[1.5px_1.5px_0_#050505]'>
+																		▶ SFX
+																	</span>
+																) : null}
 															</div>
 
-															<div className='col-span-2 sm:col-span-1 sm:col-start-1 row-start-2 self-end min-w-0 w-full'>
-																<h4 className='font-display font-black text-[12.5px] min-[390px]:text-[13.5px] sm:text-[15px] lg:text-[13.5px] xl:text-[15.5px] leading-tight truncate'>
-																	{pad.title}
-																</h4>
-																<p className='font-mono text-[8.5px] min-[390px]:text-[9px] sm:text-[10px] lg:text-[9px] xl:text-[10px] tracking-tight sm:tracking-normal lg:tracking-tight xl:tracking-normal font-bold opacity-85 truncate mt-0.5'>
-																	{t(pad.sub)}
-																</p>
+															{/* Bottom Full-Width Printed Label Strip + LED Indicator */}
+															<div className='pt-1.5 sm:pt-2 px-0.5 flex items-end justify-between gap-1.5 min-w-0'>
+																<div className='min-w-0 flex-1'>
+																	<h4 className='font-display font-black text-[12.5px] min-[390px]:text-[13.5px] md:text-[13px] lg:text-[14.5px] xl:text-[15.5px] leading-tight truncate'>
+																		{pad.title}
+																	</h4>
+																	<p className='font-mono text-[8.5px] min-[390px]:text-[9px] md:text-[9px] lg:text-[9.5px] xl:text-[10px] tracking-tight lg:tracking-normal font-bold opacity-85 truncate mt-0.5'>
+																		{t(pad.sub)}
+																	</p>
+																</div>
+																<span
+																	aria-hidden='true'
+																	className={`size-2.5 sm:size-3 rounded-full border-[1.5px] border-[#050505] shrink-0 mb-0.5 transition-colors ${ledClass}`}
+																/>
 															</div>
 														</button>
-													</div>
-												);
-											})}
+													);
+												})}
+											</div>
 										</div>
-									</>
+
+										{/* Bottom Hardware Spec Strip */}
+										<div className='relative bg-[#FFE7BF] border-t-2 border-[#050505] px-3 sm:px-7 py-1.5 flex items-center justify-between gap-2 font-mono text-[9px] sm:text-[10px] font-bold text-[#3B404C]'>
+											<span
+												aria-hidden='true'
+												className='hidden sm:flex items-center justify-center absolute top-1/2 -translate-y-1/2 left-2 size-2.5 rounded-full bg-[#F6EDD6] border-[1.5px] border-[#050505]'
+											>
+												<span className='w-1.5 h-[1.5px] bg-[#050505] -rotate-45' />
+											</span>
+											<span
+												aria-hidden='true'
+												className='hidden sm:flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-2 size-2.5 rounded-full bg-[#F6EDD6] border-[1.5px] border-[#050505]'
+											>
+												<span className='w-1.5 h-[1.5px] bg-[#050505] rotate-45' />
+											</span>
+
+											<span className='truncate'>
+												{t({
+													en: 'KRIS-SFX-08 · REAL MEME SOUNDBOARD',
+													id: 'KRIS-SFX-08 · PAPAN SUARA MEME',
+												})}
+											</span>
+
+											<div className='flex items-center gap-1.5 shrink-0'>
+												<span className='inline-flex items-center gap-1' aria-hidden='true'>
+													<span className='size-2 rounded-full bg-[#FD6141] border border-[#050505]' />
+													<span className='size-2 rounded-full bg-[#FFD426] border border-[#050505]' />
+													<span className='size-2 rounded-full bg-[#3886C0] border border-[#050505]' />
+												</span>
+												<span className='whitespace-nowrap'>8 PADS · 48KHZ</span>
+											</div>
+										</div>
+									</div>
 								);
 							})()}
 						</div>
