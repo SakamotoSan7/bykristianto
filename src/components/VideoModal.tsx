@@ -136,13 +136,6 @@ const VideoModal = ({
 				<div className='flex flex-col lg:grid lg:grid-cols-12 min-h-0 flex-1 max-lg:overflow-y-auto max-lg:overscroll-contain'>
 					{/* Darkroom Screening Monitor */}
 					<div className='max-lg:shrink-0 lg:col-span-7 substrate-carbon p-4 sm:p-6 flex flex-col items-center justify-center min-h-[280px] sm:min-h-[360px] lg:min-h-0 border-b-[3.5px] lg:border-b-0 lg:border-r-[3.5px] border-[#050505]'>
-						<div className='w-full flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[9.5px] sm:text-[10px] font-mono text-[#FFD426]/85 mb-2 px-0.5'>
-							<span className='whitespace-nowrap'>
-								SCREENING_ROOM // REEL_{video.badgeNumber} · {video.aspectRatio}
-							</span>
-							<span className='whitespace-nowrap'>H.264 · 30FPS · VOICE + SFX</span>
-						</div>
-
 						<div
 							className={`relative w-full shrink-0 overflow-hidden rounded-sm border-[3px] border-[#FCF0D3] bg-black shadow-[6px_6px_0_#050505] ${
 								isVertical
@@ -245,7 +238,7 @@ const VideoModal = ({
 										<span className='size-6 rounded-[3px] border border-[#050505] bg-[#FD6141] flex items-center justify-center shrink-0'>
 											<FilmIcon className='size-3.5 text-[#050505]' />
 										</span>
-										<span>{t({ en: 'Opening Hook & Research', id: 'Pembuka (Hook) & Riset Cerita' })}</span>
+										<span>{t({ en: 'Story & Hook', id: 'Cerita & Hook' })}</span>
 									</div>
 									<p className='text-[#050505] leading-relaxed text-xs sm:text-sm font-medium'>
 										{t(video.caseStudy.hook)}
@@ -260,7 +253,7 @@ const VideoModal = ({
 										<span className='size-6 rounded-[3px] border border-[#050505] bg-[#3886C0] flex items-center justify-center shrink-0'>
 											<CodeIcon className='size-3.5 text-[#FFFFFF]' />
 										</span>
-										<span>{t({ en: 'Visuals & Motion Technique', id: 'Visual & Teknik Animasi' })}</span>
+										<span>{t({ en: 'Visual Craft', id: 'Teknik Visual' })}</span>
 									</div>
 									<p className='text-xs font-mono font-extrabold text-[#204275] mb-1'>
 										{video.renderTech}
@@ -275,7 +268,7 @@ const VideoModal = ({
 										<span className='size-6 rounded-[3px] border border-[#050505] bg-[#5CE62E] flex items-center justify-center shrink-0'>
 											<AudioIcon className='size-3.5 text-[#050505]' />
 										</span>
-										<span>{t({ en: 'Sound Design & Effects (SFX)', id: 'Tata Suara & Efek Suara (SFX)' })}</span>
+										<span>{t({ en: 'Sound Design', id: 'Tata Suara' })}</span>
 									</div>
 									<p className='text-[#3B404C] text-xs sm:text-sm leading-relaxed'>
 										{t(video.caseStudy.audioDesign)}
@@ -304,12 +297,12 @@ const VideoModal = ({
 										id: `Gaya visual serupa: ${video.style} (${video.aspectRatio} · ${video.language})`,
 									})
 								}
-								className='w-full py-3 px-5 rounded-full border-[2.5px] border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] text-sm font-display font-black flex items-center justify-center gap-2 cursor-pointer shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+								className='w-full py-3 px-5 rounded-md border-[2.5px] border-[#050505] bg-[#FD6141] hover:bg-[#FFD426] text-[#050505] text-sm font-display font-black flex items-center justify-center gap-2 cursor-pointer shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 							>
 								<span>
 									{t({
-										en: 'Request Similar Visual Style →',
-										id: 'Pesan Gaya Visual Serupa →',
+										en: 'Request Similar Style →',
+										id: 'Pesan Gaya Serupa →',
 									})}
 								</span>
 								<ArrowUpRightIcon className='size-4' />

@@ -89,8 +89,8 @@ const CRAFT_LAB_INTERACTIVE_ITEM: DropdownRowItem = {
 		id: 'Lab Kreatif & Mini Game',
 	},
 	subtitle: {
-		en: 'Visual diff split, Stockfish Chess AI (1000–1900 Elo), & Meme SFX',
-		id: 'Komparasi visual, Catur Stockfish AI (1000–1900 Elo), & Meme SFX',
+		en: 'Before/After, Chess AI & Meme SFX',
+		id: 'Before/After, Catur AI & Meme SFX',
 	},
 	hoverBg: 'hover:bg-[#F6EDD6]',
 };
@@ -542,7 +542,7 @@ const NavBar = ({ onSelectCraftTab }: NavBarProps = {}) => {
 						<div className='flex items-center gap-2 min-w-0 flex-1'>
 							<span className='size-2.5 rounded-full bg-[#FFD426] border border-[#050505] shrink-0' />
 							<span className='font-mono text-xs font-black text-[#050505]'>
-								NAVIGATION.MENUBAR
+								MENU
 							</span>
 							<div className='flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
 						</div>

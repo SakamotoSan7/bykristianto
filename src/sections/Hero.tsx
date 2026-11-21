@@ -231,17 +231,14 @@ const Hero = () => {
 									</span>
 									<div className='flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
-								<span className='font-mono text-[10px] font-black px-2 py-0.5 rounded-none bg-[#050505] text-[#5CE62E] shrink-0 select-none'>
-									60 FPS
-								</span>
 							</div>
 
 							<div className='p-4 bg-[#FCF0D3] space-y-3'>
 								<div className='flex items-center justify-between gap-2'>
 									<span className='font-mono text-[11px] font-extrabold text-[#050505] uppercase'>
 										{t({
-											en: 'Tap or glide across cords to pluck them',
-											id: 'Sentuh atau geser kabel untuk memetiknya',
+											en: 'Pluck or drag the studio cords',
+											id: 'Petik atau geser kabel studio',
 										})}
 									</span>
 								</div>
@@ -251,8 +248,8 @@ const Hero = () => {
 										{lastPlucked
 											? `PLUCKED: ${lastPlucked}`
 											: t({
-													en: '4 STUDIO CORDS ACTIVE',
-													id: '4 KABEL STUDIO AKTIF',
+													en: '4 cords ready',
+													id: '4 kabel siap',
 												})}
 									</span>
 
@@ -273,10 +270,10 @@ const Hero = () => {
 										}`}
 									>
 										{sfxLevel === 'full'
-											? t({ en: '♪ SOUND FX: ON', id: '♪ EFEK SUARA: ON' })
+											? '♪ SFX: ON'
 											: sfxLevel === 'low'
-												? t({ en: '♪ SOUND FX: LOW', id: '♪ EFEK SUARA: LOW' })
-												: t({ en: '♪ SOUND FX: OFF', id: '♪ EFEK SUARA: OFF' })}
+												? '♪ SFX: LOW'
+												: '♪ SFX: OFF'}
 									</button>
 								</div>
 							</div>

@@ -37,8 +37,8 @@ const CORE_STRENGTHS: StrengthItem[] = [
 			id: 'Dasar Ilmu Televisi & Film',
 		},
 		desc: {
-			en: 'B.A. in Television & Film (Cum Laude, GPA 3.76). Trained in narrative pacing, visual framing, scripting, and clean audio mixing.',
-			id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76). Terlatih menjaga struktur cerita, ritme editing, komposisi gambar, dan tata suara yang jernih.',
+			en: 'Cum Laude B.A. in Television & Film (GPA 3.76), trained in narrative pacing, visual framing, scripting, and clean mixing.',
+			id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76) yang terlatih dalam ritme cerita, komposisi gambar, naskah, dan tata suara.',
 		},
 	},
 	{
@@ -46,12 +46,12 @@ const CORE_STRENGTHS: StrengthItem[] = [
 		tag: '02 · EDITING + CODE',
 		accent: '#5CE62E',
 		title: {
-			en: 'Video Editing & Animated Code Motion',
-			id: 'Editing Video & Animasi Berbasis Kode',
+			en: 'Editing & Code-Driven Motion',
+			id: 'Editing & Motion Berbasis Kode',
 		},
 		desc: {
-			en: 'Combines timeline editing (Premiere Pro, After Effects, CapCut) with Video-as-Code animation (React & Canvas) for sharp, bespoke visuals.',
-			id: 'Memadukan editing timeline (Premiere Pro, After Effects, CapCut) dengan pendekatan Video-as-Code (React & Canvas) untuk menghasilkan visual yang tajam dan presisi.',
+			en: 'Pairs Premiere Pro, After Effects, and CapCut editing with React & Canvas animation for crisp, non-template visuals.',
+			id: 'Memadukan editing Premiere Pro, After Effects, dan CapCut dengan animasi React & Canvas yang tajam dan presisi.',
 		},
 	},
 	{
@@ -59,21 +59,14 @@ const CORE_STRENGTHS: StrengthItem[] = [
 		tag: '03 · VIDEO + WEB',
 		accent: '#74B9FF',
 		title: {
-			en: 'Video & Website Under One Roof',
-			id: 'Produksi Video Sekaligus Website',
+			en: 'Video & Web Under One Roof',
+			id: 'Video & Web dalam Satu Atap',
 		},
 		desc: {
-			en: 'Beyond vertical (9:16) and horizontal (16:9) video edits, I also design responsive landing pages, company profiles, portfolios, and microsites.',
-			id: 'Selain memproduksi video vertikal (9:16) dan horizontal (16:9), saya juga merancang website landing page, company profile, portofolio, hingga microsite.',
+			en: 'Alongside 9:16 Reels and 16:9 explainers, I build responsive landing pages, company profiles, and custom web showcases.',
+			id: 'Selain video 9:16 dan 16:9, saya juga merancang landing page, company profile, serta website portofolio responsif.',
 		},
 	},
-];
-
-const QUICK_FACTS: LocalizedText[] = [
-	{ en: 'B.A. TV & Film', id: 'S-1 TV & Film' },
-	{ en: '9:16 & 16:9 Video', id: 'Video 9:16 & 16:9' },
-	{ en: 'React & Next.js Web', id: 'Web React & Next.js' },
-	{ en: 'EN & ID Workflow', id: 'Konten EN & ID' },
 ];
 
 const VISITOR_GOALS: VisitorGoalConfig[] = [
@@ -82,29 +75,29 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 		tabLabel: { en: 'Need a Video', id: 'Butuh Video' },
 		badge: { en: 'REELS · PROMO · YOUTUBE', id: 'REELS · PROMO · YOUTUBE' },
 		headline: {
-			en: 'For social media, product promos, & video explainers',
-			id: 'Untuk konten sosial media, promo produk, hingga video explainer',
+			en: 'For social media, promos, & video explainers',
+			id: 'Untuk media sosial, promo produk, & explainer',
 		},
 		points: [
 			{
-				title: { en: 'Vertical 9:16 or Horizontal 16:9', id: 'Format Vertikal 9:16 atau Horizontal 16:9' },
+				title: { en: '9:16 Vertical or 16:9 Widescreen', id: 'Format Vertikal 9:16 atau 16:9' },
 				desc: {
-					en: 'Built specifically for Reels, TikTok, Shorts, YouTube, website hero sections, or campaign decks.',
-					id: 'Disesuaikan untuk Reels, TikTok, Shorts, YouTube, hero website, atau materi presentasi.',
+					en: 'Tailored for Reels, TikTok, Shorts, YouTube, or website hero sections.',
+					id: 'Disesuaikan untuk Reels, TikTok, Shorts, YouTube, atau hero website.',
 				},
 			},
 			{
-				title: { en: 'Free Visual Style & Voice Choice', id: 'Bebas Pilih Gaya Visual & Narator' },
+				title: { en: 'Flexible Visual Style & Voice', id: 'Bebas Pilih Gaya & Suara' },
 				desc: {
-					en: 'Pick a visual direction from the portfolio above and specify your voiceover language and tone (EN/ID), or provide your own recording.',
-					id: 'Bebas memilih gaya visual dari karya di atas beserta karakter suara narator (ID/EN), atau menggunakan rekaman suaramu sendiri.',
+					en: 'Choose any style above plus EN/ID voiceover—or send your own audio.',
+					id: 'Pilih gaya dari portofolio di atas dan narator ID/EN—atau pakai rekamanmu sendiri.',
 				},
 			},
 			{
-				title: { en: 'Scope Tailored to Your Brief', id: 'Hasil Akhir Mengikuti Brief Proyek' },
+				title: { en: 'Scoped Around Your Brief', id: 'Menyesuaikan Brief Proyek' },
 				desc: {
-					en: 'Duration, revision rounds, thumbnails, and subtitle files are adjusted to match your exact video goals.',
-					id: 'Durasi, tahap revisi, thumbnail, maupun file subtitle disesuaikan langsung dengan kebutuhan proyekmu.',
+					en: 'Duration, revisions, thumbnails, and subtitles match your exact goal.',
+					id: 'Durasi, revisi, thumbnail, dan subtitle disesuaikan langsung dengan target proyek.',
 				},
 			},
 		],
@@ -113,7 +106,7 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 			href: '#services',
 		},
 		secondaryCta: {
-			label: { en: 'Send a Project Brief →', id: 'Kirim Brief Proyek →' },
+			label: { en: 'Send a Brief →', id: 'Kirim Brief →' },
 			href: '#contact',
 		},
 	},
@@ -122,29 +115,29 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 		tabLabel: { en: 'Build a Website', id: 'Buat Website' },
 		badge: { en: 'LANDING · PROFILE · CUSTOM', id: 'LANDING · PROFIL · KUSTOM' },
 		headline: {
-			en: 'Fast, responsive websites tailored to your brand',
-			id: 'Website cepat, responsif, dan selaras dengan brand-mu',
+			en: 'Fast, responsive sites built around your brand',
+			id: 'Website cepat dan responsif sesuai karakter brand',
 		},
 		points: [
 			{
-				title: { en: 'Clear Website Options', id: 'Pilihan Jenis Website yang Jelas' },
+				title: { en: 'Landing Page, Profile & Custom Sites', id: 'Landing Page, Profil & Kustom' },
 				desc: {
-					en: 'Landing pages, company profiles, personal portfolios, interactive showcases, or custom concepts.',
-					id: 'Tersedia landing page, company profile, website portofolio, showcase interaktif, maupun konsep kustom.',
+					en: 'Company profiles, portfolios, product pages, and interactive showcases.',
+					id: 'Tersedia landing page, company profile, portofolio, hingga microsite interaktif.',
 				},
 			},
 			{
-				title: { en: 'Responsive Layouts for Mobile & Desktop', id: 'Tampilan Rapi di HP & Desktop' },
+				title: { en: 'Clean on Mobile & Desktop', id: 'Rapi di HP & Laptop' },
 				desc: {
-					en: 'Structured layouts that load smoothly across phones and desktops without clunky generic bloat.',
-					id: 'Struktur halaman jelas, ringan dibuka, dan nyaman diakses pengunjung melalui ponsel maupun laptop.',
+					en: 'Fast-loading layouts designed cleanly without generic template bloat.',
+					id: 'Tata letak ringan, jelas dibaca, dan responsif di berbagai ukuran layar.',
 				},
 			},
 			{
-				title: { en: 'Optional Video Promo Add-On', id: 'Opsional: Tambah Video Promo' },
+				title: { en: 'Optional Promo Video Add-On', id: 'Opsional: Tambah Video Promo' },
 				desc: {
-					en: 'Need a launch video or vertical ad clip embedded cleanly into your site? Both can be produced together.',
-					id: 'Butuh video utama di halaman web atau video peluncuran produk? Keduanya dapat diproduksi sekaligus agar visualnya serasi.',
+					en: 'Bundle a matching promo clip right inside your website launch.',
+					id: 'Dapat dipadukan dengan video promo yang serasi langsung untuk websitemu.',
 				},
 			},
 		],
@@ -162,29 +155,29 @@ const VISITOR_GOALS: VisitorGoalConfig[] = [
 		tabLabel: { en: 'Hire / Team', id: 'Rekrut / Tim' },
 		badge: { en: 'EDITOR · CREATIVE TECH', id: 'EDITOR · CREATIVE TECH' },
 		headline: {
-			en: 'Hiring a Video Editor, Motion Creator, or Creative Technologist?',
-			id: 'Sedang mencari Video Editor, Motion Creator, atau Creative Technologist?',
+			en: 'Hiring a Video Editor or Creative Technologist?',
+			id: 'Mencari Video Editor atau Creative Technologist?',
 		},
 		points: [
 			{
-				title: { en: 'Music Video, TV & Podcast Editing', id: 'Editing Video Musik, TV & Podcast' },
+				title: { en: 'Music Video, TV & Podcast Editing', id: 'Editing MV, TV & Podcast' },
 				desc: {
-					en: 'Hands-on post-production experience across music videos, broadcast TV rough cuts, multi-cam podcasts, and social Reels.',
-					id: 'Pengalaman langsung di pascaproduksi video musik, rough cut program TV, podcast multi-kamera, dan Reels media sosial.',
+					en: 'Experience across music videos, TV rough cuts, multi-cam podcasts, and Reels.',
+					id: 'Pengalaman di video musik, rough cut program TV, podcast multi-kamera, dan Reels.',
 				},
 			},
 			{
-				title: { en: 'End-to-End Script to Final Cut', id: 'Terbiasa dari Naskah hingga Video Final' },
+				title: { en: 'Script to Final Cut & Live Broadcast', id: 'Dari Naskah hingga Siaran Final' },
 				desc: {
-					en: 'Production credits across screenwriting and live broadcast VT playback, backed by disciplined data verification experience at PT ISH (Telkom Indonesia project).',
-					id: 'Berpengalaman sebagai penulis naskah, operator tayangan video siaran (VT playback), serta verifikasi ketelitian data proyek Telkom Indonesia di PT ISH.',
+					en: 'Screenwriting, VT playback operation, plus data validation at PT ISH (Telkom Indonesia).',
+					id: 'Kredit penulisan skenario, operator VT siaran, dan validasi data di PT ISH (Telkom Indonesia).',
 				},
 			},
 			{
-				title: { en: 'Added Frontend Web Capability', id: 'Nilai Tambah Membangun Halaman Web' },
+				title: { en: 'Bonus Frontend Web Skills', id: 'Nilai Tambah Membangun Web' },
 				desc: {
-					en: 'Great fit for creative teams seeking an editor who can also ship campaign microsites, interactive showcases, or web prototypes.',
-					id: 'Nilai plus bagi tim kreatif yang membutuhkan editor video sekaligus mampu membangun landing page atau halaman web interaktif.',
+					en: 'Ready for teams needing an editor who can also ship campaign pages or prototypes.',
+					id: 'Cocok untuk tim kreatif yang butuh editor sekaligus mampu membangun halaman web interaktif.',
 				},
 			},
 		],
@@ -217,55 +210,38 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 		>
 			<div className='max-w-7xl mx-auto px-5 md:px-10'>
 				<div className='grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-8 items-stretch'>
-					{/* LEFT OS WINDOW: Digital Spaghetti Canary Chrome + Clean De-Boxed Content */}
-					<div className='lg:col-span-6 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3] flex flex-col justify-between'>
-						<div>
-							<div className='flex items-center justify-between gap-2 px-4 sm:px-5 py-2.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
-								<div className='flex items-center gap-2 min-w-0 flex-1'>
-									<span className='size-3 rounded-full bg-[#FD6141] border-2 border-[#050505] shrink-0' />
-									<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
-										{t({ en: 'CORE PROFILE · KEY STRENGTHS', id: 'RINGKASAN PROFIL · KEAHLIAN INTI' })}
-									</span>
-									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
-								</div>
-								<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] shrink-0 select-none'>
-									{t({ en: '3 PILLARS', id: '3 PILAR' })}
+					{/* LEFT OS WINDOW: Digital Spaghetti Canary Chrome */}
+					<div className='lg:col-span-6 ds-os-window rounded-md overflow-hidden bg-[#FCF0D3] flex flex-col justify-center'>
+						<div className='flex items-center justify-between gap-2 px-4 sm:px-5 py-2.5 bg-[#FFD426] border-b-[3px] border-[#050505]'>
+							<div className='flex items-center gap-2 min-w-0 flex-1'>
+								<span className='size-3 rounded-full bg-[#FD6141] border-2 border-[#050505] shrink-0' />
+								<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
+									{t({ en: 'CORE PROFILE', id: 'PROFIL INTI' })}
 								</span>
-							</div>
-
-							<div className='px-5 sm:px-6 divide-y divide-dashed divide-[#050505]/20'>
-								{CORE_STRENGTHS.map((item) => (
-									<div key={item.id} className='py-4 sm:py-5'>
-										<div className='flex items-center gap-2 mb-1'>
-											<span
-												className='size-2.5 rounded-full border border-[#050505] shrink-0'
-												style={{ backgroundColor: item.accent }}
-												aria-hidden='true'
-											/>
-											<span className='font-mono text-[10px] font-black tracking-wider text-[#3B404C] uppercase select-none'>
-												{item.tag}
-											</span>
-										</div>
-										<h3 className='font-display font-black text-base sm:text-lg text-[#050505] leading-snug'>
-											{t(item.title)}
-										</h3>
-										<p className='text-[13px] sm:text-sm text-[#3B404C] leading-relaxed mt-1'>
-											{t(item.desc)}
-										</p>
-									</div>
-								))}
+								<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 							</div>
 						</div>
 
-						{/* Concise Borderless Summary Strip */}
-						<div className='px-5 sm:px-6 py-3.5 bg-[#F6EDD6] border-t-2 border-[#050505]/20 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px] font-bold text-[#050505] select-none'>
-							{QUICK_FACTS.map((fact, idx) => (
-								<span key={fact.en} className='inline-flex items-center gap-2'>
-									{idx > 0 && (
-										<span className='text-[#050505]/30' aria-hidden='true'>·</span>
-									)}
-									<span>{t(fact)}</span>
-								</span>
+						<div className='px-5 sm:px-6 divide-y divide-dashed divide-[#050505]/20 flex-1 flex flex-col justify-center'>
+							{CORE_STRENGTHS.map((item) => (
+								<div key={item.id} className='py-4 sm:py-5'>
+									<div className='flex items-center gap-2 mb-1'>
+										<span
+											className='size-2.5 rounded-full border border-[#050505] shrink-0'
+											style={{ backgroundColor: item.accent }}
+											aria-hidden='true'
+										/>
+										<span className='font-mono text-[10px] font-black tracking-wider text-[#3B404C] uppercase select-none'>
+											{item.tag}
+										</span>
+									</div>
+									<h3 className='font-display font-black text-base sm:text-lg text-[#050505] leading-snug'>
+										{t(item.title)}
+									</h3>
+									<p className='text-[13px] sm:text-sm text-[#3B404C] leading-relaxed mt-1'>
+										{t(item.desc)}
+									</p>
+								</div>
 							))}
 						</div>
 					</div>
@@ -277,13 +253,10 @@ const StudioDeskSection = ({ onSelectServiceTrack }: StudioDeskSectionProps = {}
 								<div className='flex items-center gap-2 min-w-0 flex-1'>
 									<span className='size-3 rounded-full bg-[#FFD426] border-2 border-[#050505] shrink-0' />
 									<span className='font-mono text-[11px] font-black uppercase tracking-wider text-[#050505] truncate'>
-										{t({ en: 'COLLABORATION GUIDE', id: 'PANDUAN KOLABORASI' })}
+										{t({ en: 'HOW WE CAN WORK', id: 'CARA KOLABORASI' })}
 									</span>
 									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
-								<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FCF0D3] shrink-0 select-none'>
-									{t({ en: 'QUICK GUIDE', id: 'PANDUAN SINGKAT' })}
-								</span>
 							</div>
 
 							{/* Unified Clean 3-Tab Switcher with Tactile Active Pop */}

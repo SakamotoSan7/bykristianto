@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import {
-	AudioIcon,
 	CheckIcon,
 	CodeIcon,
 	FilmIcon,
-	LayersIcon,
 } from '../components/Icons';
 import TitleHeader from '../components/TitleHeader';
 import { ServicePackageArtwork } from '../components/SpaghettiArt';
@@ -238,8 +236,8 @@ const ServicesSection = ({
 					})}
 					badgeColor='red'
 					description={t({
-						en: 'Organized cleanly into Video Production and Website Builds. Pick a category below to compare packages.',
-						id: 'Dipisahkan rapi antara Produksi Video dan Pembuatan Website. Pilih kategori di bawah untuk melihat paket yang paling sesuai.',
+						en: 'Pick Video Production or Website Builds below to compare packages.',
+						id: 'Pilih kategori Produksi Video atau Pembuatan Website di bawah.',
 					})}
 				/>
 
@@ -305,47 +303,15 @@ const ServicesSection = ({
 				{/* TRACK 01: VIDEO PRODUCTION */}
 				{activeTrack === 'video' ? (
 					<div className='mt-8 space-y-6'>
-						{/* Unified Flexibility Strip (Clean Typography, Zero Box-in-Box) */}
-						<div className='rounded-md border-2 border-[#050505]/80 bg-[#FCF0D3] grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-dashed divide-[#050505]/20'>
-							<div className='flex items-start gap-3 p-4 sm:p-5'>
-								<span className='size-8 rounded border border-[#050505] bg-[#FFD426] flex items-center justify-center shrink-0 text-[#050505]'>
-									<LayersIcon className='size-4' />
-								</span>
-								<div>
-									<p className='font-display font-black text-sm text-[#050505]'>
-										{t({
-											en: 'Free Choice of Visual Style',
-											id: 'Bebas Pilih Gaya Visual',
-										})}
-									</p>
-									<p className='text-xs text-[#3B404C] mt-0.5 leading-relaxed'>
-										{t({
-											en: 'Choose from motion collage, 3D/isometric, clean UI showcase, claymation look, or share your own video reference.',
-											id: 'Tersedia gaya kolase, 3D/isometrik, animasi UI produk, clay, atau kirimkan referensi visual yang kamu sukai.',
-										})}
-									</p>
-								</div>
-							</div>
-
-							<div className='flex items-start gap-3 p-4 sm:p-5'>
-								<span className='size-8 rounded border border-[#050505] bg-[#4D9DE0] flex items-center justify-center shrink-0 text-[#050505]'>
-									<AudioIcon className='size-4' />
-								</span>
-								<div>
-									<p className='font-display font-black text-sm text-[#050505]'>
-										{t({
-											en: 'Flexible Voiceover & Language',
-											id: 'Bebas Pilih Suara & Bahasa',
-										})}
-									</p>
-									<p className='text-xs text-[#3B404C] mt-0.5 leading-relaxed'>
-										{t({
-											en: 'Available in Indonesian or English: choose the voice character you want, or supply your own audio recording.',
-											id: 'Tersedia dalam Bahasa Indonesia atau Inggris: kamu bebas menentukan karakter narator atau memakai rekaman suaramu sendiri.',
-										})}
-									</p>
-								</div>
-							</div>
+						{/* Concise Flexibility Strip */}
+						<div className='rounded-md border-2 border-[#050505] bg-[#FCF0D3] px-4 sm:px-5 py-3 flex items-center gap-2.5'>
+							<CheckIcon className='size-4 text-[#2E6B47] shrink-0' />
+							<p className='text-xs sm:text-[13px] font-bold text-[#050505]'>
+								{t({
+									en: 'All packages include flexible visual style & EN/ID voiceover (or your own recording).',
+									id: 'Semua paket bebas pilih gaya visual & narator EN/ID (atau rekaman suaramu sendiri).',
+								})}
+							</p>
 						</div>
 
 						{/* 4 Video Service Cards */}
@@ -416,14 +382,6 @@ const ServicesSection = ({
 											</li>
 										))}
 									</ul>
-
-									<p className='font-mono text-[11px] font-bold text-[#5CE62E] pt-1'>
-										↓{' '}
-										{t({
-											en: 'Toggle "+ Add-On Video Promo" on any website card below to include it.',
-											id: 'Aktifkan "+ Add-On Video Promo" di kartu website pilihanmu di bawah ini.',
-										})}
-									</p>
 								</div>
 							</div>
 						</aside>

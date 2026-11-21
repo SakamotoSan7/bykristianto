@@ -682,8 +682,8 @@ export const WORKFLOW_STEPS: {
 		step: '01',
 		title: { en: 'Story Hook & Fact Check', id: 'Riset Fakta & Hook Pembuka' },
 		desc: {
-			en: 'Strong 3-second opening hooks backed by verified research and real sources, zero generic filler.',
-			id: 'Hook pembuka 3 detik pertama yang kuat, berlandaskan riset dan sumber terverifikasi tanpa basa-basi.',
+			en: '3-second opening hooks grounded in verified research and real sources.',
+			id: 'Hook 3 detik pertama berbasis riset dan sumber terverifikasi.',
 		},
 		tag: { en: 'Film & TV', id: 'Film & TV' },
 	},
@@ -691,17 +691,17 @@ export const WORKFLOW_STEPS: {
 		step: '02',
 		title: { en: 'Voice-First Pacing', id: 'Ritme Suara & Timing' },
 		desc: {
-			en: 'Narration rhythm and natural breathing pauses are locked in first before any animation starts.',
-			id: 'Tempo narasi dan jeda napas alami dikunci lebih dulu sebelum gerakan visual dibuat.',
+			en: 'Narration tempo and natural pauses are locked before animation starts.',
+			id: 'Tempo narasi dan jeda napas dikunci lebih dulu sebelum animasi dibuat.',
 		},
 		tag: { en: 'Voice Pacing', id: 'Ritme Suara' },
 	},
 	{
 		step: '03',
-		title: { en: 'Code-Driven Motion (Video-as-Code)', id: 'Animasi Berbasis Kode (Video-as-Code)' },
+		title: { en: 'Code-Driven Motion', id: 'Animasi Berbasis Kode' },
 		desc: {
-			en: 'Building custom charts, illustrations, and kinetic visuals in code (Remotion, Canvas 2D, Three.js) for crisp, non-template quality.',
-			id: 'Membangun grafik, ilustrasi, dan animasi presisi menggunakan kode (Remotion, Canvas 2D, Three.js) agar tidak terlihat seperti template pasaran.',
+			en: 'Custom charts and motion in Remotion, Canvas 2D, and Three.js without stock templates.',
+			id: 'Grafik dan animasi kustom via Remotion, Canvas 2D, dan Three.js tanpa template pasaran.',
 		},
 		tag: { en: 'Video-as-Code', id: 'Video-as-Code' },
 	},
@@ -709,8 +709,8 @@ export const WORKFLOW_STEPS: {
 		step: '04',
 		title: { en: 'Editing & Sound Mix', id: 'Editing Akhir & Tata Suara' },
 		desc: {
-			en: 'Hands-on assembly in Premiere Pro, After Effects, or CapCut with safe captions, real sound effects (SFX / foley), and clean narration audio.',
-			id: 'Penyelesaian akhir di Premiere Pro, After Effects, atau CapCut dengan subtitle rapi, efek suara nyata (SFX / foley), dan narasi jernih.',
+			en: 'Premiere Pro, After Effects, or CapCut assembly with safe captions and SFX/foley.',
+			id: 'Finishing di Premiere Pro, After Effects, atau CapCut dengan subtitle rapi dan SFX.',
 		},
 		tag: { en: 'Final Mix', id: 'Final Mix' },
 	},
@@ -760,13 +760,13 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 			id: '9:16 Vertikal · TikTok / Reels / Shorts',
 		},
 		summary: {
-			en: 'Fast-paced vertical videos designed to capture attention immediately and keep viewers watching until the end.',
-			id: 'Video vertikal berdurasi singkat dengan ritme padat agar penonton langsung tertarik dan menonton hingga tuntas.',
+			en: 'Punchy vertical videos built to hook attention early and hold watch time.',
+			id: 'Video vertikal bertempo padat yang memikat di detik awal hingga akhir.',
 		},
 		deliverables: [
-			{ en: 'Strong opening hook & structured pacing', id: 'Hook pembuka kuat dengan ritme padat dan tepat sasaran' },
-			{ en: 'Free choice of visual style & voiceover (EN/ID)', id: 'Bebas memilih gaya visual & pengisi suara (ID/EN)' },
-			{ en: 'Clean subtitles in app-safe zones + crisp SFX', id: 'Subtitle rapi di area aman aplikasi + efek suara tajam' },
+			{ en: 'Strong opening hook & structured pacing', id: 'Hook pembuka kuat & ritme padat' },
+			{ en: 'Any visual style & EN/ID voiceover', id: 'Bebas pilih gaya visual & narator ID/EN' },
+			{ en: 'Safe-zone subtitles + crisp SFX', id: 'Subtitle area aman + efek suara tajam' },
 		],
 	},
 	{
@@ -785,13 +785,13 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 			id: 'Vertikal (9:16) atau Horizontal (16:9)',
 		},
 		summary: {
-			en: 'Clear promotional videos showing your product or service benefits visually, ready for social ads, marketplaces, or websites.',
-			id: 'Video promosi yang menonjolkan keunggulan produk atau bisnismu secara visual, siap untuk iklan media sosial maupun disematkan di website.',
+			en: 'Promotional clips highlighting your product value visually for ads, socials, or landing pages.',
+			id: 'Video promosi yang menonjolkan keunggulan produk untuk iklan, sosmed, atau website.',
 		},
 		deliverables: [
-			{ en: 'Choose vertical (Reels/Ads) or horizontal (Web/Presentation)', id: 'Bebas pilih format vertikal (iklan/sosmed) atau horizontal (web/presentasi)' },
-			{ en: 'Clear visual showcase of benefits & call-to-action', id: 'Menjelaskan keunggulan & nilai jual produk secara menarik' },
-			{ en: 'Request any visual style & preferred narrator voice', id: 'Gaya visual & pilihan suara narator menyesuaikan kebutuhan brand' },
+			{ en: 'Vertical (Reels/Ads) or horizontal (Web) cut', id: 'Pilih format vertikal (iklan) atau horizontal (web)' },
+			{ en: 'Clear product benefits & CTA framing', id: 'Menampilkan keunggulan & CTA secara jelas' },
+			{ en: 'Custom visual style & voice character', id: 'Gaya visual & narator menyesuaikan brand' },
 		],
 	},
 	{
@@ -810,13 +810,13 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 			id: '16:9 Horizontal · Durasi Panjang',
 		},
 		summary: {
-			en: 'In-depth YouTube videos, explainers, tutorials, or brand stories edited cleanly with structured pacing so viewers stay hooked.',
-			id: 'Video YouTube durasi panjang, konten edukasi, esai visual, atau storytelling brand yang disusun rapi agar nyaman ditonton hingga akhir.',
+			en: 'In-depth YouTube essays, explainers, and tutorials paced smoothly from intro to finale.',
+			id: 'Video YouTube, explainer, dan edukasi dengan alur cerita rapi dari awal sampai akhir.',
 		},
 		deliverables: [
-			{ en: 'Smooth storytelling flow from intro to finale', id: 'Alur cerita tersusun rapi dari pembuka hingga penutup' },
-			{ en: 'Custom explanatory graphics & illustrations matching topic', id: 'Visual penjelas & animasi menyesuaikan tema video' },
-			{ en: 'Clear narration mix, music bed & balanced sound effects', id: 'Keseimbangan audio vokal yang jernih dengan musik latar & SFX' },
+			{ en: 'Cohesive storytelling arc & pacing', id: 'Alur cerita rapi dari pembuka hingga penutup' },
+			{ en: 'Custom charts & explanatory graphics', id: 'Grafik penjelas & animasi sesuai topik' },
+			{ en: 'Voice-first mix with music bed & SFX', id: 'Audio vokal jernih, musik latar & SFX seimbang' },
 		],
 	},
 	{
@@ -835,13 +835,13 @@ export const VIDEO_SERVICE_PACKAGES: ServicePackage[] = [
 			id: 'Format, Durasi & Gaya Sesuai Kebutuhanmu',
 		},
 		summary: {
-			en: 'Have another video format or reference in mind? Just explain what you want, and we will tailor the style, pacing, and voice around your brief.',
-			id: 'Punya ide atau format video lain di luar daftar di atas? Ceritakan kebutuhanmu beserta contoh referensinya agar kita wujudkan bersama.',
+			en: 'Have a specific format or reference? Share your brief and we will tailor the style and pacing around it.',
+			id: 'Punya ide atau referensi khusus? Sampaikan brief agar gaya dan ritmenya dirancang sesuai kebutuhanmu.',
 		},
 		deliverables: [
-			{ en: 'Share your concept with no rigid package limits', id: 'Ceritakan konsepnya secara bebas tanpa terpaku format kaku' },
-			{ en: 'Flexible aspect ratio, duration & editing approach', id: 'Rasio layar, durasi & gaya editing menyesuaikan brief' },
-			{ en: 'Pick any voiceover style, language, or supply your own audio', id: 'Bebas memilih bahasa, karakter suara, atau memakai rekaman suaramu sendiri' },
+			{ en: 'Open concept without rigid package limits', id: 'Konsep bebas tanpa terpaku paket kaku' },
+			{ en: 'Flexible aspect ratio & duration', id: 'Rasio layar & durasi menyesuaikan brief' },
+			{ en: 'EN/ID voiceover or your own audio track', id: 'Narator EN/ID atau rekaman suaramu sendiri' },
 		],
 	},
 ];
@@ -863,13 +863,13 @@ export const WEBSITE_VIDEO_BUNDLE_PROMO: ServicePackage = {
 		id: 'Padukan Paket Website Apa Saja + 1 Video Promo Kustom',
 	},
 	summary: {
-		en: 'Need a matching Promo Video embedded cleanly on your new website and ready to post on social media? Activate the "+ Add-On Video Promo" switch right inside any website card below.',
-		id: 'Butuh Video Promo yang desainnya selaras dengan website sekaligus siap diunggah ke media sosial? Aktifkan tombol "+ Add-On Video Promo" pada kartu layanan website pilihanmu di bawah.',
+		en: 'Need a promo video matching your new site? Toggle "+ Add-On Video Promo" inside any website card below.',
+		id: 'Butuh video promo yang serasi dengan website baru? Aktifkan "+ Add-On Video Promo" di kartu website di bawah.',
 	},
 	deliverables: [
-		{ en: 'Works with Landing Page, Compro, Portfolio, Microsite, or Custom Web', id: 'Dapat dipadukan dengan Landing Page, Compro, Portofolio, Microsite, atau Kustom' },
-		{ en: 'Includes 1 custom Promo Video (9:16 or 16:9, style & voice free)', id: 'Termasuk 1 Video Promo kustom (9:16 atau 16:9, bebas pilih gaya & suara)' },
-		{ en: 'Cohesive colors & branding shared across site and video', id: 'Identitas warna dan visual website dibuat serasi dengan videonya' },
+		{ en: 'Pairs with any website package below', id: 'Cocok dipadukan dengan semua paket web di bawah' },
+		{ en: 'Includes 1 custom 9:16 or 16:9 promo video', id: 'Termasuk 1 video promo kustom (9:16 atau 16:9)' },
+		{ en: 'Unified colors & branding across site and video', id: 'Warna & identitas visual serasi di web dan video' },
 	],
 };
 
@@ -891,13 +891,13 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 			id: '1 Halaman · Khusus Penawaran, Promo, atau Produk',
 		},
 		summary: {
-			en: 'A focused single-page website built to present one offer, product, or event clearly and convert visitors into inquiries.',
-			id: 'Website satu halaman yang dirancang terfokus untuk memperkenalkan satu produk, penawaran, atau acara agar pengunjung lebih mudah menghubungi atau memesan.',
+			en: 'A focused single page built to present one offer clearly and convert visitors into inquiries.',
+			id: 'Website satu halaman yang terfokus untuk menjelaskan penawaran dan mendorong kontak langsung.',
 		},
 		deliverables: [
-			{ en: 'Clear offer structure & direct WhatsApp/form buttons', id: 'Struktur penawaran jelas + tombol WhatsApp & formulir langsung' },
-			{ en: 'Clean responsive display on phones & desktops', id: 'Tampilan responsif dan rapi di ponsel maupun desktop' },
-			{ en: 'Optional bilingual EN/ID switch & hero media slot', id: 'Opsi dwibahasa EN/ID serta slot showcase foto/video utama' },
+			{ en: 'Clear offer flow & WhatsApp/form CTAs', id: 'Alur penawaran jelas + tombol WhatsApp & formulir' },
+			{ en: 'Responsive layout on mobile & desktop', id: 'Tampilan rapi di ponsel maupun desktop' },
+			{ en: 'Optional EN/ID toggle & hero media slot', id: 'Opsi dwibahasa EN/ID & slot media utama' },
 		],
 	},
 	{
@@ -917,13 +917,13 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 			id: 'Website Resmi Bisnis, Usaha, atau Instansi',
 		},
 		summary: {
-			en: 'Professional business website introducing who you are, what services you provide, past highlights, and how clients reach you.',
-			id: 'Website resmi untuk memperkenalkan profil usaha, daftar layanan, rekam jejak, dan kontak resmi agar bisnismu tampil lebih kredibel.',
+			en: 'Credible business site presenting your profile, services, highlights, and direct contact.',
+			id: 'Website resmi untuk memperkenalkan profil usaha, layanan, portofolio, dan kontak klien.',
 		},
 		deliverables: [
-			{ en: 'Complete About, Services, Gallery & Contact sections', id: 'Halaman Profil, Layanan, Galeri/Klien & Kontak lengkap' },
-			{ en: 'Custom color palette & layout matching your brand identity', id: 'Desain menyesuaikan logo, warna, & karakter usahamu' },
-			{ en: 'Structured inquiry flow to official WhatsApp & email', id: 'Alur pertanyaan klien terstruktur ke WhatsApp & email resmi' },
+			{ en: 'About, Services, Gallery & Contact sections', id: 'Halaman Profil, Layanan, Galeri & Kontak lengkap' },
+			{ en: 'Custom palette & typography matching brand', id: 'Warna & desain menyesuaikan karakter usaha' },
+			{ en: 'Direct inquiry flow to WhatsApp & email', id: 'Alur pertanyaan langsung ke WhatsApp & email' },
 		],
 	},
 	{
@@ -943,13 +943,13 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 			id: 'Website Portofolio, Profil Pribadi, & CV Online',
 		},
 		summary: {
-			en: 'Personal showcase website built to display your best works, skills, and experience cleanly so clients or recruiters notice you.',
-			id: 'Website pribadi untuk menampilkan kumpulan karya terbaik, riwayat pengalaman, dan keahlianmu secara rapi agar memikat klien maupun rekruter.',
+			en: 'Personal showcase built to display your best works, experience, and CV cleanly.',
+			id: 'Website pribadi untuk menampilkan karya terbaik, pengalaman kerja, dan CV dengan rapi.',
 		},
 		deliverables: [
-			{ en: 'Clean project showcase with image/video preview modal', id: 'Galeri karya rapi lengkap dengan pratinjau foto/video' },
-			{ en: 'Personal bio, work history & easy contact links', id: 'Profil singkat, pengalaman kerja, & tautan kontak langsung' },
-			{ en: 'Built-in project breakdown & easy CV/reel access', id: 'Ringkasan studi kasus karya & akses cepat CV maupun showreel' },
+			{ en: 'Work gallery with image/video preview modal', id: 'Galeri karya dengan pratinjau foto atau video' },
+			{ en: 'Bio, experience timeline & direct links', id: 'Profil, pengalaman kerja & tautan kontak langsung' },
+			{ en: 'Case study breakdown & CV/showreel access', id: 'Ringkasan studi kasus & akses cepat CV/showreel' },
 		],
 	},
 	{
@@ -969,13 +969,13 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 			id: 'Website Interaktif Penuh Animasi & Eksplorasi',
 		},
 		summary: {
-			en: 'A standout interactive website (similar to this portfolio!) with playful animations and clickable elements that make your brand memorable.',
-			id: 'Website unik dengan animasi halus dan elemen interaktif yang bisa dijelajahi langsung (seperti situs ini) agar karakter brand-mu lebih berkesan.',
+			en: 'Standout interactive site with custom motion and clickable elements that make your brand memorable.',
+			id: 'Website interaktif penuh karakter dengan animasi halus dan elemen yang bisa dijelajahi langsung.',
 		},
 		deliverables: [
-			{ en: 'Custom interactive UI, motion & optional sound accents', id: 'Elemen interaktif unik, animasi mulus, & efek suara opsional' },
-			{ en: 'Original personality far beyond generic templates', id: 'Tampilan berkarakter dan berbeda dari template umum' },
-			{ en: 'Smooth performance tested on mobile & desktop screens', id: 'Performa halus yang diuji langsung di layar ponsel maupun desktop' },
+			{ en: 'Custom interactive UI, motion & optional SFX', id: 'Elemen interaktif unik, animasi & SFX opsional' },
+			{ en: 'Bespoke personality beyond stock templates', id: 'Tampilan orisinal, jauh dari template pasaran' },
+			{ en: 'Tested smooth on mobile & desktop screens', id: 'Performa halus teruji di layar HP dan laptop' },
 		],
 	},
 	{
@@ -995,13 +995,13 @@ export const WEB_SERVICE_PACKAGES: ServicePackage[] = [
 			id: 'Konsep, Halaman & Fitur Bebas Sesuai Kebutuhan',
 		},
 		summary: {
-			en: 'Need a website format not listed here or have specific features in mind? Share your goals and I will build it specifically around your brief.',
-			id: 'Butuh website dengan konsep, jumlah halaman, atau fitur khusus lainnya? Sampaikan kebutuhanmu agar dapat saya rancang langsung sesuai brief.',
+			en: 'Have specific pages or features in mind? Share your goals and I will build around your brief.',
+			id: 'Butuh struktur halaman atau fitur khusus? Sampaikan kebutuhanmu untuk dirancang sesuai brief.',
 		},
 		deliverables: [
-			{ en: 'Just explain what your website needs to accomplish', id: 'Cukup ceritakan tujuan & fitur website yang kamu butuhkan' },
-			{ en: 'Custom layout, fast performance & mobile friendly', id: 'Desain kustom, ringan diakses, & rapi di semua ukuran layar' },
-			{ en: 'Flexible page structure & clean repository handoff', id: 'Struktur halaman fleksibel dengan serah terima kode yang rapi' },
+			{ en: 'Describe what your site needs to accomplish', id: 'Ceritakan tujuan & fitur yang dibutuhkan' },
+			{ en: 'Custom layout, fast load & mobile-ready', id: 'Desain kustom, ringan, & rapi di semua layar' },
+			{ en: 'Flexible structure & clean code handoff', id: 'Struktur halaman fleksibel & kode siap pakai' },
 		],
 	},
 ];

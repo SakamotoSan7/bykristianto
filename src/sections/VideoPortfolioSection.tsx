@@ -102,16 +102,11 @@ const VideoPortfolioSection = ({
 						en: 'Selected Video & Motion Explainer Works',
 						id: 'Karya Video & Motion Explainer Terpilih',
 					})}
-					bullets={[
-						t({ en: '9:16 Vertical Reels', id: 'Reels Vertikal 9:16' }),
-						t({ en: '16:9 Widescreen Explainers', id: 'Explainer Layar Lebar 16:9' }),
-						t({ en: 'Motion Code & Premiere', id: 'Motion Kode & Premiere' }),
-					]}
 					badgeColor='yellow'
 					onDarkMat
 					description={t({
-						en: 'Click any card to watch the full video alongside its production notes. Works badged with CC also include toggleable subtitles.',
-						id: 'Klik kartu mana saja untuk menonton video penuh sekaligus membaca catatan produksinya. Video berlabel CC juga dilengkapi tombol subtitle.',
+						en: 'Click any video to watch with production notes.',
+						id: 'Klik video mana saja untuk menonton lengkap dengan catatan produksi.',
 					})}
 				/>
 

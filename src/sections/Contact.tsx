@@ -416,14 +416,10 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 							<div className='flex items-center gap-2 min-w-0 flex-1'>
 								<span className='size-3.5 rounded-xs bg-[#5CE62E] border-2 border-[#050505] inline-block shrink-0' />
 								<span className='font-mono text-[11px] sm:text-xs font-black text-[#050505] truncate'>
-									<span className='hidden sm:inline'>PRODUCTION_DISPATCH_2026.FORM</span>
-									<span className='sm:hidden'>DISPATCH_2026.FORM</span>
+									PROJECT_BRIEF.FORM
 								</span>
 								<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 							</div>
-							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] text-[#5CE62E] font-mono text-[10px] font-bold shrink-0 whitespace-nowrap'>
-								{t({ en: 'WA FIRST · EMAIL READY', id: 'WA CEPAT · EMAIL SIAP' })}
-							</span>
 						</div>
 
 						<div className='p-6 sm:p-8'>
@@ -433,8 +429,8 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 								</h3>
 								<p className='text-xs sm:text-sm text-[#3B404C] mt-1'>
 									{t({
-										en: 'Fill out the form below to open a pre-filled WhatsApp chat ready to send, or use Email as an alternative.',
-										id: 'Isi formulir di bawah lalu tekan Kirim via WhatsApp agar pesan otomatis tersusun dan siap dikirim, atau gunakan opsi Email.',
+										en: 'Send a brief directly via WhatsApp or Email.',
+										id: 'Kirim brief langsung lewat WhatsApp atau Email.',
 									})}
 								</p>
 							</div>
@@ -613,7 +609,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 						</div>
 					</div>
 
-					{/* Right: Production Standards & Direct Channels Card */}
+					{/* Right: Direct Channels Card */}
 					<div className='lg:col-span-5 ds-panel rounded-md p-6 sm:p-8 space-y-5 bg-[#FCF0D3]'>
 						<div className='flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] font-bold'>
 							<span className='inline-flex items-center gap-1.5 text-[#050505]'>
@@ -621,7 +617,7 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 								<span>{t({ en: 'AVAILABLE FOR PROJECTS', id: 'SIAP UNTUK PROYEK' })}</span>
 							</span>
 							<span className='font-black text-[#3886C0]'>
-								{t({ en: 'INDONESIA · REMOTE READY', id: 'INDONESIA · SIAP REMOTE' })}
+								{t({ en: 'INDONESIA · REMOTE', id: 'INDONESIA · REMOTE' })}
 							</span>
 						</div>
 
@@ -642,49 +638,10 @@ const Contact = ({ preselectedSelection = null }: ContactProps) => {
 										id: 'Video Editor & Creative Producer',
 									})}
 								</p>
-								<p className='text-[11px] text-[#3B404C] leading-snug'>
-									{t({
-										en: 'Direct reply via WhatsApp or Email · Remote ID / Global',
-										id: 'Respons langsung via WhatsApp atau Email · Remote ID / Global',
-									})}
-								</p>
 							</div>
 						</div>
 
-						<h3 className='font-display font-black text-xl text-[#050505]'>
-							{t({
-								en: 'Production Standards',
-								id: 'Standar Kerja',
-							})}
-						</h3>
-
-						<ul className='space-y-2.5 text-sm text-[#050505]'>
-							{[
-								{
-									en: 'Film & TV storytelling structure paired with well-paced editing.',
-									id: 'Struktur cerita berlatar Televisi & Film dengan ritme editing yang terukur.',
-								},
-								{
-									en: 'Clean visual composition and responsive mobile-friendly web layouts.',
-									id: 'Komposisi visual yang bersih serta tata letak web yang rapi di ponsel maupun desktop.',
-								},
-								{
-									en: 'Clear voice-first mixing paired with real recorded sound effects (SFX & foley).',
-									id: 'Mixing narasi voice-first yang jernih bersama efek suara nyata (SFX & foley).',
-								},
-								{
-									en: 'Fluent in both English (TOEFL 610) & Indonesian.',
-									id: 'Menangani proyek dwibahasa (Inggris TOEFL 610 & Indonesia).',
-								},
-							].map((point) => (
-								<li key={point.en} className='flex items-start gap-2.5'>
-									<CheckIcon className='size-4 text-[#39754F] shrink-0 mt-0.5' />
-									<span className='leading-relaxed'>{t(point)}</span>
-								</li>
-							))}
-						</ul>
-
-						<div className='pt-4 border-t border-dashed border-[#050505]/20 space-y-3 font-mono text-xs'>
+						<div className='space-y-3 font-mono text-xs'>
 							<p className='font-black text-[#3B404C] uppercase'>
 								{t({ en: 'Direct Channels:', id: 'Kontak Resmi:' })}
 							</p>

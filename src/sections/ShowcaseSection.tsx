@@ -32,8 +32,8 @@ const ShowcaseSection = () => {
 					})}
 					badgeColor='green'
 					description={t({
-						en: 'Interactive web projects alongside the video editing, motion, audio, and web tools I use daily.',
-						id: 'Proyek web interaktif beserta daftar tools video editing, motion, audio, dan pengembangan web yang digunakan sehari-hari.',
+						en: 'Web projects and daily production tools.',
+						id: 'Proyek web pilihan dan tools produksi harian.',
 					})}
 				/>
 
@@ -166,12 +166,6 @@ const ShowcaseSection = () => {
 								</span>
 								<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 							</div>
-							<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FFD426] shrink-0 select-none'>
-								{t({
-									en: `${CREATIVE_TOOLS.length} CORE TOOLS`,
-									id: `${CREATIVE_TOOLS.length} ALAT UTAMA`,
-								})}
-							</span>
 						</div>
 
 						<div className='p-5 sm:p-6'>
@@ -211,12 +205,6 @@ const ShowcaseSection = () => {
 									</span>
 									<div className='hidden sm:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 								</div>
-								<span className='px-2 py-0.5 rounded-[2px] bg-[#050505] font-mono text-[10px] font-black text-[#FCF0D3] shrink-0 select-none'>
-									{t({
-										en: `${WEB_TECH_STACK.length} TECH ITEMS`,
-										id: `${WEB_TECH_STACK.length} TEKNOLOGI`,
-									})}
-								</span>
 							</div>
 
 							<div className='p-5 sm:p-6'>

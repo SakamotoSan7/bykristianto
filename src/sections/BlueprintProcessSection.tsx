@@ -388,8 +388,8 @@ const BlueprintProcessSection = ({
 					})}
 					badgeColor='yellow'
 					description={t({
-						en: 'From fact-checked storytelling and code-based animation (Video-as-Code) to Premiere/AE editing and clean voice-first mixing.',
-						id: 'Dari riset naskah terverifikasi dan animasi berbasis kode (Video-as-Code) hingga editing Premiere/AE dan mixing audio jernih.',
+						en: 'Fact-checked hooks, code-driven motion, Premiere/AE cuts, and clean audio mixing.',
+						id: 'Hook berbasis riset, animasi kode, editing Premiere/AE, dan mixing audio jernih.',
 					})}
 				/>
 
@@ -440,10 +440,6 @@ const BlueprintProcessSection = ({
 							</p>
 							<div className='hidden xl:block flex-1 h-2.5 ds-titlebar-grips' aria-hidden='true' />
 						</div>
-
-						<span className='px-2.5 py-0.5 rounded-[2px] bg-[#FCF0D3] border-[1.5px] border-[#050505] font-mono text-[10px] font-black text-[#050505] uppercase tracking-wider shrink-0 select-none'>
-							{t({ en: '3 INTERACTIVE MODES', id: '3 MODE INTERAKTIF' })}
-						</span>
 					</div>
 
 					{/* Unified Calm Inactive Tabs (Tactile Shadow) + Bold Signature Active State */}
@@ -687,15 +683,6 @@ const BlueprintProcessSection = ({
 													? 'bg-[#1A2636] text-[#FFFFFF]'
 													: 'bg-[#1A2636] text-[#FCF0D3]';
 
-								const deckStripClass =
-									gamePhase === 'ready' || gamePhase === 'playing_seq'
-										? 'bg-[#FFD426] text-[#050505]'
-										: gamePhase === 'awaiting_input' || gamePhase === 'level_clear'
-											? 'bg-[#5CE62E] text-[#050505]'
-											: gamePhase === 'gameover'
-												? 'bg-[#FD6141] text-[#050505]'
-												: 'bg-[#202736] text-[#FCF0D3]';
-
 								const padWellRingClass =
 									gamePhase === 'playing_seq'
 										? 'ring-inset ring-[3px] ring-[#FFD426]'
@@ -861,8 +848,8 @@ const BlueprintProcessSection = ({
 																</span>
 																<span className='font-black text-[11px] sm:text-xs truncate min-w-0'>
 																	{t({
-																		en: `Lvl ${level} · Memorize ${sequence.length} sounds`,
-																		id: `Lvl ${level} · Hafalkan ${sequence.length} suara`,
+																		en: `Lvl ${level} · Step ${demoStepNum ?? '…'}/${sequence.length}`,
+																		id: `Lvl ${level} · Langkah ${demoStepNum ?? '…'}/${sequence.length}`,
 																	})}
 																</span>
 															</>
@@ -874,8 +861,10 @@ const BlueprintProcessSection = ({
 																	{t({ en: 'YOUR TURN', id: 'GILIRANMU' })}
 																</span>
 																<span className='font-bold text-[11px] sm:text-xs tabular-nums truncate min-w-0'>
-																	{playerIndex}/{sequence.length}
-																	{level >= 4 ? ' · STREAK!' : ''}
+																	{t({
+																		en: `Repeat pad ${playerIndex + 1}/${sequence.length}`,
+																		id: `Tekan pad ${playerIndex + 1}/${sequence.length}`,
+																	})}
 																</span>
 															</>
 														)}
@@ -951,73 +940,6 @@ const BlueprintProcessSection = ({
 													</div>
 												</div>
 											</div>
-										</div>
-
-										{/* Dedicated High-Contrast Phase Status Strip */}
-										<div
-											className={`px-3 py-2 border-b-2 border-[#050505] flex items-center justify-between gap-2 font-mono text-[10.5px] sm:text-xs font-black tracking-wide ${deckStripClass}`}
-										>
-											{gamePhase === 'free' && (
-												<>
-													<span className='truncate'>
-														{t({
-															en: '● FREE PAD MODE · TAP ANY BUTTON',
-															id: '● MODE BEBAS · TEKAN TOMBOL MANA SAJA',
-														})}
-													</span>
-													<span className='hidden sm:inline shrink-0 text-[#FCF0D3]/75 text-[10px]'>
-														{t({
-															en: 'PRESS PLAY GAME FOR CHALLENGE',
-															id: 'TEKAN MAIN GAME UNTUK TANTANGAN',
-														})}
-													</span>
-												</>
-											)}
-
-											{gamePhase === 'ready' && (
-												<span className='truncate'>
-													{t({
-														en: `★ GAME STARTING · LEVEL ${level}`,
-														id: `★ GAME DIMULAI · LEVEL ${level}`,
-													})}
-												</span>
-											)}
-
-											{gamePhase === 'playing_seq' && (
-												<span className='truncate'>
-													{t({
-														en: `🔒 WATCH SEQUENCE · STEP ${demoStepNum ?? '…'}/${sequence.length}`,
-														id: `🔒 SIMAK URUTAN · LANGKAH ${demoStepNum ?? '…'}/${sequence.length}`,
-													})}
-												</span>
-											)}
-
-											{gamePhase === 'awaiting_input' && (
-												<span className='truncate'>
-													{t({
-														en: `▶ YOUR TURN! REPEAT PAD ${playerIndex + 1} OF ${sequence.length}`,
-														id: `▶ GILIRANMU! TEKAN PAD KE-${playerIndex + 1} DARI ${sequence.length}`,
-													})}
-												</span>
-											)}
-
-											{gamePhase === 'level_clear' && (
-												<span className='truncate'>
-													{t({
-														en: `★ LEVEL ${level} CLEAR! PREPARING LEVEL ${level + 1}...`,
-														id: `★ LEVEL ${level} SELESAI! SIAP KE LEVEL ${level + 1}...`,
-													})}
-												</span>
-											)}
-
-											{gamePhase === 'gameover' && (
-												<span className='truncate'>
-													{t({
-														en: `✕ MISSED! TARGET WAS ${targetKeyNum} (${targetLabel})`,
-														id: `✕ SALAH! HARUSNYA ${targetKeyNum} (${targetLabel})`,
-													})}
-												</span>
-											)}
 										</div>
 
 										{/* Recessed Dark Graphite Pad Well + Tactile 3D Mechanical Switch Cavities */}
@@ -1189,7 +1111,8 @@ const BlueprintProcessSection = ({
 																		<img
 																			src={pad.memeImg}
 																			alt={pad.title}
-																			loading='lazy'
+																			loading='eager'
+																			decoding='async'
 																			draggable={false}
 																			className={`w-full h-full object-cover object-center block pointer-events-none transition-transform duration-150 ${
 																				isLit ? 'scale-110' : 'group-hover/pad:scale-105'
@@ -1231,8 +1154,8 @@ const BlueprintProcessSection = ({
 
 											<span className='truncate'>
 												{t({
-													en: 'KRIS-SFX-08 · REAL MEME SOUNDBOARD',
-													id: 'KRIS-SFX-08 · PAPAN SUARA MEME',
+													en: 'MEME-808 · 8 SOUND PADS',
+													id: 'MEME-808 · 8 PAD SUARA',
 												})}
 											</span>
 
@@ -1242,7 +1165,6 @@ const BlueprintProcessSection = ({
 													<span className='size-2 rounded-full bg-[#FFD426] border border-[#050505]' />
 													<span className='size-2 rounded-full bg-[#3886C0] border border-[#050505]' />
 												</span>
-												<span className='whitespace-nowrap'>8 PADS · 48KHZ</span>
 											</div>
 										</div>
 									</div>

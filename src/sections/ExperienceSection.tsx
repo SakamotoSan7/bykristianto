@@ -94,37 +94,22 @@ const ExperienceSection = () => {
 								</figure>
 
 								<div className='sm:col-span-7 space-y-3.5'>
-									<p className='font-mono text-[10.5px] font-black uppercase tracking-wider text-[#204275]'>
-										{t({
-											en: 'FILM & TV GRADUATE · CREATIVE TECHNOLOGIST',
-											id: 'S.SN TELEVISI & FILM · CREATIVE VIDEO PRODUCER',
-										})}
-									</p>
-
 									<div>
 										<h3 className='font-display font-black text-2xl sm:text-[28px] leading-tight text-[#050505]'>
 											Kristianto
 										</h3>
 										<p className='font-mono text-xs font-bold text-[#C5432F] mt-0.5'>
 											{t({
-												en: 'Video Editor & AI-Assisted Visual Storyteller',
-												id: 'Video Editor & Motion Content Creator',
+												en: 'Video Editor & Creative Technologist',
+												id: 'Video Editor & Creative Video Producer',
 											})}
 										</p>
 									</div>
 
 									<p className='text-sm text-[#3B404C] leading-relaxed'>
 										{t({
-											en: 'Television & Film graduate (Cum Laude, GPA 3.76 at ISI Padang Panjang) with hands-on studio post-production experience across music videos, TV, and digital content. I combine cinematic pacing, verified research, clear narration mixing, and custom motion graphics in Canvas 2D / WebGL2.',
-											id: 'Lulusan S-1 Televisi & Film (Cum Laude, IPK 3,76 di ISI Padang Panjang) dengan pengalaman pascaproduksi video musik, program TV, dan konten digital. Saya memadukan ritme editing sinematik, riset terverifikasi, tata suara narasi yang jernih, serta animasi berbasis kode (Canvas 2D / WebGL2).',
-										})}
-									</p>
-
-									{/* Clean Inline Credential Strip (zero bordered chip clutter) */}
-									<p className='pt-2 border-t border-dashed border-[#050505]/20 font-mono text-[11px] font-bold text-[#050505] select-none'>
-										{t({
-											en: 'Cum Laude 3.76 · ISI Padang Panjang · TOEFL 610 · Video & Web',
-											id: 'Cum Laude 3,76 · ISI Padang Panjang · TOEFL 610 · Video & Web',
+											en: 'Cum Laude Television & Film graduate (GPA 3.76, ISI Padang Panjang) with post-production experience across music videos, TV, and digital content. Pairs cinematic pacing and verified storytelling with code-driven Canvas 2D / WebGL2 motion.',
+											id: 'Lulusan Cum Laude S-1 Televisi & Film (IPK 3,76, ISI Padang Panjang) dengan pengalaman pascaproduksi video musik, TV, dan konten digital. Memadukan ritme editing sinematik dengan animasi berbasis kode (Canvas 2D / WebGL2).',
 										})}
 									</p>
 
@@ -490,15 +475,6 @@ const ExperienceSection = () => {
 								))}
 							</div>
 						)}
-					</div>
-
-					<div className='px-5 sm:px-6 py-3 bg-[#F6EDD6] border-t-2 border-[#050505]/20 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] font-bold text-[#3B404C]'>
-						<span>
-							{t({
-								en: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · CITRA FILM SCHOOL',
-								id: 'ALIBABA CLOUD · BRIGHTEN ENGLISH (TOEFL 610) · CODEPOLITAN · CITRA FILM SCHOOL',
-							})}
-						</span>
 					</div>
 				</div>
 			</div>

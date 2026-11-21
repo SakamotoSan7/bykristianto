@@ -16,7 +16,6 @@ import {
 	type ChessPromotionCode,
 } from '../../context/useSound';
 import { useScrollLock } from '../../utils/scrollLock';
-import { SparkleStar } from '../SpaghettiArt';
 import {
 	BgmToggleButton,
 	LanguageSwitchPill,
@@ -1795,9 +1794,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					<div className='min-w-0 flex-1'>
 						<div className='flex items-center gap-1.5 flex-wrap'>
 							<span className='font-display font-black text-xs sm:text-sm text-[#050505] truncate leading-tight'>
-								{isKris
-									? opponentLabel
-									: t({ en: 'You (Challenger)', id: 'Kamu (Penantang)' })}
+								{isKris ? opponentLabel : t({ en: 'You', id: 'Kamu' })}
 							</span>
 
 							{isKris && (
@@ -1835,12 +1832,9 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 								<span className='font-mono text-[9.5px] sm:text-[10px] font-bold text-[#3B404C] truncate'>
 									{isKris
 										? t(activeProfile.tagline)
-										: !playerHasMoved
-											? t({
-													en: 'Clock starts on your 1st move',
-													id: 'Waktu jalan saat langkah ke-1',
-												})
-											: t({ en: 'Ready on the board', id: 'Siap bertanding' })}
+										: isSideTurn
+											? t({ en: 'Your move', id: 'Giliranmu' })
+											: t({ en: 'Ready', id: 'Siap' })}
 								</span>
 							)}
 							{lead > 0 && (
@@ -1904,18 +1898,14 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 
 			{/* Drafting Cream Bezel Framing the Chessboard */}
 			<div className='relative w-full'>
-				<div
-					className='hidden sm:block absolute -top-2.5 left-4 z-20 px-2 py-0.5 bg-[#FFD426] border-2 border-[#050505] font-mono text-[10px] font-black text-[#050505] -rotate-2 shadow-[2px_2px_0_#050505] pointer-events-none select-none'
-					aria-hidden='true'
-				>
-					{isViewingHistory
-						? `PLY ${displayedPly}/${totalPlies}`
-						: 'Fig.Board · 15:00'}
-				</div>
-				<SparkleStar
-					className='hidden sm:block absolute -top-3 -right-3 size-6 z-20 pointer-events-none'
-					fill='#FFFFFF'
-				/>
+				{isViewingHistory && (
+					<div
+						className='hidden sm:block absolute -top-2.5 left-4 z-20 px-2 py-0.5 bg-[#FFD426] border-2 border-[#050505] font-mono text-[10px] font-black text-[#050505] -rotate-2 shadow-[2px_2px_0_#050505] pointer-events-none select-none'
+						aria-hidden='true'
+					>
+						{`PLY ${displayedPly}/${totalPlies}`}
+					</div>
+				)}
 
 				<div className='rounded-sm border-[2.5px] sm:border-[3.5px] border-[#050505] bg-[#FCF0D3] p-1 sm:p-2 shadow-[5px_5px_0_#050505] sm:shadow-[7px_7px_0_#050505]'>
 					<div
@@ -2151,17 +2141,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 													/>
 												</div>
 												<p className='font-mono text-[10px] font-bold text-[#3B404C]'>
-													{downloadPct >= 100
+													{downloadPct >= 100 || downloadPct <= 0
 														? t({
-																en: 'Compiling WebAssembly...',
-																id: 'Menyiapkan WebAssembly...',
+																en: 'Loading chess engine...',
+																id: 'Memuat engine catur...',
 															})
-														: downloadPct > 0
-															? `${downloadPct}% · 1.8 MB Chess Core`
-															: t({
-																	en: 'Fetching 1.8 MB WASM worker (only once)...',
-																	id: 'Mengunduh modul WASM 1,8 MB (cukup sekali)...',
-																})}
+														: `${downloadPct}%`}
 												</p>
 											</>
 										) : (
@@ -2255,7 +2240,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										}`}
 									>
 										<span className='font-mono text-[11px] font-black uppercase shrink-0'>
-											MATCH_RESULT · {outcomeBanner.badge}
+											{outcomeBanner.badge}
 										</span>
 										<div className='flex-1 h-2 ds-titlebar-grips' aria-hidden='true' />
 										<button
@@ -2315,14 +2300,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		>
 			{/* Opponent Difficulty Switcher: Unc Kris (1900) / Teen Kris (1500) / Lil' Kris (1000) */}
 			<div className='rounded-sm border-[2.5px] border-[#050505] bg-[#FCF0D3] p-1.5 shadow-[3px_3px_0_#050505]'>
-				<div className='mb-1 flex items-center justify-between px-0.5 font-mono text-[9px] font-black uppercase tracking-[0.12em] text-[#3B404C]'>
-					<span>{t({ en: 'OPPONENT LEVEL', id: 'LEVEL LAWAN' })}</span>
-					<span className='text-[#050505]'>
-						{pendingTierConfirm
-							? t({ en: 'CLICK AGAIN TO SWITCH', id: 'KLIK LAGI UTK GANTI' })
-							: `${opponentLabel} · ${opponentElo}`}
-					</span>
-				</div>
+				{pendingTierConfirm && (
+					<div className='mb-1 flex items-center justify-between px-0.5 font-mono text-[9px] font-black uppercase tracking-[0.12em] text-[#C5432F]'>
+						<span>{t({ en: 'CONFIRM SWITCH', id: 'KONFIRMASI GANTI' })}</span>
+						<span>{t({ en: 'CLICK AGAIN', id: 'KLIK LAGI' })}</span>
+					</div>
+				)}
 				<div className='grid grid-cols-3 gap-1.5'>
 					{KRIS_TIER_ORDER.map((tierId) => {
 						const prof = KRIS_PROFILES[tierId];
@@ -2487,15 +2470,10 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 								● {t({ en: 'YOUR TURN', id: 'GILIRANMU' })}
 							</span>
 							<span className='text-[#050505] font-bold truncate'>
-								{!playerHasMoved
-									? t({
-											en: 'Clock starts on 1st move',
-											id: 'Jam mulai di langkah ke-1',
-										})
-									: t({
-											en: 'Tap or drag a piece',
-											id: 'Klik atau geser bidak',
-										})}
+								{t({
+									en: 'Tap or drag a piece',
+									id: 'Klik atau geser bidak',
+								})}
 							</span>
 						</>
 					)}
@@ -2521,7 +2499,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						confirmNewMatch || !playerHasMoved || result !== null ? 'keycap' : 'switch'
 					}
 					onClick={handleNewMatchClick}
-					className={`h-[38px] sm:h-[40px] px-2 rounded-xl border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer transition-all ${
+					className={`h-[38px] sm:h-[40px] px-2 rounded-lg border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer transition-all ${
 						confirmNewMatch
 							? 'bg-[#FFD426] text-[#050505] shadow-[3px_3px_0_#050505] animate-pulse'
 							: 'bg-[#5CE62E] hover:bg-[#FFD426] text-[#050505] shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none'
@@ -2536,7 +2514,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					type='button'
 					data-sfx='shutter'
 					onClick={() => setBoardOrientation((o) => (o === 'w' ? 'b' : 'w'))}
-					className='h-[38px] sm:h-[40px] px-2 rounded-xl bg-[#FCF0D3] hover:bg-[#FFD426] text-[#050505] border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
+					className='h-[38px] sm:h-[40px] px-2 rounded-lg bg-[#FCF0D3] hover:bg-[#FFD426] text-[#050505] border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center cursor-pointer shadow-[3px_3px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none transition-all'
 				>
 					{t({ en: '⇅ Flip', id: '⇅ Balik' })}
 				</button>
@@ -2547,7 +2525,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					data-hover-sfx='switch'
 					disabled={result !== null || engineState === 'loading' || !playerHasMoved}
 					onClick={handleResignClick}
-					className={`h-[38px] sm:h-[40px] px-2 rounded-xl border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center transition-all ${
+					className={`h-[38px] sm:h-[40px] px-2 rounded-lg border-[2.5px] sm:border-[3px] border-[#050505] font-display text-[11px] sm:text-xs font-black leading-none whitespace-nowrap flex items-center justify-center transition-all ${
 						result !== null || engineState === 'loading' || !playerHasMoved
 							? 'bg-[#F6EDD6] text-[#050505]/35 cursor-not-allowed shadow-none'
 							: confirmResign
@@ -2762,13 +2740,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					</button>
 				</div>
 
-				{/* Compact Rules & Tip Footer inside MOVES.PGN */}
+				{/* Compact Shortcuts Footer inside MOVES.PGN */}
 				<div className='px-3 py-1.5 bg-[#F6EDD6] border-t-2 border-[#050505]/20 font-mono text-[10px] text-[#3B404C] shrink-0 leading-snug'>
-					<span className='font-black text-[#050505]'>15+0 RAPID · RANDOM SIDE:</span>{' '}
 					<span>
 						{t({
-							en: 'Clock starts on 1st move · Right-drag or Arrow Mode to mark · ←/→ steps moves.',
-							id: 'Waktu mulai di langkah ke-1 · Klik kanan / Mode Panah utk tandai · ←/→ tinjau langkah.',
+							en: 'Right-drag: arrows · ←/→: review moves',
+							id: 'Klik kanan: panah · ←/→: tinjau langkah',
 						})}
 					</span>
 				</div>
@@ -2786,15 +2763,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		>
 			<div className='flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1'>
 				<span className='px-1.5 sm:px-2 py-0.5 bg-[#050505] text-[#FFD426] font-mono text-[9.5px] sm:text-[10px] font-black tracking-wide shrink-0'>
-					{inFullscreen ? (
-						<>
-							<span className='md:hidden'>CHESS.EXE</span>
-							<span className='hidden md:inline xl:hidden'>KRIS_CHESS.EXE</span>
-							<span className='hidden xl:inline'>KRIS_CHESS_STUDIO.EXE</span>
-						</>
-					) : (
-						'FIG.CHESS'
-					)}
+					{inFullscreen ? 'CHESS.EXE' : 'CHESS'}
 				</span>
 				<h3
 					className={`font-display font-black text-sm sm:text-base text-[#050505] leading-tight truncate ${
@@ -2812,46 +2781,30 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			</div>
 
 			<div className='flex flex-wrap items-center justify-end gap-1 sm:gap-1.5 select-none shrink-0'>
-				<span
-					className={`inline-flex items-center gap-1 sm:gap-1.5 h-6 sm:h-7 px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
-						engineState === 'error'
-							? 'bg-[#FD6141] text-[#050505]'
-							: engineState === 'loading' || isKrisThinking
-								? 'bg-[#3886C0] text-[#FFFFFF]'
-								: 'bg-[#FCF0D3] text-[#050505]'
-					}`}
-				>
+				{(engineState === 'loading' || engineState === 'error' || isKrisThinking) && (
 					<span
-						className={`size-2 rounded-full border border-[#050505] shrink-0 ${
+						className={`inline-flex items-center gap-1 sm:gap-1.5 h-6 sm:h-7 px-2 rounded-sm border-2 border-[#050505] font-mono text-[9.5px] sm:text-[10px] font-black leading-none ${
 							engineState === 'error'
-								? 'bg-[#FFFFFF]'
-								: engineState === 'loading' || isKrisThinking
-									? 'bg-[#FFD426] animate-pulse'
-									: 'bg-[#5CE62E]'
+								? 'bg-[#FD6141] text-[#050505]'
+								: 'bg-[#3886C0] text-[#FFFFFF]'
 						}`}
-					/>
-					{engineState === 'loading' ? (
-						downloadPct > 0 && downloadPct < 100
-							? `WASM ${downloadPct}%`
-							: t({ en: 'LOADING...', id: 'MEMUAT...' })
-					) : engineState === 'error' ? (
-						t({ en: 'ERROR', id: 'GAGAL' })
-					) : isKrisThinking ? (
-						t({
-							en: 'THINKING...',
-							id: 'MIKIR...',
-						})
-					) : (
-						<>
-							<span className={inFullscreen ? 'md:hidden' : 'sm:hidden'}>
-								{t({ en: 'READY', id: 'SIAP' })}
-							</span>
-							<span className={inFullscreen ? 'hidden md:inline' : 'hidden sm:inline'}>
-								{`${opponentElo} ELO · 15+0`}
-							</span>
-						</>
-					)}
-				</span>
+					>
+						<span
+							className={`size-2 rounded-full border border-[#050505] shrink-0 ${
+								engineState === 'error'
+									? 'bg-[#FFFFFF]'
+									: 'bg-[#FFD426] animate-pulse'
+							}`}
+						/>
+						{engineState === 'loading'
+							? downloadPct > 0 && downloadPct < 100
+								? `WASM ${downloadPct}%`
+								: t({ en: 'LOADING...', id: 'MEMUAT...' })
+							: engineState === 'error'
+								? t({ en: 'ERROR', id: 'GAGAL' })
+								: t({ en: 'THINKING...', id: 'MIKIR...' })}
+					</span>
+				)}
 
 				{inFullscreen && (
 					<>

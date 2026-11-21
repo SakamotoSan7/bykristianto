@@ -8,13 +8,8 @@ interface DiffModeSpec {
 	id: DiffModeId;
 	tabNum: string;
 	tabLabel: LocalizedText;
-	purpose: LocalizedText;
 	beforeBadge: LocalizedText;
 	afterBadge: LocalizedText;
-	beforePointTitle: LocalizedText;
-	beforePointDesc: LocalizedText;
-	afterPointTitle: LocalizedText;
-	afterPointDesc: LocalizedText;
 	defaultSplit: number;
 }
 
@@ -23,84 +18,24 @@ const DIFF_MODES: DiffModeSpec[] = [
 		id: 'vertical',
 		tabNum: '01',
 		tabLabel: { en: '9:16 Vertical Reels', id: 'Video Vertikal 9:16' },
-		purpose: {
-			en: 'Watch a full-screen 9:16 Reel on the Coffee Decoy Effect: a slow text block cut off by IG buttons vs. a 1.3s portrait hook, full-bleed S/M/L cup reveal, 7/10 icon grid proof & safe-zone captions.',
-			id: 'Tonton demo penuh Reel 9:16 "Efek Umpan Menu Kopi": pembuka lambat yang tertutup tombol IG vs. hook layar penuh 1,3 detik, animasi perbandingan ukuran S/M/L, bukti grid 7 dari 10, & posisi aman.',
-		},
 		beforeBadge: { en: 'BEFORE · BASIC REEL', id: 'SEBELUM · REEL POLOS' },
 		afterBadge: { en: 'AFTER · 9:16 STUDIO REEL', id: 'SESUDAH · REEL 9:16' },
-		beforePointTitle: {
-			en: 'Slow 3s+ Text Block & Blocked Instagram UI',
-			id: 'Intro Lambat & Teks Tertabrak Tombol Instagram',
-		},
-		beforePointDesc: {
-			en: 'Tiny centered text box ("Hey everyone...") fails to hold attention vertically, uses zero visual demonstration, and collides behind Heart/Share/Caption UI.',
-			id: 'Pembuka polos tanpa peragaan visual membuat penonton langsung scroll sebelum detik ke-3, ditambah posisi subtitel yang menabrak ikon kanan/bawah.',
-		},
-		afterPointTitle: {
-			en: 'Full-Bleed 9:16 Motion, Visual Proof & Safe-Zone Precision',
-			id: 'Visual Layar Penuh 9:16, Terbukti Jelas & Bebas Tabrakan UI',
-		},
-		afterPointDesc: {
-			en: 'Uses portrait height naturally (S vs L -> Medium decoy steer -> 7/10 cup grid) with beat-synced cut changes, Voice-first audio, and clean IG safe-zone framing.',
-			id: 'Memanfaatkan tinggi layar vertikal seutuhnya (gelas S vs L -> umpan Medium -> grid bukti 7 dari 10 pembeli) lengkap dengan pacing cepat & area baca aman.',
-		},
 		defaultSplit: 50,
 	},
 	{
 		id: 'horizontal',
 		tabNum: '02',
 		tabLabel: { en: '16:9 Horizontal Video', id: 'Video Horizontal 16:9' },
-		purpose: {
-			en: 'Watch why widening roads stays jammed (Induced Demand) in 16:9: dull slide bullet points vs. widescreen highway expansion animation, commuter influx proof, and split-screen transit clarity.',
-			id: 'Tonton contoh cerita "Jalan Tol Makin Lebar, Kenapa Tetap Macet?" di layar 16:9: video slide kaku penuh tulisan vs. animasi lebar jalan, bukti visual arus mobil masuk, & perbandingan split-screen.',
-		},
 		beforeBadge: { en: 'BEFORE · SLIDE VIDEO', id: 'SEBELUM · ALA SLIDE PPT' },
 		afterBadge: { en: 'AFTER · 16:9 STUDIO VIDEO', id: 'SESUDAH · VIDEO 16:9' },
-		beforePointTitle: {
-			en: 'Static Slide Video & Dry Written Lecture',
-			id: 'Video Kaku Seperti Slide & Penjelasan Kering',
-		},
-		beforePointDesc: {
-			en: 'Academic bullet points stamped onto a flat frame force viewers to read without spatial proof, camera pacing, or audio guidance.',
-			id: 'Teori menarik hanya ditulis jadi poin teks datar tanpa visualisasi ruang maupun bukti gerak sehingga penonton cepat bosan dan klik keluar.',
-		},
-		afterPointTitle: {
-			en: 'Widescreen Spatial Storytelling, Clean Data & Sound Mix',
-			id: 'Cerita Layar Lebar 16:9, Bukti Jelas & Audio Menyatu',
-		},
-		afterPointDesc: {
-			en: 'Proves the idea visually across the 16:9 canvas (2 jammed lanes widening -> new lanes refilling -> 16 cars vs 1 bus split-screen) with synced subtitles and SFX.',
-			id: 'Membuktikan konsep langsung di layar lebar (2 lajur macet melebar jadi 4 -> terisi mobil baru -> split 16 mobil vs 1 bus) plus subtitel sinkron & efek suara.',
-		},
 		defaultSplit: 50,
 	},
 	{
 		id: 'editing',
 		tabNum: '03',
 		tabLabel: { en: 'Editing & Color Grade', id: 'Editing & Color Grade' },
-		purpose: {
-			en: 'Inspect an authentic Adobe Premiere Pro Color Workspace in our studio style: compressed flat LOG scopes & untouched controls vs. calibrated RGB Parade, Vectorscope skin-tone alignment, color wheels, curves, and multi-track timeline at frame 00:00:14:21.',
-			id: 'Lihat isi ruang kerja Color Grading Adobe Premiere Pro yang akurat dalam gaya komik studio: dari kamera LOG datar & kontrol nol ke RGB Parade terukur, garis skin-tone Vectorscope, Color Wheels, Curves, & 5 track timeline di frame 00:00:14:21.',
-		},
 		beforeBadge: { en: 'BEFORE · RAW LOG', id: 'SEBELUM · LOG MENTAH' },
 		afterBadge: { en: 'AFTER · GRADED WORKSPACE', id: 'SESUDAH · FULL GRADE' },
-		beforePointTitle: {
-			en: 'Flat LOG Footage & Untouched Premiere Panels',
-			id: 'Warna LOG Pudar & Panel Color Belum Disentuh',
-		},
-		beforePointDesc: {
-			en: 'Washed camera signal clustered at narrow IRE levels, centered gray vectorscope dot, zeroed Color Wheels, raw background hum, and one uncut clip.',
-			id: 'Sinyal kamera pucat menumpuk di tengah grafik RGB Parade & Vectorscope, roda warna masih nol, suara ruang belum dibersihkan, dan klip belum dipotong.',
-		},
-		afterPointTitle: {
-			en: 'Calibrated Scopes, Color Wheels & 5-Track Finishing',
-			id: 'Lumetri Scopes Terukur, Color Grade & 5-Track Rapi',
-		},
-		afterPointDesc: {
-			en: 'Expanded RGB Parade clouds, warm tungsten skin-tone trace on Vectorscope, sculpted S-Curve + 3 Color Wheels, B-roll cutaways, and clean Voice + SFX mix.',
-			id: 'Sebaran warna RGB Parade lebar, warna kulit hangat tepat di garis Vectorscope, S-Curve & Color Wheels seimbang, B-roll rapi, serta audio suara + efek menyatu.',
-		},
 		defaultSplit: 50,
 	},
 ];
@@ -2065,8 +2000,6 @@ export default function VisualDiffStudio() {
 	const rafRef = useRef<number | null>(null);
 	const pendingXRef = useRef<number>(0);
 
-	const activeMode = DIFF_MODES.find((m) => m.id === modeId) ?? DIFF_MODES[0];
-
 	useEffect(() => {
 		return () => {
 			if (rafRef.current !== null) {
@@ -2168,56 +2101,41 @@ export default function VisualDiffStudio() {
 
 	return (
 		<div className='p-3.5 sm:p-5 lg:p-6 space-y-3 sm:space-y-3.5 bg-[#FCF0D3]'>
-			{/* Purpose Header & Mode Switcher */}
-			<div className='mx-0.5 sm:mx-1 space-y-2'>
-				<div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5'>
-					<p className='text-xs sm:text-[13px] font-bold text-[#050505] leading-snug max-w-2xl'>
-						{t(activeMode.purpose)}
-					</p>
-
-					<div className='flex flex-wrap items-center gap-1.5 shrink-0'>
-						{DIFF_MODES.map((m) => {
-							const active = m.id === modeId;
-							return (
-								<button
-									key={m.id}
-									type='button'
-									data-sfx='paper'
-									aria-pressed={active}
-									onClick={() => selectMode(m)}
-									className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm border-2 border-[#050505] font-mono text-[11px] font-black cursor-pointer transition-all shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
-										active
-											? 'bg-[#3886C0] text-[#FFFFFF]'
-											: 'bg-[#FFFFFF] text-[#050505] hover:bg-[#FFD426]'
+			{/* Clean Mode Switcher + Live Split Readout */}
+			<div className='mx-0.5 sm:mx-1 flex flex-wrap items-center justify-between gap-2.5'>
+				<div className='flex flex-wrap items-center gap-1.5'>
+					{DIFF_MODES.map((m) => {
+						const active = m.id === modeId;
+						return (
+							<button
+								key={m.id}
+								type='button'
+								data-sfx='paper'
+								aria-pressed={active}
+								onClick={() => selectMode(m)}
+								className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-sm border-2 border-[#050505] font-mono text-[11px] font-black cursor-pointer transition-all shadow-[2px_2px_0_#050505] hover:-translate-y-0.5 active:translate-y-[1px] active:shadow-none ${
+									active
+										? 'bg-[#3886C0] text-[#FFFFFF]'
+										: 'bg-[#FFFFFF] text-[#050505] hover:bg-[#FFD426]'
+								}`}
+							>
+								<span
+									className={`px-1 py-0.5 rounded-[2px] text-[9px] leading-none border border-[#050505] ${
+										active ? 'bg-[#FFD426] text-[#050505]' : 'bg-[#FCF0D3] text-[#050505]'
 									}`}
 								>
-									<span
-										className={`px-1 py-0.5 rounded-[2px] text-[9px] leading-none border border-[#050505] ${
-											active ? 'bg-[#FFD426] text-[#050505]' : 'bg-[#FCF0D3] text-[#050505]'
-										}`}
-									>
-										{m.tabNum}
-									</span>
-									<span>{t(m.tabLabel)}</span>
-								</button>
-							);
-						})}
-					</div>
+									{m.tabNum}
+								</span>
+								<span>{t(m.tabLabel)}</span>
+							</button>
+						);
+					})}
 				</div>
 
-				{/* Live Telemetry Strip */}
-				<div className='flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono font-bold text-[#3B404C]'>
-					<span>
-						{t({
-							en: 'DRAG YELLOW HANDLE OR USE PRESETS BELOW (0% – 100%)',
-							id: 'GESER PEGANGAN KUNING ATAU KLIK PRESET DI BAWAH (0% – 100%)',
-						})}
-					</span>
-					<span className='font-black text-[#050505] tabular-nums select-none'>
-						{Math.round(splitPercent)}% {t({ en: 'BEFORE', id: 'SEBELUM' })} ·{' '}
-						{Math.round(100 - splitPercent)}% {t({ en: 'AFTER', id: 'SESUDAH' })}
-					</span>
-				</div>
+				<span className='font-mono text-[10.5px] sm:text-[11px] font-black text-[#050505] tabular-nums select-none'>
+					{Math.round(splitPercent)}% {t({ en: 'BEFORE', id: 'SEBELUM' })} ·{' '}
+					{Math.round(100 - splitPercent)}% {t({ en: 'AFTER', id: 'SESUDAH' })}
+				</span>
 			</div>
 
 			{/* Main Interactive Comparison Viewport (touch-pan-y lets vertical page scroll work smoothly on mobile) */}
@@ -2315,43 +2233,6 @@ export default function VisualDiffStudio() {
 					>
 						{t({ en: 'Watch All 14 Final Cuts ↑', id: 'Tonton Semua 14 Karya ↑' })}
 					</button>
-				</div>
-
-				{/* Unified Before / After Split Breakdown Panel */}
-				<div className='rounded-md border-[2.5px] border-[#050505] bg-[#FFFFFF] shadow-[3px_3px_0_#050505] overflow-hidden grid grid-cols-1 md:grid-cols-2 divide-y-2 md:divide-y-0 md:divide-x-2 divide-[#050505]'>
-					<div className='p-3.5 sm:p-4 space-y-1.5'>
-						<div className='flex items-center justify-between gap-2'>
-							<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase tracking-wider'>
-								{t({ en: '01 · TYPICAL PROBLEM', id: '01 · MASALAH UMUM' })}
-							</span>
-							<span className='px-1.5 py-0.5 rounded-[2px] bg-[#FD6141] border border-[#050505] font-mono text-[9.5px] font-black text-[#050505] leading-none'>
-								✕ BEFORE
-							</span>
-						</div>
-						<h4 className='font-display font-black text-sm text-[#050505] leading-snug'>
-							{t(activeMode.beforePointTitle)}
-						</h4>
-						<p className='text-xs text-[#3B404C] leading-relaxed'>
-							{t(activeMode.beforePointDesc)}
-						</p>
-					</div>
-
-					<div className='p-3.5 sm:p-4 space-y-1.5'>
-						<div className='flex items-center justify-between gap-2'>
-							<span className='font-mono text-[10px] font-black text-[#3B404C] uppercase tracking-wider'>
-								{t({ en: '02 · STUDIO FINISH', id: '02 · HASIL STUDIO' })}
-							</span>
-							<span className='px-1.5 py-0.5 rounded-[2px] bg-[#5CE62E] border border-[#050505] font-mono text-[9.5px] font-black text-[#050505] leading-none'>
-								✓ AFTER
-							</span>
-						</div>
-						<h4 className='font-display font-black text-sm text-[#050505] leading-snug'>
-							{t(activeMode.afterPointTitle)}
-						</h4>
-						<p className='text-xs text-[#3B404C] leading-relaxed'>
-							{t(activeMode.afterPointDesc)}
-						</p>
-					</div>
 				</div>
 			</div>
 		</div>
