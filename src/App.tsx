@@ -12,6 +12,7 @@ import ExperienceSection from './sections/ExperienceSection';
 import ShowcaseSection from './sections/ShowcaseSection';
 import Contact, { type ContactPreselection } from './sections/Contact';
 import Footer from './sections/Footer';
+import AudioUnlockBar from './components/AudioUnlockBar';
 import type { CraftLabTab, LocalizedText } from './data/portfolioData';
 
 const App = () => {
@@ -58,6 +59,7 @@ const App = () => {
 						<Contact preselectedSelection={preselectedTopic} />
 					</main>
 					<Footer />
+					<AudioUnlockBar />
 				</div>
 			</SoundProvider>
 		</LanguageProvider>

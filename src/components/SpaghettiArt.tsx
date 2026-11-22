@@ -1026,238 +1026,298 @@ export const ServicePackageArtwork: FC<SvgClassProps & { artKey: ServiceArtKey }
 };
 
 /**
- * Ligne-Claire replica artwork of Kristianto's own interactive portfolio website
- * (`aspect-[19/17]` via viewBox 0..380 x 0..340) matching the live Hero & Studio Desk chrome.
+ * Upgraded Ligne-Claire replica artwork of Kristianto's current interactive portfolio website
+ * (`aspect-[19/17]` via viewBox 0..380 x 0..340): Hero with K01 mark, labeled Studio Cords,
+ * open metrics, and Cerulean Blueprint Video Portfolio section peeking below.
  */
 export const PortfolioSiteArtwork: FC<SvgClassProps> = ({ className = 'w-full h-full block' }) => (
 	<svg viewBox='0 0 380 340' className={className} aria-hidden='true'>
 		{/* Top Hero Section: Warm Newsprint Grid Paper */}
-		<rect width='380' height='268' fill='#F6EDD6' />
-		<g stroke='#050505' strokeOpacity='0.075' strokeWidth='1'>
+		<rect width='380' height='252' fill='#F6EDD6' />
+		<g stroke='#050505' strokeOpacity='0.065' strokeWidth='1'>
 			<path d='M0 24H380 M0 48H380 M0 72H380 M0 96H380 M0 120H380 M0 144H380 M0 168H380 M0 192H380 M0 216H380 M0 240H380' />
-			<path d='M24 0V268 M48 0V268 M72 0V268 M96 0V268 M120 0V268 M144 0V268 M168 0V268 M192 0V268 M216 0V268 M240 0V268 M264 0V268 M288 0V268 M312 0V268 M336 0V268 M360 0V268' />
+			<path d='M24 0V252 M48 0V252 M72 0V252 M96 0V252 M120 0V252 M144 0V252 M168 0V252 M192 0V252 M216 0V252 M240 0V252 M264 0V252 M288 0V252 M312 0V252 M336 0V252 M360 0V252' />
 		</g>
 
 		{/* Decorative Hero Sparkle Star Top Right */}
 		<path
-			d='M356 62 L359 69 L366 72 L359 75 L356 82 L353 75 L346 72 L353 69 Z'
+			d='M356 54 L358.5 60.5 L365 63 L358.5 65.5 L356 72 L353.5 65.5 L347 63 L353.5 60.5 Z'
 			fill='#FFD426'
 			stroke='#050505'
-			strokeWidth='1.5'
+			strokeWidth='1.4'
 			strokeLinejoin='round'
 		/>
 
-		{/* Floating Interactive Hero Studio Patch Cords (Signature Draped Cables Behind Cards) */}
-		<g fill='none' strokeLinecap='round'>
-			{/* Cord 1: Vermilion Red */}
-			<path d='M 244 46 C 248 118, 300 132, 344 50' stroke='#050505' strokeWidth='6.5' />
-			<path d='M 244 46 C 248 118, 300 132, 344 50' stroke='#FD6141' strokeWidth='3.2' />
-			{/* Cord 2: Canary Yellow */}
-			<path d='M 262 46 C 272 134, 326 144, 360 66' stroke='#050505' strokeWidth='6.5' />
-			<path d='M 262 46 C 272 134, 326 144, 360 66' stroke='#FFD426' strokeWidth='3.2' />
-			{/* Cord 3: Blueprint Blue */}
-			<path d='M 282 46 C 292 146, 336 154, 368 88' stroke='#050505' strokeWidth='6.5' />
-			<path d='M 282 46 C 292 146, 336 154, 368 88' stroke='#3886C0' strokeWidth='3.2' />
-			{/* Cord 4: Acid Lime Green */}
-			<path d='M 304 46 C 308 122, 348 134, 372 72' stroke='#050505' strokeWidth='6.5' />
-			<path d='M 304 46 C 308 122, 348 134, 372 72' stroke='#5CE62E' strokeWidth='3.2' />
-		</g>
-		{/* Metal Plug Collar Dots */}
-		<circle cx='344' cy='50' r='3.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.5' />
-		<circle cx='360' cy='66' r='3.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.5' />
-
 		{/* Floating Retro OS Navbar */}
-		<rect x='17' y='17' width='348' height='36' rx='6' fill='#050505' />
-		<rect x='14' y='14' width='348' height='36' rx='6' fill='#FCF0D3' stroke='#050505' strokeWidth='2.5' />
-		{/* Brand Icon + KRISTIANTO */}
-		<rect x='22' y='21' width='22' height='22' rx='5' fill='#18191D' stroke='#050505' strokeWidth='2' />
-		<path d='M25 32 Q29 27, 33 32 T41 32' fill='none' stroke='#FFD426' strokeWidth='2.2' strokeLinecap='round' />
-		<path d='M25 36 Q29 33, 33 36 T41 36' fill='none' stroke='#FD6141' strokeWidth='1.8' strokeLinecap='round' />
-		<text x='49' y='30' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='9.5'>
+		<rect x='15' y='15' width='354' height='33' rx='6' fill='#050505' />
+		<rect x='12' y='12' width='354' height='33' rx='6' fill='#FCF0D3' stroke='#050505' strokeWidth='2.2' />
+		{/* Exact Real K01 Character Brand Mark */}
+		<svg x='18' y='17.5' width='22' height='22' viewBox='0 0 80 80' aria-hidden='true'>
+			<defs>
+				<pattern
+					id='k01-mini-dots'
+					x='0'
+					y='0'
+					width='8'
+					height='8'
+					patternUnits='userSpaceOnUse'
+					patternTransform='rotate(45)'
+				>
+					<rect width='8' height='8' fill='#FFD426' />
+					<circle cx='4' cy='4' r='1.6' fill='#D49600' />
+				</pattern>
+				<clipPath id='k01-mini-clip'>
+					<rect x='3.5' y='3.5' width='73' height='73' rx='10.5' />
+				</clipPath>
+			</defs>
+			<rect x='0' y='0' width='80' height='80' rx='14' fill='#050505' />
+			<g clipPath='url(#k01-mini-clip)'>
+				<rect width='80' height='80' fill='url(#k01-mini-dots)' />
+				<polygon points='0,62 80,44 80,80 0,80' fill='#FCAE1F' opacity='0.55' />
+				<path d='M7 82 C9 61, 20 54, 29 52.5 L51 52.5 C60 54, 71 61, 73 82 Z' fill='#1B1F2A' stroke='#050505' strokeWidth='3' strokeLinejoin='round' />
+				<path d='M50 54 C58 56, 68 62.5, 70 80.5 H53 L47 55 Z' fill='#11141C' />
+				<path d='M30 52.5 L35.5 78 H44.5 L50 52.5 Z' fill='#121318' stroke='#050505' strokeWidth='2.3' strokeLinejoin='round' />
+				<path d='M33 52.5 C36.5 57.5, 43.5 57.5, 47 52.5' fill='none' stroke='#3886C0' strokeWidth='2.2' strokeLinecap='round' />
+				<path d='M29 52.5 L23.5 63.5 L31.5 68 L35.5 78' fill='#3886C0' stroke='#050505' strokeWidth='2.2' strokeLinejoin='round' />
+				<path d='M51 52.5 L56.5 63.5 L48.5 68 L44.5 78' fill='#204275' stroke='#050505' strokeWidth='2.2' strokeLinejoin='round' />
+				<circle cx='58.5' cy='69' r='3.6' fill='#FFD426' stroke='#050505' strokeWidth='1.7' />
+				<path d='M33 44 V56 C37 59, 43 59, 47 56 V44 Z' fill='#E5B28B' stroke='#050505' strokeWidth='2.6' />
+				<path d='M34.5 46 C38 51.5, 43 52, 46 47 V53.5 C42 55.5, 37.5 55.5, 34.5 53 Z' fill='#C68B61' />
+				<path d='M19.5 33 C18 18.5, 26.5 9, 40 9 C53.5 9, 62 18.5, 60.5 33 L58 39 H22 Z' fill='#16181F' stroke='#050505' strokeWidth='2.8' />
+				<ellipse cx='23' cy='36' rx='3.4' ry='5' fill='#DFAA82' stroke='#050505' strokeWidth='2.4' />
+				<ellipse cx='57' cy='36' rx='3.4' ry='5' fill='#C68B61' stroke='#050505' strokeWidth='2.4' />
+				<rect x='54.8' y='34.2' width='3.8' height='5.4' rx='1.4' fill='#121212' stroke='#050505' strokeWidth='1.4' />
+				<circle cx='56.7' cy='36' r='0.8' fill='#74B9FF' />
+				<path d='M24 27 C24 18, 56 18, 56 27 V36 C56 46, 48.5 51.5, 40 51.5 C31.5 51.5, 24 46, 24 36 Z' fill='#E5B28B' stroke='#050505' strokeWidth='2.8' strokeLinejoin='round' />
+				<path d='M54.5 29 V36 C54.5 44.5, 48 49.5, 40 49.8 C46.5 48.2, 50.5 42.5, 51 35 V28.5 Z' fill='#C68B61' />
+				<path d='M28.2 28.5 Q32 26.6 35.8 29.4' fill='none' stroke='#181A20' strokeWidth='2.2' strokeLinecap='round' />
+				<path d='M44.2 30.2 Q48 29.2 51.8 30.4' fill='none' stroke='#181A20' strokeWidth='2.2' strokeLinecap='round' />
+				<ellipse cx='32.3' cy='34.9' rx='2.6' ry='1.5' fill='#15171C' />
+				<ellipse cx='47.7' cy='34.9' rx='2.6' ry='1.5' fill='#15171C' />
+				<line x1='29.2' y1='33.2' x2='35.4' y2='33.2' stroke='#050505' strokeWidth='1.9' strokeLinecap='round' />
+				<line x1='44.6' y1='33.2' x2='50.8' y2='33.2' stroke='#050505' strokeWidth='1.9' strokeLinecap='round' />
+				<circle cx='31.6' cy='34.3' r='0.75' fill='#FFFFFF' />
+				<circle cx='47' cy='34.3' r='0.75' fill='#FFFFFF' />
+				<path d='M40 34.5 V39.5 L42 40.5' fill='none' stroke='#050505' strokeWidth='1.7' strokeLinecap='round' strokeLinejoin='round' />
+				<path d='M35.4 45.2 Q41.5 47 46.2 42.6' fill='none' stroke='#050505' strokeWidth='2.1' strokeLinecap='round' />
+				<path d='M20.8 32.2 C19.5 19.5, 25.5 9.8, 36.2 9.5 C38.6 9.5, 39.8 10.6, 40.5 11.4 C41.6 10.2, 43.2 9.5, 45.2 9.6 C55.2 10.2, 60.5 19.5, 59.2 32.2 C56.8 29.8, 55.2 26.8, 53.5 28.4 C50.5 30.2, 46.8 28.2, 43.4 25.8 C41.6 24.4, 40.8 22.2, 40.2 19.2 C39.4 22.5, 38.2 25.2, 36.2 26.8 C32.8 29.5, 29.2 30.2, 26.5 28.2 C24.8 27, 23.2 30, 20.8 32.2 Z' fill='#16181F' stroke='#050505' strokeWidth='2.6' strokeLinejoin='round' />
+				<path d='M25.5 19.2 C29.5 15.2, 34.5 15.8, 37.2 21' fill='none' stroke='#2F3542' strokeWidth='1.8' strokeLinecap='round' />
+				<path d='M54.2 19.2 C50.2 15.2, 45.5 15.8, 42.8 21' fill='none' stroke='#2F3542' strokeWidth='1.8' strokeLinecap='round' />
+				<path d='M13 13 L14.6 16.4 L18 18 L14.6 19.6 L13 23 L11.4 19.6 L8 18 L11.4 16.4 Z' fill='#FFFFFF' stroke='#050505' strokeWidth='1.4' strokeLinejoin='round' />
+				<path d='M67 11 L68.2 13.8 L71 15 L68.2 16.2 L67 19 L65.8 16.2 L63 15 L65.8 13.8 Z' fill='#FFD426' stroke='#050505' strokeWidth='1.3' strokeLinejoin='round' />
+			</g>
+			<rect x='3.5' y='3.5' width='73' height='73' rx='10.5' fill='none' stroke='#050505' strokeWidth='1.2' />
+		</svg>
+
+		<text x='45' y='26.5' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='8.8'>
 			KRISTIANTO
 		</text>
-		<text x='49' y='39' fill='#FD6141' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='5'>
+		<text x='45' y='34.8' fill='#FD6141' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='4.5'>
 			FILM · MOTION · CODE
 		</text>
 
-		{/* Center Nav Pills */}
-		<text x='128' y='34' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='5.2'>
-			PORTFOLIO ▾  LAB ▾  SERVICES  CV  WEB
+		{/* Center Nav Items */}
+		<text x='114' y='30.5' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='4.7'>
+			PORTFOLIO ▾   CRAFT LAB ▾   SERVICES   ABOUT   WEB
 		</text>
 
-		{/* Right Navbar Controls */}
-		<rect x='253' y='24' width='26' height='16' rx='3' fill='#FFFFFF' stroke='#050505' strokeWidth='1.5' />
-		<rect x='255' y='26' width='11' height='12' rx='2' fill='#3886C0' />
-		<text x='260.5' y='34' textAnchor='middle' fill='#FFFFFF' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5'>
+		{/* Right Navbar Controls (EN/ID, BGM, SFX, Vermilion CTA) */}
+		<rect x='251' y='20.5' width='25' height='15' rx='3' fill='#FFFFFF' stroke='#050505' strokeWidth='1.4' />
+		<rect x='253' y='22.3' width='10.5' height='11.4' rx='1.8' fill='#3886C0' />
+		<text x='258.2' y='29.8' textAnchor='middle' fill='#FFFFFF' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.6'>
 			EN
 		</text>
-		<text x='272.5' y='34' textAnchor='middle' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5'>
+		<text x='269.5' y='29.8' textAnchor='middle' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.6'>
 			ID
 		</text>
-		<rect x='283' y='24' width='18' height='16' rx='3' fill='#FFD426' stroke='#050505' strokeWidth='1.5' />
-		<text x='292' y='34' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5'>
+		<rect x='280' y='20.5' width='22' height='15' rx='3' fill='#FFD426' stroke='#050505' strokeWidth='1.4' />
+		<text x='291' y='29.8' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.4'>
+			♪ BGM
+		</text>
+		<rect x='305' y='20.5' width='18' height='15' rx='3' fill='#FFD426' stroke='#050505' strokeWidth='1.4' />
+		<text x='314' y='29.8' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.4'>
 			SFX
 		</text>
-		{/* Mini Green 14 WORKS Starburst */}
-		<polygon
-			points='314,16 318,22 325,21 322,27 328,32 321,34 323,41 317,37 313,43 310,37 304,40 307,33 301,29 308,26 306,19 312,22'
-			fill='#5CE62E'
-			stroke='#050505'
-			strokeWidth='1.5'
-			strokeLinejoin='round'
-		/>
-		<text x='314' y='31' textAnchor='middle' fill='#FFFFFF' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='7'>
-			14
-		</text>
-		{/* Red Book Project Pill */}
-		<rect x='330' y='22' width='26' height='20' rx='3' fill='#FD6141' stroke='#050505' strokeWidth='1.8' />
-		<text x='343' y='34' textAnchor='middle' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='5.2'>
-			BRIEF
+		<rect x='327.5' y='21.5' width='32' height='15' rx='3' fill='#050505' />
+		<rect x='326' y='20' width='32' height='15' rx='3' fill='#FD6141' stroke='#050505' strokeWidth='1.4' />
+		<text x='342' y='29.5' textAnchor='middle' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='4.8'>
+			Start
 		</text>
 
 		{/* Left Hero Column */}
-		{/* Status Pill */}
-		<rect x='18' y='66' width='122' height='15' rx='3' fill='#050505' />
-		<rect x='16' y='64' width='122' height='15' rx='3' fill='#FCF0D3' stroke='#050505' strokeWidth='1.8' />
-		<circle cx='24' cy='71.5' r='2.8' fill='#5CE62E' stroke='#050505' strokeWidth='1' />
-		<text x='31' y='73.5' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5.3'>
-			OPEN FOR WORK · FILM &amp; TECH
+		{/* Soft Status Badge */}
+		<rect x='16' y='56' width='148' height='13' rx='2.5' fill='#FCF0D3' stroke='#050505' strokeOpacity='0.45' strokeWidth='1.2' />
+		<circle cx='23' cy='62.5' r='2.4' fill='#5CE62E' stroke='#050505' strokeWidth='0.9' />
+		<text x='29' y='64.3' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='4.4'>
+			AVAILABLE FOR PROJECTS &amp; FULL-TIME
 		</text>
 
-		{/* H1 Headline + Rotating Canary Motion Pill */}
-		<text x='16' y='100' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='16.5'>
-			Fresh Cuts,
+		{/* Headline: Creating [Motion] With Film Craft & Code. */}
+		<text x='16' y='92' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='16'>
+			Creating
 		</text>
-		<rect x='122' y='83' width='64' height='22' rx='3' fill='#050505' />
-		<rect x='119' y='80' width='64' height='22' rx='3' fill='#FFD426' stroke='#050505' strokeWidth='2.2' />
-		<text x='151' y='96' textAnchor='middle' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='14.5'>
+		<rect x='90.5' y='77.5' width='66' height='21' rx='3' fill='#050505' />
+		<rect x='88' y='75' width='66' height='21' rx='3' fill='#FFD426' stroke='#050505' strokeWidth='2' />
+		<text x='121' y='90.5' textAnchor='middle' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='14'>
 			Motion
 		</text>
-		<text x='16' y='121' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='15.5'>
-			&amp; Visuals Built by
-		</text>
-		<text x='16' y='140' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='15.5'>
-			Film Craft + Code.
+		<text x='16' y='113' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='14.5'>
+			With Film Craft &amp; Code.
 		</text>
 
-		{/* Subtitle Copy Lines */}
-		<line x1='16' y1='152' x2='202' y2='152' stroke='#3B404C' strokeOpacity='0.65' strokeWidth='2.8' strokeLinecap='round' />
-		<line x1='16' y1='160' x2='176' y2='160' stroke='#3B404C' strokeOpacity='0.5' strokeWidth='2.8' strokeLinecap='round' />
+		{/* Subtitle Copy Bars */}
+		<line x1='16' y1='126' x2='196' y2='126' stroke='#3B404C' strokeOpacity='0.6' strokeWidth='2.6' strokeLinecap='round' />
+		<line x1='16' y1='134' x2='168' y2='134' stroke='#3B404C' strokeOpacity='0.45' strokeWidth='2.6' strokeLinecap='round' />
 
-		{/* Dual Action CTAs + Red MIXED MEDIA Starburst */}
-		<rect x='18' y='173' width='78' height='22' rx='3' fill='#050505' />
-		<rect x='16' y='171' width='78' height='22' rx='3' fill='#3886C0' stroke='#050505' strokeWidth='2' />
-		<text x='55' y='184' textAnchor='middle' fill='#FFFFFF' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='7.2'>
-			14 Video Works ↓
+		{/* Dual Action CTAs: Vermilion Primary + Cream Secondary */}
+		<rect x='18.5' y='148.5' width='88' height='21' rx='3' fill='#050505' />
+		<rect x='16' y='146' width='88' height='21' rx='3' fill='#FD6141' stroke='#050505' strokeWidth='2' />
+		<text x='60' y='159' textAnchor='middle' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='6.3'>
+			Watch 14 Video Works ↓
 		</text>
 
-		<rect x='102' y='173' width='70' height='22' rx='3' fill='#050505' />
-		<rect x='100' y='171' width='70' height='22' rx='3' fill='#FCF0D3' stroke='#050505' strokeWidth='2' />
-		<text x='135' y='184' textAnchor='middle' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='7'>
-			Studio Desk →
+		<rect x='112.5' y='148.5' width='76' height='21' rx='3' fill='#050505' />
+		<rect x='110' y='146' width='76' height='21' rx='3' fill='#FCF0D3' stroke='#050505' strokeWidth='2' />
+		<text x='148' y='159' textAnchor='middle' fill='#050505' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='6.3'>
+			Profile &amp; Guide →
 		</text>
 
-		{/* MIXED MEDIA Sticker */}
-		<polygon
-			points='195,161 200,168 208,167 205,174 212,179 204,182 206,190 198,186 193,193 190,185 182,188 186,180 179,176 187,173 185,165 192,169'
-			fill='#FD6141'
-			stroke='#050505'
-			strokeWidth='1.8'
-			strokeLinejoin='round'
-		/>
-		<text x='195' y='178' textAnchor='middle' fill='#FFFFFF' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='5.2'>
-			MIXED
-		</text>
-		<text x='195' y='184' textAnchor='middle' fill='#FFD426' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='4.5'>
-			MEDIA
-		</text>
+		{/* Clean Open Stats Strip Below Dashed Rule (Matches Current Hero) */}
+		<line x1='16' y1='184' x2='208' y2='184' stroke='#050505' strokeOpacity='0.22' strokeDasharray='2.5 2.5' strokeWidth='1.2' />
+		<g fontFamily="'Onest',sans-serif">
+			<text x='16' y='201' fill='#050505' fontWeight='900' fontSize='8.2'>14 Videos</text>
+			<text x='16' y='211' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontWeight='700' fontSize='4.5'>9:16 · 16:9</text>
 
-		{/* Bottom 4 Archival Spec Tickets */}
-		<g fontFamily="'Onest',sans-serif" fontWeight='900'>
-			<rect x='18' y='211' width='46' height='32' rx='3' fill='#050505' />
-			<rect x='16' y='209' width='46' height='32' rx='3' fill='#FFFFFF' stroke='#050505' strokeWidth='1.8' />
-			<text x='21' y='223' fill='#050505' fontSize='7'>
-				14 Works
-			</text>
-			<text x='21' y='234' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontSize='4.8'>
-				9:16 · 16:9
-			</text>
+			<text x='67' y='201' fill='#050505' fontWeight='900' fontSize='8.2'>3.76 GPA</text>
+			<text x='67' y='211' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontWeight='700' fontSize='4.5'>Cum Laude</text>
 
-			<rect x='69' y='211' width='46' height='32' rx='3' fill='#050505' />
-			<rect x='67' y='209' width='46' height='32' rx='3' fill='#FFD426' stroke='#050505' strokeWidth='1.8' />
-			<text x='72' y='223' fill='#050505' fontSize='7'>
-				3.76 GPA
-			</text>
-			<text x='72' y='234' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontSize='4.8'>
-				Film &amp; TV
-			</text>
+			<text x='117' y='201' fill='#050505' fontWeight='900' fontSize='8.2'>610 TOEFL</text>
+			<text x='117' y='211' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontWeight='700' fontSize='4.5'>EN / ID</text>
 
-			<rect x='120' y='211' width='46' height='32' rx='3' fill='#050505' />
-			<rect x='118' y='209' width='46' height='32' rx='3' fill='#FFFFFF' stroke='#050505' strokeWidth='1.8' />
-			<text x='123' y='223' fill='#050505' fontSize='7'>
-				610 TOEFL
-			</text>
-			<text x='123' y='234' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontSize='4.8'>
-				EN / ID
-			</text>
+			<text x='167' y='201' fill='#050505' fontWeight='900' fontSize='8.2'>Video &amp; Web</text>
+			<text x='167' y='211' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontWeight='700' fontSize='4.5'>Custom Sites</text>
+		</g>
 
-			<rect x='171' y='211' width='46' height='32' rx='3' fill='#050505' />
-			<rect x='169' y='209' width='46' height='32' rx='3' fill='#FCF0D3' stroke='#050505' strokeWidth='1.8' />
-			<text x='174' y='223' fill='#050505' fontSize='6.5'>
-				Voice+SFX
-			</text>
-			<text x='174' y='234' fill='#3B404C' fontFamily="'JetBrains Mono',monospace" fontSize='4.8'>
-				Clean Mix
-			</text>
+		{/* Right Hero Column: Labeled Studio Patch Cords */}
+		<g fill='none' strokeLinecap='round'>
+			{/* Cord 1: Vermilion Red (STORY) */}
+			<path d='M 224 68 C 254 114, 326 114, 366 74' stroke='#050505' strokeWidth='5.8' />
+			<path d='M 224 68 C 254 114, 326 114, 366 74' stroke='#FD6141' strokeWidth='2.8' />
+			{/* Cord 2: Acid Green (CODE) */}
+			<path d='M 284 60 C 304 112, 342 122, 368 96' stroke='#050505' strokeWidth='5.8' />
+			<path d='M 284 60 C 304 112, 342 122, 368 96' stroke='#5CE62E' strokeWidth='2.8' />
+			{/* Cord 3: Cerulean Blue (MOTION) */}
+			<path d='M 224 94 C 252 132, 314 136, 352 114' stroke='#050505' strokeWidth='5.8' />
+			<path d='M 224 94 C 252 132, 314 136, 352 114' stroke='#3886C0' strokeWidth='2.8' />
+		</g>
+		{/* Jack Plug Eyelets */}
+		<circle cx='224' cy='68' r='3.5' fill='#FD6141' stroke='#050505' strokeWidth='1.4' />
+		<circle cx='366' cy='74' r='3.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.4' />
+		<circle cx='284' cy='60' r='3.5' fill='#5CE62E' stroke='#050505' strokeWidth='1.4' />
+		<circle cx='368' cy='96' r='3.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.4' />
+		<circle cx='224' cy='94' r='3.5' fill='#3886C0' stroke='#050505' strokeWidth='1.4' />
+		<circle cx='352' cy='114' r='3.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.4' />
+
+		{/* White Cord Labels (STORY, CODE, MOTION) */}
+		<g transform='translate(274 100) rotate(8)'>
+			<rect x='-13' y='-5.5' width='26' height='10.5' rx='1.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.2' />
+			<text x='0' y='1.5' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.5'>STORY</text>
+		</g>
+		<g transform='translate(332 108) rotate(10)'>
+			<rect x='-11.5' y='-5.5' width='23' height='10.5' rx='1.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.2' />
+			<text x='0' y='1.5' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.5'>CODE</text>
+		</g>
+		<g transform='translate(256 121) rotate(12)'>
+			<rect x='-14.5' y='-5.5' width='29' height='10.5' rx='1.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.2' />
+			<text x='0' y='1.5' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.5'>MOTION</text>
 		</g>
 
 		{/* Right Hero Console Window: PATCH_CORDS.PHYSICS */}
-		<rect x='232' y='158' width='136' height='86' rx='4' fill='#050505' />
-		<rect x='228' y='154' width='136' height='86' rx='4' fill='#FCF0D3' stroke='#050505' strokeWidth='2.5' />
-		<rect x='228' y='154' width='136' height='19' fill='#F2C94C' stroke='#050505' strokeWidth='2.5' />
-		<circle cx='238' cy='163.5' r='3' fill='#FD6141' stroke='#050505' strokeWidth='1.2' />
-		<text x='245' y='166' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5.8'>
+		<rect x='238' y='138' width='130' height='70' rx='4' fill='#050505' />
+		<rect x='235' y='135' width='130' height='70' rx='4' fill='#FCF0D3' stroke='#050505' strokeWidth='2.2' />
+		<rect x='235' y='135' width='130' height='16' fill='#FFD426' stroke='#050505' strokeWidth='2.2' />
+		<circle cx='244' cy='143' r='2.6' fill='#FD6141' stroke='#050505' strokeWidth='1.1' />
+		<text x='251' y='145' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5.2'>
 			PATCH_CORDS.PHYSICS
 		</text>
-		<rect x='333' y='158' width='25' height='11' rx='2' fill='#FCF0D3' stroke='#050505' strokeWidth='1.2' />
-		<text x='345.5' y='165.5' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5'>
-			60 FPS
-		</text>
+		<line x1='332' y1='140' x2='357' y2='140' stroke='#050505' strokeOpacity='0.35' strokeWidth='1.2' />
+		<line x1='332' y1='145' x2='357' y2='145' stroke='#050505' strokeOpacity='0.35' strokeWidth='1.2' />
 
-		<text x='237' y='186' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='5.5'>
-			TAP OR GLIDE CORDS TO PLUCK
+		<text x='243' y='164' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='4.8'>
+			PLUCK OR DRAG THE STUDIO CORDS
 		</text>
-		<line x1='237' y1='196' x2='354' y2='196' stroke='#050505' strokeOpacity='0.25' strokeDasharray='3 3' strokeWidth='1.5' />
-		<text x='237' y='215' fill='#204275' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='5.5'>
-			4 STUDIO CORDS LIVE
+		<line x1='243' y1='173' x2='357' y2='173' stroke='#050505' strokeOpacity='0.22' strokeDasharray='2.5 2.5' strokeWidth='1.2' />
+		<text x='243' y='193' fill='#204275' fontFamily="'JetBrains Mono',monospace" fontWeight='800' fontSize='5'>
+			4 cords ready
 		</text>
-		<rect x='310' y='204' width='45' height='17' rx='3' fill='#5CE62E' stroke='#050505' strokeWidth='1.5' />
-		<text x='332.5' y='215' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5'>
+		<rect x='313.5' y='184' width='44' height='14' rx='2.5' fill='#050505' />
+		<rect x='312' y='182.5' width='44' height='14' rx='2.5' fill='#FFD426' stroke='#050505' strokeWidth='1.4' />
+		<text x='334' y='191.5' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.8'>
 			♪ SFX: ON
 		</text>
 
-		{/* Section Horizon Seam + Green Studio Desk Drafting Mat Peek Below */}
-		<rect x='0' y='268' width='380' height='72' fill='#17594A' />
-		<g stroke='#FFFFFF' strokeOpacity='0.12' strokeWidth='1'>
-			<path d='M0 292H380 M0 316H380 M24 268V340 M64 268V340 M104 268V340 M144 268V340 M184 268V340 M224 268V340 M264 268V340 M304 268V340 M344 268V340' />
+		{/* Yellow Cord Draped Smoothly Below Console (SOUND) */}
+		<path d='M 248 214 C 280 238, 336 238, 366 218' fill='none' stroke='#050505' strokeWidth='5.8' strokeLinecap='round' />
+		<path d='M 248 214 C 280 238, 336 238, 366 218' fill='none' stroke='#FFD426' strokeWidth='2.8' strokeLinecap='round' />
+		<circle cx='248' cy='214' r='3.5' fill='#FFD426' stroke='#050505' strokeWidth='1.4' />
+		<circle cx='366' cy='218' r='3.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.4' />
+		<g transform='translate(309 232) rotate(-3)'>
+			<rect x='-13' y='-5.5' width='26' height='10.5' rx='1.5' fill='#FCF0D3' stroke='#050505' strokeWidth='1.2' />
+			<text x='0' y='1.5' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='4.5'>SOUND</text>
 		</g>
-		<line x1='0' y1='268' x2='380' y2='268' stroke='#050505' strokeWidth='4' />
 
-		{/* Dual OS Windows Peeking at Bottom */}
-		<rect x='19' y='284' width='166' height='62' rx='3' fill='#050505' />
-		<rect x='16' y='281' width='166' height='62' rx='3' fill='#2C5F8B' stroke='#050505' strokeWidth='2.5' />
-		<rect x='16' y='281' width='166' height='16' fill='#FFD426' stroke='#050505' strokeWidth='2.5' />
-		<text x='25' y='292' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5.5'>
-			● CORE PROFILE · 3 PILLARS
+		{/* Horizon Seam + Cerulean Blueprint Video Portfolio Section Peeking Below */}
+		<rect x='0' y='252' width='380' height='88' fill='#3886C0' />
+		<g stroke='#CDF0FF' strokeOpacity='0.26' strokeWidth='1'>
+			<path d='M0 278H380 M0 304H380 M0 330H380 M28 252V340 M68 252V340 M108 252V340 M148 252V340 M188 252V340 M228 252V340 M268 252V340 M308 252V340 M348 252V340' />
+		</g>
+		<line x1='0' y1='252' x2='380' y2='252' stroke='#050505' strokeWidth='3.5' />
+
+		{/* FIG.01 Canary Header Pill + Section Title */}
+		<rect x='19.5' y='262.5' width='104' height='13' rx='2' fill='#050505' />
+		<rect x='18' y='261' width='104' height='13' rx='2' fill='#FFD426' stroke='#050505' strokeWidth='1.5' />
+		<text x='70' y='269.5' textAnchor='middle' fill='#050505' fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5.2'>
+			FIG.01 · 14 SELECTED WORKS
 		</text>
-		<rect x='26' y='306' width='146' height='26' rx='2' fill='#FCF0D3' stroke='#050505' strokeWidth='1.8' />
+		<text x='18' y='291' fill='#FFFFFF' fontFamily="'Onest',sans-serif" fontWeight='900' fontSize='11.5'>
+			Selected Video &amp; Motion Works
+		</text>
 
-		<rect x='201' y='284' width='166' height='62' rx='3' fill='#050505' />
-		<rect x='198' y='281' width='166' height='62' rx='3' fill='#DAE5ED' stroke='#050505' strokeWidth='2.5' />
-		<rect x='198' y='281' width='166' height='16' fill='#4D9DE0' stroke='#050505' strokeWidth='2.5' />
-		<rect x='300' y='284' width='26' height='10' rx='2' fill='#5CE62E' stroke='#050505' strokeWidth='1.2' />
-		<rect x='330' y='284' width='28' height='10' rx='2' fill='#FCF0D3' stroke='#050505' strokeWidth='1.2' />
-		<rect x='208' y='306' width='146' height='26' rx='2' fill='#FFFFFF' stroke='#050505' strokeWidth='1.8' />
+		{/* Peeking Tactile Cream Filter Console Card */}
+		<rect x='21' y='303' width='342' height='44' rx='4' fill='#050505' />
+		<rect x='18' y='300' width='342' height='44' rx='4' fill='#FCF0D3' stroke='#050505' strokeWidth='2.2' />
+		{/* Filter Pills Row Inside Console */}
+		<g fontFamily="'JetBrains Mono',monospace" fontWeight='900' fontSize='5.2'>
+			<rect x='28' y='310' width='30' height='14' rx='2.5' fill='#050505' />
+			<text x='43' y='319' textAnchor='middle' fill='#FFD426'>ALL</text>
+
+			<rect x='63' y='310' width='26' height='14' rx='2.5' fill='#FFFFFF' stroke='#050505' strokeWidth='1.3' />
+			<text x='76' y='319' textAnchor='middle' fill='#050505'>9:16</text>
+
+			<rect x='93' y='310' width='26' height='14' rx='2.5' fill='#FFFFFF' stroke='#050505' strokeWidth='1.3' />
+			<text x='106' y='319' textAnchor='middle' fill='#050505'>16:9</text>
+
+			<rect x='128' y='310' width='22' height='14' rx='2.5' fill='#FFFFFF' stroke='#050505' strokeWidth='1.3' />
+			<text x='139' y='319' textAnchor='middle' fill='#050505'>EN</text>
+
+			<rect x='154' y='310' width='22' height='14' rx='2.5' fill='#FFFFFF' stroke='#050505' strokeWidth='1.3' />
+			<text x='165' y='319' textAnchor='middle' fill='#050505'>ID</text>
+
+			{/* Style Filter Dots & Labels */}
+			<rect x='186' y='310' width='52' height='14' rx='2.5' fill='#FFFFFF' stroke='#050505' strokeWidth='1.3' />
+			<circle cx='194' cy='317' r='2.3' fill='#FD6141' />
+			<text x='217' y='319' textAnchor='middle' fill='#050505'>EDITORIAL</text>
+
+			<rect x='243' y='310' width='50' height='14' rx='2.5' fill='#FFFFFF' stroke='#050505' strokeWidth='1.3' />
+			<circle cx='251' cy='317' r='2.3' fill='#3886C0' />
+			<text x='273' y='319' textAnchor='middle' fill='#050505'>3D/SHADER</text>
+
+			<rect x='298' y='310' width='52' height='14' rx='2.5' fill='#FFFFFF' stroke='#050505' strokeWidth='1.3' />
+			<circle cx='306' cy='317' r='2.3' fill='#5CE62E' />
+			<text x='329' y='319' textAnchor='middle' fill='#050505'>REMOTION</text>
+		</g>
+		{/* Subtle Lower Console Divider Line Peeking */}
+		<line x1='28' y1='332' x2='350' y2='332' stroke='#050505' strokeOpacity='0.18' strokeDasharray='3 3' strokeWidth='1.2' />
 	</svg>
 );
 

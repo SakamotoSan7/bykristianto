@@ -65,6 +65,9 @@ export interface ChessMoveAudioSpec {
 }
 
 export interface SoundContextValue {
+	audioNeedsUnlock: boolean;
+	unlockAudio: (withChime?: boolean) => void;
+	muteAllAudio: () => void;
 	sfxLevel: SfxLevel;
 	setSfxLevel: (level: SfxLevel) => void;
 	soundEnabled: boolean;

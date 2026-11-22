@@ -186,12 +186,16 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 	const [bgmLevel, setBgmLevelState] = useState<BgmLevel>(() => parseSavedAudioLevel('kristianto-bgm'));
 	const bgmEnabled = bgmLevel !== 'off';
 	const [bgmDucked, setBgmDuckedState] = useState<boolean>(false);
+	const [audioUnlocked, setAudioUnlocked] = useState<boolean>(false);
+	const [unlockDismissed, setUnlockDismissed] = useState<boolean>(false);
+	const audioNeedsUnlock = !audioUnlocked && !unlockDismissed && (bgmEnabled || soundEnabled);
 
 	const sfxLevelRef = useRef<SfxLevel>(sfxLevel);
 	const enabledRef = useRef(soundEnabled);
 	const bgmLevelRef = useRef<BgmLevel>(bgmLevel);
 	const bgmDuckedRef = useRef(bgmDucked);
 	const ctxRef = useRef<AudioContext | null>(null);
+	const attachedCtxStateRef = useRef<AudioContext | null>(null);
 	const masterChainRef = useRef<{
 		ctx: AudioContext;
 		input: AudioNode;
@@ -241,6 +245,12 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 		bgmDuckedRef.current = bgmDucked;
 	}, [bgmDucked]);
 
+	const syncAudioUnlockedState = useCallback((ctx: AudioContext | null) => {
+		if (ctx && ctx.state === 'running') {
+			setAudioUnlocked(true);
+		}
+	}, []);
+
 	/**
 	 * Safely obtain an active AudioContext ONLY inside genuine user-gesture callbacks
 	 * (pointerdown / click / keydown / touchstart) so browsers never warn about autoplay.
@@ -256,11 +266,24 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 		if (!ctxRef.current) {
 			ctxRef.current = new AudioCtx();
 		}
-		if (ctxRef.current.state === 'suspended') {
-			ctxRef.current.resume().catch(() => {});
+		const activeCtx = ctxRef.current;
+		if (attachedCtxStateRef.current !== activeCtx) {
+			attachedCtxStateRef.current = activeCtx;
+			activeCtx.addEventListener('statechange', () => {
+				syncAudioUnlockedState(activeCtx);
+			});
 		}
-		return ctxRef.current;
-	}, []);
+		syncAudioUnlockedState(activeCtx);
+		if (activeCtx.state === 'suspended') {
+			activeCtx
+				.resume()
+				.then(() => {
+					syncAudioUnlockedState(activeCtx);
+				})
+				.catch(() => {});
+		}
+		return activeCtx;
+	}, [syncAudioUnlockedState]);
 
 	const getRunningContext = useCallback((): AudioContext | null => {
 		const ctx = ctxRef.current;
@@ -1063,6 +1086,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
 		const unlockOnce = (e: Event) => {
 			if (!enabledRef.current || isNavigationShortcutKey(e)) return;
+			if (e.target instanceof Element && e.target.closest('[data-audio-mute-all="true"]')) {
+				return;
+			}
 			getOrUnlockAudioContext();
 		};
 
@@ -1520,6 +1546,35 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 		[applyBgmTargetGain]
 	);
 
+	const unlockAudio = useCallback(
+		(withChime = false) => {
+			setUnlockDismissed(true);
+			const ctx = getOrUnlockAudioContext();
+			if (withChime && enabledRef.current) {
+				playToggleCue(
+					[523.25, 659.25, 783.99],
+					'triangle',
+					0.085 * getSfxGainForLevel(sfxLevelRef.current),
+					0.048
+				);
+			}
+			if (ctx && bgmLevelRef.current !== 'off' && !bgmDuckedRef.current && isPageActiveForeground()) {
+				startBgmPlayback(450, ctx);
+			}
+		},
+		[getOrUnlockAudioContext, playToggleCue, startBgmPlayback]
+	);
+
+	const muteAllAudio = useCallback(() => {
+		setUnlockDismissed(true);
+		sfxLevelRef.current = 'off';
+		enabledRef.current = false;
+		setSfxLevelState('off');
+		bgmLevelRef.current = 'off';
+		setBgmLevelState('off');
+		stopBgmNow(false, 120);
+	}, [stopBgmNow]);
+
 	// Sync BGM strictly via Web Audio API (no OS media notification) and ONLY while page is visible & focused
 	useEffect(() => {
 		if (!bgmEnabled || bgmDucked) {
@@ -1563,7 +1618,11 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
 		const unlockBgmOnGesture = (e: Event) => {
 			if (isNavigationShortcutKey(e)) return;
-			if (e.target instanceof Element && e.target.closest('[data-bgm-toggle="true"]')) {
+			if (
+				e.target instanceof Element &&
+				(e.target.closest('[data-bgm-toggle="true"]') ||
+					e.target.closest('[data-audio-mute-all="true"]'))
+			) {
 				return;
 			}
 			if (bgmLevelRef.current === 'off' || bgmDuckedRef.current || document.hidden) return;
@@ -1618,6 +1677,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 	return (
 		<SoundContext.Provider
 			value={{
+				audioNeedsUnlock,
+				unlockAudio,
+				muteAllAudio,
 				sfxLevel,
 				setSfxLevel,
 				soundEnabled,

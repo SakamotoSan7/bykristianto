@@ -458,3 +458,36 @@ button.ds-panel-paper:hover {
 		font-size: calc(14px - var(--nav-p, 0) * 1px);
 	}
 }
+
+@keyframes ds-eq-bar {
+	0%,
+	100% {
+		transform: scaleY(0.32);
+	}
+	50% {
+		transform: scaleY(1);
+	}
+}
+
+.ds-eq-bar-1 {
+	animation: ds-eq-bar 0.58s ease-in-out infinite;
+	transform-origin: bottom;
+}
+
+.ds-eq-bar-2 {
+	animation: ds-eq-bar 0.44s ease-in-out 0.14s infinite;
+	transform-origin: bottom;
+}
+
+.ds-eq-bar-3 {
+	animation: ds-eq-bar 0.66s ease-in-out 0.08s infinite;
+	transform-origin: bottom;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ds-eq-bar-1,
+	.ds-eq-bar-2,
+	.ds-eq-bar-3 {
+		animation: none;
+	}
+}

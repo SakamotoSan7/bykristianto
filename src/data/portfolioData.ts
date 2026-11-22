@@ -1017,6 +1017,9 @@ export interface ExperienceItem {
 	cardImagePath?: string;
 	cardImageFit?: 'cover' | 'contain';
 	cardImageLabel?: LocalizedText;
+	cardCornerLogoPath?: string;
+	cardCornerLogoAlt?: string;
+	cardCornerLogoShape?: 'circle' | 'pill';
 	responsibilities: LocalizedText[];
 }
 
@@ -1031,6 +1034,9 @@ export const EXPERIENCE_CARDS: ExperienceItem[] = [
 		cardImagePath: '/images/me/studio/exp-afe-darkroom.webp',
 		cardImageFit: 'cover',
 		cardImageLabel: { en: 'POST-PROD SUITE · SOUTH JAKARTA', id: 'RUANG EDITING · JAKARTA SELATAN' },
+		cardCornerLogoPath: '/images/me/studio/logo-afe-corps.webp',
+		cardCornerLogoAlt: 'AFE Corps logo',
+		cardCornerLogoShape: 'circle',
 		review: {
 			en: 'Contributed to music video editing, TV rough cuts, and multi-cam podcast post-production.',
 			id: 'Mengerjakan editing video musik, rough cut program TV, serta pascaproduksi podcast multi-kamera.',
@@ -1086,9 +1092,12 @@ export const EXPERIENCE_CARDS: ExperienceItem[] = [
 		location: 'Jambi, Indonesia',
 		date: '2021',
 		badgeLabel: { en: '100% Data Accuracy & Operational Discipline', id: 'Akurasi Data 100% & Disiplin Operasional' },
-		cardImagePath: '/images/me/exp-1.png',
-		cardImageFit: 'contain',
+		cardImagePath: '/images/me/studio/exp-atrbpn-jambi.webp',
+		cardImageFit: 'cover',
 		cardImageLabel: { en: 'RDS DIGITIZATION · ATR/BPN JAMBI', id: 'PROYEK RDS · ATR/BPN JAMBI' },
+		cardCornerLogoPath: '/images/me/exp-1.png',
+		cardCornerLogoAlt: 'ISH & Telkom Indonesia logo',
+		cardCornerLogoShape: 'pill',
 		review: {
 			en: 'Audited physical land certificates against digital records with 100% accuracy.',
 			id: 'Memvalidasi arsip sertifikat tanah fisik ke sistem digital dengan akurasi 100%.',

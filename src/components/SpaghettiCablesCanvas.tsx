@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useLanguage } from '../context/useLanguage';
 import { useSound } from '../context/useSound';
 import { isPageScrollLocked } from '../utils/scrollLock';
 
@@ -503,11 +504,21 @@ const drawGrommetPin = (
  */
 const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
-	const { playPluck } = useSound();
+	const hintRef = useRef<HTMLDivElement | null>(null);
+	const { t } = useLanguage();
+	const { playPluck, audioNeedsUnlock } = useSound();
 	const playPluckRef = useRef(playPluck);
 	playPluckRef.current = playPluck;
 	const onPluckRef = useRef(onPluck);
 	onPluckRef.current = onPluck;
+	const audioNeedsUnlockRef = useRef(audioNeedsUnlock);
+
+	useEffect(() => {
+		audioNeedsUnlockRef.current = audioNeedsUnlock;
+		if (!audioNeedsUnlock && hintRef.current) {
+			hintRef.current.style.opacity = '0';
+		}
+	}, [audioNeedsUnlock]);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -810,13 +821,60 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 			heroResizeObserver.observe(heroStageEl);
 		}
 
+		const CORD_INTERACT_RADIUS = 88;
+		const HINT_DETECT_RADIUS = 96;
+		const HINT_LINGER_RADIUS = 160;
+		const HINT_HOLD_MS = 650;
+
+		let lastClientX = -9999;
+		let lastClientY = -9999;
+		let lastPointerType = '';
+		let lastOverBlockedUi = false;
+		let cordInteractUntil = 0;
+
+		const getMinCordDist = (x: number, y: number): number => {
+			let minDist = Infinity;
+			for (const strand of strands) {
+				for (const pt of strand.points) {
+					const d = Math.hypot(pt.x - x, pt.y - y);
+					if (d < minDist) minDist = d;
+				}
+			}
+			return minDist;
+		};
+
+		const showCordHint = (clientX: number, clientY: number) => {
+			const hintEl = hintRef.current;
+			if (!hintEl) return;
+			const hintW = hintEl.offsetWidth || 240;
+			const hintX = Math.min(window.innerWidth - hintW - 12, Math.max(12, clientX + 16));
+			const hintY = Math.max(12, clientY - 36);
+			hintEl.style.transform = `translate3d(${hintX}px, ${hintY}px, 0)`;
+			hintEl.style.opacity = '1';
+		};
+
+		const hideCordHint = () => {
+			cordInteractUntil = 0;
+			if (hintRef.current) {
+				hintRef.current.style.opacity = '0';
+			}
+		};
+
 		const handlePointerMove = (e: PointerEvent) => {
-			if (!isVisible) return;
+			lastClientX = e.clientX;
+			lastClientY = e.clientY;
+			lastPointerType = e.pointerType;
+
+			if (!isVisible) {
+				hideCordHint();
+				return;
+			}
 			const rect = canvas.getBoundingClientRect();
 			const nx = e.clientX - rect.left;
 			const ny = e.clientY - rect.top;
 			if (nx < 0 || ny < 0 || nx > rect.width || ny > rect.height) {
 				pointer.active = false;
+				hideCordHint();
 				return;
 			}
 			if (pointer.px < -500) {
@@ -830,9 +888,31 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 			pointer.x = nx;
 			pointer.y = ny;
 			pointer.active = true;
+
+			const targetEl = e.target as HTMLElement | null;
+			const overBlockedUi = Boolean(
+				targetEl?.closest('button, a, [data-hero-card], [data-hero-copy]')
+			);
+			lastOverBlockedUi = overBlockedUi;
+
+			if (audioNeedsUnlockRef.current && e.pointerType === 'mouse' && !overBlockedUi && hintRef.current) {
+				const minDist = getMinCordDist(nx, ny);
+				const now = performance.now();
+				if (minDist < HINT_DETECT_RADIUS) {
+					cordInteractUntil = now + HINT_HOLD_MS;
+					showCordHint(e.clientX, e.clientY);
+					return;
+				}
+				if (now < cordInteractUntil && minDist < HINT_LINGER_RADIUS) {
+					showCordHint(e.clientX, e.clientY);
+					return;
+				}
+			}
+			hideCordHint();
 		};
 
 		const handlePointerDown = (e: PointerEvent) => {
+			hideCordHint();
 			if (!isVisible) return;
 			const targetEl = e.target as HTMLElement | null;
 			if (targetEl?.closest('button, a, [data-hero-card]')) return;
@@ -879,6 +959,7 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 			pointer.vy = 0;
 			pointer.px = -9999;
 			pointer.py = -9999;
+			hideCordHint();
 		};
 
 		window.addEventListener('pointermove', handlePointerMove, { passive: true });
@@ -886,6 +967,7 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 		window.addEventListener('pointerup', handlePointerUp, { passive: true });
 		window.addEventListener('pointercancel', handlePointerUp, { passive: true });
 		window.addEventListener('pointerleave', handlePointerUp, { passive: true });
+		window.addEventListener('scroll', hideCordHint, { passive: true });
 
 		const observer = new IntersectionObserver(
 			(entries) => {
@@ -904,7 +986,6 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 		observer.observe(canvas);
 
 		const stepPhysics = (dtScale: number) => {
-			const radius = 88;
 			const currentScrollY = isPageScrollLocked() ? lastScrollY : window.scrollY;
 			const rawScrollDelta = Math.max(-96, Math.min(96, currentScrollY - lastScrollY));
 			lastScrollY = currentScrollY;
@@ -917,6 +998,8 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 			const rawDriveY = scrollAccel * 0.095 + smoothScrollVel * 0.028;
 			const clampedDriveY = Math.max(-2.5, Math.min(2.5, rawDriveY));
 			const clampedSwayX = Math.max(-0.42, Math.min(0.42, smoothScrollVel * 0.0055));
+
+			let touchedAnyStrand = false;
 
 			strands.forEach((strand, sIdx) => {
 				const pts = strand.points;
@@ -939,8 +1022,9 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 						const dx = p.x - pointer.x;
 						const dy = p.y - pointer.y;
 						const dist = Math.hypot(dx, dy);
-						if (dist < radius && dist > 0.001) {
-							const influence = 1 - dist / radius;
+						if (dist < CORD_INTERACT_RADIUS && dist > 0.001) {
+							touchedAnyStrand = true;
+							const influence = 1 - dist / CORD_INTERACT_RADIUS;
 							p.x += pointer.vx * influence * 0.42 + (dx / dist) * influence * 2.2;
 							p.y += pointer.vy * influence * 0.42 + (dy / dist) * influence * 2.2;
 							if (Math.hypot(pointer.vx, pointer.vy) > 3.5) {
@@ -959,6 +1043,27 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 
 				relaxConstraints(pts, strand.segLen);
 			});
+
+			if (
+				touchedAnyStrand &&
+				audioNeedsUnlockRef.current &&
+				lastPointerType === 'mouse' &&
+				!lastOverBlockedUi &&
+				lastClientX > -500
+			) {
+				cordInteractUntil = performance.now() + HINT_HOLD_MS;
+				showCordHint(lastClientX, lastClientY);
+			} else if (hintRef.current && hintRef.current.style.opacity === '1') {
+				if (
+					!audioNeedsUnlockRef.current ||
+					!pointer.active ||
+					lastOverBlockedUi ||
+					(performance.now() >= cordInteractUntil &&
+						getMinCordDist(pointer.x, pointer.y) >= HINT_DETECT_RADIUS)
+				) {
+					hideCordHint();
+				}
+			}
 
 			pointer.vx *= 0.8;
 			pointer.vy *= 0.8;
@@ -995,15 +1100,29 @@ const SpaghettiCablesCanvas = ({ onPluck }: SpaghettiCablesCanvasProps) => {
 			window.removeEventListener('pointerup', handlePointerUp);
 			window.removeEventListener('pointercancel', handlePointerUp);
 			window.removeEventListener('pointerleave', handlePointerUp);
+			window.removeEventListener('scroll', hideCordHint);
 		};
 	}, []);
 
 	return (
-		<canvas
-			ref={canvasRef}
-			aria-hidden='true'
-			className='pointer-events-none absolute inset-0 w-full h-full z-10'
-		/>
+		<>
+			<canvas
+				ref={canvasRef}
+				aria-hidden='true'
+				className='pointer-events-none absolute inset-0 w-full h-full z-10'
+			/>
+			<div
+				ref={hintRef}
+				data-cord-audio-hint='true'
+				aria-hidden='true'
+				className='fixed top-0 left-0 z-[95] pointer-events-none px-2.5 py-1 rounded-full border-2 border-[#050505] bg-[#FFD426] text-[#050505] font-mono text-[11px] font-black shadow-[3px_3px_0_#050505] whitespace-nowrap transition-opacity duration-150 opacity-0'
+			>
+				{t({
+					en: '♪ Click once for cord sound',
+					id: '♪ Klik sekali untuk suara kabel',
+				})}
+			</div>
+		</>
 	);
 };
 

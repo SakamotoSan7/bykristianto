@@ -274,7 +274,7 @@ const ExperienceSection = () => {
 								{card.cardImagePath && (
 									<figure className='border-b-[2.5px] border-[#050505] overflow-hidden bg-[#14171D]'>
 										<div
-											className={`aspect-[3/2] w-full overflow-hidden ${
+											className={`relative aspect-[3/2] w-full overflow-hidden ${
 												card.cardImageFit === 'contain' ? 'bg-white p-4' : 'bg-[#14171D]'
 											}`}
 										>
@@ -286,6 +286,26 @@ const ExperienceSection = () => {
 													card.cardImageFit === 'contain' ? 'object-contain' : 'object-cover'
 												}`}
 											/>
+											{card.cardCornerLogoPath && (
+												<div
+													className={
+														card.cardCornerLogoShape === 'circle'
+															? 'absolute bottom-2.5 left-2.5 z-10 w-10 h-10 sm:w-[42px] sm:h-[42px] rounded-full bg-white p-0.5 overflow-hidden flex items-center justify-center'
+															: 'absolute bottom-2.5 left-2.5 z-10 h-10 sm:h-[42px] max-w-[116px] rounded-[4px] bg-white px-2 py-1.5 overflow-hidden flex items-center justify-center'
+													}
+												>
+													<img
+														src={card.cardCornerLogoPath}
+														alt={card.cardCornerLogoAlt ?? card.organization}
+														loading='lazy'
+														className={
+															card.cardCornerLogoShape === 'circle'
+																? 'w-full h-full object-contain rounded-full'
+																: 'w-full h-full object-contain'
+														}
+													/>
+												</div>
+											)}
 										</div>
 										{card.cardImageLabel && (
 											<figcaption className='px-3 py-1 border-t border-[#050505] bg-[#050505] text-[#FCF0D3] font-mono text-[10px] font-bold tracking-wide truncate'>
