@@ -29,8 +29,9 @@ interface SearchOutcome {
 
 /**
  * Lightweight single-threaded Stockfish 19 Lite WASM Web Worker wrapper.
- * Runs device-independent node-capped MultiPV searches across all 3 tiers
- * (`1900` Om Kris, `1500` ABG Kris, `1000` Bocil Kris) with human-like Rapid pacing.
+ * Runs hash-cleared fixed-horizon MultiPV searches across all 3 tiers
+ * (`1900` Om Kris, `1500` ABG Kris, `1000` Bocil Kris) with Gaussian human-perception
+ * calibration and natural Rapid pacing.
  */
 export class StockfishClient {
 	private worker: Worker | null = null;
@@ -86,6 +87,7 @@ export class StockfishClient {
 	private postTierOptions(multiPv: number, includeStrengthReset: boolean) {
 		if (!this.worker) return;
 		if (includeStrengthReset) {
+			this.worker.postMessage('setoption name Hash value 4');
 			this.worker.postMessage('setoption name UCI_LimitStrength value false');
 			this.worker.postMessage('setoption name Skill Level value 20');
 		}
@@ -177,7 +179,13 @@ export class StockfishClient {
 			return;
 		}
 
-		if (this.activeSearch && line.startsWith('info depth ') && line.includes(' pv ')) {
+		if (
+			this.activeSearch &&
+			line.startsWith('info depth ') &&
+			line.includes(' pv ') &&
+			!line.includes(' upperbound') &&
+			!line.includes(' lowerbound')
+		) {
 			const match = line.match(
 				/\bdepth\s+(\d+)\b.*\bmultipv\s+(\d+)\b.*\bscore\s+(cp|mate)\s+(-?\d+)\b.*\bpv\s+(\S+)/
 			);
@@ -334,11 +342,13 @@ export class StockfishClient {
 		const cfg = TIER_ENGINE_CONFIG[tier];
 		if (this.configuredMultiPv !== cfg.multiPv) {
 			this.postTierOptions(cfg.multiPv, false);
-			await this.waitReady();
-			if (this.isDisposed || searchEpoch !== this.epoch || !this.worker) {
-				if (this.state === 'thinking') this.setState('ready');
-				return null;
-			}
+		}
+		// Clear Transposition Table before every move so deeper cached lines never leak across plies
+		this.worker.postMessage('setoption name Clear Hash');
+		await this.waitReady();
+		if (this.isDisposed || searchEpoch !== this.epoch || !this.worker) {
+			if (this.state === 'thinking') this.setState('ready');
+			return null;
 		}
 
 		const startedAt = performance.now();

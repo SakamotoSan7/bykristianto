@@ -12,62 +12,57 @@ export interface RawMultiPvCandidate {
 export interface TierEngineConfig {
 	multiPv: number;
 	searchDepth: number;
-	baseDepth: number;
-	deepHorizonProb: number;
-	winPctTemp: number;
-	maxWinDropPct: number;
-	oversightProb: number;
-	oversightMaxWinDropPct: number;
+	noiseSigma: number;
+	sharpNoiseBoost: number;
+	maxUtilDrop: number;
+	minPoolSize: number;
+	endgameNoiseScale: number;
 	mateInOneSpotProb: number;
 	obviousRecaptureSpotProb: number;
 	styleScale: number;
 }
 
 /**
- * Organic shallow-horizon MultiPV configs per tier (`go depth 1 / 2 / 3`).
- * Instead of searching 8–9 plies deep like a 2800 engine and injecting artificial blunders,
- * each tier genuinely calculates at a human-appropriate horizon (depth 1–3) with Stockfish NNUE
- * positional understanding + `Sanakamoto-san` style bias and gentle Win% softmax.
+ * Hash-cleared fixed-horizon MultiPV configs per tier (`go depth 2 / 3`) calibrated with
+ * smooth human utility (`cpToHumanUtility`) and truncated Gaussian perceptual noise so each
+ * tier plays at an accurate, consistent Chess.com Rapid Elo with `Sanakamoto-san` style bias.
  */
 export const TIER_ENGINE_CONFIG: Record<KrisTierId, TierEngineConfig> = {
 	'1000': {
-		multiPv: 18,
-		searchDepth: 1,
-		baseDepth: 1,
-		deepHorizonProb: 0,
-		winPctTemp: 5.5,
-		maxWinDropPct: 30,
-		oversightProb: 0.07,
-		oversightMaxWinDropPct: 48,
-		mateInOneSpotProb: 0.85,
-		obviousRecaptureSpotProb: 0.88,
-		styleScale: 0.95,
+		multiPv: 24,
+		searchDepth: 2,
+		noiseSigma: 14.0,
+		sharpNoiseBoost: 0.35,
+		maxUtilDrop: 66,
+		minPoolSize: 5,
+		endgameNoiseScale: 1.0,
+		mateInOneSpotProb: 0.72,
+		obviousRecaptureSpotProb: 0.78,
+		styleScale: 0.85,
 	},
 	'1500': {
-		multiPv: 12,
-		searchDepth: 2,
-		baseDepth: 1,
-		deepHorizonProb: 0.72,
-		winPctTemp: 2.4,
-		maxWinDropPct: 12,
-		oversightProb: 0,
-		oversightMaxWinDropPct: 12,
-		mateInOneSpotProb: 0.96,
-		obviousRecaptureSpotProb: 0.97,
-		styleScale: 1.1,
+		multiPv: 16,
+		searchDepth: 3,
+		noiseSigma: 9.4,
+		sharpNoiseBoost: 0.28,
+		maxUtilDrop: 50,
+		minPoolSize: 5,
+		endgameNoiseScale: 1.0,
+		mateInOneSpotProb: 0.90,
+		obviousRecaptureSpotProb: 0.91,
+		styleScale: 1.05,
 	},
 	'1900': {
-		multiPv: 8,
+		multiPv: 10,
 		searchDepth: 3,
-		baseDepth: 2,
-		deepHorizonProb: 0.12,
-		winPctTemp: 2.1,
-		maxWinDropPct: 9,
-		oversightProb: 0,
-		oversightMaxWinDropPct: 9,
-		mateInOneSpotProb: 0.995,
-		obviousRecaptureSpotProb: 0.995,
-		styleScale: 1.25,
+		noiseSigma: 4.2,
+		sharpNoiseBoost: 0.2,
+		maxUtilDrop: 30,
+		minPoolSize: 4,
+		endgameNoiseScale: 0.92,
+		mateInOneSpotProb: 0.985,
+		obviousRecaptureSpotProb: 0.985,
+		styleScale: 1.2,
 	},
 };
 
@@ -114,6 +109,26 @@ const FILES = 'abcdefgh';
 export function cpToWinPct(cp: number): number {
 	const clamped = Math.max(-2400, Math.min(2400, cp));
 	return 100 / (1 + Math.exp(-0.00368208 * clamped));
+}
+
+/**
+ * Blends Stockfish Win% with damped linear centipawns so large leads (+500..+800 cp)
+ * still penalize hanging material instead of flattening out completely.
+ */
+function cpToHumanUtility(cp: number): number {
+	const win = cpToWinPct(cp);
+	const damped = Math.sign(cp) * 32 * Math.log1p(Math.abs(cp) / 350);
+	return 0.65 * win + 0.35 * (50 + damped);
+}
+
+/** Samples a Box-Muller standard normal variable clamped to `[-clampZ, clampZ]` to avoid freak outlier tails. */
+function sampleTruncatedNormal(clampZ = 3.2): number {
+	let u = 0;
+	let v = 0;
+	while (u === 0) u = Math.random();
+	while (v === 0) v = Math.random();
+	const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+	return Math.max(-clampZ, Math.min(clampZ, z));
 }
 
 /** Converts a UCI `score mate N` value to the calibrated centipawn scale without drowning out tactics. */
@@ -330,9 +345,8 @@ export function computeSanakamotoStyleBonusCp(
 }
 
 /**
- * Selects a move from Stockfish MultiPV search output across all depths using
- * dual-horizon (shallow-vs-deep) tactical perception, `Sanakamoto-san` style bias,
- * and Win% softmax sampling calibrated per tier (`1000` / `1500` / `1900`).
+ * Selects a move from Stockfish MultiPV search output at a fixed tier horizon using
+ * `Sanakamoto-san` style bias and calibrated truncated-Gaussian human-perception noise (`1000` / `1500` / `1900`).
  */
 export function selectSanakamotoMove({
 	fen,
@@ -349,57 +363,40 @@ export function selectSanakamotoMove({
 	const facts = extractBoardFacts(game, fen, explicitPly);
 	const isSimpleEndgame = facts.nonPawnPieces <= 6;
 
-	// Choose organic human calculation horizon for this move:
-	// e.g., 1900 mostly thinks at depth 2 (organically misses 3–4 ply tactics), stepping up to
-	// depth 3 on ~25% of moves or simple endgames.
-	const useDeepHorizon =
-		cfg.searchDepth > cfg.baseDepth &&
-		(isSimpleEndgame || Math.random() < cfg.deepHorizonProb);
-	const targetDepth = useDeepHorizon ? cfg.searchDepth : cfg.baseDepth;
-
-	let maxDepth = 0;
+	// Choose highest available depth <= cfg.searchDepth (fallback to max depth if all exceed)
+	let effectiveDepth = 0;
+	let maxAvailableDepth = 0;
 	for (const c of rawCandidates) {
-		if (c.depth > maxDepth) maxDepth = c.depth;
-	}
-	const effectiveTargetDepth = Math.min(targetDepth, Math.max(1, maxDepth));
-
-	interface AggregatedMove {
-		move: string;
-		cp: number;
-		depth: number;
-		isMateInOne: boolean;
-	}
-
-	const byMove = new Map<string, AggregatedMove>();
-	for (const c of rawCandidates) {
-		let agg = byMove.get(c.move);
-		if (!agg) {
-			agg = {
-				move: c.move,
-				cp: c.cp,
-				depth: c.depth,
-				isMateInOne: c.isMateInOne,
-			};
-			byMove.set(c.move, agg);
-			continue;
+		if (c.depth > maxAvailableDepth) maxAvailableDepth = c.depth;
+		if (c.depth <= cfg.searchDepth && c.depth > effectiveDepth) {
+			effectiveDepth = c.depth;
 		}
-		const curDist = Math.abs(agg.depth - effectiveTargetDepth);
-		const nextDist = Math.abs(c.depth - effectiveTargetDepth);
-		if (
-			nextDist < curDist ||
-			(nextDist === curDist && c.depth <= effectiveTargetDepth && agg.depth > effectiveTargetDepth)
-		) {
-			agg.cp = c.cp;
-			agg.depth = c.depth;
-			agg.isMateInOne = c.isMateInOne;
+	}
+	if (effectiveDepth === 0) effectiveDepth = maxAvailableDepth;
+
+	// Keep the latest resolved MultiPV pass per move at the target depth
+	const byMove = new Map<string, RawMultiPvCandidate>();
+	for (const c of rawCandidates) {
+		if (c.depth === effectiveDepth) {
+			byMove.set(c.move, c);
 		}
 	}
 
-	const allAggregated = [...byMove.values()];
-	const exactAtHorizon = allAggregated.filter((m) => m.depth === effectiveTargetDepth);
-	const sorted = (exactAtHorizon.length > 0 ? exactAtHorizon : allAggregated).sort(
-		(a, b) => b.cp - a.cp
-	);
+	if (byMove.size === 0) {
+		const distByMove = new Map<string, { cand: RawMultiPvCandidate; dist: number }>();
+		for (const c of rawCandidates) {
+			const nextDist = Math.abs(c.depth - effectiveDepth);
+			const prev = distByMove.get(c.move);
+			if (!prev || nextDist <= prev.dist) {
+				distByMove.set(c.move, { cand: c, dist: nextDist });
+			}
+		}
+		for (const entry of distByMove.values()) {
+			byMove.set(entry.cand.move, entry.cand);
+		}
+	}
+
+	const sorted = [...byMove.values()].sort((a, b) => b.cp - a.cp);
 	if (sorted.length === 0) return null;
 	if (sorted.length === 1) {
 		return { move: sorted[0].move, evalSpreadCp: 0, isOnlyMove: true };
@@ -429,7 +426,7 @@ export function selectSanakamotoMove({
 		topMoveVerbose &&
 		topMoveVerbose.to === prevOpponentToSquare &&
 		Boolean(topMoveVerbose.captured) &&
-		evalSpreadCp >= 100 &&
+		evalSpreadCp >= 120 &&
 		Math.random() < cfg.obviousRecaptureSpotProb
 	) {
 		return { move: sorted[0].move, evalSpreadCp, isOnlyMove: false };
@@ -437,26 +434,28 @@ export function selectSanakamotoMove({
 
 	const board = game.board();
 	const bestCp = sorted[0].cp;
-	const bestWin = cpToWinPct(bestCp);
+	const bestUtil = cpToHumanUtility(bestCp);
 
-	const isOversight = cfg.oversightProb > 0 && Math.random() < cfg.oversightProb;
-	const activeMaxDrop = isOversight ? cfg.oversightMaxWinDropPct : cfg.maxWinDropPct;
-	const activeTemp = isOversight
-		? cfg.winPctTemp * 1.8
-		: isSimpleEndgame
-			? cfg.winPctTemp * 0.8
-			: cfg.winPctTemp;
+	// Always retain at least minPoolSize candidates so sharp positions do not lock to 100% #1
+	const filteredPool = sorted.filter(
+		(c, idx) => idx < cfg.minPoolSize || bestUtil - cpToHumanUtility(c.cp) <= cfg.maxUtilDrop
+	);
+	const activePool =
+		filteredPool.length > 0 ? filteredPool : sorted.slice(0, cfg.minPoolSize);
 
-	interface ScoredCandidate {
-		move: string;
-		winLoss: number;
-		styledWin: number;
-	}
+	const sharpness = Math.min(1, evalSpreadCp / 300);
+	const kScale = Math.max(
+		0.85,
+		Math.min(1.18, Math.sqrt(Math.log(12) / Math.log(Math.max(3, activePool.length))))
+	);
+	const endgameScale = isSimpleEndgame ? cfg.endgameNoiseScale : 1.0;
+	const sigma = cfg.noiseSigma * (1 + cfg.sharpNoiseBoost * sharpness) * kScale * endgameScale;
 
-	const scored: ScoredCandidate[] = sorted.map((c) => {
+	let bestNoisyUtility = -Infinity;
+	let chosenMove = activePool[0].move;
+
+	for (const c of activePool) {
 		const rawLossCp = Math.max(0, bestCp - c.cp);
-		const rawWin = cpToWinPct(c.cp);
-		const winLoss = Math.max(0, bestWin - rawWin);
 		const styleBonus =
 			rawLossCp <= 160
 				? computeBonusFromFacts(
@@ -468,35 +467,16 @@ export function selectSanakamotoMove({
 						tier
 					)
 				: 0;
-		const styledWin = cpToWinPct(c.cp + styleBonus);
-		return { move: c.move, winLoss, styledWin };
-	});
-
-	const pool = scored.filter((c) => c.winLoss <= activeMaxDrop);
-	const activePool = pool.length > 0 ? pool : [scored[0]];
-
-	let maxStyledWin = -Infinity;
-	for (const c of activePool) {
-		if (c.styledWin > maxStyledWin) maxStyledWin = c.styledWin;
-	}
-
-	let weightSum = 0;
-	const weights = activePool.map((c) => {
-		const w = Math.exp((c.styledWin - maxStyledWin) / Math.max(0.25, activeTemp));
-		weightSum += w;
-		return w;
-	});
-
-	let roll = Math.random() * weightSum;
-	for (let i = 0; i < activePool.length; i += 1) {
-		roll -= weights[i];
-		if (roll <= 0) {
-			return { move: activePool[i].move, evalSpreadCp, isOnlyMove: false };
+		const noisyUtility =
+			cpToHumanUtility(c.cp + styleBonus) + sampleTruncatedNormal(3.2) * sigma;
+		if (noisyUtility > bestNoisyUtility) {
+			bestNoisyUtility = noisyUtility;
+			chosenMove = c.move;
 		}
 	}
 
 	return {
-		move: activePool[activePool.length - 1].move,
+		move: chosenMove,
 		evalSpreadCp,
 		isOnlyMove: false,
 	};
