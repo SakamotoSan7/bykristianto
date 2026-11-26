@@ -33,12 +33,15 @@ import {
 	buildTimelineFrame,
 	formatClock,
 	getGameResultFromPosition,
+	getLichessPremoveTargets,
+	normalizePremoveTarget,
 	parseUciMove,
 	pickRandomColor,
 	squareFromCoords,
 	type ArrowColorKey,
 	type BoardArrow,
 	type GameResult,
+	type QueuedPremove,
 	type SquareHighlight,
 	type TimelineFrame,
 } from './chessHelpers';
@@ -429,6 +432,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 	const [engineBootKey, setEngineBootKey] = useState<number>(0);
 
 	const [selectedSquare, setSelectedSquare] = useState<Square | null>(null);
+	const [queuedPremove, setQueuedPremove] = useState<QueuedPremove | null>(null);
 	const [pendingPromotion, setPendingPromotion] = useState<{ from: Square; to: Square } | null>(
 		null
 	);
@@ -460,6 +464,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 	const isViewingHistoryRef = useRef<boolean>(false);
 	const arrowDrawModeRef = useRef<boolean>(arrowDrawMode);
 	const boardPxRef = useRef<number>(boardPx);
+	const selectedSquareRef = useRef<Square | null>(selectedSquare);
+	const queuedPremoveRef = useRef<QueuedPremove | null>(queuedPremove);
+	const premoveExecTimerRef = useRef<number | null>(null);
+	const commitPlayerMoveRef = useRef<
+		((from: Square, to: Square, promotion?: PieceSymbol) => void) | null
+	>(null);
 	const clocksRef = useRef<{ w: number; b: number }>({
 		w: INITIAL_CLOCK_MS,
 		b: INITIAL_CLOCK_MS,
@@ -501,6 +511,10 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 	useEffect(() => {
 		boardPxRef.current = boardPx;
 	}, [boardPx]);
+
+	useEffect(() => {
+		selectedSquareRef.current = selectedSquare;
+	}, [selectedSquare]);
 
 	useEffect(() => {
 		clocksRef.current.w = whiteMs;
@@ -655,8 +669,42 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				window.clearTimeout(bookTimerRef.current);
 				bookTimerRef.current = null;
 			}
+			if (premoveExecTimerRef.current !== null) {
+				window.clearTimeout(premoveExecTimerRef.current);
+				premoveExecTimerRef.current = null;
+			}
 		};
 	}, []);
+
+	const clearQueuedPremove = useCallback(
+		(withCancelSound = false) => {
+			if (premoveExecTimerRef.current !== null) {
+				window.clearTimeout(premoveExecTimerRef.current);
+				premoveExecTimerRef.current = null;
+			}
+			const hadPremove = queuedPremoveRef.current !== null;
+			queuedPremoveRef.current = null;
+			setQueuedPremove(null);
+			if (hadPremove && withCancelSound) {
+				playPreset('close', 0.65);
+			}
+		},
+		[playPreset]
+	);
+
+	const armQueuedPremove = useCallback(
+		(pm: QueuedPremove) => {
+			if (premoveExecTimerRef.current !== null) {
+				window.clearTimeout(premoveExecTimerRef.current);
+				premoveExecTimerRef.current = null;
+			}
+			queuedPremoveRef.current = pm;
+			setQueuedPremove(pm);
+			setSelectedSquare(null);
+			playPreset('paper', 0.85);
+		},
+		[playPreset]
+	);
 
 	const commitDialogueLine = useCallback((line: KrisLine) => {
 		const nextRecent = [...recentDialogueIdsRef.current.slice(-13), line.id];
@@ -704,7 +752,17 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			const nextFrame = buildTimelineFrame(game, { from: move.from, to: move.to });
 			setTimeline((prev) => [...prev, nextFrame]);
 			setRevision((r) => r + 1);
-			setSelectedSquare(null);
+			if (dragRef.current && dragRef.current.from === move.to) {
+				if (dragRafRef.current !== null) {
+					window.cancelAnimationFrame(dragRafRef.current);
+					dragRafRef.current = null;
+				}
+				dragRef.current = null;
+				setDragState(null);
+				setSelectedSquare(null);
+			} else if (queuedPremoveRef.current !== null || selectedSquareRef.current === move.to) {
+				setSelectedSquare(null);
+			}
 			setBoardArrows([]);
 			setSquareHighlights([]);
 			lastTickRef.current = performance.now();
@@ -713,6 +771,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 
 			const terminal = getGameResultFromPosition(game);
 			if (terminal) {
+				clearQueuedPremove(false);
 				resultRef.current = terminal;
 				setResult(terminal);
 				setConfirmResign(false);
@@ -728,36 +787,70 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				return;
 			}
 
-			const plyCount = game.history().length;
-			// Preserve introBlack greeting cleanly when Kris opens 1. ... as White before challenger's move
-			if (plyCount === 1 && !playerHasMovedRef.current) {
-				return;
+			// Consume or cancel any armed 1-move premove cleanly (even after Kris's 1. ... opening move)
+			const pendingPm = queuedPremoveRef.current;
+			if (pendingPm) {
+				const legalCandidates = game.moves({ verbose: true, square: pendingPm.from });
+				const matching = legalCandidates.find((m) => m.to === pendingPm.to);
+				if (!matching) {
+					clearQueuedPremove(false);
+				} else {
+					const promo: PieceSymbol | undefined = matching.promotion ? 'q' : undefined;
+					if (premoveExecTimerRef.current !== null) {
+						window.clearTimeout(premoveExecTimerRef.current);
+					}
+					premoveExecTimerRef.current = window.setTimeout(() => {
+						premoveExecTimerRef.current = null;
+						if (matchIdRef.current !== expectedMatchId || resultRef.current !== null) {
+							return;
+						}
+						if (
+							queuedPremoveRef.current?.from !== pendingPm.from ||
+							queuedPremoveRef.current?.to !== pendingPm.to
+						) {
+							return;
+						}
+						if (chessRef.current.turn() !== playerColorRef.current) return;
+						queuedPremoveRef.current = null;
+						setQueuedPremove(null);
+						if (isViewingHistoryRef.current) {
+							isViewingHistoryRef.current = false;
+							setViewPly(null);
+						}
+						commitPlayerMoveRef.current?.(pendingPm.from, pendingPm.to, promo);
+					}, 65);
+				}
 			}
 
-			const decision = analyzeKrisMoveDialogue({
-				game,
-				move,
-				tier: activeTierRef.current,
-				fromBook,
-				krisColor,
-				preMoveKrisLead,
-				postMoveKrisLead,
-				prevPlayerMove,
-				spokenOpeningTag: spokenOpeningTagRef.current,
-				recentIds: recentDialogueIdsRef.current,
-			});
+			const plyCount = game.history().length;
+			// Preserve introBlack greeting cleanly when Kris opens 1. ... as White before challenger's move
+			if (!(plyCount === 1 && !playerHasMovedRef.current)) {
+				const decision = analyzeKrisMoveDialogue({
+					game,
+					move,
+					tier: activeTierRef.current,
+					fromBook,
+					krisColor,
+					preMoveKrisLead,
+					postMoveKrisLead,
+					prevPlayerMove,
+					spokenOpeningTag: spokenOpeningTagRef.current,
+					recentIds: recentDialogueIdsRef.current,
+				});
 
-			if (decision) {
-				const didJustReactToPlayer = lastUrgentPlayerReactionPlyRef.current === plyCount - 1;
-				if (decision.priority === 'critical' || !didJustReactToPlayer) {
-					if (decision.openingTag) {
-						spokenOpeningTagRef.current = decision.openingTag;
+				if (decision) {
+					const didJustReactToPlayer =
+						lastUrgentPlayerReactionPlyRef.current === plyCount - 1;
+					if (decision.priority === 'critical' || !didJustReactToPlayer) {
+						if (decision.openingTag) {
+							spokenOpeningTagRef.current = decision.openingTag;
+						}
+						commitDialogueLine(decision.line);
 					}
-					commitDialogueLine(decision.line);
 				}
 			}
 		},
-		[commitDialogueLine, playMoveSound, sayKris]
+		[clearQueuedPremove, commitDialogueLine, playMoveSound, sayKris]
 	);
 
 	const requestOpponentMove = useCallback(
@@ -871,6 +964,10 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			const delta = now - lastTickRef.current;
 			lastTickRef.current = now;
 
+			if (premoveExecTimerRef.current !== null) {
+				return;
+			}
+
 			if (
 				!playerHasMovedRef.current ||
 				!isActiveRef.current ||
@@ -894,7 +991,11 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						queueMicrotask(() => sayKris('lowPlayerClock'));
 					}
 					if (next === 0 && prev > 0 && resultRef.current === null) {
-						queueMicrotask(() => clearBookTimer());
+						queuedPremoveRef.current = null;
+						queueMicrotask(() => {
+							clearBookTimer();
+							clearQueuedPremove(false);
+						});
 						engineRef.current?.cancelCurrentSearch();
 						const timeoutRes: GameResult = { kind: 'timeout', winner: 'b' };
 						resultRef.current = timeoutRes;
@@ -920,7 +1021,11 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						queueMicrotask(() => sayKris('lowPlayerClock'));
 					}
 					if (next === 0 && prev > 0 && resultRef.current === null) {
-						queueMicrotask(() => clearBookTimer());
+						queuedPremoveRef.current = null;
+						queueMicrotask(() => {
+							clearBookTimer();
+							clearQueuedPremove(false);
+						});
 						engineRef.current?.cancelCurrentSearch();
 						const timeoutRes: GameResult = { kind: 'timeout', winner: 'w' };
 						resultRef.current = timeoutRes;
@@ -944,6 +1049,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		result,
 		playOutcomeSound,
 		clearBookTimer,
+		clearQueuedPremove,
 		sayKris,
 	]);
 
@@ -994,6 +1100,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			setResult(null);
 			setDismissedEndModal(false);
 			clearBookTimer();
+			clearQueuedPremove(false);
 			saidLowClockRef.current = false;
 			spokenOpeningTagRef.current = null;
 			lastUrgentPlayerReactionPlyRef.current = -1;
@@ -1013,7 +1120,14 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				}
 			}
 		},
-		[clearBookTimer, clearConfirmTimers, playPreset, requestOpponentMove, sayKris]
+		[
+			clearBookTimer,
+			clearConfirmTimers,
+			clearQueuedPremove,
+			playPreset,
+			requestOpponentMove,
+			sayKris,
+		]
 	);
 
 	const handleSelectTier = (nextTier: KrisTierId) => {
@@ -1089,6 +1203,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		}
 
 		clearBookTimer();
+		clearQueuedPremove(false);
 		clearConfirmTimers();
 		setConfirmResign(false);
 		setConfirmNewMatch(false);
@@ -1118,6 +1233,8 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			) {
 				return;
 			}
+
+			clearQueuedPremove(false);
 
 			try {
 				const krisColor: Color = playerColorRef.current === 'w' ? 'b' : 'w';
@@ -1185,8 +1302,19 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				// Illegal move ignored cleanly
 			}
 		},
-		[clearConfirmTimers, commitDialogueLine, playMoveSound, requestOpponentMove, sayKris]
+		[
+			clearConfirmTimers,
+			clearQueuedPremove,
+			commitDialogueLine,
+			playMoveSound,
+			requestOpponentMove,
+			sayKris,
+		]
 	);
+
+	useEffect(() => {
+		commitPlayerMoveRef.current = commitPlayerMove;
+	}, [commitPlayerMove]);
 
 	// Derive displayed board state (either Live or historical ply) + full move log
 	const snapshot = useMemo(() => {
@@ -1292,6 +1420,11 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					setPendingPromotion(null);
 					return;
 				}
+				if (queuedPremoveRef.current !== null) {
+					clearQueuedPremove(true);
+					setSelectedSquare(null);
+					return;
+				}
 				if (fullscreenPhase === 'open' || fullscreenPhase === 'entering') {
 					exitFullscreen();
 				}
@@ -1315,7 +1448,16 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		};
 		window.addEventListener('keydown', handleKeyDown);
 		return () => window.removeEventListener('keydown', handleKeyDown);
-	}, [displayedPly, exitFullscreen, fullscreenPhase, goToPly, isActive, pendingPromotion, timeline.length]);
+	}, [
+		clearQueuedPremove,
+		displayedPly,
+		exitFullscreen,
+		fullscreenPhase,
+		goToPly,
+		isActive,
+		pendingPromotion,
+		timeline.length,
+	]);
 
 	const activeSourceSquare = dragState?.from ?? selectedSquare;
 	const legalMovesByTarget = useMemo(() => {
@@ -1332,27 +1474,50 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			map.set(mv.to, list);
 		}
 		return map;
-	}, [activeSourceSquare, arrowDrawMode, isViewingHistory, playerColor, result]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [activeSourceSquare, arrowDrawMode, isViewingHistory, playerColor, result, revision]);
 
-	const legalMovesRef = useRef(legalMovesByTarget);
-	useEffect(() => {
-		legalMovesRef.current = legalMovesByTarget;
-	}, [legalMovesByTarget]);
+	const premoveTargets = useMemo(() => {
+		if (!activeSourceSquare || result !== null || isViewingHistory || arrowDrawMode) {
+			return new Set<Square>();
+		}
+		const game = chessRef.current;
+		if (game.turn() === playerColor) return new Set<Square>();
+		return getLichessPremoveTargets(game, activeSourceSquare, playerColor);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [activeSourceSquare, arrowDrawMode, isViewingHistory, playerColor, result, revision]);
 
-	const attemptPlayerMove = useCallback(
-		(from: Square, to: Square, movesMap: Map<Square, Move[]>) => {
-			const candidates = movesMap.get(to);
-			if (!candidates || candidates.length === 0) return false;
-			if (candidates.some((m) => Boolean(m.promotion))) {
-				setPendingPromotion({ from, to });
-				setSelectedSquare(from);
-				playPreset('paper');
+	const attemptBoardMove = useCallback(
+		(from: Square, to: Square) => {
+			if (
+				resultRef.current !== null ||
+				isViewingHistoryRef.current ||
+				engineStateRef.current === 'loading' ||
+				engineStateRef.current === 'error'
+			) {
+				return false;
+			}
+			const game = chessRef.current;
+			if (game.turn() === playerColorRef.current) {
+				clearQueuedPremove(false);
+				const candidates = game.moves({ verbose: true, square: from }).filter((m) => m.to === to);
+				if (candidates.length === 0) return false;
+				if (candidates.some((m) => Boolean(m.promotion))) {
+					setPendingPromotion({ from, to });
+					setSelectedSquare(from);
+					playPreset('paper');
+					return true;
+				}
+				commitPlayerMove(from, to);
 				return true;
 			}
-			commitPlayerMove(from, to);
+
+			const normalizedTo = normalizePremoveTarget(game, from, to, playerColorRef.current);
+			if (!normalizedTo) return false;
+			armQueuedPremove({ from, to: normalizedTo });
 			return true;
 		},
-		[commitPlayerMove, playPreset]
+		[armQueuedPremove, clearQueuedPremove, commitPlayerMove, playPreset]
 	);
 
 	const getSquareFromClientPoint = useCallback(
@@ -1482,8 +1647,9 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				pendingTouchTapRef.current = null;
 				if (Math.hypot(e.clientX - pendingTap.startX, e.clientY - pendingTap.startY) <= 12) {
 					if (pendingTap.kind === 'move' && pendingTap.fromSquare) {
-						attemptPlayerMove(pendingTap.fromSquare, pendingTap.sq, legalMovesRef.current);
+						attemptBoardMove(pendingTap.fromSquare, pendingTap.sq);
 					} else if (pendingTap.kind === 'deselect') {
+						clearQueuedPremove(true);
 						setBoardArrows([]);
 						setSquareHighlights([]);
 						setSelectedSquare(null);
@@ -1512,10 +1678,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			if (current.active) {
 				const targetSq = getSquareFromClientPoint(e.clientX, e.clientY);
 				if (targetSq && targetSq !== current.from) {
-					const moved = attemptPlayerMove(current.from, targetSq, legalMovesRef.current);
+					const moved = attemptBoardMove(current.from, targetSq);
 					if (moved) return;
 				}
-				setSelectedSquare(targetSq === current.from ? current.from : null);
+				setSelectedSquare(
+					targetSq === current.from && !current.wasAlreadySelected ? current.from : null
+				);
 			} else if (current.wasAlreadySelected) {
 				setSelectedSquare(null);
 			}
@@ -1541,13 +1709,27 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			window.removeEventListener('pointerup', handleWindowPointerUp);
 			window.removeEventListener('pointercancel', handleWindowPointerCancel);
 		};
-	}, [attemptPlayerMove, finalizeArrowDrag, getSquareFromClientPoint, syncDragGhostTransform]);
+	}, [
+		attemptBoardMove,
+		clearQueuedPremove,
+		finalizeArrowDrag,
+		getSquareFromClientPoint,
+		syncDragGhostTransform,
+	]);
 
 	const handleSquarePointerDown = (
 		e: ReactPointerEvent<HTMLButtonElement>,
 		sq: Square,
 		piece: { type: PieceSymbol; color: Color } | null
 	) => {
+		// Right-click cancels an armed premove immediately (exact Lichess desktop behavior)
+		if (e.button === 2 && queuedPremoveRef.current !== null) {
+			e.preventDefault();
+			clearQueuedPremove(true);
+			setSelectedSquare(null);
+			return;
+		}
+
 		// Right-click drag OR Arrow Draw Mode (mobile/trackpad friendly) draws Chess.com arrows & highlights
 		if (e.button === 2 || (e.button === 0 && arrowDrawModeRef.current)) {
 			e.preventDefault();
@@ -1563,12 +1745,16 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 		if (e.button !== 0) return;
 
 		const isTouchPointer = e.pointerType === 'touch';
+		const isTargetedMove =
+			Boolean(selectedSquare) &&
+			sq !== selectedSquare &&
+			(legalMovesByTarget.has(sq) || premoveTargets.has(sq));
 
 		// On desktop mouse/pen, clear annotations immediately; on touch, defer to tap release so vertical scroll doesn't accidentally clear arrows
 		if (
 			!isTouchPointer &&
 			(boardArrows.length > 0 || squareHighlights.length > 0) &&
-			!(selectedSquare && legalMovesByTarget.has(sq))
+			!isTargetedMove
 		) {
 			setBoardArrows([]);
 			setSquareHighlights([]);
@@ -1579,10 +1765,15 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			result !== null ||
 			pendingPromotion !== null ||
 			engineState === 'loading' ||
-			engineState === 'error' ||
-			snapshot.turn !== playerColor
+			engineState === 'error'
 		) {
-			if (isTouchPointer && (boardArrows.length > 0 || squareHighlights.length > 0 || selectedSquare)) {
+			if (
+				isTouchPointer &&
+				(boardArrows.length > 0 ||
+					squareHighlights.length > 0 ||
+					selectedSquare ||
+					queuedPremoveRef.current !== null)
+			) {
 				pendingTouchTapRef.current = {
 					pointerId: e.pointerId,
 					sq,
@@ -1595,7 +1786,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 			return;
 		}
 
-		if (selectedSquare && legalMovesByTarget.has(sq)) {
+		if (selectedSquare && isTargetedMove) {
 			if (isTouchPointer) {
 				pendingTouchTapRef.current = {
 					pointerId: e.pointerId,
@@ -1606,7 +1797,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 					startY: e.clientY,
 				};
 			} else {
-				attemptPlayerMove(selectedSquare, sq, legalMovesByTarget);
+				attemptBoardMove(selectedSquare, sq);
 			}
 			return;
 		}
@@ -1617,10 +1808,15 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				setBoardArrows([]);
 				setSquareHighlights([]);
 			}
+			const prevPm = queuedPremoveRef.current;
+			const wasPremoveSquare = Boolean(prevPm && (prevPm.from === sq || prevPm.to === sq));
+			if (prevPm !== null) {
+				clearQueuedPremove(true);
+			}
 			boardRectRef.current = boardWrapRef.current?.getBoundingClientRect() ?? null;
 			dragCursorRef.current.x = e.clientX;
 			dragCursorRef.current.y = e.clientY;
-			const wasAlreadySelected = selectedSquare === sq;
+			const wasAlreadySelected = selectedSquare === sq || wasPremoveSquare;
 			setSelectedSquare(sq);
 			const nextDrag: DragState = {
 				from: sq,
@@ -1645,6 +1841,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				startY: e.clientY,
 			};
 		} else {
+			clearQueuedPremove(true);
 			setSelectedSquare(null);
 		}
 	};
@@ -1929,21 +2126,42 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 								const isLastTo = snapshot.lastMove?.to === sq;
 								const isCheckedKing = snapshot.checkedKingSquare === sq;
 								const isLegalTarget = legalMovesByTarget.has(sq);
+								const isPremoveFrom = !isViewingHistory && queuedPremove?.from === sq;
+								const isPremoveTo = !isViewingHistory && queuedPremove?.to === sq;
+								const isPremoveSquare = isPremoveFrom || isPremoveTo;
+								const isPremoveTarget =
+									!isViewingHistory && !isPlayerTurn && premoveTargets.has(sq);
 								const isDragOrigin = Boolean(dragState?.active && dragState.from === sq);
 								const isDragHoverTarget = Boolean(
-									dragState?.active && dragState.hoverSquare === sq && isLegalTarget
+									dragState?.active &&
+										dragState.hoverSquare === sq &&
+										(isLegalTarget || isPremoveTarget)
 								);
 								const userSquareMark = squareHighlights.find((h) => h.square === sq);
 
 								const showRankLabel = colIdx === 0;
 								const showFileLabel = rowIdx === 7;
-								const coordColor = isLightSquare ? 'text-[#39754F]' : 'text-[#FCF0D3]';
+								const coordColor = isPremoveSquare
+									? isLightSquare
+										? 'text-[#050505]'
+										: 'text-[#FCF0D3]'
+									: isLightSquare
+										? 'text-[#39754F]'
+										: 'text-[#FCF0D3]';
 
 								let squareBg = isLightSquare ? 'bg-[#FCF0D3]' : 'bg-[#39754F]';
 								if (isCheckedKing) {
 									squareBg = 'bg-[#FD6141]';
+								} else if (isPremoveSquare) {
+									squareBg = isLightSquare ? 'bg-[#A78BFA]' : 'bg-[#5B46B8]';
 								} else if (isSelected) {
-									squareBg = isLightSquare ? 'bg-[#94C9F2]' : 'bg-[#2C6EA8]';
+									squareBg = isPlayerTurn
+										? isLightSquare
+											? 'bg-[#94C9F2]'
+											: 'bg-[#2C6EA8]'
+										: isLightSquare
+											? 'bg-[#C4B5FD]'
+											: 'bg-[#6D56C9]';
 								} else if (isLastFrom || isLastTo) {
 									squareBg = isLightSquare ? 'bg-[#FFE57F]' : 'bg-[#748B2E]';
 								}
@@ -1951,7 +2169,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 								const canDragSquare =
 									arrowDrawMode ||
 									(!isViewingHistory &&
-										isPlayerTurn &&
+										result === null &&
 										pendingPromotion === null &&
 										engineState !== 'loading' &&
 										engineState !== 'error' &&
@@ -1980,10 +2198,12 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 											arrowDrawMode
 												? 'cursor-crosshair'
 												: !isViewingHistory &&
-													  isPlayerTurn &&
+													  result === null &&
 													  engineState !== 'loading' &&
 													  engineState !== 'error' &&
-													  ((boardCell && boardCell.color === playerColor) || isLegalTarget)
+													  ((boardCell && boardCell.color === playerColor) ||
+															isLegalTarget ||
+															isPremoveTarget)
 													? 'cursor-pointer'
 													: 'cursor-default'
 										}`}
@@ -1991,6 +2211,7 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										{/* Subtle Cutting-Mat Micro Grid Lines on Dark Squares */}
 										{!isLightSquare &&
 											!isCheckedKing &&
+											!isPremoveSquare &&
 											!isSelected &&
 											!isLastFrom &&
 											!isLastTo && (
@@ -2004,6 +2225,14 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 													}}
 												/>
 											)}
+
+										{/* Armed Premove Destination Crisp Frame */}
+										{isPremoveTo && (
+											<span
+												aria-hidden='true'
+												className='pointer-events-none absolute inset-0 border-[2.5px] border-[#050505]/70 z-10'
+											/>
+										)}
 
 										{/* User Right-Click Square Highlight Overlay */}
 										{userSquareMark && (
@@ -2020,7 +2249,9 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 										{isDragHoverTarget && (
 											<span
 												aria-hidden='true'
-												className='pointer-events-none absolute inset-0 border-[3px] border-[#050505] bg-[#FFD426]/45 z-10'
+												className={`pointer-events-none absolute inset-0 border-[3px] border-[#050505] z-10 ${
+													isPremoveTarget ? 'bg-[#9B8AFB]/55' : 'bg-[#FFD426]/45'
+												}`}
 											/>
 										)}
 
@@ -2070,6 +2301,20 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 											<span
 												aria-hidden='true'
 												className='pointer-events-none absolute inset-[5%] z-20 rounded-full border-[3.5px] border-[#FD6141] shadow-[inset_0_0_0_1px_#050505]'
+											/>
+										)}
+
+										{/* Lichess-style Premove Hints (Violet dot or ring on empty/own/enemy target) */}
+										{isPremoveTarget && !boardCell && (
+											<span
+												aria-hidden='true'
+												className='pointer-events-none relative z-20 size-[29%] rounded-full bg-[#7C5CFC] border-2 border-[#050505] shadow-[1.5px_1.5px_0_#050505]'
+											/>
+										)}
+										{isPremoveTarget && boardCell && (
+											<span
+												aria-hidden='true'
+												className='pointer-events-none absolute inset-[5%] z-20 rounded-full border-[3.5px] border-[#7C5CFC] shadow-[inset_0_0_0_1px_#050505]'
 											/>
 										)}
 									</button>
@@ -2438,6 +2683,18 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 								{outcomeBanner.title}
 							</span>
 						</>
+					) : queuedPremove ? (
+						<>
+							<span className='px-2 py-0.5 rounded-sm bg-[#7C5CFC] border border-[#050505] text-[#FFFFFF] font-black shrink-0'>
+								PREMOVE
+							</span>
+							<span className='text-[#050505] font-black truncate'>
+								{`${queuedPremove.from.toUpperCase()}→${queuedPremove.to.toUpperCase()} · ${t({
+									en: 'Queued',
+									id: 'Siap jalan',
+								})}`}
+							</span>
+						</>
 					) : snapshot.liveInCheck ? (
 						<>
 							<span className='px-2 py-0.5 rounded-sm bg-[#050505] text-[#FFD426] font-black shrink-0'>
@@ -2478,6 +2735,19 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 						</>
 					)}
 				</div>
+
+				{!isViewingHistory && queuedPremove && result === null && (
+					<button
+						type='button'
+						data-sfx='custom'
+						data-hover-sfx='close'
+						onClick={() => clearQueuedPremove(true)}
+						aria-label={t({ en: 'Cancel premove', id: 'Batalkan premove' })}
+						className='px-2 py-0.5 rounded-sm border-2 border-[#050505] bg-[#FFFFFF] hover:bg-[#FD6141] text-[#050505] font-mono text-[10px] font-black shrink-0 cursor-pointer shadow-[1.5px_1.5px_0_#050505]'
+					>
+						✕ {t({ en: 'Cancel', id: 'Batal' })}
+					</button>
+				)}
 
 				{isViewingHistory && (
 					<button
@@ -2744,8 +3014,8 @@ const ChessGame = ({ isActive }: ChessGameProps) => {
 				<div className='px-3 py-1.5 bg-[#F6EDD6] border-t-2 border-[#050505]/20 font-mono text-[10px] text-[#3B404C] shrink-0 leading-snug'>
 					<span>
 						{t({
-							en: 'Right-drag: arrows · ←/→: review moves',
-							id: 'Klik kanan: panah · ←/→: tinjau langkah',
+							en: 'Right-click: arrows / cancel premove · ←/→: review',
+							id: 'Klik kanan: panah / batal premove · ←/→: tinjau',
 						})}
 					</span>
 				</div>

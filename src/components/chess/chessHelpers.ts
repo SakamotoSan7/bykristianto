@@ -19,6 +19,11 @@ export interface TimelineFrame {
 	inCheckSquare: Square | null;
 }
 
+export interface QueuedPremove {
+	from: Square;
+	to: Square;
+}
+
 export type GameResult =
 	| { kind: 'checkmate'; winner: Color }
 	| { kind: 'timeout'; winner: Color }
@@ -293,4 +298,142 @@ export function buildCapturedSummary(movesSlice: Move[], activeBoard: ReturnType
 		capturedByBlack,
 		materialDiff: whiteScore - blackScore,
 	};
+}
+
+/**
+ * Computes Lichess-style pseudo-legal premove destination squares for `from`:
+ * ignores blocking pieces, allows targeting own or enemy squares for instant recaptures,
+ * includes diagonal pawn premoves and 2-square pawn advances from the starting rank,
+ * and includes castling destinations (plus king-onto-rook squares) when castling rights remain.
+ */
+export function getLichessPremoveTargets(
+	chess: Chess,
+	from: Square,
+	playerColor: Color
+): Set<Square> {
+	const targets = new Set<Square>();
+	const piece = chess.get(from);
+	if (!piece || piece.color !== playerColor) return targets;
+
+	const fileIdx = FILES.indexOf(from[0] as (typeof FILES)[number]);
+	const rankIdx = Number.parseInt(from[1], 10) - 1;
+	if (fileIdx < 0 || rankIdx < 0 || rankIdx > 7) return targets;
+
+	const addIfValid = (f: number, r: number) => {
+		if (f < 0 || f > 7 || r < 0 || r > 7) return;
+		if (f === fileIdx && r === rankIdx) return;
+		targets.add(`${FILES[f]}${r + 1}` as Square);
+	};
+
+	switch (piece.type) {
+		case 'p': {
+			const dir = playerColor === 'w' ? 1 : -1;
+			const startRank = playerColor === 'w' ? 1 : 6;
+			addIfValid(fileIdx, rankIdx + dir);
+			if (rankIdx === startRank) {
+				addIfValid(fileIdx, rankIdx + 2 * dir);
+			}
+			addIfValid(fileIdx - 1, rankIdx + dir);
+			addIfValid(fileIdx + 1, rankIdx + dir);
+			break;
+		}
+		case 'n': {
+			for (const df of [-2, -1, 1, 2]) {
+				for (const dr of [-2, -1, 1, 2]) {
+					if (Math.abs(df) + Math.abs(dr) === 3) {
+						addIfValid(fileIdx + df, rankIdx + dr);
+					}
+				}
+			}
+			break;
+		}
+		case 'b': {
+			for (let r = 0; r < 8; r += 1) {
+				for (let f = 0; f < 8; f += 1) {
+					if (Math.abs(f - fileIdx) === Math.abs(r - rankIdx)) {
+						addIfValid(f, r);
+					}
+				}
+			}
+			break;
+		}
+		case 'r': {
+			for (let r = 0; r < 8; r += 1) {
+				for (let f = 0; f < 8; f += 1) {
+					if (f === fileIdx || r === rankIdx) {
+						addIfValid(f, r);
+					}
+				}
+			}
+			break;
+		}
+		case 'q': {
+			for (let r = 0; r < 8; r += 1) {
+				for (let f = 0; f < 8; f += 1) {
+					if (
+						f === fileIdx ||
+						r === rankIdx ||
+						Math.abs(f - fileIdx) === Math.abs(r - rankIdx)
+					) {
+						addIfValid(f, r);
+					}
+				}
+			}
+			break;
+		}
+		case 'k': {
+			for (let df = -1; df <= 1; df += 1) {
+				for (let dr = -1; dr <= 1; dr += 1) {
+					addIfValid(fileIdx + df, rankIdx + dr);
+				}
+			}
+			const homeSquare = playerColor === 'w' ? 'e1' : 'e8';
+			if (from === homeSquare) {
+				const rights = chess.getCastlingRights(playerColor);
+				const backRank = playerColor === 'w' ? '1' : '8';
+				if (rights.k) {
+					targets.add(`g${backRank}` as Square);
+					targets.add(`h${backRank}` as Square);
+				}
+				if (rights.q) {
+					targets.add(`c${backRank}` as Square);
+					targets.add(`a${backRank}` as Square);
+				}
+			}
+			break;
+		}
+	}
+
+	return targets;
+}
+
+/**
+ * Validates whether `from -> to` is a legal Lichess premove and normalizes
+ * king-onto-rook castling drops (`e1 -> h1` -> `g1`, `e1 -> a1` -> `c1`, etc.).
+ */
+export function normalizePremoveTarget(
+	chess: Chess,
+	from: Square,
+	to: Square,
+	playerColor: Color
+): Square | null {
+	const targets = getLichessPremoveTargets(chess, from, playerColor);
+	if (!targets.has(to)) return null;
+
+	const piece = chess.get(from);
+	if (piece?.type === 'k') {
+		const homeSquare = playerColor === 'w' ? 'e1' : 'e8';
+		if (from === homeSquare) {
+			const rights = chess.getCastlingRights(playerColor);
+			const backRank = playerColor === 'w' ? '1' : '8';
+			if (rights.k && to === (`h${backRank}` as Square)) {
+				return `g${backRank}` as Square;
+			}
+			if (rights.q && to === (`a${backRank}` as Square)) {
+				return `c${backRank}` as Square;
+			}
+		}
+	}
+
+	return to;
 }
