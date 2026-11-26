@@ -47,7 +47,7 @@ export const PUBLIC_CONTACT = {
 	whatsappNumber: '6285187166071',
 	whatsappDisplay: '+62 851-8716-6071',
 	github: 'https://github.com/SakamotoSan7',
-	linkedin: 'https://www.linkedin.com/in/kristianto-9117',
+	linkedin: 'https://www.linkedin.com/in/kristianto-too',
 	instagram: 'https://www.instagram.com/kristianto.too/',
 	portfolioUrl: 'https://bykristianto.my.id/',
 	cvUrl: {

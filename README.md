@@ -62,6 +62,6 @@ npm run build
 ## Contact
 
 - **Email:** kristianto.too@gmail.com
-- **LinkedIn:** [Kristianto](https://www.linkedin.com/in/kristianto-9117)
+- **LinkedIn:** [Kristianto](https://www.linkedin.com/in/kristianto-too)
 - **Instagram:** [@kristianto.too](https://www.instagram.com/kristianto.too/)
 - **GitHub:** [SakamotoSan7](https://github.com/SakamotoSan7)
