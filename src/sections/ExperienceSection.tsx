@@ -184,6 +184,8 @@ const ExperienceSection = () => {
 									src={activePhoto.imagePath}
 									alt=''
 									aria-hidden='true'
+									loading='lazy'
+									decoding='async'
 									className='absolute inset-0 w-full h-full object-cover scale-110 opacity-25 blur-md pointer-events-none select-none'
 								/>
 								<img
@@ -432,6 +434,8 @@ const ExperienceSection = () => {
 															src={credit.thumbPath}
 															alt=''
 															aria-hidden='true'
+															loading='lazy'
+															decoding='async'
 															className='absolute inset-0 w-full h-full object-cover scale-110 opacity-25 blur-sm pointer-events-none select-none'
 														/>
 													)}

@@ -103,9 +103,9 @@ const ServiceCard = ({
 						>
 							{t(pkg.format)}
 						</p>
-						<h4 className='font-display font-black text-xl text-[#050505] leading-snug mt-1'>
+						<h3 className='font-display font-black text-xl text-[#050505] leading-snug mt-1'>
 							{packageTitle}
-						</h4>
+						</h3>
 					</div>
 
 					<p className='text-sm text-[#3B404C] leading-relaxed'>
@@ -363,9 +363,9 @@ const ServicesSection = ({
 
 								<div className='lg:col-span-8 space-y-2.5 text-[#FCF0D3]'>
 									<div>
-										<h4 className='font-display font-black text-xl sm:text-2xl text-[#FFD426] leading-snug'>
+										<h3 className='font-display font-black text-xl sm:text-2xl text-[#FFD426] leading-snug'>
 											{t(WEBSITE_VIDEO_BUNDLE_PROMO.title)}
-										</h4>
+										</h3>
 										<p className='text-sm text-[#FCF0D3]/85 leading-relaxed mt-1'>
 											{t(WEBSITE_VIDEO_BUNDLE_PROMO.summary)}
 										</p>

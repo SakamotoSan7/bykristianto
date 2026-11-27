@@ -406,6 +406,8 @@ function PremiereWorkspaceLayer({ isAfter }: { isAfter: boolean }) {
 							<img
 								src='/images/studio-diff-clip.webp'
 								alt='Tokyo Omoide Yokocho Izakaya cinema frame inside Premiere Program Monitor'
+								loading='lazy'
+								decoding='async'
 								draggable={false}
 								className={`w-full h-full object-cover object-center ${isAfter ? 'scale-[1.03]' : 'scale-100'}`}
 								style={{

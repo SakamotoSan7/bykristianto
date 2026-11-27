@@ -103,9 +103,39 @@ function localVideoStreamerPlugin(): Plugin {
 	};
 }
 
+/**
+ * Rewrites `/id` and `/id/` cleanly during `vite dev` and `vite preview`
+ * so bilingual canonical URLs resolve directly without changing the browser path.
+ */
+function localizedRoutePlugin(): Plugin {
+	return {
+		name: 'localized-id-route',
+		configureServer(server) {
+			server.middlewares.use((req, _res, next) => {
+				const rawUrl = req.url ?? '';
+				const [pathname, query] = rawUrl.split('?');
+				if (pathname === '/id' || pathname === '/id/') {
+					req.url = '/' + (query ? `?${query}` : '');
+				}
+				next();
+			});
+		},
+		configurePreviewServer(server) {
+			server.middlewares.use((req, _res, next) => {
+				const rawUrl = req.url ?? '';
+				const [pathname, query] = rawUrl.split('?');
+				if (pathname === '/id' || pathname === '/id/') {
+					req.url = '/id/index.html' + (query ? `?${query}` : '');
+				}
+				next();
+			});
+		},
+	};
+}
+
 // https://vite.dev/config/
 export default defineConfig({
-	plugins: [react(), tailwindcss(), localVideoStreamerPlugin()],
+	plugins: [react(), tailwindcss(), localVideoStreamerPlugin(), localizedRoutePlugin()],
 	build: {
 		rollupOptions: {
 			output: {

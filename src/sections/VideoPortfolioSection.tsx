@@ -284,6 +284,8 @@ const VideoPortfolioSection = ({
 													src={video.thumbnailPath}
 													alt=''
 													aria-hidden='true'
+													loading='lazy'
+													decoding='async'
 													className='absolute inset-0 w-full h-full object-cover blur-lg opacity-25 scale-110'
 												/>
 												<div
